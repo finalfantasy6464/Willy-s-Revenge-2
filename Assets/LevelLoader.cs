@@ -13,6 +13,7 @@ public class LevelLoader : MonoBehaviour
 
 	public bool completed = false;
 	public bool golden = false;
+    private bool caninput = false;
 
 	public Sprite greensprite;
 	public Sprite goldsprite;
@@ -25,7 +26,8 @@ public class LevelLoader : MonoBehaviour
 	Animator m_Animator;
     private Pin pin;
     private int completerequired;
-    
+
+    public CanvasGroup canvas;
 
 	void Start(){
 
@@ -45,26 +47,37 @@ public class LevelLoader : MonoBehaviour
 		}
     }
 
-
+    IEnumerator InputTimer()
+    {
+        yield return 1;
+        caninput = true;
+    }
     void Update()
     {
-		if (Input.GetKey (KeyCode.Space) & active == true) {
-			SceneManager.LoadScene (ID);
-			GameControl.control.levelID = ID;
-		}
+        if (Input.GetKey(KeyCode.Space) & active == true & caninput == true) {
+            canvas.alpha = 255;
+            canvas.interactable = true;
+            GameControl.control.levelID = ID;
+        }
+
+        if (active == false)
+        {
+            caninput = false;
+        }
     }
 
 	void OnTriggerEnter2D(Collider2D coll){
 
 		if (coll.gameObject.tag == "Player") {
 			active = true;
+            StartCoroutine(InputTimer());
 
-			GameObject completeEmblemObject = GameObject.Find ("CompleteEmblem");
+            GameObject completeEmblemObject = GameObject.Find ("CompleteEmblem");
 			completeEmblemObject.GetComponent<Image>().sprite = UIdefault;
 			GameObject timeEmblemObject = GameObject.Find ("TimeEmblem");
 			timeEmblemObject.GetComponent<Image>().sprite = UIdefault;
 			GameObject goldenEmblemObject = GameObject.Find ("GoldenEmblem");
-			goldenEmblemObject.GetComponent<Image>().sprite = UIdefault;
+            goldenEmblemObject.GetComponent<Image>().sprite = UIdefault;
 
 			if (GameControl.control.completedlevels [ID] == true) {
 				completeEmblemObject.GetComponent<Image> ().sprite = UIcomplete;
@@ -84,14 +97,22 @@ public class LevelLoader : MonoBehaviour
                     timeEmblemObject.GetComponent<Image>().sprite = null;
                     goldenEmblemObject.GetComponent<Image>().sprite = null;
                 }
-		}
 
-	  }
-	}
+            }
+        }
+	  } 
 
 	void OnTriggerExit2D(Collider2D coll){
 		if (coll.gameObject.tag == "Player") {
 			active = false;
-		}
+            canvas.alpha = 0;
+            canvas.interactable = false;
+        }
 	}
+
+    void CanvasEnable()
+    {
+        canvas.alpha = 255;
+    }
 }
+

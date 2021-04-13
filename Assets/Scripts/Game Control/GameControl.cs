@@ -14,6 +14,8 @@ public class GameControl : MonoBehaviour
 	public int golden;
 	public int timer;
 
+    public int camerachoice;
+
 	public bool returntoselect = false;
 
 	public List<bool> completedlevels = new List<bool>();
@@ -58,14 +60,40 @@ public class GameControl : MonoBehaviour
 		} else if (control != this) {
 			Destroy (gameObject);
 		}
-    }
-			}
 
-	void OnGUI()
+            
+    }
+    }
+
+    private void Start()
+    {
+        StartCoroutine(Setcamerasroutine());
+    }
+    
+    void OnGUI()
 	{
 		GUI.Label (new Rect(10,10,100,30), "Complete: " + complete);
 		GUI.Label (new Rect(10,40,150,30), "Golden: " + golden);
 	}
+
+    [HideInInspector]public IEnumerator Setcamerasroutine()
+    {
+        yield return 0;
+        SetCamera(camerachoice);
+    }
+
+    public void SetCamera(int index)
+    {
+        camerachoice = index;
+        CameraController controller = GameObject.Find("OverworldCameraController").GetComponent<CameraController>();
+        controller.cameras[camerachoice].gameObject.SetActive(true);
+        for (int i = 0; i < controller.cameras.Count; i++)
+        {
+            if (camerachoice == i) continue;
+            controller.cameras[i].gameObject.SetActive(false);
+        }
+    }
+
 
 	public void Save()
 	{
@@ -80,7 +108,7 @@ public class GameControl : MonoBehaviour
 		data.completedlevels = completedlevels;
 		data.goldenpellets = goldenpellets;
 		data.timerchallenge = timerchallenge;
-
+        data.camerachoice = camerachoice;
 
 		bf.Serialize (file, data);
 		file.Close ();
@@ -102,7 +130,9 @@ public class GameControl : MonoBehaviour
 			completedlevels = data.completedlevels;
 			goldenpellets = data.goldenpellets;
 			timerchallenge = data.timerchallenge;
+            camerachoice = data.camerachoice;
 
+            StartCoroutine(Setcamerasroutine());
 		}
 	}
 }
@@ -114,6 +144,8 @@ class PlayerData
 	public int golden;
 	public int timer;
 	public int levelID;
+    public int camerachoice;
+
 	public List<bool> completedlevels;
 	public List<bool> goldenpellets;
 	public List<bool> timerchallenge;

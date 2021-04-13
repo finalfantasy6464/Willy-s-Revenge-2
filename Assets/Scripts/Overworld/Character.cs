@@ -11,6 +11,8 @@ public class Character : MonoBehaviour
     private Pin _LastPin;
     private MapManager _mapManager;
 
+    public CanvasGroup canvas;
+
 
     public void Initialise(MapManager mapManager, Pin startPin)
     {

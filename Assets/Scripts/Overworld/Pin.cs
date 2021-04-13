@@ -19,6 +19,8 @@ public class Pin : MonoBehaviour
 	public bool HideIcon;
     public int completerequired;
 	public string SceneToLoad;
+    public Sprite previewimage;
+
     public string ParTime;
 	
 	[Header("Pins")] //

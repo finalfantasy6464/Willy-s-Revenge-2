@@ -5,7 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class AdjustScript : MonoBehaviour
 {
-	void OnGUI()
+
+    private void Awake()
+    {
+    }
+
+    void OnGUI()
 	{
 		
 		if (GUI.Button (new Rect (800, 260, 150, 30), "Save")) {
@@ -13,8 +18,8 @@ public class AdjustScript : MonoBehaviour
 		}
 
 		if (GUI.Button (new Rect (800, 300, 150, 30), "Load")) {
-			GameControl.control.Load ();
-			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            GameControl.control.Load ();
 		}
 	}
 }

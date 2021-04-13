@@ -1,56 +1,37 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class follower : MonoBehaviour
 {
-    public Transform target;
-    public float speedWhenEaten;
-    public float speedNow;
-    public float sleepTime;
-    public float sleepCounter;
+    Queue<Vector3> futurePositions;
+    public Transform following;
+
+    public float sleepDistance;
     public bool moving;
-    float segmentRadius;
-    float distanceToTarget;
-    Vector2 nextMoveDirection;
-    Vector2 directionToTarget;
-    Queue<Vector2> moveQueue;
 
-
-    void Awake()
+    public void Awake()
     {
-        moveQueue = new Queue<Vector2>();
+        futurePositions = new Queue<Vector3>();
     }
-    
-    void Start()
+    public void Update()
     {
-        segmentRadius = GetComponent<SpriteRenderer>().bounds.size.x / 2;
-    }
+        if (futurePositions.Count == 0 || moving == true) return;
 
-    void Update()
-    {
-        if(moving) return;
-        
-        sleepCounter += Time.deltaTime;
-        if(sleepCounter >= sleepTime)
-            moving = true;
-    }
-
-    public void TryMoveNext(float currentMoveSpeed)
-    {
-        speedNow = currentMoveSpeed;
-        if(!moving) return;
-        transform.position = moveQueue.Dequeue(); 
-        if(currentMoveSpeed > speedWhenEaten)
+        if (Vector3.Distance(transform.position, following.position) > sleepDistance)
         {
-            speedWhenEaten += 0.05f;
-            transform.position = moveQueue.Dequeue(); 
+            moving = true;
         }
     }
-
-    public void AddToQueue(Vector2 v)
+    public void Move()
     {
-        moveQueue.Enqueue(v);
+        if (futurePositions.Count == 0 || moving == false) return;
+        else
+            transform.position = futurePositions.Dequeue();
+    }
+    public void AddUpcoming()
+    {
+        futurePositions.Enqueue(following.position);
+
     }
 }

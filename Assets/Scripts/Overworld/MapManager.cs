@@ -11,6 +11,7 @@ public class MapManager : MonoBehaviour
 
 	public Text SelectedLevelText;
     public Text SelectedLevelParTime;
+    public Image SelectedLevelPreviewImage;
 
 	private GameObject[] allObjects;
 	private GameObject pinObject;
@@ -73,5 +74,6 @@ public class MapManager : MonoBehaviour
 	{
 		SelectedLevelText.text = string.Format("{0}", Character.CurrentPin.SceneToLoad);
         SelectedLevelParTime.text = string.Format("{0}", Character.CurrentPin.ParTime);
+        SelectedLevelPreviewImage.sprite = Character.CurrentPin.previewimage;
     }
 }
