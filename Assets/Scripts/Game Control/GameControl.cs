@@ -67,7 +67,10 @@ public class GameControl : MonoBehaviour
 
     private void Start()
     {
+        if(m_Scene.name == "OverWorld")
+        {
         StartCoroutine(Setcamerasroutine());
+        }
     }
     
     void OnGUI()
