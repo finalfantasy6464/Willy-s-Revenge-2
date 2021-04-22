@@ -115,7 +115,14 @@ public class PlayerCollision : MonoBehaviour {
 			SceneManager.LoadScene (SceneManager.GetActiveScene().name);
 		}
 
-		if (hit.tag == "Colour") {
+        if (hit.tag == "Boss")
+        {
+            Destroy(gameObject);
+            DontDestroyme.instance.PlayOneShot(gatehit);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        if (hit.tag == "Colour") {
 			Destroy (gameObject);
 			DontDestroyme.instance.PlayOneShot (gatehit);
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);

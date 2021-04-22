@@ -17,7 +17,7 @@ public class Bullet : MonoBehaviour
 		}
 	}
 
-	void OnCollisionEnter2D (Collision2D coll){
+	void OnTriggerEnter2D (Collider2D coll){
 
 	var hit = coll.gameObject;
 
@@ -32,6 +32,11 @@ public class Bullet : MonoBehaviour
 		if (hit.tag == "Bullet") {
 			Destroy (gameObject);
 		}
+
+        if (hit.tag == "Bulletblocker")
+        {
+            Destroy(gameObject);
+        }
 			
 		if (playercontroller != null) {
 			if (playercontroller.shieldactive == false) {

@@ -4,44 +4,39 @@ using UnityEngine;
 
 public class Spinner : MonoBehaviour
 {
-	public bool usetimer = false;
+	public bool pingpongs = false;
 	public float spinamount;
 	private float spintimer;
+
+    public float angleSize;
+
+    private float maxRotation;
+    private float minRotation;
+
+    public bool rotatesother;
+
+    public float rotationdegrees;
+    public float progress;
+    public float timespinning = 1.0f;
 	public int currentdir = 1;
 
+    private Quaternion rotation;
+    private float startingZangle;
+
     // Update is called once per frame
+    private void Start()
+    {
+        startingZangle = transform.eulerAngles.z;
+        rotation = this.transform.rotation;
+    }
     void Update ()
-	{
-
-		spintimer += Time.deltaTime;
-
-		if (usetimer == false) {
-			transform.Rotate (0, 0, spinamount);
-		}
-
-		if (usetimer == true) {
-			switch (currentdir) {
-			case 2:
-				if (spintimer < 1.0f) {
-					transform.Rotate (0, 0, -spinamount);
-				}
-				if (spintimer >= 1.0f) {
-					currentdir = 1;
-					spintimer = 0.0f;
-				}
-				break;
-			case 1: 
-				if (spintimer < 1.0f) {
-					transform.Rotate (0, 0, spinamount);
-				}
-				if (spintimer >= 1.0f) {
-					currentdir = 2;
-					spintimer = 0.0f;
-				}
-				break;
-			}
-
-		}
-	}
+    {
+        if(pingpongs == true)
+        {
+        float rZ = startingZangle + Mathf.Lerp(0, angleSize * 2, Mathf.PingPong(Time.timeSinceLevelLoad * spinamount, 1));
+        transform.rotation = Quaternion.Euler(0, 0, rZ);
+        }
+        transform.Rotate(new Vector3(0,0,spinamount));
+    }
 }
 

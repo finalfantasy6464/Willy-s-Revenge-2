@@ -7,6 +7,7 @@ public class EnemyMovement : MonoBehaviour
 {
 
 	private float movespeed = 0.0f;
+    private float moveinterval = 0.1f;
 	public float multiplier = 1.0f;
 
 	private Vector2 enemydir = Vector2.right;
@@ -87,9 +88,9 @@ public class EnemyMovement : MonoBehaviour
         }
 		
 
-		if (this.movespeed >= 0.1f) {
+		if (this.movespeed >= moveinterval) {
 			Move ();
-			movespeed = 0.0f;
+            movespeed = movespeed - moveinterval;
 		}
 
 		switch (direction) {

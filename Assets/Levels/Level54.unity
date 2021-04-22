@@ -152,12 +152,12 @@ PrefabInstance:
     - target: {fileID: 7863089614545089889, guid: 634c3665a5aa0b04db286f8b97361f05,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.6427876
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7863089614545089889, guid: 634c3665a5aa0b04db286f8b97361f05,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7660445
+      value: 0.8660254
       objectReference: {fileID: 0}
     - target: {fileID: 7863089614545089889, guid: 634c3665a5aa0b04db286f8b97361f05,
         type: 3}
@@ -177,7 +177,7 @@ PrefabInstance:
     - target: {fileID: 7863089614545089889, guid: 634c3665a5aa0b04db286f8b97361f05,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 80
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 7863089614545089903, guid: 634c3665a5aa0b04db286f8b97361f05,
         type: 3}
@@ -383,8 +383,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02238a00030efcc4f83b2170f90227b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usetimer: 1
+  pingpongs: 1
   spinamount: 1
+  angleSize: 25
+  rotatesother: 0
+  rotationdegrees: 0
+  progress: 0
+  timespinning: 1
   currentdir: 1
 --- !u!1 &199314090
 GameObject:
@@ -1270,8 +1275,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02238a00030efcc4f83b2170f90227b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usetimer: 1
+  pingpongs: 1
   spinamount: 1.2
+  angleSize: -25
+  rotatesother: 0
+  rotationdegrees: 0
+  progress: 0
+  timespinning: 1
   currentdir: 2
 --- !u!1001 &1155012360
 PrefabInstance:
@@ -1961,8 +1971,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02238a00030efcc4f83b2170f90227b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usetimer: 1
+  pingpongs: 1
   spinamount: 0.5
+  angleSize: 25
+  rotatesother: 0
+  rotationdegrees: 0
+  progress: 0
+  timespinning: 1
   currentdir: 1
 --- !u!1001 &1555944310
 PrefabInstance:
@@ -8255,7 +8270,7 @@ PrefabInstance:
     - target: {fileID: 2100736298541570685, guid: cb77e19f42b3391489759ec01798d0b8,
         type: 3}
       propertyPath: firerate
-      value: 0.2
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 2100736298541570686, guid: cb77e19f42b3391489759ec01798d0b8,
         type: 3}
@@ -8653,6 +8668,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: ExitBlockCave
       objectReference: {fileID: 0}
+    - target: {fileID: 4991670712545926786, guid: 7081169dbf1f70e45b1470db72c8e7e8,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: -0.00244236
+      objectReference: {fileID: 0}
+    - target: {fileID: 4991670712545926786, guid: 7081169dbf1f70e45b1470db72c8e7e8,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.40639877
+      objectReference: {fileID: 0}
     - target: {fileID: 4991670712545926789, guid: 7081169dbf1f70e45b1470db72c8e7e8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8707,16 +8732,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4991670712545926786, guid: 7081169dbf1f70e45b1470db72c8e7e8,
-        type: 3}
-      propertyPath: m_Offset.y
-      value: -0.00244236
-      objectReference: {fileID: 0}
-    - target: {fileID: 4991670712545926786, guid: 7081169dbf1f70e45b1470db72c8e7e8,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 0.40639877
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7081169dbf1f70e45b1470db72c8e7e8, type: 3}
