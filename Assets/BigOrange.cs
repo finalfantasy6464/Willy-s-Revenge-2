@@ -5,16 +5,27 @@ using System.Collections;
 
 public class BigOrange : MonoBehaviour
 {
-    Animator m_animator;
+    public Animator m_animator;
+    public Text hpText;
+
+    public string previousstate;
 
     public Slider slider;
+
+    public FinalBossActivation activator;
 
     int rng;
     int rng2;
     int loopcount = 0;
 
-    public int MaxHP = 100000;
-    public int HP = 100000;
+    public float MaxHP = 100000;
+    public float HP = 100000;
+
+    private float[] speeds;
+
+    private float revertcounter = 0;
+
+    float HPpercentage;
 
     public Tilemap grid;
     public Tile changetile;
@@ -29,6 +40,7 @@ public class BigOrange : MonoBehaviour
 
     public Transform[] switches;
 
+    public GameObject BossActivator;
     public GameObject Enemy1;
     public GameObject Enemy2;
     public GameObject Enemy3;
@@ -36,7 +48,15 @@ public class BigOrange : MonoBehaviour
     public GameObject Enemy5;
     public GameObject Enemy6;
 
+    private IEnumerator RevertRoutine;
+
+    int stompsinrow = 0;
+    public int stompspeedindex = 0;
+
     bool justlooped = false;
+    bool lastactionwasstomp = false;
+    bool newRevertRoutine = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +64,16 @@ public class BigOrange : MonoBehaviour
         m_animator = gameObject.GetComponent<Animator>();
         rng2 = 0;
         IdleLoops();
+
+        HPpercentage = Mathf.Round(HP / MaxHP * 100) / 100;
+        activator = BossActivator.GetComponent<FinalBossActivation>();
+
+        speeds = new float[]
+        {
+            2.5f,
+            1.25f,
+            0.625f
+        };
     }
 
     private void Update()
@@ -51,6 +81,16 @@ public class BigOrange : MonoBehaviour
         slider.maxValue = MaxHP;
         slider.minValue = 0;
         slider.value = HP;
+
+        hpText.text = HP.ToString() + " / " + MaxHP.ToString();
+        {
+
+            if (HP <= 0)
+            {
+                m_animator.Play("Death");
+                hpText.text = "0" + " / " + MaxHP.ToString();
+            }
+        }
     }
 
     void rngGenerate()
@@ -61,7 +101,6 @@ public class BigOrange : MonoBehaviour
         AnimationPlay();
     }
 
-    // Update is called once per frame
     void AnimationPlay()
     {
         if (rng <= 20)
@@ -86,7 +125,10 @@ public class BigOrange : MonoBehaviour
     {
         foreach (AnimatorControllerParameter parameter in m_animator.parameters)
         {
-            m_animator.SetBool(parameter.name, false);
+            if (parameter.type == AnimatorControllerParameterType.Bool)
+            {
+                m_animator.SetBool(parameter.name, false);
+            }
         }
     }
 
@@ -96,10 +138,17 @@ public class BigOrange : MonoBehaviour
 
         foreach (AnimatorControllerParameter parameter in m_animator.parameters)
         {
-            m_animator.SetBool(parameter.name, false);
+            if (parameter.type == AnimatorControllerParameterType.Bool)
+            {
+                m_animator.SetBool(parameter.name, false);
+            }
         }
 
+
+        HPpercentage = Mathf.Round(HP / MaxHP * 100) / 100;
+
         m_animator.SetBool("Idle", true);
+        m_animator.SetFloat("Speed", 1 + (3 - (3 * HPpercentage)));
 
         if (loopcount == 0 && justlooped == false)
         {
@@ -207,41 +256,66 @@ public class BigOrange : MonoBehaviour
 
     void SpawnBlocks()
     {
-        if (BlocksSpawnedlast == false)
-        {
         for (int i = 0; i < switches.Length; i++)
         {
             SetAdjacentTiles(switches[i], changetile);
         }
 
-            BlocksSpawnedlast = true;
+        if (RevertRoutine != null)
+        {
+            StopCoroutine(RevertRoutine);
         }
-        BlocksSpawnedlast = false;
+        RevertRoutine = RevertTiles(switches);
+        StartCoroutine(RevertRoutine);
     }
 
     public void SetAdjacentTiles(Transform current, Tile targetTile)
     {
         float sideSize = 0.72f;
-        Vector3 currentCellPos = current.transform.position;
-        Vector3Int[] adjacentCells = new Vector3Int[]
+        if(current != null)
         {
+            Vector3 currentCellPos = current.transform.position;
+            Vector3Int[] adjacentCells = new Vector3Int[]
+            {
                 grid.WorldToCell(currentCellPos + Vector3.left * sideSize),
-        grid.WorldToCell(currentCellPos + Vector3.up * sideSize),
-        grid.WorldToCell(currentCellPos + Vector3.right * sideSize),
-        grid.WorldToCell(currentCellPos + Vector3.down * sideSize),
-        };
+                grid.WorldToCell(currentCellPos + Vector3.up * sideSize),
+                grid.WorldToCell(currentCellPos + Vector3.right * sideSize),
+                grid.WorldToCell(currentCellPos + Vector3.down * sideSize),
+            };
             foreach (Vector3Int adjacentCell in adjacentCells)
-        {
-            grid.SetTile(adjacentCell, targetTile);
+            {
+                grid.SetTile(adjacentCell, targetTile);
+            }
         }
-
-        StartCoroutine(RevertTiles(current));
     }
 
     public IEnumerator RevertTiles(Transform current){
 
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(speeds[stompspeedindex]);
 
         SetAdjacentTiles(current, null);
+
+    }
+
+    public IEnumerator RevertTiles(Transform[] current)
+    {
+
+        yield return new WaitForSeconds(speeds[stompspeedindex]);
+
+        SetAdjacentTiles(current[0], null);
+        SetAdjacentTiles(current[1], null);
+        SetAdjacentTiles(current[2], null);
+        SetAdjacentTiles(current[3], null);
+
+    }
+
+    public void BattleHasEnded()
+    {
+        activator.BattleEnd();
+    }
+
+    public void DestroySelf()
+    {
+        Destroy(gameObject);
     }
 }

@@ -18,13 +18,15 @@ public class GameControl : MonoBehaviour
 
 	public bool returntoselect = false;
 
+    public bool bosscheckpoint = false;
+
 	public List<bool> completedlevels = new List<bool>();
 	public List<bool> goldenpellets = new List<bool>();
 	public List<bool> timerchallenge = new List<bool>();
 
 	public int totallevels;
 
-	public int targetLevels;
+	public int targetLevels = 0;
 
 	public int levelID;
 
@@ -38,31 +40,36 @@ public class GameControl : MonoBehaviour
 
 		levelID = 0;
 
-		totallevels = SceneManager.sceneCountInBuildSettings;
-		targetLevels = totallevels;
+        totallevels = SceneManager.sceneCountInBuildSettings;
+
 		m_Scene = SceneManager.GetActiveScene ();
 		currentlevel = m_Scene.name;
-			for (int k = 0; k < totallevels; k++) {
-				if (!currentlevel.Contains("Level")) {
-				targetLevels--;
-		} 
 
-		totallevels = targetLevels;
-		for (int i = 1; i < totallevels + 1; i++) {
-			completedlevels.Add(false);
-			goldenpellets.Add (false);
-			timerchallenge.Add (false);
-		}
 
-		if (control == null) {
-			DontDestroyOnLoad (gameObject);
-			control = this;
-		} else if (control != this) {
-			Destroy (gameObject);
-		}
+        if (control == null) {
+            DontDestroyOnLoad(gameObject);
+            control = this;
+
+            for (int k = 0; k < totallevels; k++)
+            {
+                if (currentlevel.Contains("Level"))
+                {
+                    targetLevels++;
+                }
+            }
+
+                for (int i = 1; i < targetLevels + 1; i++)
+                {
+                    completedlevels.Add(false);
+                    goldenpellets.Add(false);
+                    timerchallenge.Add(false);
+                }
+
+                } else if (control != this) {
+                Destroy(gameObject);
+                                            }
 
             
-    }
     }
 
     private void Start()
@@ -98,7 +105,26 @@ public class GameControl : MonoBehaviour
     }
 
 
-	public void Save()
+    public void AutoSave()
+    {
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Create(Application.persistentDataPath + "/autosave.wr2");
+
+        PlayerData data = new PlayerData();
+        data.complete = complete;
+        data.golden = golden;
+        data.timer = timer;
+        data.levelID = levelID;
+        data.completedlevels = completedlevels;
+        data.goldenpellets = goldenpellets;
+        data.timerchallenge = timerchallenge;
+        data.camerachoice = camerachoice;
+
+        bf.Serialize(file, data);
+        file.Close();
+    }
+
+    public void Save()
 	{
 		BinaryFormatter bf = new BinaryFormatter ();
 		FileStream file = File.Create (Application.persistentDataPath + "/playersave.wr2");
@@ -135,9 +161,31 @@ public class GameControl : MonoBehaviour
 			timerchallenge = data.timerchallenge;
             camerachoice = data.camerachoice;
 
-            StartCoroutine(Setcamerasroutine());
+            control.StartCoroutine(Setcamerasroutine());
 		}
 	}
+
+    public void AutoLoad()
+    {
+        if (File.Exists(Application.persistentDataPath + "/autosave.wr2"))
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/autosave.wr2", FileMode.Open);
+            PlayerData data = (PlayerData)bf.Deserialize(file);
+            file.Close();
+
+            complete = data.complete;
+            golden = data.golden;
+            timer = data.timer;
+            levelID = data.levelID;
+            completedlevels = data.completedlevels;
+            goldenpellets = data.goldenpellets;
+            timerchallenge = data.timerchallenge;
+            camerachoice = data.camerachoice;
+
+            control.StartCoroutine(Setcamerasroutine());
+        }
+    }
 }
 
 [Serializable]

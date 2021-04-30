@@ -11,10 +11,16 @@ public class EnemyMovement : MonoBehaviour
 	public float multiplier = 1.0f;
 
 	private Vector2 enemydir = Vector2.right;
+
+    public bool lifespan = false;
     private bool levelstart = false;
 	private bool justhit = false;
+
+    private int hitcount;
 	public int direction = 1;
 
+    private float age = 0;
+    public float death;
 
 
     void Start()
@@ -38,8 +44,16 @@ public class EnemyMovement : MonoBehaviour
 			if (justhit == true) {
 				break;
 			} else {
-				
-				if ((coll.gameObject.tag != "Enemy") & (coll.gameObject.tag != "Teleport")) {
+
+                if (coll.gameObject.tag == "Enemy")
+                {
+                    direction = 2;
+                    hitcount += 1;
+                    justhit = true;
+                }
+
+                if (coll.gameObject.tag != "Teleport" && coll.gameObject.tag != "Enemy")
+                {
 
 					direction = 2;
 					justhit = true;
@@ -47,11 +61,6 @@ public class EnemyMovement : MonoBehaviour
 
 				if (coll.gameObject.tag == "Teleport") {
 
-					justhit = true;
-				}
-
-				if (coll.gameObject.tag == "Enemy") {
-					Destroy (this.gameObject);
 					justhit = true;
 				}
 			}
@@ -63,7 +72,14 @@ public class EnemyMovement : MonoBehaviour
 				break;
 			} else {
 
-				if ((coll.gameObject.tag != "Enemy") & (coll.gameObject.tag != "Teleport")) {
+                if (coll.gameObject.tag == "Enemy")
+                {
+                    direction = 1;
+                    hitcount += 1;
+                    justhit = true;
+                }
+
+                if (coll.gameObject.tag != "Teleport" && coll.gameObject.tag != "Enemy") {
 
 					direction = 1;
 					justhit = true;
@@ -73,15 +89,27 @@ public class EnemyMovement : MonoBehaviour
 
 					justhit = true;
 				}
-				if (coll.gameObject.tag == "Enemy") {
-					Destroy (this.gameObject);
-					justhit = true;
+
 				}
 			}
 		}
-	}
 
      void Update(){
+
+        if (lifespan)
+        {
+            age += Time.smoothDeltaTime;
+            if(age >= death)
+            {
+                Destroy(gameObject);
+            }
+        }
+
+
+        if (hitcount >= 10)
+        {
+            Destroy(gameObject);
+        }
 
         if (levelstart == true) {
         this.movespeed += Time.deltaTime * multiplier;

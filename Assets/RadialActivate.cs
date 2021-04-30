@@ -7,8 +7,8 @@ public class RadialActivate : MonoBehaviour
 {
     public RadialGauge radial;
 
-    Collider2D coll;
-    SpriteRenderer s_renderer;
+    public Collider2D coll;
+    public SpriteRenderer s_renderer;
     Sprite newsprite;
     Color newcolor;
 
@@ -18,11 +18,15 @@ public class RadialActivate : MonoBehaviour
 
     public bool justspawned = false;
 
+    public bool isActive = true;
+
     public GameObject boulder;
 
     public Transform spawn;
 
     private float collenable;
+
+
 
     private void Start()
     {
@@ -36,7 +40,7 @@ public class RadialActivate : MonoBehaviour
 
     private void Update()
     {
-        if (coll.enabled == false && coll != null)
+        if (coll.enabled == false && coll != null && isActive == true)
         {
             collenable += Time.deltaTime;
 
@@ -78,8 +82,10 @@ public class RadialActivate : MonoBehaviour
     {
         if(justspawned == false)
         {
+            isActive = false;
             GameObject newboulder = Instantiate(boulder) as GameObject;
             boulder.transform.position = spawn.transform.position;
+            boulder.transform.localScale = new Vector3(1.5f + (0.2f * boulderamount), 1.5f + (0.2f * boulderamount), 1);
             boulderamount += 1;
             coll.enabled = false;
             newcolor.a = 0.25f;
