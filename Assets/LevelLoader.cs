@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LevelLoader : MonoBehaviour
@@ -28,6 +27,8 @@ public class LevelLoader : MonoBehaviour
     private int completerequired;
 
     public CanvasGroup canvas;
+    public GameObject SaveCanvas;
+    public GameObject LoadCanvas;
 
 	void Start(){
 
@@ -58,6 +59,16 @@ public class LevelLoader : MonoBehaviour
             canvas.alpha = 255;
             canvas.interactable = true;
             GameControl.control.levelID = ID;
+            
+            if(SaveCanvas.gameObject.activeSelf == true)
+            {
+                SaveCanvas.gameObject.SetActive(false);
+            }
+
+            if (LoadCanvas.gameObject.activeSelf == true)
+            {
+                LoadCanvas.gameObject.SetActive(false);
+            }
         }
 
         if (active == false)

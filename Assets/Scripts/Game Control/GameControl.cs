@@ -8,42 +8,46 @@ using System.IO;
 
 public class GameControl : MonoBehaviour
 {
-	public static GameControl control;
+    public static GameControl control;
 
-	public int complete;
-	public int golden;
-	public int timer;
+    public int complete;
+    public int golden;
+    public int timer;
 
     public int camerachoice;
 
-	public bool returntoselect = false;
+    public bool returntoselect = false;
 
     public bool bosscheckpoint = false;
 
-	public List<bool> completedlevels = new List<bool>();
-	public List<bool> goldenpellets = new List<bool>();
-	public List<bool> timerchallenge = new List<bool>();
+    public List<bool> completedlevels = new List<bool>();
+    public List<bool> goldenpellets = new List<bool>();
+    public List<bool> timerchallenge = new List<bool>();
 
-	public int totallevels;
+    public int totallevels;
 
-	public int targetLevels = 0;
+    public int targetLevels = 0;
 
-	public int levelID;
+    public int levelID;
 
-	public string currentlevel; 
+    public string currentlevel;
 
-	Scene m_Scene;
-	public string sceneName;
-    
+    Scene m_Scene;
+    public string sceneName;
+
+    Pin savedPin;
+
+    public Vector3 AutosavePosition;
+
     void Awake()
     {
 
-		levelID = 0;
+        levelID = 0;
 
         totallevels = SceneManager.sceneCountInBuildSettings;
 
-		m_Scene = SceneManager.GetActiveScene ();
-		currentlevel = m_Scene.name;
+        m_Scene = SceneManager.GetActiveScene();
+        currentlevel = m_Scene.name;
 
 
         if (control == null) {
@@ -58,39 +62,66 @@ public class GameControl : MonoBehaviour
                 }
             }
 
-                for (int i = 1; i < targetLevels + 1; i++)
-                {
-                    completedlevels.Add(false);
-                    goldenpellets.Add(false);
-                    timerchallenge.Add(false);
-                }
+            for (int i = 1; i < targetLevels + 1; i++)
+            {
+                completedlevels.Add(false);
+                goldenpellets.Add(false);
+                timerchallenge.Add(false);
+            }
 
-                } else if (control != this) {
-                Destroy(gameObject);
-                                            }
+        } else if (control != this) {
+            Destroy(gameObject);
+        }
 
-            
+
     }
 
     private void Start()
     {
-        if(m_Scene.name == "OverWorld")
+        if (m_Scene.name == "OverWorld")
         {
-        StartCoroutine(Setcamerasroutine());
+            StartCoroutine(Setcamerasroutine());
+        }
+
+        else if (m_Scene.name == "MainMenu")
+        {
+            for (int i = 0; i < completedlevels.Count; i++)
+            {
+                completedlevels[i] = false;
+                goldenpellets[i] = false;
+                timerchallenge[i] = false;
+            }
         }
     }
-    
-    void OnGUI()
-	{
-		GUI.Label (new Rect(10,10,100,30), "Complete: " + complete);
-		GUI.Label (new Rect(10,40,150,30), "Golden: " + golden);
-	}
 
-    [HideInInspector]public IEnumerator Setcamerasroutine()
+    void OnGUI()
+    {
+        GUI.Label(new Rect(10, 10, 100, 30), "Complete: " + complete);
+        GUI.Label(new Rect(10, 40, 150, 30), "Golden: " + golden);
+    }
+
+    [HideInInspector] public IEnumerator Setcamerasroutine()
     {
         yield return 0;
         SetCamera(camerachoice);
     }
+
+    [HideInInspector] public IEnumerator ChangeCharacterPin()
+    {
+        GameObject CharacterObject = GameObject.Find("Character");
+
+
+        while (CharacterObject == null)
+        {
+            yield return 0;
+        }
+
+        Character character = CharacterObject.GetComponent<Character>();
+
+        character.transform.position = control.savedPin.transform.position;
+        character.SetCurrentPin(control.savedPin);
+    }
+
 
     public void SetCamera(int index)
     {
@@ -119,10 +150,13 @@ public class GameControl : MonoBehaviour
         data.goldenpellets = goldenpellets;
         data.timerchallenge = timerchallenge;
         data.camerachoice = camerachoice;
+        data.playerposition = new SerializedVector3(AutosavePosition);
 
         bf.Serialize(file, data);
         file.Close();
     }
+
+
 
     public void Save()
 	{
@@ -138,8 +172,23 @@ public class GameControl : MonoBehaviour
 		data.goldenpellets = goldenpellets;
 		data.timerchallenge = timerchallenge;
         data.camerachoice = camerachoice;
+        data.playerposition = new SerializedVector3(GameObject.Find("Character").transform.position);
 
-		bf.Serialize (file, data);
+        Character character = GameObject.Find("Character").GetComponent<Character>();
+
+        Pin pin;
+
+        foreach (Collider2D result in Physics2D.OverlapPointAll(character.transform.position))
+        {
+            pin = result.GetComponent<Pin>();
+            if (pin != null)
+            {
+                character.SetCurrentPin(pin);
+                savedPin = pin;
+            }
+        }
+
+        bf.Serialize (file, data);
 		file.Close ();
 	}
 
@@ -162,6 +211,7 @@ public class GameControl : MonoBehaviour
             camerachoice = data.camerachoice;
 
             control.StartCoroutine(Setcamerasroutine());
+            control.StartCoroutine(ChangeCharacterPin());
 		}
 	}
 
@@ -184,7 +234,20 @@ public class GameControl : MonoBehaviour
             camerachoice = data.camerachoice;
 
             control.StartCoroutine(Setcamerasroutine());
+            control.StartCoroutine(ChangeCharacterPin());
         }
+    }
+}
+
+[Serializable]
+public class SerializedVector3
+{
+    public float x, y, z;
+    public SerializedVector3(Vector3 Pos)
+    {
+        x = Pos.x;
+        y = Pos.y;
+        z = Pos.z;
     }
 }
 
@@ -196,6 +259,7 @@ class PlayerData
 	public int timer;
 	public int levelID;
     public int camerachoice;
+    public SerializedVector3 playerposition;
 
 	public List<bool> completedlevels;
 	public List<bool> goldenpellets;

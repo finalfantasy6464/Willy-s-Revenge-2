@@ -16,6 +16,11 @@ public class MapManager : MonoBehaviour
 	private GameObject[] allObjects;
 	private GameObject pinObject;
 
+    public CanvasGroup menuCanvas;
+    public GameObject SaveCanvas;
+    public GameObject LoadCanvas;
+    public GameObject LevelCanvas;
+
 	/// <summary>
 	/// Use this for initialization
 	/// </summary>
@@ -48,22 +53,42 @@ public class MapManager : MonoBehaviour
 	/// </summary>
 	private void CheckForInput()
 	{
-		if (Input.GetKeyUp(KeyCode.UpArrow))
-		{
-			Character.TrySetDirection(Direction.Up);
-		}
-		else if(Input.GetKeyUp(KeyCode.DownArrow))
-		{
-			Character.TrySetDirection(Direction.Down);
-		}
-		else if(Input.GetKeyUp(KeyCode.LeftArrow))
-		{
-			Character.TrySetDirection(Direction.Left);
-		}
-		else if(Input.GetKeyUp(KeyCode.RightArrow))
-		{
-			Character.TrySetDirection(Direction.Right);
-		}
+        if (Input.GetKeyUp(KeyCode.UpArrow))
+        {
+            Character.TrySetDirection(Direction.Up);
+        }
+        else if (Input.GetKeyUp(KeyCode.DownArrow))
+        {
+            Character.TrySetDirection(Direction.Down);
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftArrow))
+        {
+            Character.TrySetDirection(Direction.Left);
+        }
+        else if (Input.GetKeyUp(KeyCode.RightArrow))
+        {
+            Character.TrySetDirection(Direction.Right);
+        }
+        else if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            menuCanvas.alpha = 1;
+            menuCanvas.interactable = true;
+
+            if(SaveCanvas.gameObject.activeSelf == true)
+            {
+                SaveCanvas.gameObject.SetActive(false);
+            }
+
+            if(LoadCanvas.gameObject.activeSelf == true)
+            {
+                LoadCanvas.gameObject.SetActive(false);
+            }
+
+            if(LevelCanvas.gameObject.activeSelf == true)
+            {
+                LevelCanvas.gameObject.SetActive(false);
+            }
+        }
 	}
 
 	

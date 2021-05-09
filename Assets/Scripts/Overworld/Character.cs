@@ -13,7 +13,6 @@ public class Character : MonoBehaviour
 
     public CanvasGroup canvas;
 
-
     public void Initialise(MapManager mapManager, Pin startPin)
     {
         _mapManager = mapManager;
