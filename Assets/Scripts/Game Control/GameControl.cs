@@ -30,6 +30,9 @@ public class GameControl : MonoBehaviour
     public Vector3 savedPinPosition;
     public Vector3 AutosavePosition;
 
+    public AudioSource source;
+    public AudioClip[] bgm;
+
     void Awake()
     {
         levelID = 0;
@@ -69,6 +72,117 @@ public class GameControl : MonoBehaviour
                 timerchallenge[i] = false;
             }
         }
+
+        AudioClip currentmusic = default(AudioClip);
+
+        if (m_Scene.buildIndex > 0 && m_Scene.buildIndex <= 5)
+        {
+            currentmusic = bgm[0];
+        }
+
+
+        if (m_Scene.buildIndex > 5 && m_Scene.buildIndex <= 10)
+        {
+            currentmusic = bgm[1];
+        }
+
+
+        if (m_Scene.buildIndex > 10 && m_Scene.buildIndex <= 15)
+        {
+            currentmusic = bgm[2];
+        }
+
+
+        if (m_Scene.buildIndex > 15 && m_Scene.buildIndex <= 20)
+        {
+            currentmusic = bgm[3];
+        }
+
+
+        if (m_Scene.buildIndex > 20 && m_Scene.buildIndex <= 25)
+        {
+            currentmusic = bgm[4];
+        }
+
+
+        if (m_Scene.buildIndex > 25 && m_Scene.buildIndex <= 30)
+        {
+            currentmusic = bgm[5];
+        }
+
+        if (m_Scene.buildIndex > 30 && m_Scene.buildIndex <= 35)
+        {
+            currentmusic = bgm[6];
+        }
+
+        if (m_Scene.buildIndex > 35 && m_Scene.buildIndex <= 40)
+        {
+            currentmusic = bgm[7];
+        }
+
+        if (m_Scene.buildIndex > 40 && m_Scene.buildIndex <= 45)
+        {
+            currentmusic = bgm[8];
+        }
+
+        if (m_Scene.buildIndex > 45 && m_Scene.buildIndex <= 50)
+        {
+            currentmusic = bgm[9];
+        }
+
+        if (m_Scene.buildIndex > 50 && m_Scene.buildIndex <= 55)
+        {
+            currentmusic = bgm[10];
+        }
+
+        if (m_Scene.buildIndex > 55 && m_Scene.buildIndex <= 60)
+        {
+            currentmusic = bgm[11];
+        }
+
+        if (m_Scene.buildIndex > 60 && m_Scene.buildIndex <= 65)
+        {
+            currentmusic = bgm[12];
+        }
+
+        if (m_Scene.buildIndex > 65 && m_Scene.buildIndex <= 70)
+        {
+            currentmusic = bgm[13];
+        }
+
+        if (m_Scene.buildIndex > 70 && m_Scene.buildIndex <= 75)
+        {
+            currentmusic = bgm[14];
+        }
+
+        if (m_Scene.buildIndex > 75 && m_Scene.buildIndex <= 80)
+        {
+            currentmusic = bgm[15];
+        }
+
+        if (m_Scene.buildIndex > 80 && m_Scene.buildIndex <= 85)
+        {
+            currentmusic = bgm[16];
+        }
+
+        if (m_Scene.buildIndex > 85 && m_Scene.buildIndex <= 90)
+        {
+            currentmusic = bgm[17];
+        }
+
+        if (m_Scene.buildIndex > 90 && m_Scene.buildIndex <= 95)
+        {
+            currentmusic = bgm[18];
+        }
+
+        if (m_Scene.buildIndex > 95 && m_Scene.buildIndex <= 100)
+        {
+            currentmusic = bgm[19];
+        }
+
+
+        source.clip = currentmusic;
+        source.Play();
     }
 
     void OnGUI()

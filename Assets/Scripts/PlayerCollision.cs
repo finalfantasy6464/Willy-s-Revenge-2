@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class PlayerCollision : MonoBehaviour {
 
@@ -12,22 +13,31 @@ public class PlayerCollision : MonoBehaviour {
 	private bool Safe = true;
 	private bool isPlatform = false;
 
-	public AudioClip keyget;
-	public AudioClip enemyhit;
-	public AudioClip gatehit;
-	public AudioClip lavaburn;
-	public AudioClip falling;
-
 	public delegate void MyDelegate();
 	public event MyDelegate onDeath;
 
-	void Update(){
+    [HideInInspector] public UnityEvent onKeyCollect;
+    [HideInInspector] public UnityEvent onWallCollide;
+    [HideInInspector] public UnityEvent onLavaBurn;
+    [HideInInspector] public UnityEvent onFalling;
+    [HideInInspector] public UnityEvent onElectricHit;
+
+    void Awake()
+    {
+        onKeyCollect = new UnityEvent();
+        onWallCollide = new UnityEvent();
+        onLavaBurn = new UnityEvent();
+        onFalling = new UnityEvent();
+        onElectricHit = new UnityEvent();
+    }
+
+    void Update(){
 
 		safetytimer += Time.deltaTime;
 
 		if (platformcounter == 0 & isPlatform == true) {
 			Destroy (gameObject);
-			DontDestroyme.instance.PlayOneShot (falling);
+            onFalling.Invoke();
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
 		}
 	}
@@ -39,20 +49,20 @@ public class PlayerCollision : MonoBehaviour {
 
 		if(hit.tag == "Gate"){
 			Destroy(gameObject);
-			DontDestroyme.instance.PlayOneShot (gatehit);
+            onWallCollide.Invoke();
 			SceneManager.LoadScene (SceneManager.GetActiveScene().name);
 		}
 
 		if(hit.tag == "Gate2"){
 			Destroy(gameObject);
-			DontDestroyme.instance.PlayOneShot (gatehit);
-			SceneManager.LoadScene (SceneManager.GetActiveScene().name);
+            onWallCollide.Invoke();
+            SceneManager.LoadScene (SceneManager.GetActiveScene().name);
 		}
 
 		if(hit.tag == "PelletGate"){
 			Destroy(gameObject);
-			DontDestroyme.instance.PlayOneShot (gatehit);
-			SceneManager.LoadScene (SceneManager.GetActiveScene().name);
+            onWallCollide.Invoke();
+            SceneManager.LoadScene (SceneManager.GetActiveScene().name);
 		}
 		if (hit.tag == "Key") {
 
@@ -60,7 +70,7 @@ public class PlayerCollision : MonoBehaviour {
 			foreach (GameObject go in gos)
 				Destroy (go);
 			Destroy (hit);
-			DontDestroyme.instance.PlayOneShot (keyget);
+			onKeyCollect.Invoke();
 		}
 
 		if (hit.tag == "Key2") {
@@ -69,8 +79,8 @@ public class PlayerCollision : MonoBehaviour {
 			foreach (GameObject go in gos)
 				Destroy (go);
 			Destroy (hit);
-			DontDestroyme.instance.PlayOneShot (keyget);
-		}
+            onKeyCollect.Invoke();
+        }
 
 		if (hit.tag == "Tail") {
 			Destroy (gameObject);
@@ -79,31 +89,31 @@ public class PlayerCollision : MonoBehaviour {
 
 		if (hit.tag == "Enemy") {
 			Destroy (gameObject);
-			DontDestroyme.instance.PlayOneShot (gatehit);
-			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
+            onWallCollide.Invoke();
+            SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
 		}
 
 		if (hit.tag == "Enemy2") {
 			Destroy (gameObject);
-			DontDestroyme.instance.PlayOneShot (gatehit);
-			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
+            onWallCollide.Invoke();
+            SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
 		}
 
 		if (hit.tag == "Enemy3") {
 			Destroy (gameObject);
-			DontDestroyme.instance.PlayOneShot (gatehit);
-			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
+            onWallCollide.Invoke();
+            SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
 		}
 
 		if (hit.tag == "Enemy5") {
 			Destroy (gameObject);
-			DontDestroyme.instance.PlayOneShot (gatehit);
-			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
+            onWallCollide.Invoke();
+            SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
 		}
 		if (hit.tag == "Oneway") {
 			Destroy (gameObject);
-			DontDestroyme.instance.PlayOneShot (gatehit);
-			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
+            onWallCollide.Invoke();
+            SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
 		}
 	}
 	void OnTriggerEnter2D(Collider2D trig){
@@ -111,21 +121,21 @@ public class PlayerCollision : MonoBehaviour {
 		var hit = trig.gameObject;
 		if(hit.tag == "Enemy3"){
 			Destroy(gameObject);
-			DontDestroyme.instance.PlayOneShot (gatehit);
-			SceneManager.LoadScene (SceneManager.GetActiveScene().name);
+            onWallCollide.Invoke();
+            SceneManager.LoadScene (SceneManager.GetActiveScene().name);
 		}
 
         if (hit.tag == "Boss")
         {
             Destroy(gameObject);
-            DontDestroyme.instance.PlayOneShot(gatehit);
+            onWallCollide.Invoke();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         if (hit.tag == "Colour") {
 			Destroy (gameObject);
-			DontDestroyme.instance.PlayOneShot (gatehit);
-			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
+            onWallCollide.Invoke();
+            SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
 		}
 
 		if (hit.tag == "Safety"){
@@ -161,7 +171,7 @@ public class PlayerCollision : MonoBehaviour {
 		if (hit.tag == "Danger" & Safe == false & safetytimer >= 0.1f){
 			safetytimer = 0.0f;
 			Destroy (gameObject);
-			DontDestroyme.instance.PlayOneShot (lavaburn);
+			onLavaBurn.Invoke();
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
 }
 
