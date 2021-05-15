@@ -13,6 +13,7 @@ public class LevelLoader : MonoBehaviour
 	public bool completed = false;
 	public bool golden = false;
     private bool caninput = false;
+    private bool changed = false;
 
 	public Sprite greensprite;
 	public Sprite goldsprite;
@@ -35,17 +36,6 @@ public class LevelLoader : MonoBehaviour
 		m_Animator = this.GetComponent<Animator> ();
         pin = this.GetComponent<Pin>();
         completerequired = pin.completerequired;
-
-
-		if (GameControl.control.completedlevels [ID] == true) {
-			this.GetComponent<SpriteRenderer> ().sprite = greensprite;
-			m_Animator.SetTrigger ("Green");
-		}
-
-		if (GameControl.control.goldenpellets [ID] == true) {
-			this.GetComponent<SpriteRenderer> ().sprite = goldsprite;
-			m_Animator.SetTrigger ("Gold");
-		}
     }
 
     IEnumerator InputTimer()
@@ -55,6 +45,19 @@ public class LevelLoader : MonoBehaviour
     }
     void Update()
     {
+
+        if (GameControl.control.completedlevels[ID] == true)
+        {
+            this.GetComponent<SpriteRenderer>().sprite = greensprite;
+            m_Animator.SetTrigger("Green");
+        }
+
+        if (GameControl.control.goldenpellets[ID] == true)
+        {
+            this.GetComponent<SpriteRenderer>().sprite = goldsprite;
+            m_Animator.SetTrigger("Gold");
+        }
+
         if (Input.GetKey(KeyCode.Space) & active == true & caninput == true) {
             canvas.alpha = 255;
             canvas.interactable = true;

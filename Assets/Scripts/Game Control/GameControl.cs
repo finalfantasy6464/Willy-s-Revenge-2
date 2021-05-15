@@ -13,76 +13,53 @@ public class GameControl : MonoBehaviour
     public int complete;
     public int golden;
     public int timer;
-
     public int camerachoice;
-
     public bool returntoselect = false;
-
     public bool bosscheckpoint = false;
-
     public List<bool> completedlevels = new List<bool>();
     public List<bool> goldenpellets = new List<bool>();
     public List<bool> timerchallenge = new List<bool>();
-
     public int totallevels;
-
     public int targetLevels = 0;
-
     public int levelID;
-
     public string currentlevel;
-
     Scene m_Scene;
     public string sceneName;
+    public Pin savedPin;
 
-    Pin savedPin;
-
+    public Vector3 savedPinPosition;
     public Vector3 AutosavePosition;
 
     void Awake()
     {
-
         levelID = 0;
-
         totallevels = SceneManager.sceneCountInBuildSettings;
-
         m_Scene = SceneManager.GetActiveScene();
         currentlevel = m_Scene.name;
 
-
-        if (control == null) {
+        if (control == null)
+        {
             DontDestroyOnLoad(gameObject);
             control = this;
-
             for (int k = 0; k < totallevels; k++)
             {
                 if (currentlevel.Contains("Level"))
-                {
                     targetLevels++;
-                }
             }
-
             for (int i = 1; i < targetLevels + 1; i++)
             {
                 completedlevels.Add(false);
                 goldenpellets.Add(false);
                 timerchallenge.Add(false);
             }
-
-        } else if (control != this) {
+        } else if (control != this)
             Destroy(gameObject);
-        }
-
-
     }
 
     private void Start()
     {
         if (m_Scene.name == "OverWorld")
-        {
             StartCoroutine(Setcamerasroutine());
-        }
-
         else if (m_Scene.name == "MainMenu")
         {
             for (int i = 0; i < completedlevels.Count; i++)
@@ -102,15 +79,13 @@ public class GameControl : MonoBehaviour
 
     [HideInInspector] public IEnumerator Setcamerasroutine()
     {
-        yield return 0;
+        yield return 3;
         SetCamera(camerachoice);
     }
 
     [HideInInspector] public IEnumerator ChangeCharacterPin()
     {
         GameObject CharacterObject = GameObject.Find("Character");
-
-
         while (CharacterObject == null)
         {
             yield return 0;
@@ -118,8 +93,18 @@ public class GameControl : MonoBehaviour
 
         Character character = CharacterObject.GetComponent<Character>();
 
-        character.transform.position = control.savedPin.transform.position;
-        character.SetCurrentPin(control.savedPin);
+        yield return 0;
+
+        character.transform.position = savedPinPosition;
+
+        Pin pin;
+        foreach (Collider2D result in
+                Physics2D.OverlapPointAll(character.transform.position))
+        {
+            pin = result.GetComponent<Pin>();
+            if (pin == null) continue;
+            character.SetCurrentPin(pin);
+        }
     }
 
 
@@ -135,92 +120,58 @@ public class GameControl : MonoBehaviour
         }
     }
 
-
     public void AutoSave()
     {
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/autosave.wr2");
-
-        PlayerData data = new PlayerData();
-        data.complete = complete;
-        data.golden = golden;
-        data.timer = timer;
-        data.levelID = levelID;
-        data.completedlevels = completedlevels;
-        data.goldenpellets = goldenpellets;
-        data.timerchallenge = timerchallenge;
-        data.camerachoice = camerachoice;
-        data.playerposition = new SerializedVector3(AutosavePosition);
-
+        PlayerData data = new PlayerData(complete, golden, timer, levelID,
+                camerachoice, new SerializedVector3(AutosavePosition), new SerializedVector3Pin(savedPinPosition), completedlevels, goldenpellets, timerchallenge);
         bf.Serialize(file, data);
         file.Close();
     }
 
-
-
     public void Save()
 	{
+        Character character = GameObject.Find("Character").GetComponent<Character>();
 		BinaryFormatter bf = new BinaryFormatter ();
 		FileStream file = File.Create (Application.persistentDataPath + "/playersave.wr2");
+        SetPinFromPosition(character);
+        PlayerData data = new PlayerData(complete, golden, timer, levelID,
+                camerachoice, new SerializedVector3(character.transform.position), new SerializedVector3Pin(savedPinPosition), completedlevels, goldenpellets, timerchallenge);
+        bf.Serialize (file, data);
+		file.Close();
+	}
 
-		PlayerData data = new PlayerData ();
-		data.complete = complete;
-		data.golden = golden;
-		data.timer = timer;
-		data.levelID = levelID;
-		data.completedlevels = completedlevels;
-		data.goldenpellets = goldenpellets;
-		data.timerchallenge = timerchallenge;
-        data.camerachoice = camerachoice;
-        data.playerposition = new SerializedVector3(GameObject.Find("Character").transform.position);
-
-        Character character = GameObject.Find("Character").GetComponent<Character>();
-
+    public void SetPinFromPosition(Character character)
+    {
         Pin pin;
-
-        foreach (Collider2D result in Physics2D.OverlapPointAll(character.transform.position))
+        foreach (Collider2D result in
+                Physics2D.OverlapPointAll(character.transform.position))
         {
             pin = result.GetComponent<Pin>();
-            if (pin != null)
-            {
-                character.SetCurrentPin(pin);
-                savedPin = pin;
-            }
+            if (pin == null) continue;
+            character.SetCurrentPin(pin);
+            savedPin = pin;
+            savedPinPosition = pin.transform.position;
         }
-
-        bf.Serialize (file, data);
-		file.Close ();
-	}
+    }
 
 	public void Load()
 	{
-		if (File.Exists (Application.persistentDataPath + "/playersave.wr2"))
-		{
-			BinaryFormatter bf = new BinaryFormatter ();
-			FileStream file = File.Open(Application.persistentDataPath + "/playersave.wr2", FileMode.Open);
-			PlayerData data = (PlayerData)bf.Deserialize (file);
-			file.Close ();
-
-			complete = data.complete;
-			golden = data.golden;
-			timer = data.timer;
-			levelID = data.levelID;
-			completedlevels = data.completedlevels;
-			goldenpellets = data.goldenpellets;
-			timerchallenge = data.timerchallenge;
-            camerachoice = data.camerachoice;
-
-            control.StartCoroutine(Setcamerasroutine());
-            control.StartCoroutine(ChangeCharacterPin());
-		}
+        LoadFromFile("/playersave.wr2");
 	}
 
     public void AutoLoad()
     {
-        if (File.Exists(Application.persistentDataPath + "/autosave.wr2"))
+        LoadFromFile("/autosave.wr2");
+    }
+
+    public void LoadFromFile(string localPath)
+    {
+        if (File.Exists(Application.persistentDataPath + localPath))
         {
             BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/autosave.wr2", FileMode.Open);
+            FileStream file = File.Open(Application.persistentDataPath + localPath, FileMode.Open);
             PlayerData data = (PlayerData)bf.Deserialize(file);
             file.Close();
 
@@ -232,6 +183,9 @@ public class GameControl : MonoBehaviour
             goldenpellets = data.goldenpellets;
             timerchallenge = data.timerchallenge;
             camerachoice = data.camerachoice;
+            savedPinPosition.x = data.savedPinposition.x;
+            savedPinPosition.y = data.savedPinposition.y;
+            savedPinPosition.z = data.savedPinposition.z;
 
             control.StartCoroutine(Setcamerasroutine());
             control.StartCoroutine(ChangeCharacterPin());
@@ -252,6 +206,18 @@ public class SerializedVector3
 }
 
 [Serializable]
+public class SerializedVector3Pin
+{
+    public float x, y, z;
+    public SerializedVector3Pin(Vector3 Pos)
+    {
+        x = Pos.x;
+        y = Pos.y;
+        z = Pos.z;
+    }
+}
+
+[Serializable]
 class PlayerData
 {
 	public int complete;
@@ -260,8 +226,37 @@ class PlayerData
 	public int levelID;
     public int camerachoice;
     public SerializedVector3 playerposition;
+    public SerializedVector3Pin savedPinposition;
 
 	public List<bool> completedlevels;
 	public List<bool> goldenpellets;
 	public List<bool> timerchallenge;
+
+    public PlayerData(int complete, int golden, int timer, int levelID, int cameraChoice,
+            SerializedVector3 serializedPosition, SerializedVector3Pin serializedPinPosition)
+    {
+        this.complete = complete;
+        this.golden = golden;
+        this.timer = timer;
+        this.levelID = levelID;
+        this.camerachoice = cameraChoice;
+        this.playerposition = serializedPosition;
+        this.savedPinposition = serializedPinPosition;
+    }
+
+    public PlayerData(int complete, int golden, int timer, int levelID, int cameraChoice,
+            SerializedVector3 serializedPosition, SerializedVector3Pin serializedPinPosition, List<bool> completedLevels,
+            List<bool> goldenPellets, List<bool> timerChallenge)
+    {
+        this.complete = complete;
+        this.golden = golden;
+        this.timer = timer;
+        this.levelID = levelID;
+        this.camerachoice = cameraChoice;
+        this.playerposition = serializedPosition;
+        this.savedPinposition = serializedPinPosition;
+        this.completedlevels = completedLevels;
+        this.goldenpellets = goldenPellets;
+        this.timerchallenge = timerChallenge;
+    }
 }

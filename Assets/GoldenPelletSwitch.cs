@@ -15,10 +15,15 @@ public class GoldenPelletSwitch : MonoBehaviour
 
 	private bool goldspawned = false;
 
+    public SpriteRenderer s_renderer;
+    Color newcolor;
+
     private void Start()
     {
         orange = GameObject.FindGameObjectWithTag("Boss");
         orangeScript = orange.GetComponent<BigOrange>();
+        s_renderer = gameObject.GetComponent<SpriteRenderer>();
+        newcolor = s_renderer.color;
     }
 
     private void Update()
@@ -39,6 +44,8 @@ public class GoldenPelletSwitch : MonoBehaviour
 		if (pickuptotal == 0 & goldspawned == false && hit.tag == ("Player")) {
 			GameObject Goldenpel = Instantiate (Golden, spawnPos);
 			goldspawned = true;
+            newcolor.a = 0.25f;
+            s_renderer.color = newcolor;
 		}
     }
 }
