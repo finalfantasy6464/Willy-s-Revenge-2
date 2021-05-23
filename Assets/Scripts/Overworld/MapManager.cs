@@ -13,6 +13,8 @@ public class MapManager : MonoBehaviour
     public Text SelectedLevelParTime;
     public Image SelectedLevelPreviewImage;
 
+    public bool Checklocked = false;
+
 	private GameObject[] allObjects;
 	private GameObject pinObject;
 
@@ -31,8 +33,9 @@ public class MapManager : MonoBehaviour
 			StartPin = pinObject.GetComponent<Pin> ();
         }
 
-		// Pass a ref and default the player Starting Pin
-		Character.Initialise (this, StartPin);
+        GameObject.Find("SoundManager").GetComponent<MusicManagement>().onOverworld.Invoke();
+        // Pass a ref and default the player Starting Pin
+        Character.Initialise (this, StartPin);
 	}
 
 	/// <summary>
@@ -42,11 +45,18 @@ public class MapManager : MonoBehaviour
 	{
         // Only check input when character is stopped
         if (Character.IsMoving) return;
-		
-		// First thing to do is try get the player input
-		CheckForInput();
+
+        // First thing to do is try get the player input
+        if (!Checklocked)
+        {
+            CheckForInput();
+        }
 	}
 
+    public void CheckUnlocker()
+    {
+        Checklocked = false;
+    }
 	
 	/// <summary>
 	/// Check if the player has pressed a button
@@ -97,7 +107,7 @@ public class MapManager : MonoBehaviour
 	/// </summary>
 	public void UpdateGui()
 	{
-		SelectedLevelText.text = string.Format("{0}", Character.CurrentPin.SceneToLoad);
+        SelectedLevelText.text = string.Format("{0}", Character.CurrentPin.SceneToLoad);
         SelectedLevelParTime.text = string.Format("{0}", Character.CurrentPin.ParTime);
         SelectedLevelPreviewImage.sprite = Character.CurrentPin.previewimage;
     }

@@ -50,7 +50,7 @@ public class LavaScript : MonoBehaviour
         if (hit.tag == "Player" & mysprite == LavaSprites[13] | hit.tag == "Player" & mysprite == LavaSprites[14])
         {
             Destroy(hit);
-            DontDestroyme.instance.PlayOneShot(burned);
+            GameSoundManagement.instance.PlayOneShot(burned);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
    

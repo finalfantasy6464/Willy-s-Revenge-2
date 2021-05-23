@@ -9,12 +9,15 @@ public class Bullet : MonoBehaviour
 	PlayerController playercontroller;
 	GameObject Player;
 
+    public AudioClip bulletShot;
+
 	void Start(){
 
 		Player = GameObject.FindGameObjectWithTag ("Player");
 		if (Player != null) {
 			playercontroller = Player.GetComponent<PlayerController> ();
 		}
+        GameSoundManagement.instance.PlayOneShot(bulletShot);
 	}
 
 	void OnTriggerEnter2D (Collider2D coll){

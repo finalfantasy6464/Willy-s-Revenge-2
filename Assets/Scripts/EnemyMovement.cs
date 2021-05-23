@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -22,7 +23,12 @@ public class EnemyMovement : MonoBehaviour
     private float age = 0;
     public float death;
 
+    [HideInInspector] public UnityEvent onWallHit;
 
+    void Awake()
+    {
+        onWallHit = new UnityEvent();
+    }
     void Start()
     {
         StartCoroutine(LevelStarting());
@@ -57,6 +63,7 @@ public class EnemyMovement : MonoBehaviour
 
 					direction = 2;
 					justhit = true;
+                    onWallHit.Invoke();
 				}
 
 				if (coll.gameObject.tag == "Teleport") {
@@ -83,7 +90,8 @@ public class EnemyMovement : MonoBehaviour
 
 					direction = 1;
 					justhit = true;
-				}
+                    onWallHit.Invoke();
+                }
 
 				if (coll.gameObject.tag == "Teleport") {
 

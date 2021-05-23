@@ -18,6 +18,8 @@ public class DoorSwitcher : MonoBehaviour
 
     public SpriteRenderer m_spriterenderer;
 
+    public AudioClip switchhit;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,8 +35,9 @@ public class DoorSwitcher : MonoBehaviour
 		if (hit.tag == "Player" & type == 1) {
 
             ChangeSprite();
+            GameSoundManagement.instance.PlaySingle(switchhit);
 
-			for (int i = 0; i < Colourdoor.Length; i++) {
+            for (int i = 0; i < Colourdoor.Length; i++) {
 				door [i] = Colourdoor [i].GetComponent<ColouredDoor> ();
 				door [i].Red = !door [i].Red;
 			}
@@ -43,14 +46,14 @@ public class DoorSwitcher : MonoBehaviour
 		if (hit.tag == "Player" & type == 2) {
 
            ChangeSprite();
+           GameSoundManagement.instance.PlaySingle(switchhit);
 
-			for (int i = 0; i < Colourdoor.Length; i++) {
+            for (int i = 0; i < Colourdoor.Length; i++) {
 				door [i] = Colourdoor [i].GetComponent<ColouredDoor> ();
 				door [i].Green = !door [i].Green;
 			}
         }
 
-        
 }
     void ChangeSprite()
     {

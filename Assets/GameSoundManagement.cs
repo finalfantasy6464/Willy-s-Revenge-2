@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DontDestroyme : MonoBehaviour
+public class GameSoundManagement : MonoBehaviour
 {
 
 	public AudioSource efxSource;
-	public AudioSource musicSource;
 
-	public static DontDestroyme instance = null;
+	public static GameSoundManagement instance = null;
 
 	public float lowPitchRange = 0.85f;
 	public float highPitchRange = 1.15f;

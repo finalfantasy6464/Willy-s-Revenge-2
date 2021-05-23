@@ -31,6 +31,10 @@ public class LevelLoader : MonoBehaviour
     public GameObject SaveCanvas;
     public GameObject LoadCanvas;
 
+    public AudioClip LevelSelect;
+
+    public MapManager mapmanager;
+
 	void Start(){
 
 		m_Animator = this.GetComponent<Animator> ();
@@ -38,10 +42,13 @@ public class LevelLoader : MonoBehaviour
         completerequired = pin.completerequired;
     }
 
-    IEnumerator InputTimer()
+    [HideInInspector]public IEnumerator InputTimer()
     {
-        yield return 1;
-        caninput = true;
+        if(caninput == false)
+        {
+            yield return 1;
+            caninput = true;
+        }
     }
     void Update()
     {
@@ -62,8 +69,10 @@ public class LevelLoader : MonoBehaviour
             canvas.alpha = 255;
             canvas.interactable = true;
             GameControl.control.levelID = ID;
-            
-            if(SaveCanvas.gameObject.activeSelf == true)
+            GameSoundManagement.instance.PlaySingle(LevelSelect);
+            mapmanager.Checklocked = true;
+
+            if (SaveCanvas.gameObject.activeSelf == true)
             {
                 SaveCanvas.gameObject.SetActive(false);
             }

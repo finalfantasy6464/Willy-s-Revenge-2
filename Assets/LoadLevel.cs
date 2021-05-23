@@ -11,5 +11,6 @@ public class LoadLevel : MonoBehaviour
     {
         Leveltoload = GameControl.control.levelID;
         SceneManager.LoadScene(Leveltoload);
+        GameObject.Find("SoundManager").GetComponent<MusicManagement>().onLevelStart.Invoke();
     }
 }

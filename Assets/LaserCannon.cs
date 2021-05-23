@@ -89,7 +89,7 @@ public class LaserCannon : MonoBehaviour
         if (hit.collider.GetComponent<PlayerController>() != null)
         {
             Destroy(hit.collider.gameObject);
-            DontDestroyme.instance.PlaySingle(elec);
+            GameSoundManagement.instance.PlaySingle(elec);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }

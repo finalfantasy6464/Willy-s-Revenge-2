@@ -18,7 +18,7 @@ public class PickupCheck : MonoBehaviour
 			GameObject[] gos = GameObject.FindGameObjectsWithTag ("PelletGate");
 			foreach (GameObject go in gos)
 				Destroy (go);
-			DontDestroyme.instance.PlayOneShot (allpelletsgotten);
+			GameSoundManagement.instance.PlayOneShot (allpelletsgotten);
 		}
 		
     }

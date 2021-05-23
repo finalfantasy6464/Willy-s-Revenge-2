@@ -10,7 +10,7 @@ public class audioplayer : MonoBehaviour
     // Start is called before the first frame update
     void SoundPlay()
     {
-		DontDestroyme.instance.PlayOneShot (smash);
+		GameSoundManagement.instance.PlayOneShot (smash);
     }
 
 }

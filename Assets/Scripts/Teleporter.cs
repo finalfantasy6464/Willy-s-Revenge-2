@@ -6,6 +6,8 @@ public class Teleporter : MonoBehaviour{
 
 	public Transform target;
 
+    public AudioClip teleport;
+
     // Update is called once per frame
    
 void OnTriggerEnter2D(Collider2D tele){
@@ -14,13 +16,15 @@ void OnTriggerEnter2D(Collider2D tele){
 
 		if (hit.tag == "Player"){
 			hit.transform.position = target.position;
+            GameSoundManagement.instance.PlaySingle(teleport);
 	}
 
 
 		if (hit.tag == "Enemy" | hit.tag == "Enemy5"){
 			hit.transform.position = target.position;
+            GameSoundManagement.instance.PlaySingle(teleport);
 
-	}
+        }
 			
 	}
 }
