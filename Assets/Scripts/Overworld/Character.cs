@@ -52,7 +52,7 @@ public class Character : MonoBehaviour
             {
                 if (_targetPin.IsEndOfWorld)
                 {
-                    Gatecheck();
+                    Gatecheck(_targetPin.GetComponent<GatePin>());
                 }
                 else
                 {
@@ -78,9 +78,9 @@ public class Character : MonoBehaviour
         MoveToPin(pin);
     }
 
-    public void Gatecheck()
+    public void Gatecheck(GatePin gate)
     {
-        if (GameControl.control.complete >= _targetPin.completerequired && _targetPin.completerequired != 0)
+        if (!gate.LockCheck())
         {
             PreviousPin = CurrentPin;
             // Get a direction to keep moving in

@@ -17,8 +17,8 @@ public class Pin : MonoBehaviour
 	public bool IsAutomatic;
     public bool IsEndOfWorld;
 	public bool HideIcon;
-    public int completerequired;
 	public string SceneToLoad;
+    public int completerequired;
     public Sprite previewimage;
 
     public string ParTime;

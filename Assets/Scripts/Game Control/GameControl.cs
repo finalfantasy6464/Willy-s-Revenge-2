@@ -16,9 +16,14 @@ public class GameControl : MonoBehaviour
     public int camerachoice;
     public bool returntoselect = false;
     public bool bosscheckpoint = false;
+
     public List<bool> completedlevels = new List<bool>();
     public List<bool> goldenpellets = new List<bool>();
     public List<bool> timerchallenge = new List<bool>();
+    public List<GatePin> worldgates = new List<GatePin>();
+    private List<bool> lockedgates = new List<bool>();
+    private List<bool> destroyedgates = new List<bool>();
+
     public int totallevels;
     public int targetLevels = 0;
     public int levelID;
@@ -65,7 +70,18 @@ public class GameControl : MonoBehaviour
     {
 
         if (m_Scene.name == "OverWorld")
+        {
             StartCoroutine(Setcamerasroutine());
+
+            //Worldgates is considered to be 0, for some reason. Should be 9.
+
+            for (int i = 0; i < worldgates.Count; i++)
+            {
+                lockedgates.Add(false);
+                destroyedgates.Add(false);
+            }
+        }
+
         else if (m_Scene.name == "MainMenu")
         {
             for (int i = 0; i < completedlevels.Count; i++)
@@ -131,7 +147,7 @@ public class GameControl : MonoBehaviour
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/autosave.wr2");
         PlayerData data = new PlayerData(complete, golden, timer, levelID,
-                camerachoice, new SerializedVector3(AutosavePosition), new SerializedVector3Pin(savedPinPosition), completedlevels, goldenpellets, timerchallenge);
+                camerachoice, new SerializedVector3(AutosavePosition), new SerializedVector3Pin(savedPinPosition), completedlevels, goldenpellets, timerchallenge, lockedgates, destroyedgates);
         bf.Serialize(file, data);
         file.Close();
     }
@@ -143,7 +159,7 @@ public class GameControl : MonoBehaviour
 		FileStream file = File.Create (Application.persistentDataPath + "/playersave.wr2");
         SetPinFromPosition(character);
         PlayerData data = new PlayerData(complete, golden, timer, levelID,
-                camerachoice, new SerializedVector3(character.transform.position), new SerializedVector3Pin(savedPinPosition), completedlevels, goldenpellets, timerchallenge);
+                camerachoice, new SerializedVector3(character.transform.position), new SerializedVector3Pin(savedPinPosition), completedlevels, goldenpellets, timerchallenge, lockedgates, destroyedgates);
         bf.Serialize (file, data);
 		file.Close();
 	}
@@ -193,6 +209,16 @@ public class GameControl : MonoBehaviour
             savedPinPosition.y = data.savedPinposition.y;
             savedPinPosition.z = data.savedPinposition.z;
 
+            for(int i = 0; i < worldgates.Count; i++)
+            {
+                Debug.Log(data.lockedgates.Count);
+
+                //Triggers out of index error
+
+                worldgates[i].locked = data.lockedgates[i];
+                worldgates[i].destroyed = data.destroyedgates[i];
+                worldgates[i].OnLevelLoaded.Invoke();
+            }
             control.StartCoroutine(Setcamerasroutine());
             control.StartCoroutine(ChangeCharacterPin());
         }
@@ -237,6 +263,8 @@ class PlayerData
 	public List<bool> completedlevels;
 	public List<bool> goldenpellets;
 	public List<bool> timerchallenge;
+    public List<bool> lockedgates;
+    public List<bool> destroyedgates;
 
     public PlayerData(int complete, int golden, int timer, int levelID, int cameraChoice,
             SerializedVector3 serializedPosition, SerializedVector3Pin serializedPinPosition)
@@ -252,7 +280,7 @@ class PlayerData
 
     public PlayerData(int complete, int golden, int timer, int levelID, int cameraChoice,
             SerializedVector3 serializedPosition, SerializedVector3Pin serializedPinPosition, List<bool> completedLevels,
-            List<bool> goldenPellets, List<bool> timerChallenge)
+            List<bool> goldenPellets, List<bool> timerChallenge, List<bool> lockedgates, List<bool> destroyedgates)
     {
         this.complete = complete;
         this.golden = golden;
@@ -264,5 +292,7 @@ class PlayerData
         this.completedlevels = completedLevels;
         this.goldenpellets = goldenPellets;
         this.timerchallenge = timerChallenge;
+        this.lockedgates = lockedgates;
+        this.destroyedgates = destroyedgates;
     }
 }
