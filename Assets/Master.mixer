@@ -15,7 +15,11 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: 77ea2a4d9fb5a6f4d8963f4ea45c8eb0
+    name: MusicVolume
+  - guid: 1c507f1f426f61246953dbdc562907b8
+    name: SFXVolume
   m_AudioMixerGroupViews:
   - guids:
     - aa814d0a7eec4ea48be41a36163cebd2
@@ -68,7 +72,10 @@ AudioMixerSnapshotController:
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 99737a2140e842246a75d1d08c857b84
   m_FloatValues:
-    77ea2a4d9fb5a6f4d8963f4ea45c8eb0: -10.34521
+    f682bde226c125042837e2a9dc7d0905: -0.02577656
+    c3ce6698a373e334595fe6e96d3b9413: 10
+    026e387be30d0eb45bc73ff42cabaaa0: 2.5
+    77ea2a4d9fb5a6f4d8963f4ea45c8eb0: 0
   m_TransitionOverrides: {}
 --- !u!243 &243152007197867178
 AudioMixerGroupController:
@@ -102,10 +109,31 @@ AudioMixerGroupController:
   m_Pitch: 78bddb2f784e0c644a7c185f5f5893d5
   m_Effects:
   - {fileID: 244764748138145594}
+  - {fileID: 244208058986439096}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!244 &244208058986439096
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 11419f99bcbe1a645a2aaa02901da284
+  m_EffectName: Normalize
+  m_MixLevel: 74f9da492b7e3c743baece360eec0f40
+  m_Parameters:
+  - m_ParameterName: Fade in time
+    m_GUID: 1d044a280f16f1941a2eb7e19b2da259
+  - m_ParameterName: Lowest volume
+    m_GUID: 7ff9f2b23a3adc644889e5efc2c32c4a
+  - m_ParameterName: Maximum amp
+    m_GUID: 026e387be30d0eb45bc73ff42cabaaa0
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!244 &244525175298152028
 AudioMixerEffectController:
   m_ObjectHideFlags: 3

@@ -1,18 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class GameSoundManagement : MonoBehaviour
 {
 
 	public AudioSource efxSource;
 
+    public AudioMixer audioMixer;
+
+    public Slider slider;
+
+    float sliderValue;
+    float logvolume;
+
 	public static GameSoundManagement instance = null;
 
 	public float lowPitchRange = 0.85f;
 	public float highPitchRange = 1.15f;
 
-	void Awake ()
+
+    const string SOUND_VOLUME = "SFXVolume";
+
+    void Awake ()
 	{
 
 		if (instance == null)
@@ -24,7 +36,22 @@ public class GameSoundManagement : MonoBehaviour
 		DontDestroyOnLoad (gameObject);
 	}
 
-	public void PlaySingle (AudioClip clip)
+    public void Start()
+    {
+        slider.value = PlayerPrefs.GetFloat(SOUND_VOLUME);
+        audioMixer.SetFloat(SOUND_VOLUME, Mathf.Log10(slider.value) * 20);
+    }
+
+    public void SetLevel()
+    {
+        logvolume = Mathf.Log10(slider.value) * 20;
+        sliderValue = slider.value;
+        audioMixer.SetFloat(SOUND_VOLUME, logvolume);
+        PlayerPrefs.SetFloat(SOUND_VOLUME, sliderValue);
+    }
+
+
+    public void PlaySingle (AudioClip clip)
 	{
 		efxSource.clip = clip;
 		efxSource.Play ();

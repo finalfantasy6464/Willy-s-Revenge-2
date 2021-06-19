@@ -6,7 +6,7 @@ public class Teleporter : MonoBehaviour{
 
 	public Transform target;
 
-    public AudioClip teleport;
+    public PositionalSFX sfx;
 
     // Update is called once per frame
    
@@ -16,14 +16,13 @@ void OnTriggerEnter2D(Collider2D tele){
 
 		if (hit.tag == "Player"){
 			hit.transform.position = target.position;
-            GameSoundManagement.instance.PlaySingle(teleport);
+            sfx.PlayPositionalSound();
 	}
 
 
 		if (hit.tag == "Enemy" | hit.tag == "Enemy5"){
 			hit.transform.position = target.position;
-            GameSoundManagement.instance.PlaySingle(teleport);
-
+            sfx.PlayPositionalSound();
         }
 			
 	}

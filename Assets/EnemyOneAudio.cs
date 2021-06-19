@@ -9,6 +9,8 @@ public class EnemyOneAudio : MonoBehaviour
     public AudioSource source;
     public AudioClip WallHit;
 
+    public PositionalSFX sfx;
+
     public EnemyMovement Enemymov;
 
    
@@ -21,7 +23,7 @@ public class EnemyOneAudio : MonoBehaviour
 
     void PlayClip(AudioClip clip)
     {
-        source.PlayOneShot(clip);
+        sfx.PlayPositionalSound();
     }
 
     private void OnDisable()

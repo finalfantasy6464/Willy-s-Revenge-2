@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class GatePin : MonoBehaviour
 {
@@ -9,6 +10,10 @@ public class GatePin : MonoBehaviour
     private int completerequired;
 
     public Sprite greensprite;
+    public Sprite destroyedsprite;
+
+    public AudioSource source;
+    public AudioClip clip;
 
 
     // Start is called before the first frame update

@@ -7,8 +7,6 @@ public class PlayerAudio : MonoBehaviour
     public AudioSource source;
     public AudioClip pelletGet;
     public AudioClip goldenpelletGet;
-    public AudioClip SlideOpen;
-    public AudioClip SlideClose;
     public AudioClip keyget;
     public AudioClip enemyhit;
     public AudioClip gatehit;
@@ -29,8 +27,6 @@ public class PlayerAudio : MonoBehaviour
     { 
         Playercontrol.onEatPellet.AddListener(() => PlayClip(pelletGet, true, true, false));
         Playercontrol.onGoldenPellet.AddListener(() => PlayClip(goldenpelletGet, true, true, false));
-        Playercontrol.onSlidingDoorOpen.AddListener(() => PlayClip(SlideOpen, true));
-        Playercontrol.onSlidingDoorClose.AddListener(() => PlayClip(SlideClose, true));
         Playercoll.onKeyCollect.AddListener(() => PlayClip(keyget, true));
         Playercoll.onWallCollide.AddListener(() => PlayClip(gatehit, true));
         Playercoll.onLavaBurn.AddListener(() => PlayClip(lavaburn, true));
@@ -72,8 +68,6 @@ public class PlayerAudio : MonoBehaviour
     {
         Playercontrol.onEatPellet.RemoveListener(() => PlayClip(pelletGet, true, true, false));
         Playercontrol.onGoldenPellet.RemoveListener(() => PlayClip(goldenpelletGet, true, true, false));
-        Playercontrol.onSlidingDoorOpen.RemoveListener(() => PlayClip(SlideOpen, true));
-        Playercontrol.onSlidingDoorClose.RemoveListener(() => PlayClip(SlideClose, true));
         Playercoll.onKeyCollect.RemoveListener(() => PlayClip(keyget, true));
         Playercoll.onWallCollide.RemoveListener(() => PlayClip(gatehit, true));
         Playercoll.onLavaBurn.RemoveListener(() => PlayClip(lavaburn, true));

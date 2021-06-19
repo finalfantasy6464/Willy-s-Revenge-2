@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 125472169353847343}
   - component: {fileID: 3259578994503220576}
+  - component: {fileID: 8793418690895977785}
   m_Layer: 0
   m_Name: EnemyAudio
   m_TagString: Untagged
@@ -45,7 +46,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   source: {fileID: 4291222652195495920}
   WallHit: {fileID: 8300000, guid: 6fb4b1260e3a8e540af4bd51ba1fdcb7, type: 3}
+  sfx: {fileID: 8793418690895977785}
   Enemymov: {fileID: 3561141492004056015}
+--- !u!114 &8793418690895977785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 781895573576952229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62911eca9090b4c4687d0e3ac8f28ac3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  source: {fileID: 4291222652195495920}
+  clip: {fileID: 8300000, guid: 6fb4b1260e3a8e540af4bd51ba1fdcb7, type: 3}
+  minVolume: 0
+  maxVolume: 1
+  minDistance: 0
+  maxDistance: 7
+  playsOnStart: 0
+  looping: 0
+  currentDistance: 0
+  distanceProgress: 0
 --- !u!1 &8032808720404546672
 GameObject:
   m_ObjectHideFlags: 0

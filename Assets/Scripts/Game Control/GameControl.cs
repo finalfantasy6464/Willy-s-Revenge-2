@@ -63,7 +63,6 @@ public class GameControl : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("We have started");
 
         if (m_Scene.name == "OverWorld")
             StartCoroutine(Setcamerasroutine());
