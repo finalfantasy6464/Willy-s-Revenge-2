@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class MapManager : MonoBehaviour
@@ -23,10 +24,12 @@ public class MapManager : MonoBehaviour
     public GameObject LoadCanvas;
     public GameObject LevelCanvas;
 
-	/// <summary>
-	/// Use this for initialization
-	/// </summary>
-	private void Start ()
+    public List<GatePin> worldgates = new List<GatePin>();
+
+    /// <summary>
+    /// Use this for initialization
+    /// </summary>
+    private void Start ()
 	{
 		if (GameControl.control.levelID != 0) {
 			pinObject = GameObject.Find ("LP" + GameControl.control.levelID.ToString ());
@@ -36,7 +39,14 @@ public class MapManager : MonoBehaviour
         GameObject.Find("SoundManager").GetComponent<MusicManagement>().onOverworld.Invoke();
         // Pass a ref and default the player Starting Pin
         Character.Initialise (this, StartPin);
-	}
+
+
+        for (int i = 0; i < worldgates.Count; i++)
+        {
+            GameControl.control.lockedgates.Add(true);
+            GameControl.control.destroyedgates.Add(false);
+        }
+    }
 
 	/// <summary>
 	/// This runs once a frame
@@ -101,11 +111,20 @@ public class MapManager : MonoBehaviour
         }
 	}
 
-	
-	/// <summary>
-	/// Update the GUI text
-	/// </summary>
-	public void UpdateGui()
+    public void SetWorldGateData(List<bool> lockedgates, List<bool> destroyedgates)
+    {
+        for (int i = 0; i < worldgates.Count; i++)
+        {
+            worldgates[i].locked = lockedgates[i];
+            worldgates[i].destroyed = destroyedgates[i];
+            worldgates[i].OnLevelLoaded.Invoke();
+        }
+    }
+
+    /// <summary>
+    /// Update the GUI text
+    /// </summary>
+    public void UpdateGui()
 	{
         SelectedLevelText.text = string.Format("{0}", Character.CurrentPin.SceneToLoad);
         SelectedLevelParTime.text = string.Format("{0}", Character.CurrentPin.ParTime);

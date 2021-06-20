@@ -7,9 +7,9 @@ public class DestroyedCheckbehaviour : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (animator.gameObject.GetComponent<GatePin>().destroyed)
+        if (animator.transform.parent.GetComponent<GatePin>().destroyed == true)
         {
-            animator.SetFloat("progress", 1);
+            animator.Play(0,layerIndex,1.0f);
         }
     }
 

@@ -23,6 +23,8 @@ public class GatePin : MonoBehaviour
     public GameObject Completeorb;
     public GameObject Barrier;
 
+    public MapManager mapmanager;
+
     [HideInInspector]
     public UnityEvent OnLevelLoaded = new UnityEvent();
 
@@ -36,7 +38,16 @@ public class GatePin : MonoBehaviour
         m_Animator = this.GetComponent<Animator>();
         pin = this.GetComponent<Pin>();
 
+        for (int i = 0; i < mapmanager.worldgates.Count; i++)
+        {
+            if (mapmanager.worldgates[i] == this)
+            {
+                locked = GameControl.control.lockedgates[i];
+                destroyed = GameControl.control.destroyedgates[i];
+            }
+        }
 
+        SetOrbState(locked, destroyed);
     }
 
     // Update is called once per frame
@@ -56,8 +67,8 @@ public class GatePin : MonoBehaviour
         if (!locked)
         {
             Barrier.SetActive(false);
+            Crackedorb.SetActive(true);
         }
-        Crackedorb.SetActive(false);
     }
 
     //This checks the state of the world orbs when the player attempts to pass through it
@@ -68,10 +79,28 @@ public class GatePin : MonoBehaviour
         if (GameControl.control.complete >= completerequired)
         {
             locked = false;
+            destroyed = true;
+            for(int i = 0; i < mapmanager.worldgates.Count; i++)
+            {
+               if(mapmanager.worldgates[i] == this)
+                {
+                    GameControl.control.lockedgates[i] = false;
+                    GameControl.control.destroyedgates[i] = true;
+                }
+            }
         }
         Barrier.SetActive(locked);
         Completeorb.SetActive(locked);
         Crackedorb.SetActive(!locked);
         return locked;
+    }
+
+    public void SetOrbState(bool locked, bool destroyed)
+    {
+        if (!locked && destroyed)
+        {
+            Completeorb.SetActive(false);
+            Crackedorb.SetActive(true);
+        }
     }
 }

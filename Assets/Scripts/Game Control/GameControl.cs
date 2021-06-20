@@ -20,9 +20,10 @@ public class GameControl : MonoBehaviour
     public List<bool> completedlevels = new List<bool>();
     public List<bool> goldenpellets = new List<bool>();
     public List<bool> timerchallenge = new List<bool>();
-    public List<GatePin> worldgates = new List<GatePin>();
-    private List<bool> lockedgates = new List<bool>();
-    private List<bool> destroyedgates = new List<bool>();
+    public List<bool> lockedgates = new List<bool>();
+    public List<bool> destroyedgates = new List<bool>();
+    private List<bool> lockedgatescache = new List<bool>();
+    private List<bool> destroyedgatescache = new List<bool>();
 
     public int totallevels;
     public int targetLevels = 0;
@@ -73,13 +74,6 @@ public class GameControl : MonoBehaviour
         {
             StartCoroutine(Setcamerasroutine());
 
-            //Worldgates is considered to be 0, for some reason. Should be 9.
-
-            for (int i = 0; i < worldgates.Count; i++)
-            {
-                lockedgates.Add(false);
-                destroyedgates.Add(false);
-            }
         }
 
         else if (m_Scene.name == "MainMenu")
@@ -103,6 +97,18 @@ public class GameControl : MonoBehaviour
     {
         yield return 3;
         SetCamera(camerachoice);
+    }
+
+    [HideInInspector]
+    public IEnumerator SetWorldGates()
+    {
+        yield return 3;
+        MapManager map = GameObject.Find("MapManager").GetComponent<MapManager>();
+        map.SetWorldGateData(lockedgatescache, destroyedgatescache);
+        for (int i = 0; i < map.worldgates.Count; i++)
+        {
+            map.worldgates[i].SetOrbState(lockedgatescache[i], destroyedgatescache[i]);
+        }
     }
 
     [HideInInspector] public IEnumerator ChangeCharacterPin()
@@ -208,18 +214,11 @@ public class GameControl : MonoBehaviour
             savedPinPosition.x = data.savedPinposition.x;
             savedPinPosition.y = data.savedPinposition.y;
             savedPinPosition.z = data.savedPinposition.z;
-
-            for(int i = 0; i < worldgates.Count; i++)
-            {
-                Debug.Log(data.lockedgates.Count);
-
-                //Triggers out of index error
-
-                worldgates[i].locked = data.lockedgates[i];
-                worldgates[i].destroyed = data.destroyedgates[i];
-                worldgates[i].OnLevelLoaded.Invoke();
-            }
+            lockedgatescache = data.lockedgates;
+            destroyedgatescache = data.destroyedgates;
+ 
             control.StartCoroutine(Setcamerasroutine());
+            control.StartCoroutine(SetWorldGates());
             control.StartCoroutine(ChangeCharacterPin());
         }
     }
