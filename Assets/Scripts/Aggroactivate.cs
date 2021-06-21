@@ -20,7 +20,7 @@ public class Aggroactivate : MonoBehaviour
     void Update()
     {
 		if (player) {
-			if (Vector3.Distance (transform.position, player.transform.position) <= range) {
+			if (Vector2.Distance (transform.position, player.transform.position) <= range) {
 				active = true;
 			}
 

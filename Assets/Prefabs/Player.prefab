@@ -143,11 +143,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   source: {fileID: 1855975756206912799}
   pelletGet: {fileID: 8300000, guid: 34d3e0457b51cb54f85e239e550f6599, type: 3}
+  goldenpelletGet: {fileID: 8300000, guid: 442d622dae21e434ab3ede6a1b393132, type: 3}
   keyget: {fileID: 8300000, guid: aa1c96be40d6ee54fb8933e3b9975345, type: 3}
   enemyhit: {fileID: 8300000, guid: 3e085db7809a099468f1c0fe37fbf374, type: 3}
   gatehit: {fileID: 8300000, guid: 3e085db7809a099468f1c0fe37fbf374, type: 3}
   lavaburn: {fileID: 8300000, guid: 1feabfe17855acf40bf2c3c470c086d6, type: 3}
-  falling: {fileID: 0}
+  falling: {fileID: 8300000, guid: 887403a28e1f32243ae1d6aa04b54a68, type: 3}
   shock: {fileID: 8300000, guid: cb11e25c89d0e2945b8f72f40e08f893, type: 3}
   Playercontrol: {fileID: 2828307272208511148}
   Playercoll: {fileID: 2828307272208511145}
@@ -165,6 +166,7 @@ GameObject:
   - component: {fileID: 2828307272208511144}
   - component: {fileID: 2828307272208511145}
   - component: {fileID: 2828307272208511149}
+  - component: {fileID: 8466066802426289491}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -269,6 +271,21 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  onGoldenPellet:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onSlidingDoorOpen:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onSlidingDoorClose:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!61 &2828307272208511144
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -353,3 +370,11 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!81 &8466066802426289491
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2828307272208511151}
+  m_Enabled: 1
