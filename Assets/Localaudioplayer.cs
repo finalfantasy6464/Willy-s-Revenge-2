@@ -4,14 +4,24 @@ using UnityEngine;
 
 public class Localaudioplayer : MonoBehaviour
 {
-    public AudioSource source;
-    public AudioClip smash;
+    public Transform Emitter;
+
+    public PositionalSoundData soundData;
+
+    private void Start()
+    {
+        if(Emitter == null)
+        {
+            Emitter = transform;
+        }
+    }
 
     // Start is called before the first frame update
     void SoundPlay()
     {
-           source.clip = smash;
-           source.PlayOneShot(smash);
+        GameSoundManagement.instance.PlayPositional(soundData, Emitter.position);
+           //source.clip = smash;
+           //source.PlayOneShot(smash);
     }
 
 }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class audioplayer : MonoBehaviour
 {
-
 	public AudioClip smash;
 
     // Start is called before the first frame update

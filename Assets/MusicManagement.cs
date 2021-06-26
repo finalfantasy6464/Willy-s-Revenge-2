@@ -37,8 +37,11 @@ public class MusicManagement : MonoBehaviour
 
     public void Start()
     {
-        slider.value = PlayerPrefs.GetFloat(MUSIC_VOLUME);
-        audioMixer.SetFloat(MUSIC_VOLUME, Mathf.Log10(slider.value) * 20);
+        if(slider != null)
+        {
+            slider.value = PlayerPrefs.GetFloat(MUSIC_VOLUME);
+            audioMixer.SetFloat(MUSIC_VOLUME, Mathf.Log10(slider.value) * 20);
+        }
     }
 
     public void SetLevel()

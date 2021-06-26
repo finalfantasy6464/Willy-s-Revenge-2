@@ -54,7 +54,7 @@ public class PositionalSFX : MonoBehaviour
     {
         if(player == null || !source.isPlaying) return;
 
-        currentDistance = Vector3.Distance(transform.position, player.transform.position);
+        currentDistance = Vector2.Distance(transform.position, player.transform.position);
         distanceProgress = Mathf.InverseLerp(maxDistance, minDistance, currentDistance);
         source.volume = Mathf.Lerp(minVolume, maxVolume, distanceProgress);
     }

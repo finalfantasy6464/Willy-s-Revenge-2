@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameSoundManagement : MonoBehaviour
 {
 
-	public AudioSource efxSource;
+    public AudioSource efxSource;
+
+    public AudioSource[] sources;
+
+    List<PositionalSoundData> soundDataList = new List<PositionalSoundData>();
 
     public AudioMixer audioMixer;
 
@@ -16,30 +21,72 @@ public class GameSoundManagement : MonoBehaviour
     float sliderValue;
     float logvolume;
 
-	public static GameSoundManagement instance = null;
+    public float currentDistance;
+    public float distanceProgress;
 
-	public float lowPitchRange = 0.85f;
-	public float highPitchRange = 1.15f;
+    public static GameSoundManagement instance = null;
+
+    public float lowPitchRange = 0.85f;
+    public float highPitchRange = 1.15f;
+
+    public Transform player;
 
 
     const string SOUND_VOLUME = "SFXVolume";
 
-    void Awake ()
-	{
+    void Awake()
+    {
 
-		if (instance == null)
-			instance = this;
+        if (instance == null)
+            instance = this;
 
-		else if (instance != this)
-			Destroy (gameObject);
+        else if (instance != this)
+            Destroy(gameObject);
 
-		DontDestroyOnLoad (gameObject);
-	}
+        DontDestroyOnLoad(gameObject);
+
+        foreach (AudioSource source in sources)
+        {
+            soundDataList.Add(null);
+        }
+    }
 
     public void Start()
     {
-        slider.value = PlayerPrefs.GetFloat(SOUND_VOLUME);
-        audioMixer.SetFloat(SOUND_VOLUME, Mathf.Log10(slider.value) * 20);
+        if(slider != null)
+        {
+            slider.value = PlayerPrefs.GetFloat(SOUND_VOLUME);
+            audioMixer.SetFloat(SOUND_VOLUME, Mathf.Log10(slider.value) * 20);
+        }
+    }
+
+    public void Update()
+    {
+
+      for (int i = 0; i < sources.Length; i++)
+        {
+            if (!sources[i].isPlaying) continue;
+
+            if(player != null)
+            {
+                sources[i].volume = soundDataList[i].VolumeUpdate(Vector2.Distance(sources[i].transform.position, player.transform.position));
+            }     
+        }  
+    }
+
+    public void PlayerCheck()
+    {
+        if (player == null)
+        {
+            if (SceneManager.GetActiveScene().name == "Overworld")
+            {
+                player = GameObject.Find("Character").GetComponent<Character>().transform;
+            }
+            else
+            {
+                player = GameObject.Find("Player").GetComponent<PlayerController>().transform;
+            }
+        }
     }
 
     public void SetLevel()
@@ -50,12 +97,34 @@ public class GameSoundManagement : MonoBehaviour
         PlayerPrefs.SetFloat(SOUND_VOLUME, sliderValue);
     }
 
+    public void PlaySingle(AudioClip clip)
+    {
+        efxSource.clip = clip;
+        efxSource.Play();
+    }
 
-    public void PlaySingle (AudioClip clip)
-	{
-		efxSource.clip = clip;
-		efxSource.Play ();
-	}
+    public void PlayPositional(PositionalSoundData soundData, Vector2 objectposition)
+    {
+        AudioSource source = default(AudioSource);         
+            
+        for (int i = 0; i < sources.Length; i++)
+        {
+            if (!sources[i].isPlaying)
+            {
+               source = sources[i];
+               source.volume = 0.0f;
+               soundDataList[i] = soundData;
+                break;
+            }
+        }
+
+        PlayerCheck();
+
+        source.transform.position = objectposition;
+
+        source.clip = soundData.clip;
+        source.Play();
+    }
 
 	public void PlayOneShot (AudioClip clip)
 	{
