@@ -10,6 +10,7 @@ public class GameControl : MonoBehaviour
 {
     public static GameControl control;
 
+    public int fuckyourself = 69420;
     public int complete;
     public int golden;
     public int timer;
