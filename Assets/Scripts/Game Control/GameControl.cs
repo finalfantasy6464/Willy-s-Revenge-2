@@ -71,7 +71,7 @@ public class GameControl : MonoBehaviour
     private void Start()
     {
 
-        if (m_Scene.name == "OverWorld")
+        if (m_Scene.name == "Overworld")
         {
             StartCoroutine(Setcamerasroutine());
 
@@ -94,7 +94,12 @@ public class GameControl : MonoBehaviour
         GUI.Label(new Rect(10, 40, 150, 30), "Golden: " + golden);
     }
 
-    [HideInInspector] public IEnumerator Setcamerasroutine()
+    public void CallCameraRoutine()
+    {
+        StartCoroutine(Setcamerasroutine());
+    }
+
+    public IEnumerator Setcamerasroutine()
     {
         yield return 3;
         SetCamera(camerachoice);

@@ -19,7 +19,13 @@ public class Character : MonoBehaviour
         SetCurrentPin(startPin);
     }
 
-
+    private void Awake()
+    {
+        if(Time.timeScale == 0)
+        {
+            Time.timeScale = 1;
+        }
+    }
     /// <summary>
     /// This runs once a frame
     /// </summary>

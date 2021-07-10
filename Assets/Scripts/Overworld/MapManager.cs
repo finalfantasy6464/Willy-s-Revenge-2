@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class MapManager : MonoBehaviour
 {
-	public Character Character;
+	public Character character;
 
 	public Pin StartPin;
 	public Pin TargetPin;
@@ -31,14 +31,17 @@ public class MapManager : MonoBehaviour
     /// </summary>
     private void Start ()
 	{
+        character = GameObject.Find("Character").GetComponent<Character>();
+
 		if (GameControl.control.levelID != 0) {
 			pinObject = GameObject.Find ("LP" + GameControl.control.levelID.ToString ());
 			StartPin = pinObject.GetComponent<Pin> ();
+            character.transform.position = StartPin.transform.position;
         }
 
         GameObject.Find("SoundManager").GetComponent<MusicManagement>().onOverworld.Invoke();
         // Pass a ref and default the player Starting Pin
-        Character.Initialise (this, StartPin);
+        character.Initialise (this, StartPin);
 
 
         for (int i = 0; i < worldgates.Count; i++)
@@ -54,7 +57,7 @@ public class MapManager : MonoBehaviour
 	private void Update()
 	{
         // Only check input when character is stopped
-        if (Character.IsMoving) return;
+        if (character.IsMoving) return;
 
         // First thing to do is try get the player input
         if (!Checklocked)
@@ -67,7 +70,7 @@ public class MapManager : MonoBehaviour
     {
         Checklocked = false;
     }
-	
+
 	/// <summary>
 	/// Check if the player has pressed a button
 	/// </summary>
@@ -75,19 +78,19 @@ public class MapManager : MonoBehaviour
 	{
         if (Input.GetKeyUp(KeyCode.UpArrow))
         {
-            Character.TrySetDirection(Direction.Up);
+            character.TrySetDirection(Direction.Up);
         }
         else if (Input.GetKeyUp(KeyCode.DownArrow))
         {
-            Character.TrySetDirection(Direction.Down);
+            character.TrySetDirection(Direction.Down);
         }
         else if (Input.GetKeyUp(KeyCode.LeftArrow))
         {
-            Character.TrySetDirection(Direction.Left);
+            character.TrySetDirection(Direction.Left);
         }
         else if (Input.GetKeyUp(KeyCode.RightArrow))
         {
-            Character.TrySetDirection(Direction.Right);
+            character.TrySetDirection(Direction.Right);
         }
         else if (Input.GetKeyUp(KeyCode.Escape))
         {
@@ -126,8 +129,8 @@ public class MapManager : MonoBehaviour
     /// </summary>
     public void UpdateGui()
 	{
-        SelectedLevelText.text = string.Format("{0}", Character.CurrentPin.SceneToLoad);
-        SelectedLevelParTime.text = string.Format("{0}", Character.CurrentPin.ParTime);
-        SelectedLevelPreviewImage.sprite = Character.CurrentPin.previewimage;
+        SelectedLevelText.text = string.Format("{0}", character.CurrentPin.SceneToLoad);
+        SelectedLevelParTime.text = string.Format("{0}", character.CurrentPin.ParTime);
+        SelectedLevelPreviewImage.sprite = character.CurrentPin.previewimage;
     }
 }

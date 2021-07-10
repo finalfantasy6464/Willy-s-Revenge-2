@@ -73,14 +73,122 @@ public class MusicManagement : MonoBehaviour
     private AudioClip GetFromBuildIndex()
     {
         int index = SceneManager.GetActiveScene().buildIndex;
-        int rangeSize = 5;
-        int upperRange = 1;
 
-        while (upperRange <= 100)
+       if(index == 1 || index == 2)
         {
-            if (index < upperRange)
-                return musicClips[Mathf.CeilToInt(upperRange / rangeSize) - 1];
-            upperRange += rangeSize;
+            return musicClips[0];
+        }
+  
+        if (index >= 3 & index < 6)
+        {
+            return musicClips[1];
+        }
+
+        if (index >= 6 & index < 11)
+        {
+            return musicClips[2];
+        }
+
+        if (index >= 11 && index < 16)
+        {
+            return musicClips[3];
+        }
+        if (index >= 16 && index < 21)
+        {
+            return musicClips[4];
+        }
+        if (index >= 21 && index < 26)
+        {
+            return musicClips[5];
+        }
+        if (index >= 26 && index < 31)
+        {
+            return musicClips[6];
+        }
+        if (index >= 31 && index < 36)
+        {
+            return musicClips[7];
+        }
+        if (index >= 36 && index < 41)
+        {
+            return musicClips[8];
+        }
+        if (index >= 41 && index < 46)
+        {
+            return musicClips[9];
+        }
+        if (index >= 46 && index < 51)
+        {
+            return musicClips[10];
+        }
+        if (index >= 51 && index < 56)
+        {
+            return musicClips[11];
+        }
+        if (index >= 56 && index < 61)
+        {
+            return musicClips[12];
+        }
+        if (index >= 61 && index < 66)
+        {
+            return musicClips[13];
+        }
+        if (index >= 66 && index < 71)
+        {
+            return musicClips[14];
+        }
+        if (index >= 71 && index < 76)
+        {
+            return musicClips[15];
+        }
+        if (index >= 76 && index < 81)
+        {
+            return musicClips[16];
+        }
+        if (index >= 81 && index < 86)
+        {
+            return musicClips[17];
+        }
+        if (index >= 86 && index < 91)
+        {
+            return musicClips[18];
+        }
+
+        if (index == 91)
+        {
+            return musicClips[19];
+        }
+        if (index == 92)
+        {
+            return musicClips[20];
+        }
+        if (index == 93)
+        {
+            return musicClips[21];
+        }
+        if (index == 94)
+        {
+            return musicClips[22];
+        }
+        if (index == 95)
+        {
+            return musicClips[23];
+        }
+        if (index == 96)
+        {
+            return musicClips[24];
+        }
+        if (index == 97)
+        {
+            return musicClips[25];
+        }
+        if (index == 98)
+        {
+            return musicClips[26];
+        }
+        if (index == 99)
+        {
+            return musicClips[27];
         }
         return null;
     }

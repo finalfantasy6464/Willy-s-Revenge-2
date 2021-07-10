@@ -76,18 +76,22 @@ public class GameSoundManagement : MonoBehaviour
 
     public void PlayerCheck()
     {
-        if (player == null)
-        {
             if (SceneManager.GetActiveScene().name == "Overworld")
+            {
+            if(player == null)
             {
                 player = GameObject.Find("Character").GetComponent<Character>().transform;
             }
+        }
+                
             else
+            {
+            if(player == null)
             {
                 player = GameObject.Find("Player").GetComponent<PlayerController>().transform;
             }
+            }
         }
-    }
 
     public void SetLevel()
     {

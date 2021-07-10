@@ -7,6 +7,6 @@ public class AnimationAutoDestroy : MonoBehaviour
 	public float delay = 0f;
 
 	void Start(){
-		Destroy (transform.parent.gameObject, this.GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0).length + delay);
+		Destroy (transform.gameObject, GetComponent<Animator>().GetCurrentAnimatorStateInfo (0).length + delay);
 	}
 }

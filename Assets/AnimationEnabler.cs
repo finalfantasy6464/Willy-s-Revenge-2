@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AnimationEnabler : MonoBehaviour
 {
 	Animator m_Animator;
+
+    public AudioClip clip;
 
 	void Start()
 	{
@@ -19,6 +22,7 @@ public class AnimationEnabler : MonoBehaviour
 		if (hit.tag == "Jump")
 		{
             m_Animator.Play("PlayerJump");
+            GameSoundManagement.instance.PlayOneShot(clip);
 		}
 	}
 }

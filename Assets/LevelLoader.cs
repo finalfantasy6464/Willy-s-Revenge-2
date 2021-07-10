@@ -52,7 +52,6 @@ public class LevelLoader : MonoBehaviour
     }
     void Update()
     {
-
         if (GameControl.control.completedlevels[ID] == true)
         {
             this.GetComponent<SpriteRenderer>().sprite = greensprite;

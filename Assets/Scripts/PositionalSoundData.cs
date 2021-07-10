@@ -12,6 +12,9 @@ public class PositionalSoundData
     public float minVolume;
     public float maxVolume;
 
+    public float minPitch;
+    public float maxPitch;
+
     public float distanceProgress;
 
     public AudioClip clip;
