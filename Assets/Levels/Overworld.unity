@@ -739,6 +739,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5115492636546004752, guid: 5679cdb19cfd35f4f820d3499af9a705,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5115492636546004767, guid: 5679cdb19cfd35f4f820d3499af9a705,
         type: 3}
       propertyPath: m_IsTrigger
@@ -773,11 +778,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -0.02
-      objectReference: {fileID: 0}
-    - target: {fileID: 5115492636546004752, guid: 5679cdb19cfd35f4f820d3499af9a705,
-        type: 3}
-      propertyPath: m_Constraints
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5679cdb19cfd35f4f820d3499af9a705, type: 3}
@@ -1446,6 +1446,10 @@ MonoBehaviour:
   SaveCanvas: {fileID: 631227895}
   LoadCanvas: {fileID: 206233381}
   LevelCanvas: {fileID: 1467555970}
+  backButton: {fileID: 849905315}
+  playButton: {fileID: 469772074}
+  backsound: {fileID: 8300000, guid: d47651142bf72f04fb14e4636cca66fc, type: 3}
+  playsound: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   worldgates:
   - {fileID: 1709250002}
   - {fileID: 1700111756}
@@ -7028,18 +7032,6 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 883284129}
-        m_MethodName: PlaySingle
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca,
-            type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -13854,18 +13846,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 883284129}
-        m_MethodName: PlaySingle
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: d47651142bf72f04fb14e4636cca66fc,
-            type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
       - m_Target: {fileID: 71569095}
         m_MethodName: CheckUnlocker
         m_Mode: 1
@@ -14106,7 +14086,7 @@ GameObject:
   - component: {fileID: 865965243}
   - component: {fileID: 865965242}
   m_Layer: 0
-  m_Name: GameObject (8)
+  m_Name: SceneReloader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14423,18 +14403,6 @@ Transform:
   m_Father: {fileID: 1979291764}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -22.993002}
---- !u!114 &883284129 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4854698029468373351, guid: 69b0a321fb7aa2d40953a091f3327ac9,
-    type: 3}
-  m_PrefabInstance: {fileID: 1666280884}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8255d3066a9a3c4fa5a0ba93c5d25c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &923415171
 GameObject:
   m_ObjectHideFlags: 0
@@ -14977,6 +14945,36 @@ MonoBehaviour:
   LoadCanvas: {fileID: 206233381}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+--- !u!1 &950855761
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 950855762}
+  m_Layer: 0
+  m_Name: SoundPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &950855762
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950855761}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10.019897, y: -5.1656637, z: 21.722656}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 68
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &953679081
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23786,7 +23784,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!124 &1559082017
 Behaviour:
   m_ObjectHideFlags: 0
@@ -25521,6 +25519,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4926049036654826136, guid: 69b0a321fb7aa2d40953a091f3327ac9,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 243332002936192748, guid: 226242ef11e39784ca4c02fb6e834d2e,
+        type: 2}
+    - target: {fileID: 4926049036654826137, guid: 69b0a321fb7aa2d40953a091f3327ac9,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 243152007197867178, guid: 226242ef11e39784ca4c02fb6e834d2e,
+        type: 2}
     - target: {fileID: 3734206946666153211, guid: 69b0a321fb7aa2d40953a091f3327ac9,
         type: 3}
       propertyPath: bgm.Array.size
@@ -25606,18 +25616,6 @@ PrefabInstance:
       propertyPath: OverworldMusic
       value: 
       objectReference: {fileID: 8300000, guid: e53e7c9af1b047941bf7805fcdd71687, type: 3}
-    - target: {fileID: 4926049036654826136, guid: 69b0a321fb7aa2d40953a091f3327ac9,
-        type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 243332002936192748, guid: 226242ef11e39784ca4c02fb6e834d2e,
-        type: 2}
-    - target: {fileID: 4926049036654826137, guid: 69b0a321fb7aa2d40953a091f3327ac9,
-        type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 243152007197867178, guid: 226242ef11e39784ca4c02fb6e834d2e,
-        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69b0a321fb7aa2d40953a091f3327ac9, type: 3}
 --- !u!1 &1675088055

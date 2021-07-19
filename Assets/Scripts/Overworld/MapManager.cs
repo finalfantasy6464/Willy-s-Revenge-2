@@ -24,6 +24,14 @@ public class MapManager : MonoBehaviour
     public GameObject LoadCanvas;
     public GameObject LevelCanvas;
 
+    public Button backButton;
+    public Button playButton;
+
+    public AudioClip backsound;
+    public AudioClip playsound;
+
+    private GameSoundManagement sound;
+
     public List<GatePin> worldgates = new List<GatePin>();
 
     /// <summary>
@@ -33,13 +41,23 @@ public class MapManager : MonoBehaviour
 	{
         character = GameObject.Find("Character").GetComponent<Character>();
 
+        if(sound == null)
+        {
+            sound = GameObject.Find("SoundManager").GetComponent<GameSoundManagement>();
+        }
+
 		if (GameControl.control.levelID != 0) {
 			pinObject = GameObject.Find ("LP" + GameControl.control.levelID.ToString ());
 			StartPin = pinObject.GetComponent<Pin> ();
             character.transform.position = StartPin.transform.position;
         }
 
-        GameObject.Find("SoundManager").GetComponent<MusicManagement>().onOverworld.Invoke();
+        sound.GetComponent<MusicManagement>().onOverworld.Invoke();
+
+        backButton.onClick.AddListener(()=> sound.PlaySingle(backsound));
+        playButton.onClick.AddListener(()=> sound.PlaySingle(playsound));
+
+
         // Pass a ref and default the player Starting Pin
         character.Initialise (this, StartPin);
 
@@ -132,5 +150,11 @@ public class MapManager : MonoBehaviour
         SelectedLevelText.text = string.Format("{0}", character.CurrentPin.SceneToLoad);
         SelectedLevelParTime.text = string.Format("{0}", character.CurrentPin.ParTime);
         SelectedLevelPreviewImage.sprite = character.CurrentPin.previewimage;
+    }
+
+    public void OnDisable()
+    {
+        backButton.onClick.RemoveListener(() => sound.PlaySingle(backsound));
+        playButton.onClick.RemoveListener(() => sound.PlaySingle(playsound));
     }
 }

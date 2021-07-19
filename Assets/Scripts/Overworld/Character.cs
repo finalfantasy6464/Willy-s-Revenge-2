@@ -26,6 +26,11 @@ public class Character : MonoBehaviour
             Time.timeScale = 1;
         }
     }
+
+    private void Start()
+    {
+        GameControl.control.CallCameraRoutine();
+    }
     /// <summary>
     /// This runs once a frame
     /// </summary>

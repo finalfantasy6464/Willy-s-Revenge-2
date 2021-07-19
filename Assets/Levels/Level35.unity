@@ -1551,7 +1551,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 4
+  orthographic size: 3.5
   m_Depth: 2
   m_CullingMask:
     serializedVersion: 2
@@ -1575,7 +1575,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.557587, y: 2.9246516, z: -8.200001}
+  m_LocalPosition: {x: -11.617, y: -6.070883, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 603070306}
@@ -1600,10 +1600,10 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
+  m_Follow: {fileID: 1882266305}
   m_Lens:
     FieldOfView: 40
-    OrthographicSize: 4
+    OrthographicSize: 3.5
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
@@ -2020,36 +2020,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 603070305}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ad980451443d70438faac0bc6c235a0, type: 3}
+  m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_LookaheadTime: 0.1
-  m_LookaheadSmoothing: 10
+  m_BindingMode: 1
+  m_FollowOffset: {x: 0, y: 0, z: -10}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
-  m_ScreenX: 0.5
-  m_ScreenY: 0.5
-  m_CameraDistance: 8
-  m_DeadZoneWidth: 0.1
-  m_DeadZoneHeight: 0.1
-  m_DeadZoneDepth: 0
-  m_UnlimitedSoftZone: 1
-  m_SoftZoneWidth: 0.8
-  m_SoftZoneHeight: 0.8
-  m_BiasX: 0
-  m_BiasY: 0
-  m_GroupFramingMode: 2
-  m_AdjustmentMode: 2
-  m_GroupFramingSize: 0.8
-  m_MaxDollyIn: 5000
-  m_MaxDollyOut: 5000
-  m_MinimumDistance: 1
-  m_MaximumDistance: 5000
-  m_MinimumFOV: 3
-  m_MaximumFOV: 60
-  m_MinimumOrthoSize: 1
-  m_MaximumOrthoSize: 100
+  m_PitchDamping: 0
+  m_YawDamping: 0
+  m_RollDamping: 0
 --- !u!1 &604270429
 GameObject:
   m_ObjectHideFlags: 0
@@ -2189,8 +2170,8 @@ PolygonCollider2D:
       - {x: 0.31575394, y: 3.3652124}
       - {x: -0.39178753, y: 3.3329186}
       - {x: -0.3817644, y: 2.5864964}
-      - {x: -1.8014011, y: 2.5881171}
-      - {x: -1.8395004, y: -0.8915825}
+      - {x: -2.034421, y: 2.5997682}
+      - {x: -2.0725203, y: -0.8566294}
       - {x: 0.57409763, y: -0.87745476}
       - {x: 0.9802952, y: -0.8611984}
       - {x: 0.9910221, y: -0.17610931}
@@ -2908,7 +2889,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 779518494}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.23, y: -3.6350002, z: -0.02}
+  m_LocalPosition: {x: -14.23, y: -3.58, z: -0.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1455649212}
@@ -3016,7 +2997,7 @@ GameObject:
   - component: {fileID: 815867478}
   m_Layer: 0
   m_Name: RockPlatform
-  m_TagString: Safety
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3048,7 +3029,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypointIndex: 0
-  movespeed: 6
+  movespeed: 5.5
   waypoints:
   - {fileID: 57013906}
   - {fileID: 1532625036}
@@ -3124,7 +3105,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2, y: 1.2}
+  m_Size: {x: 1.2, y: 1.4}
   m_EdgeRadius: 0
 --- !u!1001 &817633300
 PrefabInstance:
@@ -3536,7 +3517,7 @@ GameObject:
   - component: {fileID: 911010878}
   m_Layer: 0
   m_Name: RockPlatform
-  m_TagString: Safety
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3645,7 +3626,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2, y: 1.2}
+  m_Size: {x: 1.3, y: 1.3}
   m_EdgeRadius: 0
 --- !u!1001 &911683731
 PrefabInstance:
@@ -4391,7 +4372,7 @@ GameObject:
   - component: {fileID: 1010589952}
   m_Layer: 0
   m_Name: RockPlatform
-  m_TagString: Safety
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4499,7 +4480,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2, y: 1.2}
+  m_Size: {x: 1.3, y: 1.3}
   m_EdgeRadius: 0
 --- !u!1001 &1039417983
 PrefabInstance:
@@ -4609,7 +4590,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1072006032}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.23, y: -7.7250004, z: -0.02}
+  m_LocalPosition: {x: -14.23, y: -7.67, z: -0.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1004007017}
@@ -5110,7 +5091,7 @@ GameObject:
   - component: {fileID: 1291737355}
   m_Layer: 0
   m_Name: RockPlatform
-  m_TagString: Safety
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5219,7 +5200,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2, y: 1.2}
+  m_Size: {x: 1.3, y: 1.3}
   m_EdgeRadius: 0
 --- !u!1001 &1317041850
 PrefabInstance:
@@ -5591,7 +5572,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2, y: 1.2}
+  m_Size: {x: 1.3, y: 1.3}
   m_EdgeRadius: 0
 --- !u!1 &1415244235
 GameObject:
@@ -5944,7 +5925,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2, y: 1.2}
+  m_Size: {x: 1.3, y: 1.3}
   m_EdgeRadius: 0
 --- !u!1 &1501241906
 GameObject:
@@ -6759,7 +6740,7 @@ GameObject:
   - component: {fileID: 1723608028}
   m_Layer: 0
   m_Name: RockPlatform
-  m_TagString: Safety
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6874,7 +6855,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2, y: 1.2}
+  m_Size: {x: 1.3, y: 1.3}
   m_EdgeRadius: 0
 --- !u!1 &1766869600
 GameObject:
@@ -13751,7 +13732,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1842727669}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.23, y: -5.715, z: -0.02}
+  m_LocalPosition: {x: -14.23, y: -5.66, z: -0.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1285751050}
@@ -13883,6 +13864,12 @@ PrefabInstance:
       objectReference: {fileID: 599076883}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76f17c6114892c24e95c46acb8cfe04c, type: 3}
+--- !u!4 &1882266305 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2828307272208511147, guid: 76f17c6114892c24e95c46acb8cfe04c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1882266304}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1906832597
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14364,7 +14351,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2, y: 1.2}
+  m_Size: {x: 1.3, y: 1.3}
   m_EdgeRadius: 0
 --- !u!1 &1998154144
 GameObject:
