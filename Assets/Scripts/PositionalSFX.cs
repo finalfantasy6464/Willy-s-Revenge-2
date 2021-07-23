@@ -43,15 +43,44 @@ public class PositionalSFX : MonoBehaviour
         }
         else
         {
-            player = GameObject.Find("Player").GetComponent<PlayerController>().transform;
+            GameObject playerobject = GameObject.FindGameObjectWithTag("Player");
+            if(playerobject == null)
+            {
+                StartCoroutine(findPlayerRoutine());
+            }
+            else
+            {
+                player = playerobject.GetComponent<PlayerController>().transform;
+            }
         }
         source.loop = looping;
         source.clip = clip;
 
-        if (playsOnStart)
+        if (playsOnStart && player != null)
         {
             PlayPositionalSound();
         }
+    }
+
+    IEnumerator findPlayerRoutine()
+    {
+        Debug.Log("Entering Routine" + Time.time);
+
+        do {
+
+            GameObject playerobject = GameObject.FindGameObjectWithTag("Player");
+            if(playerobject == null)
+            {
+                yield return null;
+            }
+            else
+            {
+                player = playerobject.GetComponent<PlayerController>().transform;
+            }
+
+        } while (player == null);
+
+        Debug.Log("Exiting Routine" + Time.time);
     }
 
     void Update()

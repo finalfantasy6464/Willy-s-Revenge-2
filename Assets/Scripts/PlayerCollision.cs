@@ -13,6 +13,8 @@ public class PlayerCollision : MonoBehaviour {
 	private bool Safe = true;
 	private bool isPlatform = false;
 
+    public bool LavaWorld = false;
+
 	public delegate void MyDelegate();
 	public event MyDelegate onDeath;
 
@@ -35,12 +37,19 @@ public class PlayerCollision : MonoBehaviour {
 
 		safetytimer += Time.deltaTime;
 
-		if (platformcounter == 0 & isPlatform == true) {
+		if (platformcounter == 0 & isPlatform == true && LavaWorld == false) {
 			Destroy (gameObject);
             onFalling.Invoke();
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
 		}
-	}
+
+        if (platformcounter == 0 & isPlatform == true && LavaWorld == true)
+        {
+            Destroy(gameObject);
+            onLavaBurn.Invoke();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+    }
 
 	void OnCollisionEnter2D(Collision2D col){
 

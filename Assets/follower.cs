@@ -45,7 +45,11 @@ public class follower : MonoBehaviour
         if (currentMoveSpeed > speedWhenEaten)
         {
             speedWhenEaten += 0.05f;
-            transform.position = moveQueue.Dequeue();
+
+            if(moveQueue.Count > 0)
+            {
+                transform.position = moveQueue.Dequeue();
+            }
         }
     }
 

@@ -25575,17 +25575,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoundManager
       objectReference: {fileID: 0}
-    - target: {fileID: 4854698029468373351, guid: 69b0a321fb7aa2d40953a091f3327ac9,
-        type: 3}
-      propertyPath: audioMixer
-      value: 
-      objectReference: {fileID: 24100000, guid: 226242ef11e39784ca4c02fb6e834d2e,
-        type: 2}
-    - target: {fileID: 4854698029468373351, guid: 69b0a321fb7aa2d40953a091f3327ac9,
-        type: 3}
-      propertyPath: slider
-      value: 
-      objectReference: {fileID: 1930354064}
     - target: {fileID: 4926049036654826142, guid: 69b0a321fb7aa2d40953a091f3327ac9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -25657,6 +25646,17 @@ PrefabInstance:
       propertyPath: MenuMusic
       value: 
       objectReference: {fileID: 8300000, guid: 7c3901cd09878a348bb0bd3c16285c49, type: 3}
+    - target: {fileID: 4854698029468373351, guid: 69b0a321fb7aa2d40953a091f3327ac9,
+        type: 3}
+      propertyPath: audioMixer
+      value: 
+      objectReference: {fileID: 24100000, guid: 226242ef11e39784ca4c02fb6e834d2e,
+        type: 2}
+    - target: {fileID: 4854698029468373351, guid: 69b0a321fb7aa2d40953a091f3327ac9,
+        type: 3}
+      propertyPath: slider
+      value: 
+      objectReference: {fileID: 1930354064}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69b0a321fb7aa2d40953a091f3327ac9, type: 3}
 --- !u!114 &1613329449 stripped
@@ -28358,6 +28358,7 @@ GameObject:
   - component: {fileID: 1787150857}
   - component: {fileID: 1787150856}
   - component: {fileID: 1787150855}
+  - component: {fileID: 1787150859}
   m_Layer: 5
   m_Name: LoadGameButton
   m_TagString: Untagged
@@ -28522,6 +28523,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1787150853}
   m_CullTransparentMesh: 0
+--- !u!114 &1787150859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787150853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4ee2270dc91484585cf777685fbd79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadSaveButton: {fileID: 1787150856}
+  SaveType: 1
 --- !u!1 &1790877825
 GameObject:
   m_ObjectHideFlags: 0
@@ -33382,6 +33397,7 @@ GameObject:
   - component: {fileID: 2109023612}
   - component: {fileID: 2109023611}
   - component: {fileID: 2109023610}
+  - component: {fileID: 2109023614}
   m_Layer: 5
   m_Name: LoadAutosave
   m_TagString: Untagged
@@ -33546,6 +33562,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2109023608}
   m_CullTransparentMesh: 0
+--- !u!114 &2109023614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109023608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4ee2270dc91484585cf777685fbd79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadSaveButton: {fileID: 2109023611}
+  SaveType: 2
 --- !u!1 &2114488013
 GameObject:
   m_ObjectHideFlags: 0
@@ -34267,10 +34297,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2145102584}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4d531dd72c78f843a3e43bef55eb244, type: 3}
+  m_Script: {fileID: 11500000, guid: bc4ee2270dc91484585cf777685fbd79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  loadSaveButton: {fileID: 2145102587}
+  SaveType: 0
 --- !u!114 &2145102587
 MonoBehaviour:
   m_ObjectHideFlags: 0

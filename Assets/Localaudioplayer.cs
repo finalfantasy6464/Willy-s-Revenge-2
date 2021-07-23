@@ -19,9 +19,12 @@ public class Localaudioplayer : MonoBehaviour
     // Start is called before the first frame update
     void SoundPlay()
     {
-        GameSoundManagement.instance.PlayPositional(soundData, Emitter.position);
-           //source.clip = smash;
-           //source.PlayOneShot(smash);
+        if(this.gameObject != null)
+        {
+            GameSoundManagement.instance.PlayPositional(soundData, Emitter.position);
+            //source.clip = smash;
+            //source.PlayOneShot(smash);
+        }
     }
 
 }

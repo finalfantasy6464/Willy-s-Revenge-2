@@ -17,6 +17,7 @@ public class LevelLoader : MonoBehaviour
 
 	public Sprite greensprite;
 	public Sprite goldsprite;
+    public Sprite completesprite;
 
 	public Sprite UIdefault;
 	public Sprite UIcomplete;
@@ -52,19 +53,36 @@ public class LevelLoader : MonoBehaviour
     }
     void Update()
     {
+        if (GameControl.control.completedlevels[ID] == false)
+        {
+            m_Animator.SetBool("Red", true);
+        }
+
         if (GameControl.control.completedlevels[ID] == true)
         {
             this.GetComponent<SpriteRenderer>().sprite = greensprite;
-            m_Animator.SetTrigger("Green");
+            m_Animator.SetBool("Green", true);
+            m_Animator.SetBool("Red", false);
         }
 
         if (GameControl.control.goldenpellets[ID] == true)
         {
             this.GetComponent<SpriteRenderer>().sprite = goldsprite;
-            m_Animator.SetTrigger("Gold");
+            m_Animator.SetBool("Gold", true);
+            m_Animator.SetBool("Green", false);
+            m_Animator.SetBool("Red", false);
         }
 
-        if (Input.GetKey(KeyCode.Space) & active == true & caninput == true) {
+        if (GameControl.control.completedlevels[ID] == true && GameControl.control.timerchallenge[ID] == true && GameControl.control.goldenpellets[ID] == true)
+        {
+            this.GetComponent<SpriteRenderer>().sprite = completesprite;
+            m_Animator.SetBool("Rainbow", true);
+            m_Animator.SetBool("Gold", false);
+            m_Animator.SetBool("Green", false);
+            m_Animator.SetBool("Red", false);
+        }
+
+            if (Input.GetKey(KeyCode.Space) & active == true & caninput == true) {
             canvas.alpha = 255;
             canvas.interactable = true;
             GameControl.control.levelID = ID;
