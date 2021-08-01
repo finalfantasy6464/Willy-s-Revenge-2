@@ -8,6 +8,7 @@ public class EnemyMovement : MonoBehaviour
 {
 
 	private float movespeed = 0.0f;
+    private float movestep = 0.02f;
     private float moveinterval = 0.1f;
 	public float multiplier = 1.0f;
 
@@ -60,7 +61,6 @@ public class EnemyMovement : MonoBehaviour
 
                 if (coll.gameObject.tag != "Teleport" && coll.gameObject.tag != "Enemy")
                 {
-
 					direction = 2;
 					justhit = true;
                     onWallHit.Invoke();
@@ -120,7 +120,7 @@ public class EnemyMovement : MonoBehaviour
         }
 
         if (levelstart == true) {
-        this.movespeed += Time.deltaTime * multiplier;
+        this.movespeed += movestep * multiplier;
         }
 		
 

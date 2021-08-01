@@ -70,6 +70,7 @@ public class GameControl : MonoBehaviour
 
     private void Start()
     {
+        Application.targetFrameRate = 60;
 
         if (m_Scene.name == "Overworld")
         {
@@ -86,12 +87,6 @@ public class GameControl : MonoBehaviour
                 timerchallenge[i] = false;
             }
         }
-    }
-
-    void OnGUI()
-    {
-        GUI.Label(new Rect(10, 10, 100, 30), "Complete: " + complete);
-        GUI.Label(new Rect(10, 40, 150, 30), "Golden: " + golden);
     }
 
     public void CallCameraRoutine()

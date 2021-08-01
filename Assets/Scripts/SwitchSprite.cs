@@ -13,7 +13,7 @@ public class SwitchSprite : MonoBehaviour
 		player = GameObject.Find ("Player");
 		playercontroller = player.GetComponent<PlayerController>();
 		}
-	void OnCollisionEnter2D(Collision2D coll) {
+	void OnTriggerEnter2D(Collider2D coll) {
 
 		var sprite = coll.gameObject;
 
@@ -21,7 +21,7 @@ public class SwitchSprite : MonoBehaviour
 			playercontroller.dirlock = true;
 		}
 	}
-	void OnCollisionExit2D(Collision2D coll) {
+	void OnTriggerExit2D(Collider2D coll) {
 
 			var sprite = coll.gameObject;
 
