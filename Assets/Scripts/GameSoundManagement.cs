@@ -75,20 +75,21 @@ public class GameSoundManagement : MonoBehaviour
             if(player != null)
             {
                 sources[i].volume = soundDataList[i].VolumeUpdate(Vector2.Distance(sources[i].transform.position, player.transform.position));
+                sources[i].pitch = Random.Range(soundDataList[i].minPitch, soundDataList[i].maxPitch);
             }     
         }  
     }
 
     public void PlayerCheck()
     {
-        if (SceneManager.GetActiveScene().name == "Overworld")
+        if (SceneManager.GetActiveScene().name == "Overworld" && SceneManager.GetActiveScene().isLoaded)
         {
             player = GameObject.FindGameObjectWithTag("Character").GetComponent<Character>().transform;
         }
 
         else
         {
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().transform;
+                player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().transform;
         }
     }
 

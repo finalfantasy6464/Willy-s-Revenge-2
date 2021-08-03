@@ -11,20 +11,22 @@ public class Shield : MonoBehaviour
 
     public AudioClip shieldActive;
 
+	public AudioSource source;
+
 
 	void Start(){
 		Player = GameObject.FindGameObjectWithTag ("Player");
 		playercontroller = Player.GetComponent<PlayerController> ();
-        GameSoundManagement.instance.PlayOneShot(shieldActive);
+        source.PlayOneShot(shieldActive);
 	}
 
 	void Update(){
 		shieldtimer -= Time.deltaTime;
 
-		if (shieldtimer < 0.0f) {
+		if (shieldtimer <= 0.0f) {
 			playercontroller.shieldactive = false;
 			Destroy (this.gameObject);
-            GameSoundManagement.instance.efxSource.Stop();
+            source.Stop();
         }
 	}
 }

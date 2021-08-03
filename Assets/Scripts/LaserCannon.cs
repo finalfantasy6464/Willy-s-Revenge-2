@@ -21,9 +21,12 @@ public class LaserCannon : MonoBehaviour
     public LineRenderer beamRenderer;
     public ParticleSystem Endparticles;
     public ParticleSystem Startparticles;
-    private ParticleSystemShapeType shapetype = ParticleSystemShapeType.Box;
 
     public AudioClip elec;
+
+    public AudioSource source;
+
+    public Localaudioplayer audioplay;
 
     Vector3 direction;
     Vector2 endpos;
@@ -39,6 +42,11 @@ public class LaserCannon : MonoBehaviour
         raycastPoint = this.transform;
         shootLength = offset;
         layer = LayerMask.GetMask("Walls", "Player");
+
+        if(usestimer == false)
+        {
+            audioplay.SoundPlay();
+        }
     }
 
     private void Update()
@@ -62,12 +70,14 @@ public class LaserCannon : MonoBehaviour
             if (shootLength > firerate)
             {
                 RaycastStop();
+                audioplay.SoundStop();
             }
   
             if (shootLength >= firerate + firereset)
             { 
                 shootLength = 0;
                 beamRenderer.enabled = true;
+                audioplay.SoundPlay();
             }
         }
     }

@@ -13,7 +13,6 @@ public class LevelLoader : MonoBehaviour
 	public bool completed = false;
 	public bool golden = false;
     private bool caninput = false;
-    private bool changed = false;
 
 	public Sprite greensprite;
 	public Sprite goldsprite;

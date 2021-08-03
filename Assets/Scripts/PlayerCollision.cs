@@ -114,11 +114,6 @@ public class PlayerCollision : MonoBehaviour {
             SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
 		}
 
-		if (hit.tag == "Enemy5") {
-			Destroy (gameObject);
-            onWallCollide.Invoke();
-            SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
-		}
 		if (hit.tag == "Oneway") {
 			Destroy (gameObject);
             onWallCollide.Invoke();
@@ -134,7 +129,14 @@ public class PlayerCollision : MonoBehaviour {
             SceneManager.LoadScene (SceneManager.GetActiveScene().name);
 		}
 
-        if (hit.tag == "Boss")
+		if (hit.tag == "Enemy5")
+		{
+			Destroy(gameObject);
+			onWallCollide.Invoke();
+			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		}
+
+		if (hit.tag == "Boss")
         {
             Destroy(gameObject);
             onWallCollide.Invoke();

@@ -23,15 +23,11 @@ public class BigOrange : MonoBehaviour
 
     private float[] speeds;
 
-    private float revertcounter = 0;
-
     float HPpercentage;
 
     public Tilemap grid;
     public Tile changetile;
     public Tile defaulttile;
-
-    private bool BlocksSpawnedlast = false;
 
     public Transform spawn1;
     public Transform spawn2;
@@ -50,12 +46,9 @@ public class BigOrange : MonoBehaviour
 
     private IEnumerator RevertRoutine;
 
-    int stompsinrow = 0;
     public int stompspeedindex = 0;
 
     bool justlooped = false;
-    bool lastactionwasstomp = false;
-    bool newRevertRoutine = false;
 
 
     // Start is called before the first frame update

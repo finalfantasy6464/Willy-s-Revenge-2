@@ -13,6 +13,7 @@ public class PlayerAudio : MonoBehaviour
     public AudioClip lavaburn;
     public AudioClip falling;
     public AudioClip shock;
+    public AudioClip shieldPickup;
 
     public PlayerController Playercontrol;
     public PlayerCollision Playercoll;
@@ -27,11 +28,13 @@ public class PlayerAudio : MonoBehaviour
     { 
         Playercontrol.onEatPellet.AddListener(() => PlayClip(pelletGet, true, true, false));
         Playercontrol.onGoldenPellet.AddListener(() => PlayClip(goldenpelletGet, true, true, false));
+        Playercontrol.onCollectShield.AddListener(() => PlayClip(shieldPickup,true));
         Playercoll.onKeyCollect.AddListener(() => PlayClip(keyget, true));
         Playercoll.onWallCollide.AddListener(() => PlayClip(gatehit, true));
         Playercoll.onLavaBurn.AddListener(() => PlayClip(lavaburn, true));
         Playercoll.onFalling.AddListener(() => PlayClip(falling, true));
         Playercoll.onElectricHit.AddListener(() => PlayClip(shock, true));
+
     }
 
 
@@ -73,6 +76,7 @@ public class PlayerAudio : MonoBehaviour
         Playercoll.onLavaBurn.RemoveListener(() => PlayClip(lavaburn, true));
         Playercoll.onFalling.RemoveListener(() => PlayClip(falling, true));
         Playercoll.onElectricHit.RemoveListener(() => PlayClip(shock, true));
+        Playercontrol.onCollectShield.RemoveListener(() => PlayClip(shieldPickup, true));
     }
 
 

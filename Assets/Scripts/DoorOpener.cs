@@ -7,16 +7,21 @@ public class DoorOpener : MonoBehaviour
 {
 
 	GameObject[] Shooter;
+	GameObject[] Enemy5;
 	GameObject Door;
 	AIChaser autodoor;
 	private MovingShooterArrow[] arrow;
 
-	void Start(){
+	private Aggroactivate[] aggro;
 
-		Door = GameObject.FindGameObjectWithTag ("Door");
-		autodoor = Door.GetComponent<AIChaser> ();
-		Shooter = GameObject.FindGameObjectsWithTag ("Shooter");
+	void Start() {
+
+		Door = GameObject.FindGameObjectWithTag("Door");
+		autodoor = Door.GetComponent<AIChaser>();
+		Shooter = GameObject.FindGameObjectsWithTag("Shooter");
+		Enemy5 = GameObject.FindGameObjectsWithTag("Enemy5");
 		arrow = new MovingShooterArrow[Shooter.Length];
+		aggro = new Aggroactivate[Enemy5.Length];
 	}
 
 	void OnTriggerEnter2D (Collider2D coll){
@@ -32,6 +37,12 @@ public class DoorOpener : MonoBehaviour
 			for (int i = 0; i < Shooter.Length; i++) {
 				arrow [i] = Shooter [i].GetComponent<MovingShooterArrow> ();
 				arrow [i].Active = true;
+			}
+
+			for (int k = 0; k < Enemy5.Length; k++)
+			{
+				aggro[k] = Enemy5[k].GetComponent<Aggroactivate>();
+				aggro[k].range = 10;
 			}
 
 
