@@ -920,6 +920,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2008863141454870958, guid: c5814bd2349de524681aa027e602062f,
         type: 3}
+      propertyPath: clearsound
+      value: 
+      objectReference: {fileID: 8300000, guid: f440b343e758cb247b1139101dcec1dd, type: 3}
+    - target: {fileID: 2008863141454870958, guid: c5814bd2349de524681aa027e602062f,
+        type: 3}
       propertyPath: endlevelcanvas
       value: 
       objectReference: {fileID: 359468697}
@@ -1500,6 +1505,49 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 728b9b3d5d1c46c4e8c16bb47fa76069, type: 3}
+--- !u!1 &665891999
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 665892001}
+  - component: {fileID: 665892000}
+  m_Layer: 0
+  m_Name: FadeController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &665892000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665891999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f74d74f57e0d242419a574314703b9e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &665892001
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665891999}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.317081, y: -3.4777746, z: 23.258137}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 29
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &846314978
 GameObject:
   m_ObjectHideFlags: 0
@@ -1611,6 +1659,7 @@ MonoBehaviour:
   camerachoice: 0
   returntoselect: 0
   bosscheckpoint: 0
+  faded: 0
   completedlevels: 
   goldenpellets: 
   timerchallenge: 
@@ -3261,7 +3310,6 @@ GameObject:
   - component: {fileID: 1766869603}
   - component: {fileID: 1766869602}
   - component: {fileID: 1766869604}
-  - component: {fileID: 1766869605}
   - component: {fileID: 1766869606}
   m_Layer: 0
   m_Name: Arena
@@ -7285,19 +7333,6 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
---- !u!114 &1766869605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1766869600}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f0127a0742b09248bf6b10595ed5b8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wallhit: {fileID: 8300000, guid: 3e085db7809a099468f1c0fe37fbf374, type: 3}
 --- !u!50 &1766869606
 Rigidbody2D:
   serializedVersion: 4

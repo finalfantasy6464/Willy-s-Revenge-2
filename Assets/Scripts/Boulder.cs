@@ -13,6 +13,9 @@ public class Boulder : MonoBehaviour
     GameObject[] FloorSwitches;
     RadialActivate[] activate;
 
+    public AudioClip falling;
+    public AudioClip hitting;
+
     int bouldertotal;
 
     public List<bool> activated = new List<bool>();
@@ -24,6 +27,7 @@ public class Boulder : MonoBehaviour
         FloorSwitches = GameObject.FindGameObjectsWithTag("Switch");
         activate = new RadialActivate[FloorSwitches.Length];
         sprite = GetComponent<SpriteRenderer>();
+        GameSoundManagement.instance.PlayOneShot(falling);
 
         for (int i = 0; i < FloorSwitches.Length; i++)
         {
@@ -63,6 +67,7 @@ public class Boulder : MonoBehaviour
             }
 
             orangeScript.m_animator.Play("Damage");
+            GameSoundManagement.instance.PlayOneShot(hitting);
             Destroy(gameObject);
         }
         }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
@@ -13,17 +14,24 @@ public class PlayerCollision : MonoBehaviour {
 	private bool Safe = true;
 	private bool isPlatform = false;
 
+	private bool justcollided = false;
+
     public bool LavaWorld = false;
 
 	public delegate void MyDelegate();
 	public event MyDelegate onDeath;
+
+	public Collider2D playerCollider;
+	public SpriteRenderer spriterenderer;
+
+	string[] hostileStrings;
 
     [HideInInspector] public UnityEvent onKeyCollect;
     [HideInInspector] public UnityEvent onWallCollide;
     [HideInInspector] public UnityEvent onLavaBurn;
     [HideInInspector] public UnityEvent onFalling;
     [HideInInspector] public UnityEvent onElectricHit;
-
+	
     void Awake()
     {
         onKeyCollect = new UnityEvent();
@@ -31,6 +39,21 @@ public class PlayerCollision : MonoBehaviour {
         onLavaBurn = new UnityEvent();
         onFalling = new UnityEvent();
         onElectricHit = new UnityEvent();
+
+		hostileStrings = new string[]
+		{
+			"Arena",
+			"Boss",
+			"Colour",
+			"Enemy",
+			"Enemy2",
+			"Enemy3",
+			"Enemy5",
+			"Gate",
+			"Gate2",
+			"Oneway",
+			"PelletGate"
+		};
     }
 
     void Update(){
@@ -38,41 +61,28 @@ public class PlayerCollision : MonoBehaviour {
 		safetytimer += Time.deltaTime;
 
 		if (platformcounter == 0 & isPlatform == true && LavaWorld == false) {
-			Destroy (gameObject);
-            onFalling.Invoke();
+			spriterenderer.enabled = false;
+			Die(onFalling);
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
 		}
 
         if (platformcounter == 0 & isPlatform == true && LavaWorld == true)
         {
-            Destroy(gameObject);
-            onLavaBurn.Invoke();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+			spriterenderer.enabled = false;
+			Die(onLavaBurn);
+			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 
 	void OnCollisionEnter2D(Collision2D col){
 
 		var hit = col.gameObject;
-
-
-		if(hit.tag == "Gate"){
-			Destroy(gameObject);
-            onWallCollide.Invoke();
-			SceneManager.LoadScene (SceneManager.GetActiveScene().name);
+		if (hostileStrings.Any(s => hit.tag.Equals(s)) && justcollided == false)
+        {
+			Die(onWallCollide);
+			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		}
-
-		if(hit.tag == "Gate2"){
-			Destroy(gameObject);
-            onWallCollide.Invoke();
-            SceneManager.LoadScene (SceneManager.GetActiveScene().name);
-		}
-
-		if(hit.tag == "PelletGate"){
-			Destroy(gameObject);
-            onWallCollide.Invoke();
-            SceneManager.LoadScene (SceneManager.GetActiveScene().name);
-		}
+		
 		if (hit.tag == "Key") {
 
 			GameObject[] gos = GameObject.FindGameObjectsWithTag ("Gate");
@@ -95,58 +105,14 @@ public class PlayerCollision : MonoBehaviour {
 			Destroy (gameObject);
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
 		}
-
-		if (hit.tag == "Enemy") {
-			Destroy (gameObject);
-            onWallCollide.Invoke();
-            SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
-		}
-
-		if (hit.tag == "Enemy2") {
-			Destroy (gameObject);
-            onWallCollide.Invoke();
-            SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
-		}
-
-		if (hit.tag == "Enemy3") {
-			Destroy (gameObject);
-            onWallCollide.Invoke();
-            SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
-		}
-
-		if (hit.tag == "Oneway") {
-			Destroy (gameObject);
-            onWallCollide.Invoke();
-            SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
-		}
 	}
 	void OnTriggerEnter2D(Collider2D trig){
 
 		var hit = trig.gameObject;
-		if(hit.tag == "Enemy3"){
-			Destroy(gameObject);
-            onWallCollide.Invoke();
-            SceneManager.LoadScene (SceneManager.GetActiveScene().name);
-		}
-
-		if (hit.tag == "Enemy5")
+		if (hostileStrings.Any(s => hit.tag.Equals(s)) && justcollided == false)
 		{
-			Destroy(gameObject);
-			onWallCollide.Invoke();
+			Die(onWallCollide);
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-		}
-
-		if (hit.tag == "Boss")
-        {
-            Destroy(gameObject);
-            onWallCollide.Invoke();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-
-        if (hit.tag == "Colour") {
-			Destroy (gameObject);
-            onWallCollide.Invoke();
-            SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
 		}
 
 		if (hit.tag == "Safety"){
@@ -177,20 +143,31 @@ public class PlayerCollision : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerStay2D(Collider2D stay){
+	void OnTriggerStay2D(Collider2D stay)
+	{
 		var hit = stay.gameObject;
-		if (hit.tag == "Danger" & Safe == false & safetytimer >= 0.1f){
+		if (hit.tag == "Danger" & Safe == false & safetytimer >= 0.1f)
+		{
 			safetytimer = 0.0f;
-			Destroy (gameObject);
+			spriterenderer.enabled = false;
 			onLavaBurn.Invoke();
-			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
-}
+			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		}
+	}
 
-	
-}
+	public void Die(UnityEvent chosenevent)
+    {
+		chosenevent.Invoke();
+	    spriterenderer.enabled = false;
+		foreach(follower segment in GetComponent<PlayerController>().taillist)
+        {
+			segment.gameObject.SetActive(false);
+        }
+		justcollided = true;
+	}
 
 	void Death()
 	{
-		onDeath.Invoke();
+		    onDeath.Invoke();
 	}
 }

@@ -772,6 +772,7 @@ MonoBehaviour:
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
   m_Priority: 10
+  m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 1803023253}
   m_Lens:
@@ -780,6 +781,14 @@ MonoBehaviour:
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
+    LensShift: {x: 0, y: 0}
+  m_Transitions:
+    m_BlendHint: 0
+    m_InheritPosition: 0
+    m_OnCameraLive:
+      m_PersistentCalls:
+        m_Calls: []
+  m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1226887306}
 --- !u!4 &400807147
 Transform:
@@ -1064,9 +1073,16 @@ MonoBehaviour:
   m_IgnoreTimeScale: 0
   m_WorldUpOverride: {fileID: 0}
   m_UpdateMethod: 2
+  m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
     m_Time: 2
+    m_CustomCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   m_CustomBlends: {fileID: 0}
   m_CameraCutEvent:
     m_PersistentCalls:
@@ -1785,6 +1801,7 @@ GameObject:
   - component: {fileID: 766071255}
   - component: {fileID: 766071254}
   - component: {fileID: 766071253}
+  - component: {fileID: 766071257}
   m_Layer: 0
   m_Name: brHLock (3)
   m_TagString: Gate2
@@ -1896,6 +1913,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+--- !u!50 &766071257
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766071252}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &766894388
 GameObject:
   m_ObjectHideFlags: 0
@@ -2245,6 +2283,49 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &947945993
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 947945995}
+  - component: {fileID: 947945994}
+  m_Layer: 0
+  m_Name: FadeController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &947945994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947945993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f74d74f57e0d242419a574314703b9e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &947945995
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947945993}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.317081, y: -3.4777746, z: 23.258137}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 30
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1030730849
 GameObject:
   m_ObjectHideFlags: 0
@@ -2281,6 +2362,7 @@ MonoBehaviour:
   camerachoice: 0
   returntoselect: 0
   bosscheckpoint: 0
+  faded: 0
   completedlevels: 
   goldenpellets: 
   timerchallenge: 
@@ -2320,6 +2402,7 @@ GameObject:
   - component: {fileID: 1043363734}
   - component: {fileID: 1043363736}
   - component: {fileID: 1043363737}
+  - component: {fileID: 1043363738}
   m_Layer: 0
   m_Name: brHLock
   m_TagString: Gate2
@@ -2431,6 +2514,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allpelletsgotten: {fileID: 8300000, guid: 6ef009db229093145800a2039158d88c, type: 3}
+--- !u!50 &1043363738
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1043363733}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &1045160435
 GameObject:
   m_ObjectHideFlags: 0
@@ -2754,11 +2858,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ad980451443d70438faac0bc6c235a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_TrackedObjectOffset: {x: 0, y: 0, z: 0}
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 10
+  m_LookaheadIgnoreY: 0
   m_XDamping: 3
   m_YDamping: 3
   m_ZDamping: 1
+  m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
   m_CameraDistance: 10
@@ -2770,6 +2877,7 @@ MonoBehaviour:
   m_SoftZoneHeight: 0.8
   m_BiasX: 0
   m_BiasY: 0
+  m_CenterOnActivate: 1
   m_GroupFramingMode: 2
   m_AdjustmentMode: 2
   m_GroupFramingSize: 0.8
@@ -2805,6 +2913,7 @@ GameObject:
   - component: {fileID: 1466677576}
   - component: {fileID: 1466677578}
   - component: {fileID: 1466677579}
+  - component: {fileID: 1466677580}
   m_Layer: 0
   m_Name: brHLock (2)
   m_TagString: Gate2
@@ -2916,6 +3025,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allpelletsgotten: {fileID: 8300000, guid: 6ef009db229093145800a2039158d88c, type: 3}
+--- !u!50 &1466677580
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1466677575}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &1501241906
 GameObject:
   m_ObjectHideFlags: 0
@@ -3021,7 +3151,6 @@ GameObject:
   - component: {fileID: 1506819140}
   - component: {fileID: 1506819145}
   - component: {fileID: 1506819144}
-  - component: {fileID: 1506819143}
   - component: {fileID: 1506819142}
   - component: {fileID: 1506819141}
   m_Layer: 8
@@ -3082,19 +3211,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!114 &1506819143
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1506819139}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f0127a0742b09248bf6b10595ed5b8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wallhit: {fileID: 8300000, guid: 3e085db7809a099468f1c0fe37fbf374, type: 3}
 --- !u!483693784 &1506819144
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -4431,6 +4547,7 @@ GameObject:
   - component: {fileID: 1674250114}
   - component: {fileID: 1674250116}
   - component: {fileID: 1674250117}
+  - component: {fileID: 1674250118}
   m_Layer: 0
   m_Name: brHLock (1)
   m_TagString: Gate2
@@ -4542,6 +4659,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allpelletsgotten: {fileID: 8300000, guid: 6ef009db229093145800a2039158d88c, type: 3}
+--- !u!50 &1674250118
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674250113}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &1759522763
 GameObject:
   m_ObjectHideFlags: 0
@@ -4700,7 +4838,6 @@ GameObject:
   - component: {fileID: 1766869601}
   - component: {fileID: 1766869603}
   - component: {fileID: 1766869602}
-  - component: {fileID: 1766869605}
   - component: {fileID: 1766869606}
   - component: {fileID: 1766869604}
   m_Layer: 0
@@ -7684,19 +7821,6 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
---- !u!114 &1766869605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1766869600}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f0127a0742b09248bf6b10595ed5b8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wallhit: {fileID: 8300000, guid: 3e085db7809a099468f1c0fe37fbf374, type: 3}
 --- !u!50 &1766869606
 Rigidbody2D:
   serializedVersion: 4
@@ -7730,6 +7854,7 @@ GameObject:
   - component: {fileID: 1766889415}
   - component: {fileID: 1766889414}
   - component: {fileID: 1766889413}
+  - component: {fileID: 1766889417}
   m_Layer: 0
   m_Name: brHLock (4)
   m_TagString: Gate2
@@ -7841,6 +7966,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!50 &1766889417
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1766889412}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!4 &1803023253 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2828307272208511147, guid: 76f17c6114892c24e95c46acb8cfe04c,
@@ -8384,6 +8530,7 @@ MonoBehaviour:
   sceneName: 
   nocomplete: 0
   finalexit: 0
+  clearsound: {fileID: 8300000, guid: 2a1765b54dd42fb4a8c9159255bf4542, type: 3}
   endlevelcanvas: {fileID: 18381427}
   levelcanvasgroup: {fileID: 18381426}
 --- !u!212 &1964383586

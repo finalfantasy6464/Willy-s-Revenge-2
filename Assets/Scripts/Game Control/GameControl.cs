@@ -15,8 +15,10 @@ public class GameControl : MonoBehaviour
     public int golden;
     public int timer;
     public int camerachoice;
+
     public bool returntoselect = false;
     public bool bosscheckpoint = false;
+    public bool faded = false;
 
     public List<bool> completedlevels = new List<bool>();
     public List<bool> goldenpellets = new List<bool>();

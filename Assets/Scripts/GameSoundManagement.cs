@@ -59,7 +59,7 @@ public class GameSoundManagement : MonoBehaviour
             audioMixer.SetFloat(SOUND_VOLUME, Mathf.Log10(slider.value) * 20);
         }
 
-        if (SceneManager.GetActiveScene().name != "Overworld" && SceneManager.GetActiveScene().name != "MainMenu")
+        if (SceneManager.GetActiveScene().name != "Overworld" && SceneManager.GetActiveScene().name != "MainMenu" && SceneManager.GetActiveScene().name != "Credits")
         {
             player = GameObject.FindGameObjectWithTag("Player").transform;
         }
@@ -108,7 +108,7 @@ public class GameSoundManagement : MonoBehaviour
         efxSource.Play();
     }
 
-    public void PlayPositional(PositionalSoundData soundData, Vector2 objectposition)
+    public AudioSource PlayPositional(PositionalSoundData soundData, Vector2 objectposition)
     {
         AudioSource source = default(AudioSource);         
             
@@ -129,6 +129,7 @@ public class GameSoundManagement : MonoBehaviour
 
         source.clip = soundData.clip;
         source.Play();
+        return source;
     }
 
 	public void PlayOneShot (AudioClip clip)

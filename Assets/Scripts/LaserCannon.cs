@@ -4,6 +4,7 @@ using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class LaserCannon : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class LaserCannon : MonoBehaviour
     private LayerMask layer;
 
     public bool usestimer = false;
+
+    private bool Raycaststopped;
 
     public float offset;
     public float firerate;
@@ -23,6 +26,9 @@ public class LaserCannon : MonoBehaviour
     public ParticleSystem Startparticles;
 
     public AudioClip elec;
+
+    public AudioClip laserstart;
+    public AudioClip laserstop;
 
     public AudioSource source;
 
@@ -37,16 +43,18 @@ public class LaserCannon : MonoBehaviour
 
     RaycastHit2D hit;
 
+    [HideInInspector] public UnityEvent onElectricHit;
+
+    private void Awake()
+    {
+        onElectricHit = new UnityEvent();
+    }
+
     private void Start()
     {
         raycastPoint = this.transform;
         shootLength = offset;
         layer = LayerMask.GetMask("Walls", "Player");
-
-        if(usestimer == false)
-        {
-            audioplay.SoundPlay();
-        }
     }
 
     private void Update()
@@ -55,6 +63,10 @@ public class LaserCannon : MonoBehaviour
         {
            RaycastDirection();
             UpdateParticles();
+            if (!source.isPlaying)
+            {
+                source = audioplay.SoundPlay();
+            }
         }
        
         if (usestimer == true)
@@ -65,19 +77,25 @@ public class LaserCannon : MonoBehaviour
             {
                 RaycastDirection();
                 UpdateParticles();
+                Raycaststopped = false;
             }
 
-            if (shootLength > firerate)
+            if (shootLength >= firerate && shootLength < (firerate + 0.1f) && Raycaststopped == false)
             {
                 RaycastStop();
-                audioplay.SoundStop();
+                source.Stop();
+                audioplay.soundData.clip = laserstop;
+                source = audioplay.SoundPlay();
+                Raycaststopped = true;
             }
   
-            if (shootLength >= firerate + firereset)
+            if (shootLength >= (firerate + firereset) && Raycaststopped == true)
             { 
                 shootLength = 0;
                 beamRenderer.enabled = true;
-                audioplay.SoundPlay();
+                audioplay.soundData.clip = laserstart;
+                source = audioplay.SoundPlay();
+                
             }
         }
     }
@@ -96,9 +114,10 @@ public class LaserCannon : MonoBehaviour
             beamRenderer.SetPosition(1, endpos);
         }
 
-        if (hit.collider.GetComponent<PlayerController>() != null)
+        PlayerCollision player = hit.collider.GetComponent<PlayerCollision>();
+        if (player != null)
         {
-            Destroy(hit.collider.gameObject);
+            player.Die(onElectricHit);
             GameSoundManagement.instance.PlaySingle(elec);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }

@@ -15,7 +15,7 @@ public class PlayerAudio : MonoBehaviour
     public AudioClip shock;
     public AudioClip shieldPickup;
 
-    public PlayerController Playercontrol;
+    public PlayerController2021remake Playercontrol;
     public PlayerCollision Playercoll;
 
     float vollowrange = 0.8f;
@@ -30,7 +30,7 @@ public class PlayerAudio : MonoBehaviour
         Playercontrol.onGoldenPellet.AddListener(() => PlayClip(goldenpelletGet, true, true, false));
         Playercontrol.onCollectShield.AddListener(() => PlayClip(shieldPickup,true));
         Playercoll.onKeyCollect.AddListener(() => PlayClip(keyget, true));
-        Playercoll.onWallCollide.AddListener(() => PlayClip(gatehit, true));
+        Playercoll.onWallCollide.AddListener(() => PlayDeathClip(gatehit, true));
         Playercoll.onLavaBurn.AddListener(() => PlayClip(lavaburn, true));
         Playercoll.onFalling.AddListener(() => PlayClip(falling, true));
         Playercoll.onElectricHit.AddListener(() => PlayClip(shock, true));
@@ -40,6 +40,15 @@ public class PlayerAudio : MonoBehaviour
 
     void PlayClip(AudioClip clip, bool persistent)
     {
+        PlayClip(clip, false, false, persistent);
+    }
+
+    void PlayDeathClip(AudioClip clip, bool persistent)
+    {
+        if(GameSoundManagement.instance.efxSource.clip == clip && GameSoundManagement.instance.efxSource.isPlaying)
+        {
+            return;
+        }
         PlayClip(clip, false, false, persistent);
     }
 
@@ -72,7 +81,7 @@ public class PlayerAudio : MonoBehaviour
         Playercontrol.onEatPellet.RemoveListener(() => PlayClip(pelletGet, true, true, false));
         Playercontrol.onGoldenPellet.RemoveListener(() => PlayClip(goldenpelletGet, true, true, false));
         Playercoll.onKeyCollect.RemoveListener(() => PlayClip(keyget, true));
-        Playercoll.onWallCollide.RemoveListener(() => PlayClip(gatehit, true));
+        Playercoll.onWallCollide.RemoveListener(() => PlayDeathClip(gatehit, true));
         Playercoll.onLavaBurn.RemoveListener(() => PlayClip(lavaburn, true));
         Playercoll.onFalling.RemoveListener(() => PlayClip(falling, true));
         Playercoll.onElectricHit.RemoveListener(() => PlayClip(shock, true));

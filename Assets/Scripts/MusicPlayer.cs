@@ -4,8 +4,20 @@ using UnityEngine;
 
 public class MusicPlayer : MonoBehaviour
 {
+    public bool isMainMenu;
+
+    public bool isCredits;
+
     public void Start()
     {
-        GameObject.Find("SoundManager").GetComponent<MusicManagement>().onMainMenu.Invoke();
+        if (isMainMenu)
+        {
+            GameObject.Find("SoundManager").GetComponent<MusicManagement>().onMainMenu.Invoke();
+        }
+
+        if (isCredits)
+        {
+            GameObject.Find("SoundManager").GetComponent<MusicManagement>().onCredits.Invoke();
+        }
     }
 }

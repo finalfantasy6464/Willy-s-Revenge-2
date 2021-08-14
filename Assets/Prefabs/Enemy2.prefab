@@ -67,9 +67,11 @@ MonoBehaviour:
   maxVolume: 1
   minDistance: 0
   maxDistance: 7
+  panAmount: 0
   playsOnStart: 0
   looping: 0
   currentDistance: 0
+  horizontalDistance: 0
   distanceProgress: 0
 --- !u!1 &8032808720404546672
 GameObject:
@@ -121,6 +123,8 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -132,6 +136,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -174,8 +179,6 @@ MonoBehaviour:
   onWallHit:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!50 &8032808720404546678
 Rigidbody2D:
   serializedVersion: 4
@@ -191,12 +194,12 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 6
+  m_Constraints: 5
 --- !u!61 &1023130722411775875
 BoxCollider2D:
   m_ObjectHideFlags: 0

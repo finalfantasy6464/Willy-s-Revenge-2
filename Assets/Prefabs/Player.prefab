@@ -150,6 +150,7 @@ MonoBehaviour:
   lavaburn: {fileID: 8300000, guid: 1feabfe17855acf40bf2c3c470c086d6, type: 3}
   falling: {fileID: 8300000, guid: 887403a28e1f32243ae1d6aa04b54a68, type: 3}
   shock: {fileID: 8300000, guid: cb11e25c89d0e2945b8f72f40e08f893, type: 3}
+  shieldPickup: {fileID: 8300000, guid: ef8f29aa9f7ffd94197e02895099864b, type: 3}
   Playercontrol: {fileID: 2828307272208511148}
   Playercoll: {fileID: 2828307272208511145}
 --- !u!1 &2828307272208511151
@@ -205,6 +206,8 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -216,6 +219,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -272,23 +276,18 @@ MonoBehaviour:
   onEatPellet:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   onGoldenPellet:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   onSlidingDoorOpen:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   onSlidingDoorClose:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+  onCollectShield:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!61 &2828307272208511144
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -328,31 +327,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LavaWorld: 0
+  playerCollider: {fileID: 2828307272208511144}
+  spriterenderer: {fileID: 2828307272208511146}
   onKeyCollect:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   onWallCollide:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   onLavaBurn:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   onFalling:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   onElectricHit:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!50 &2828307272208511149
 Rigidbody2D:
   serializedVersion: 4

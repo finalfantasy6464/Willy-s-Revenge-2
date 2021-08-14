@@ -17,17 +17,22 @@ public class Localaudioplayer : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    public void SoundPlay()
+    public AudioSource SoundPlay()
     {
         if(this.gameObject != null)
         {
-            GameSoundManagement.instance.PlayPositional(soundData, Emitter.position);
+            return GameSoundManagement.instance.PlayPositional(soundData, Emitter.position);
         }
+        return null;
     }
 
-    public void SoundStop()
+    public AudioSource SoundStop()
     {
-
+        if (this.gameObject != null)
+        {
+            return GameSoundManagement.instance.PlayPositional(soundData, Emitter.position);
+        }
+        return null;
     }
 }
 

@@ -24,7 +24,6 @@ public class EndLevelCanvas : MonoBehaviour
         nextLevelButton.SetActive(!(m_Scene.buildIndex % 10.0f == 0));
 
         UpdateEmblemStatus();
-
     }
 
     public void ReloadLevel()

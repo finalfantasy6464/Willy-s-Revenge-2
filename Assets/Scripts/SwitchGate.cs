@@ -12,6 +12,8 @@ public class SwitchGate : MonoBehaviour
 
 	public bool allpressed;
 
+	public AudioClip Allpressed;
+
 	void Update ()
 	{
 		GameObject[] gos = GameObject.FindGameObjectsWithTag ("Switch");
@@ -32,6 +34,10 @@ public class SwitchGate : MonoBehaviour
 				}
 			}
 				if (allpressed){
+				if(Allpressed != null)
+                {
+					GameSoundManagement.instance.PlayOneShot(Allpressed);
+				}
 					Destroy (gameObject);
 	}
 }

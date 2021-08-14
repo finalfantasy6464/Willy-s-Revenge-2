@@ -11,19 +11,21 @@ public class MusicManagement : MonoBehaviour
     public AudioSource musicSource;
     public AudioClip OverworldMusic;
     public AudioClip MenuMusic;
+    public AudioClip CreditsMusic;
     public AudioMixer audioMixer;
     public Slider slider;
 
     float sliderValue;
     float logvolume;
 
-    const string MUSIC_VOLUME = "MusicVolume";
+    public const string MUSIC_VOLUME = "MusicVolume";
 
     AudioClip CurrentMusic;
 
     [HideInInspector] public UnityEvent onLevelStart;
     [HideInInspector] public UnityEvent onOverworld;
     [HideInInspector] public UnityEvent onMainMenu;
+    [HideInInspector] public UnityEvent onCredits;
 
     public List<AudioClip> musicClips = new List<AudioClip>();
 
@@ -33,6 +35,7 @@ public class MusicManagement : MonoBehaviour
         onLevelStart.AddListener(MusicCheck);
         onOverworld.AddListener(PlayOverworldMusic);
         onMainMenu.AddListener(PlayMenuMusic);
+        onCredits.AddListener(PlayCreditsMusic);
     }
 
     public void Start()
@@ -190,6 +193,12 @@ public class MusicManagement : MonoBehaviour
         {
             return musicClips[27];
         }
+
+        if (index == 100)
+        {
+            return musicClips[28];
+        }
+
         return null;
     }
 
@@ -203,6 +212,13 @@ public class MusicManagement : MonoBehaviour
     public void PlayMenuMusic()
     {
         musicSource.clip = MenuMusic;
+        musicSource.loop = true;
+        musicSource.Play();
+    }
+
+    public void PlayCreditsMusic()
+    {
+        musicSource.clip = CreditsMusic;
         musicSource.loop = true;
         musicSource.Play();
     }
