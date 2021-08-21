@@ -50,7 +50,7 @@ public class PositionalSFX : MonoBehaviour
             }
             else
             {
-                player = playerobject.GetComponent<PlayerController>().transform;
+                player = playerobject.GetComponent<PlayerController2021remake>().transform;
             }
         }
         source.loop = looping;

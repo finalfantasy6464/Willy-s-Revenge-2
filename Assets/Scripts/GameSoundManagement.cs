@@ -89,7 +89,7 @@ public class GameSoundManagement : MonoBehaviour
 
         else
         {
-                player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().transform;
+                player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2021remake>().transform;
         }
     }
 

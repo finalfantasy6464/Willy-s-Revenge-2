@@ -5,7 +5,7 @@ using UnityEngine;
 public class Shield : MonoBehaviour
 {
 
-	PlayerController playercontroller;
+	PlayerController2021remake playercontroller;
 	GameObject Player;
 	private float shieldtimer = 5.0f;
 
@@ -16,7 +16,7 @@ public class Shield : MonoBehaviour
 
 	void Start(){
 		Player = GameObject.FindGameObjectWithTag ("Player");
-		playercontroller = Player.GetComponent<PlayerController> ();
+		playercontroller = Player.GetComponent<PlayerController2021remake>();
         source.PlayOneShot(shieldActive);
 	}
 

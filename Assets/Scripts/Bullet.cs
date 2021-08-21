@@ -6,14 +6,14 @@ using UnityEngine.SceneManagement;
 public class Bullet : MonoBehaviour
 {
 
-	PlayerController playercontroller;
+	PlayerController2021remake playercontroller;
 	GameObject Player;
 
 	void Start(){
 
 		Player = GameObject.FindGameObjectWithTag ("Player");
 		if (Player != null) {
-			playercontroller = Player.GetComponent<PlayerController> ();
+			playercontroller = Player.GetComponent<PlayerController2021remake> ();
 		}
 	}
 

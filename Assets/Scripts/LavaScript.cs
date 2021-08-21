@@ -52,8 +52,6 @@ public class LavaScript : MonoBehaviour
             Destroy(hit);
             GameSoundManagement.instance.PlayOneShot(burned);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
-   
         }
     }
 }

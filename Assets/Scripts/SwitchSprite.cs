@@ -5,13 +5,12 @@ using UnityEngine;
 public class SwitchSprite : MonoBehaviour
 {
 
-	private PlayerController playercontroller;
+	private PlayerController2021remake playercontroller;
 	GameObject player;
-	private Vector2 currentdir;
 
 	void Awake(){
-		player = GameObject.Find ("Player");
-		playercontroller = player.GetComponent<PlayerController>();
+		player = GameObject.FindGameObjectWithTag ("Player");
+		playercontroller = player.GetComponent<PlayerController2021remake>();
 		}
 	void OnTriggerEnter2D(Collider2D coll) {
 

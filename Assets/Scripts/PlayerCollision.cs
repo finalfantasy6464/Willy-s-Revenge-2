@@ -159,9 +159,9 @@ public class PlayerCollision : MonoBehaviour {
     {
 		chosenevent.Invoke();
 	    spriterenderer.enabled = false;
-		foreach(follower segment in GetComponent<PlayerController>().taillist)
+		foreach(GameObject segment in GetComponent<PlayerController2021remake>().taillist)
         {
-			segment.gameObject.SetActive(false);
+			segment.SetActive(false);
         }
 		justcollided = true;
 	}
