@@ -14,7 +14,7 @@ public class FinalBossActivation : MonoBehaviour
 
     public Camera[] cameras;
 
-    public PlayerController playerScript;
+    public PlayerController2021remake playerScript;
 
     private Collider2D m_collider;
 

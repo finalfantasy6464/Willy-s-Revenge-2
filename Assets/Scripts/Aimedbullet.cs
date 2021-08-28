@@ -10,7 +10,9 @@ public class Aimedbullet : MonoBehaviour
 
 	Rigidbody2D rb;
 
-	PlayerController playercontroller;
+	PlayerController2021remake playercontroller;
+
+	PlayerCollision playercoll;
 
 	Vector2 moveDirection;
 
@@ -18,7 +20,8 @@ public class Aimedbullet : MonoBehaviour
     void Start()
     {
 		rb = GetComponent<Rigidbody2D> ();
-		playercontroller = GameObject.FindObjectOfType<PlayerController> ();
+		playercontroller = GameObject.FindObjectOfType<PlayerController2021remake> ();
+		playercoll = GameObject.FindObjectOfType<PlayerCollision>();
         if (playercontroller != null)
         {
           moveDirection = (playercontroller.transform.position - transform.position).normalized * movespeed;
@@ -49,7 +52,7 @@ public class Aimedbullet : MonoBehaviour
 
 	if (playercontroller != null) {
 		if (playercontroller.shieldactive == false) {
-			if (hit.tag == "Player") {
+			if (hit.tag == "Player" && playercoll.canbehit == true) {
 				Destroy (hit);
 				SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
 			}
