@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class MapManager : MonoBehaviour
 {
@@ -61,11 +62,26 @@ public class MapManager : MonoBehaviour
         // Pass a ref and default the player Starting Pin
         character.Initialise (this, StartPin);
 
+        GameControl.control.lockedgates.Clear();
+        GameControl.control.destroyedgates.Clear();
 
-        for (int i = 0; i < worldgates.Count; i++)
+        if (GameControl.control.lockedgatescache.Count == 0)
         {
-            GameControl.control.lockedgates.Add(true);
-            GameControl.control.destroyedgates.Add(false);
+            for (int i = 0; i < worldgates.Count; i++)
+            {
+                GameControl.control.lockedgates.Add(true);
+                GameControl.control.destroyedgates.Add(false);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < GameControl.control.lockedgatescache.Count; i++)
+            {
+                GameControl.control.lockedgates.Add(false);
+                GameControl.control.destroyedgates.Add(false);
+                GameControl.control.lockedgates[i] = GameControl.control.lockedgatescache[i];
+                GameControl.control.destroyedgates[i] = GameControl.control.destroyedgatescache[i];
+            }
         }
     }
 
@@ -94,23 +110,33 @@ public class MapManager : MonoBehaviour
 	/// </summary>
 	private void CheckForInput()
 	{
-        if (Input.GetKeyUp(KeyCode.UpArrow))
+        //var gamepad = Gamepad.current;
+        //if(gamepad == null)
+        //{
+        //    return;
+        //}
+
+        if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.W) 
+                || Input.GetAxisRaw("Vertical") == 1 /*|| gamepad.dpad.up.isPressed*/)
         {
             character.TrySetDirection(Direction.Up);
         }
-        else if (Input.GetKeyUp(KeyCode.DownArrow))
+        else if (Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.S) 
+                || Input.GetAxisRaw("Vertical") == -1 /*|| gamepad.dpad.down.isPressed*/)
         {
             character.TrySetDirection(Direction.Down);
         }
-        else if (Input.GetKeyUp(KeyCode.LeftArrow))
+        else if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.A) 
+                || Input.GetAxisRaw("Horizontal") == -1 /*|| gamepad.dpad.left.isPressed*/)
         {
             character.TrySetDirection(Direction.Left);
         }
-        else if (Input.GetKeyUp(KeyCode.RightArrow))
+        else if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.D) 
+                || Input.GetAxisRaw("Horizontal") == 1 /*|| gamepad.dpad.right.isPressed*/)
         {
             character.TrySetDirection(Direction.Right);
         }
-        else if (Input.GetKeyUp(KeyCode.Escape))
+        else if (Input.GetKeyUp(KeyCode.Escape) /*|| gamepad.startButton.isPressed*/)
         {
             menuCanvas.alpha = 1;
             menuCanvas.interactable = true;

@@ -1177,16 +1177,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04804e400157b1a44a365abb6f034931, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fuckyourself: 69420
   complete: 0
   golden: 0
   timer: 0
   camerachoice: 0
   returntoselect: 0
   bosscheckpoint: 0
-  completedlevels: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-  goldenpellets: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-  timerchallenge: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  faded: 0
+  completedlevels: 
+  goldenpellets: 
+  timerchallenge: 
   lockedgates: 00000000000000000000
   destroyedgates: 00000000000000000000
   totallevels: 0
@@ -1195,7 +1195,7 @@ MonoBehaviour:
   currentlevel: 
   sceneName: 
   savedPin: {fileID: 0}
-  savedPinPosition: {x: 0, y: 0, z: 0}
+  savedPinPosition: {x: -7.354, y: 1.695, z: 0}
   AutosavePosition: {x: 0, y: 0, z: 0}
 --- !u!4 &202474515
 Transform:
@@ -7102,20 +7102,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1388046071}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: LoadSceneOnClick, Assembly-CSharp
         m_MethodName: LoadByIndex
         m_Mode: 3
         m_Arguments:
@@ -7176,7 +7164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4d531dd72c78f843a3e43bef55eb244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  type: 2
 --- !u!1 &1427714122
 GameObject:
   m_ObjectHideFlags: 0
@@ -9975,19 +9963,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7784827376124914411, guid: 88b6f36f7fae47242a6080d76029a92f,
-          type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Load
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1787150855}
         m_TargetAssemblyTypeName: 
         m_MethodName: LoadByIndex
@@ -10000,9 +9975,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1787150855}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: LoadProgress
+      - m_Target: {fileID: 202474514}
+        m_TargetAssemblyTypeName: GameControl, Assembly-CSharp
+        m_MethodName: Load
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11303,19 +11278,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7784827376124914411, guid: 88b6f36f7fae47242a6080d76029a92f,
-          type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: AutoLoad
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 2109023610}
         m_TargetAssemblyTypeName: 
         m_MethodName: LoadByIndex
@@ -11328,9 +11290,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2109023610}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: LoadProgress
+      - m_Target: {fileID: 202474514}
+        m_TargetAssemblyTypeName: GameControl, Assembly-CSharp
+        m_MethodName: AutoLoad
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

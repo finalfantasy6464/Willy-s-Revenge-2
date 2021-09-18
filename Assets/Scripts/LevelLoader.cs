@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class LevelLoader : MonoBehaviour
 {
@@ -40,6 +41,7 @@ public class LevelLoader : MonoBehaviour
 		m_Animator = this.GetComponent<Animator> ();
         pin = this.GetComponent<Pin>();
         completerequired = pin.completerequired;
+        //GameControl.onSingletonCheck.AddListener(PinVisualUpdate);
     }
 
     [HideInInspector]public IEnumerator InputTimer()
@@ -52,36 +54,17 @@ public class LevelLoader : MonoBehaviour
     }
     void Update()
     {
-        if (GameControl.control.completedlevels[ID] == false)
-        {
-            m_Animator.SetBool("Red", true);
-        }
+        PinVisualUpdate();
 
-        if (GameControl.control.completedlevels[ID] == true)
-        {
-            this.GetComponent<SpriteRenderer>().sprite = greensprite;
-            m_Animator.SetBool("Green", true);
-            m_Animator.SetBool("Red", false);
-        }
+        //var gamepad = Gamepad.current;
+        //if(gamepad == null)
+        //{
+        //    return;
+        //}
 
-        if (GameControl.control.goldenpellets[ID] == true)
-        {
-            this.GetComponent<SpriteRenderer>().sprite = goldsprite;
-            m_Animator.SetBool("Gold", true);
-            m_Animator.SetBool("Green", false);
-            m_Animator.SetBool("Red", false);
-        }
-
-        if (GameControl.control.completedlevels[ID] == true && GameControl.control.timerchallenge[ID] == true && GameControl.control.goldenpellets[ID] == true)
-        {
-            this.GetComponent<SpriteRenderer>().sprite = completesprite;
-            m_Animator.SetBool("Rainbow", true);
-            m_Animator.SetBool("Gold", false);
-            m_Animator.SetBool("Green", false);
-            m_Animator.SetBool("Red", false);
-        }
-
-            if (Input.GetKey(KeyCode.Space) & active == true & caninput == true) {
+        if (Input.GetKey(KeyCode.Space) & active == true & caninput == true 
+                || Input.GetKey(KeyCode.Return) & active == true & caninput == true 
+                    /*|| gamepad.buttonSouth.isPressed & active == true & caninput == true*/) {
             canvas.alpha = 255;
             canvas.interactable = true;
             GameControl.control.levelID = ID;
@@ -103,6 +86,51 @@ public class LevelLoader : MonoBehaviour
         {
             caninput = false;
         }
+    }
+
+    void PinVisualUpdate()
+    {
+
+        if(ID > 100)
+        {
+            return;
+        }
+
+        bool complete = GameControl.control.completedlevels[ID];
+        bool golden = GameControl.control.goldenpellets[ID];
+        bool timer = GameControl.control.timerchallenge[ID];
+
+        if (complete && timer && golden)
+        {
+            this.GetComponent<SpriteRenderer>().sprite = completesprite;
+            m_Animator.SetBool("Rainbow", true);
+            m_Animator.SetBool("Gold", false);
+            m_Animator.SetBool("Green", false);
+            m_Animator.SetBool("Red", false);
+            return;
+        }
+
+        if (!complete)
+        {
+            m_Animator.SetBool("Red", true);
+        }
+        else
+        {
+            this.GetComponent<SpriteRenderer>().sprite = greensprite;
+            m_Animator.SetBool("Green", true);
+            m_Animator.SetBool("Red", false);
+        }
+
+
+        if (golden)
+        {
+            this.GetComponent<SpriteRenderer>().sprite = goldsprite;
+            m_Animator.SetBool("Gold", true);
+            m_Animator.SetBool("Green", false);
+            m_Animator.SetBool("Red", false);
+        }
+
+ 
     }
 
 	void OnTriggerEnter2D(Collider2D coll){
@@ -152,6 +180,11 @@ public class LevelLoader : MonoBehaviour
     void CanvasEnable()
     {
         canvas.alpha = 255;
+    }
+
+    private void OnDisable()
+    {
+        GameControl.onSingletonCheck.RemoveListener(PinVisualUpdate);
     }
 }
 

@@ -13,8 +13,8 @@ public class GatePin : MonoBehaviour
     public Sprite greensprite;
     public Sprite destroyedsprite;
 
-    public AudioSource source;
-    public AudioClip clip;
+    public AudioClip shatter;
+    public AudioClip bounce;
 
     public bool locked;
     public bool destroyed;
@@ -40,10 +40,18 @@ public class GatePin : MonoBehaviour
 
         for (int i = 0; i < mapmanager.worldgates.Count; i++)
         {
-            if (mapmanager.worldgates[i] == this)
+            if (mapmanager.worldgates[i] == this && GameControl.control.lockedgatescache.Count != 0)
             {
-                locked = GameControl.control.lockedgates[i];
-                destroyed = GameControl.control.destroyedgates[i];
+                locked = GameControl.control.lockedgatescache[i];
+                destroyed = GameControl.control.destroyedgatescache[i];
+            }
+            else
+            {
+                if (mapmanager.worldgates[i] == this && GameControl.control.lockedgatescache.Count == 0)
+                {
+                    locked = GameControl.control.lockedgates[i];
+                    destroyed = GameControl.control.destroyedgates[i];
+                }
             }
         }
 
@@ -79,7 +87,13 @@ public class GatePin : MonoBehaviour
         if (GameControl.control.complete >= completerequired)
         {
             locked = false;
+            if (!destroyed)
+            {
+                PlaySound(shatter);
+            }
             destroyed = true;
+            
+
             for(int i = 0; i < mapmanager.worldgates.Count; i++)
             {
                if(mapmanager.worldgates[i] == this)
@@ -102,5 +116,10 @@ public class GatePin : MonoBehaviour
             Completeorb.SetActive(false);
             Crackedorb.SetActive(true);
         }
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        GameSoundManagement.instance.PlayOneShot(clip);
     }
 }

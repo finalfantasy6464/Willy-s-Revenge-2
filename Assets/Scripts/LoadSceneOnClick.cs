@@ -10,24 +10,20 @@ public class LoadSceneOnClick : MonoBehaviour
 	public void LoadByIndex (int sceneIndex)
 	{
 		SceneManager.LoadScene (sceneIndex);
-        if(sceneIndex == 101)
+        if (sceneIndex == 101)
         {
             GameControl.control.StartCoroutine(GameControl.control.Setcamerasroutine());
+
+			if(type == 0)
+            {
+                OverworldLock.loadlocked = false;
+            }
+            if (type == 1)
+            {
+                OverworldLock.Autoloadlocked = false;
+            }
         }
     }
-
-	public void LoadProgress()
-	{
-        if(type == 0)
-        {
-            GameControl.control.Load();
-        }
-
-        if(type == 1)
-        {
-            GameControl.control.AutoLoad();
-        }
-	}
 
 	public void LevelSelecter()
 	{

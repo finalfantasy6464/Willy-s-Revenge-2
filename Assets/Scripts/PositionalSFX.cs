@@ -64,7 +64,6 @@ public class PositionalSFX : MonoBehaviour
 
     IEnumerator findPlayerRoutine()
     {
-        Debug.Log("Entering Routine" + Time.time);
 
         do {
 
@@ -80,7 +79,6 @@ public class PositionalSFX : MonoBehaviour
 
         } while (player == null);
 
-        Debug.Log("Exiting Routine" + Time.time);
     }
 
     void Update()

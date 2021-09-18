@@ -8,15 +8,25 @@ public class SaveLoadConfirmation : MonoBehaviour
     public Button Savebutton;
     public Button Loadbutton;
 
-    private void OnEnable()
+    private void Start()
     {
-        Savebutton.onClick.AddListener(()=> GameControl.control.Save());
-        Loadbutton.onClick.AddListener(() => GameControl.control.Load());
+        Savebutton.onClick.AddListener(localSave);
+        Loadbutton.onClick.AddListener(localLoad);
     }
 
     private void OnDisable()
     {
-        Savebutton.onClick.RemoveListener(() => GameControl.control.Save());
-        Loadbutton.onClick.RemoveListener(() => GameControl.control.Load());
+        Savebutton.onClick.RemoveListener(localSave);
+        Loadbutton.onClick.RemoveListener(localLoad);
+    }
+
+    private void localSave()
+    {
+        FindObjectOfType<GameControl>().Save();
+    }
+
+    private void localLoad()
+    {
+        FindObjectOfType<GameControl>().Load();
     }
 }

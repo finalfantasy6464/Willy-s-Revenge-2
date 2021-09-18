@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 using System.IO;
 
 public class GameControl : MonoBehaviour
 {
     public static GameControl control;
 
-    public int fuckyourself = 69420;
     public int complete;
     public int golden;
     public int timer;
@@ -25,11 +25,11 @@ public class GameControl : MonoBehaviour
     public List<bool> timerchallenge = new List<bool>();
     public List<bool> lockedgates = new List<bool>();
     public List<bool> destroyedgates = new List<bool>();
-    private List<bool> lockedgatescache = new List<bool>();
-    private List<bool> destroyedgatescache = new List<bool>();
+    public List<bool> lockedgatescache = new List<bool>();
+    public List<bool> destroyedgatescache = new List<bool>();
 
     public int totallevels;
-    public int targetLevels = 0;
+    public int targetLevels;
     public int levelID;
     public string currentlevel;
     Scene m_Scene;
@@ -39,36 +39,42 @@ public class GameControl : MonoBehaviour
     public Vector3 savedPinPosition;
     public Vector3 AutosavePosition;
 
+    public static UnityEvent onSingletonCheck;
+
+    public Character character;
+
     void Awake()
     {
         levelID = 0;
         totallevels = SceneManager.sceneCountInBuildSettings;
         m_Scene = SceneManager.GetActiveScene();
         currentlevel = m_Scene.name;
+
+        if(onSingletonCheck == null)
+        {
+            onSingletonCheck = new UnityEvent();
+        }
         bool InitialSingleton = control == null;
 
-        if (InitialSingleton)
+        if (!InitialSingleton && control != this)
         {
-            DontDestroyOnLoad(gameObject);
-            control = this;
-
-            for (int k = 0; k < totallevels; k++)
+            onSingletonCheck.Invoke();
+            if (m_Scene.name == "MainMenu")
             {
-                if (currentlevel.Contains("Level"))
-                    targetLevels++;
+                Destroy(control.gameObject);
             }
-            for (int i = 1; i < targetLevels + 1; i++)
+            else
             {
-                completedlevels.Add(false);
-                goldenpellets.Add(false);
-                timerchallenge.Add(false);
+                Destroy(gameObject);
+                return;
             }
-
-        } else
-        {
-            Destroy(gameObject);
-        }
+        }   
+        DontDestroyOnLoad(gameObject);
+        control = this;
+        onSingletonCheck.Invoke();
+        LevelListGeneration();
     }
+ 
 
     private void Start()
     {
@@ -77,23 +83,54 @@ public class GameControl : MonoBehaviour
         if (m_Scene.name == "Overworld")
         {
             StartCoroutine(Setcamerasroutine());
+        }   
+    } 
 
-        }
+    public void LevelListGeneration()
+    {
+        completedlevels.Clear();
+        goldenpellets.Clear();
+        timerchallenge.Clear();
 
-        else if (m_Scene.name == "MainMenu")
-        {
-            for (int i = 0; i < completedlevels.Count; i++)
+        string pathToScene;
+        string sceneName;
+
+        for (int k = 0; k < SceneManager.sceneCountInBuildSettings; k++)
+      {
+           pathToScene = SceneUtility.GetScenePathByBuildIndex(k);
+           sceneName = System.IO.Path.GetFileNameWithoutExtension(pathToScene);
+
+            if (sceneName.Contains("Level"))
             {
-                completedlevels[i] = false;
-                goldenpellets[i] = false;
-                timerchallenge[i] = false;
-            }
-        }
+                targetLevels++;
+            }        
+      }
+     for (int i = 0; i < targetLevels + 1; i++)
+      {
+            completedlevels.Add(false);
+            goldenpellets.Add(false);
+            timerchallenge.Add(false);
+      }
     }
 
     public void CallCameraRoutine()
     {
         StartCoroutine(Setcamerasroutine());
+    }
+
+    public IEnumerator LoadRoutine(int routinechoice)
+    {
+        yield return 3;
+
+        if(routinechoice == 1)
+        {
+            control.Load();
+        }
+
+        if(routinechoice == 2)
+        {
+            control.AutoLoad();
+        }
     }
 
     public IEnumerator Setcamerasroutine()
@@ -117,27 +154,15 @@ public class GameControl : MonoBehaviour
     [HideInInspector] public IEnumerator ChangeCharacterPin()
     {
         GameObject CharacterObject = GameObject.Find("Character");
-        while (CharacterObject == null)
+
+        if(CharacterObject == null)
         {
-            yield return 0;
+            yield break;
         }
 
-        Character character = CharacterObject.GetComponent<Character>();
-
-        yield return 0;
-
-        character.transform.position = savedPinPosition;
-
-        Pin pin;
-        foreach (Collider2D result in
-                Physics2D.OverlapPointAll(character.transform.position))
-        {
-            pin = result.GetComponent<Pin>();
-            if (pin == null) continue;
-            character.SetCurrentPin(pin);
-        }
+        character = CharacterObject.GetComponent<Character>();
+        character.SetPinPosition();
     }
-
 
     public void SetCamera(int index)
     {
@@ -187,10 +212,16 @@ public class GameControl : MonoBehaviour
         }
     }
 
-	public void Load()
+    public void Load()
 	{
         LoadFromFile("/playersave.wr2");
-	}
+
+        if(m_Scene.name == "Overworld")
+        {
+            Debug.Log("Starting coroutine");
+            StartCoroutine(ChangeCharacterPin());
+        }
+    }
 
     public void AutoLoad()
     {
@@ -220,9 +251,7 @@ public class GameControl : MonoBehaviour
             lockedgatescache = data.lockedgates;
             destroyedgatescache = data.destroyedgates;
  
-            control.StartCoroutine(Setcamerasroutine());
-            control.StartCoroutine(SetWorldGates());
-            control.StartCoroutine(ChangeCharacterPin());
+            StartCoroutine(SetWorldGates());
         }
     }
 }

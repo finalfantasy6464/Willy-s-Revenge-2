@@ -30,7 +30,22 @@ public class Character : MonoBehaviour
     private void Start()
     {
         GameControl.control.CallCameraRoutine();
+        SetPinPosition();
     }
+
+    public void SetPinPosition()
+    {
+        transform.position = GameControl.control.savedPinPosition;
+
+        foreach (Pin pin in FindObjectsOfType<Pin>())
+        {
+            if (pin.transform.position == GameControl.control.savedPinPosition)
+            {
+                SetCurrentPin(pin);
+            }
+        }
+    }
+
     /// <summary>
     /// This runs once a frame
     /// </summary>
@@ -100,6 +115,7 @@ public class Character : MonoBehaviour
         }
         else
         {
+            gate.PlaySound(gate.bounce);
             _targetPin = CurrentPin;
             MoveToPin(_targetPin);
         }
