@@ -495,10 +495,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &17269382
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,10 +776,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1001 &21536179
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1066,10 +1072,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &30174916
 GameObject:
   m_ObjectHideFlags: 0
@@ -1371,6 +1380,7 @@ GameObject:
   - component: {fileID: 58896553}
   - component: {fileID: 58896552}
   - component: {fileID: 58896551}
+  - component: {fileID: 58896554}
   m_Layer: 5
   m_Name: YesButton
   m_TagString: Untagged
@@ -1442,54 +1452,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 603066924}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: set_interactable
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1688639992}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: set_interactable
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 631227895}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1467555970}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
       - m_Target: {fileID: 1467555975}
         m_TargetAssemblyTypeName: 
         m_MethodName: set_alpha
@@ -1514,10 +1476,46 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameControlFinder, Assembly-CSharp
-        m_MethodName: Saving
+      - m_Target: {fileID: 71569095}
+        m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+        m_MethodName: CheckUnlocker
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 631227896}
+        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
+        m_MethodName: set_alpha
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 631227896}
+        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
+        m_MethodName: set_interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 631227896}
+        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
+        m_MethodName: set_blocksRaycasts
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1564,6 +1562,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 58896549}
   m_CullTransparentMesh: 0
+--- !u!114 &58896554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58896549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a11f154be91b604fb4df405c0261d3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttontype: 1
+  selectionLock: 1
+  canvas: {fileID: 631227896}
 --- !u!1 &66549707
 GameObject:
   m_ObjectHideFlags: 0
@@ -1684,13 +1697,20 @@ MonoBehaviour:
   SelectedLevelPreviewImage: {fileID: 1529752}
   Checklocked: 0
   menuCanvas: {fileID: 787027965}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
-  LevelCanvas: {fileID: 1467555970}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
+  LevelCanvas: {fileID: 1467555975}
   backButton: {fileID: 849905315}
   playButton: {fileID: 469772074}
   backsound: {fileID: 8300000, guid: d47651142bf72f04fb14e4636cca66fc, type: 3}
   playsound: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
+  ButtonsEnabler:
+  - {fileID: 550931389}
+  - {fileID: 2121367353}
+  - {fileID: 641712433}
+  - {fileID: 58896554}
+  - {fileID: 923415176}
+  - {fileID: 1939013055}
   worldgates:
   - {fileID: 1709250002}
   - {fileID: 1700111756}
@@ -2037,10 +2057,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &80439841
 GameObject:
   m_ObjectHideFlags: 0
@@ -2251,10 +2274,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &91360429
 GameObject:
   m_ObjectHideFlags: 0
@@ -2435,10 +2461,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &101741177
 GameObject:
   m_ObjectHideFlags: 0
@@ -2664,10 +2693,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &117200099
 GameObject:
   m_ObjectHideFlags: 0
@@ -2848,10 +2880,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!114 &132339847 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2196258862148795140, guid: f0dc56880f2d2854ba27f97d986280ea,
@@ -3316,10 +3351,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &144158041
 GameObject:
   m_ObjectHideFlags: 0
@@ -3835,10 +3873,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &147812712
 GameObject:
   m_ObjectHideFlags: 0
@@ -4882,13 +4923,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 206233382}
+  - component: {fileID: 206233383}
   m_Layer: 5
   m_Name: LoadConfirmation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &206233382
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4912,6 +4954,18 @@ RectTransform:
   m_AnchoredPosition: {x: 959.99994, y: 540}
   m_SizeDelta: {x: 1919.9999, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &206233383
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206233381}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &211717969
 GameObject:
   m_ObjectHideFlags: 0
@@ -5092,10 +5146,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &212677714
 GameObject:
   m_ObjectHideFlags: 0
@@ -5415,10 +5472,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &235721940
 GameObject:
   m_ObjectHideFlags: 0
@@ -5763,10 +5823,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &244909544
 GameObject:
   m_ObjectHideFlags: 0
@@ -6675,10 +6738,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &324260881
 GameObject:
   m_ObjectHideFlags: 0
@@ -7478,10 +7544,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &382609461
 GameObject:
   m_ObjectHideFlags: 0
@@ -7741,10 +7810,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &392808390
 GameObject:
   m_ObjectHideFlags: 0
@@ -7970,10 +8042,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &396525182
 GameObject:
   m_ObjectHideFlags: 0
@@ -8271,10 +8346,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &404982982
 GameObject:
   m_ObjectHideFlags: 0
@@ -9037,10 +9115,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1001 &462039257
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9220,6 +9301,7 @@ GameObject:
   - component: {fileID: 469772076}
   - component: {fileID: 469772075}
   - component: {fileID: 469772074}
+  - component: {fileID: 469772073}
   m_Layer: 5
   m_Name: PlayButton
   m_TagString: Untagged
@@ -9247,6 +9329,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 85, y: 85}
   m_Pivot: {x: 0, y: 1}
+--- !u!114 &469772073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 469772071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a11f154be91b604fb4df405c0261d3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttontype: 1
+  selectionLock: 1
+  canvas: {fileID: 1467555975}
 --- !u!114 &469772074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9557,10 +9654,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &491503047
 GameObject:
   m_ObjectHideFlags: 0
@@ -9741,10 +9841,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &512015065
 GameObject:
   m_ObjectHideFlags: 0
@@ -10007,10 +10110,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &520662875
 GameObject:
   m_ObjectHideFlags: 0
@@ -10656,10 +10762,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &547950608
 GameObject:
   m_ObjectHideFlags: 0
@@ -10754,7 +10863,7 @@ GameObject:
   - component: {fileID: 550931388}
   - component: {fileID: 550931387}
   - component: {fileID: 550931386}
-  - component: {fileID: 550931385}
+  - component: {fileID: 550931389}
   m_Layer: 5
   m_Name: NoButton
   m_TagString: Untagged
@@ -10782,18 +10891,6 @@ RectTransform:
   m_AnchoredPosition: {x: 118.5, y: -107}
   m_SizeDelta: {x: 150, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &550931385
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 550931383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb0b35ed06ec71541a27ff69d2335b6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &550931386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10862,30 +10959,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 603066924}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: set_interactable
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1688639992}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: set_interactable
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
       - m_Target: {fileID: 1467555975}
         m_TargetAssemblyTypeName: 
         m_MethodName: set_alpha
@@ -10898,9 +10971,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1467555970}
+      - m_Target: {fileID: 1467555975}
         m_TargetAssemblyTypeName: 
-        m_MethodName: SetActive
+        m_MethodName: set_interactable
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10908,11 +10981,23 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1467555975}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: set_interactable
+      - m_Target: {fileID: 71569095}
+        m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+        m_MethodName: CheckUnlocker
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 787027965}
+        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
+        m_MethodName: set_blocksRaycasts
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10960,6 +11045,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 550931383}
   m_CullTransparentMesh: 0
+--- !u!114 &550931389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550931383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a11f154be91b604fb4df405c0261d3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttontype: 0
+  selectionLock: 1
+  canvas: {fileID: 787027965}
 --- !u!1 &552160250
 GameObject:
   m_ObjectHideFlags: 0
@@ -11140,10 +11240,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &552166609
 GameObject:
   m_ObjectHideFlags: 0
@@ -11395,10 +11498,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &562931541
 GameObject:
   m_ObjectHideFlags: 0
@@ -11579,10 +11685,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &570005723
 GameObject:
   m_ObjectHideFlags: 0
@@ -12090,10 +12199,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &603066922
 GameObject:
   m_ObjectHideFlags: 0
@@ -12177,9 +12289,69 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 631227895}
+      - m_Target: {fileID: 787027965}
         m_TargetAssemblyTypeName: 
-        m_MethodName: SetActive
+        m_MethodName: set_alpha
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 787027965}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: set_interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1467555975}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: set_alpha
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1467555975}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: set_interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 631227896}
+        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
+        m_MethodName: set_alpha
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 1
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 631227896}
+        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
+        m_MethodName: set_interactable
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12189,9 +12361,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 603066924}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: set_interactable
+      - m_Target: {fileID: 631227896}
+        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
+        m_MethodName: set_blocksRaycasts
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12199,67 +12371,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1688639992}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: set_interactable
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 787027965}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: set_alpha
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 787027965}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: set_interactable
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1467555975}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: set_alpha
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1467555975}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: set_interactable
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &603066925
 MonoBehaviour:
@@ -12565,10 +12677,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &614853306
 GameObject:
   m_ObjectHideFlags: 0
@@ -12749,10 +12864,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &615613423
 GameObject:
   m_ObjectHideFlags: 0
@@ -12933,10 +13051,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1001 &617851372
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13107,13 +13228,26 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 631227897}
+  - component: {fileID: 631227896}
   m_Layer: 5
   m_Name: SaveConfirmation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
+--- !u!225 &631227896
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 631227895}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!224 &631227897
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13231,6 +13365,7 @@ GameObject:
   - component: {fileID: 641712432}
   - component: {fileID: 641712431}
   - component: {fileID: 641712430}
+  - component: {fileID: 641712433}
   m_Layer: 5
   m_Name: NoButton
   m_TagString: Untagged
@@ -13302,54 +13437,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 631227895}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 603066924}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: set_interactable
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1688639992}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: set_interactable
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1467555970}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
       - m_Target: {fileID: 1467555975}
         m_TargetAssemblyTypeName: 
         m_MethodName: set_alpha
@@ -13365,6 +13452,54 @@ MonoBehaviour:
       - m_Target: {fileID: 1467555975}
         m_TargetAssemblyTypeName: 
         m_MethodName: set_interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 71569095}
+        m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+        m_MethodName: CheckUnlocker
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 631227896}
+        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
+        m_MethodName: set_alpha
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 631227896}
+        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
+        m_MethodName: set_interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 631227896}
+        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
+        m_MethodName: set_blocksRaycasts
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13412,6 +13547,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 641712428}
   m_CullTransparentMesh: 0
+--- !u!114 &641712433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 641712428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a11f154be91b604fb4df405c0261d3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttontype: 0
+  selectionLock: 1
+  canvas: {fileID: 631227896}
 --- !u!1 &647314009
 GameObject:
   m_ObjectHideFlags: 0
@@ -13592,10 +13742,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &650608170
 GameObject:
   m_ObjectHideFlags: 0
@@ -13922,10 +14075,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &657302844
 GameObject:
   m_ObjectHideFlags: 0
@@ -14427,10 +14583,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1001 &688466573
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14772,10 +14931,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &701900176
 GameObject:
   m_ObjectHideFlags: 0
@@ -15367,10 +15529,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &738158526
 GameObject:
   m_ObjectHideFlags: 0
@@ -15930,10 +16095,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1001 &779472793
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16281,10 +16449,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &784836152
 GameObject:
   m_ObjectHideFlags: 0
@@ -16808,10 +16979,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1001 &820064767
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17318,10 +17492,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &849905312
 GameObject:
   m_ObjectHideFlags: 0
@@ -17334,6 +17511,7 @@ GameObject:
   - component: {fileID: 849905317}
   - component: {fileID: 849905316}
   - component: {fileID: 849905315}
+  - component: {fileID: 849905314}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -17361,6 +17539,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 85, y: 85}
   m_Pivot: {x: 0, y: 1}
+--- !u!114 &849905314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849905312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a11f154be91b604fb4df405c0261d3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttontype: 0
+  selectionLock: 1
+  canvas: {fileID: 1467555975}
 --- !u!114 &849905315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17464,6 +17657,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1467555975}
+        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
+        m_MethodName: set_blocksRaycasts
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &849905316
 MonoBehaviour:
@@ -17683,10 +17888,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &865965241
 GameObject:
   m_ObjectHideFlags: 0
@@ -17910,10 +18118,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &869733587
 GameObject:
   m_ObjectHideFlags: 0
@@ -18361,6 +18572,7 @@ GameObject:
   - component: {fileID: 923415175}
   - component: {fileID: 923415174}
   - component: {fileID: 923415173}
+  - component: {fileID: 923415176}
   m_Layer: 5
   m_Name: NoButton
   m_TagString: Untagged
@@ -18432,54 +18644,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 206233381}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1688639992}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: set_interactable
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 603066924}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: set_interactable
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1467555970}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
       - m_Target: {fileID: 1467555975}
         m_TargetAssemblyTypeName: 
         m_MethodName: set_alpha
@@ -18495,6 +18659,54 @@ MonoBehaviour:
       - m_Target: {fileID: 1467555975}
         m_TargetAssemblyTypeName: 
         m_MethodName: set_interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 71569095}
+        m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+        m_MethodName: CheckUnlocker
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 206233383}
+        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
+        m_MethodName: set_alpha
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 206233383}
+        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
+        m_MethodName: set_interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 206233383}
+        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
+        m_MethodName: set_blocksRaycasts
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -18542,6 +18754,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 923415171}
   m_CullTransparentMesh: 0
+--- !u!114 &923415176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 923415171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a11f154be91b604fb4df405c0261d3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttontype: 0
+  selectionLock: 1
+  canvas: {fileID: 206233383}
 --- !u!1 &925749731
 GameObject:
   m_ObjectHideFlags: 0
@@ -18804,10 +19031,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &933775325
 GameObject:
   m_ObjectHideFlags: 0
@@ -18988,10 +19218,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &950855761
 GameObject:
   m_ObjectHideFlags: 0
@@ -19369,10 +19602,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &956674268
 GameObject:
   m_ObjectHideFlags: 0
@@ -19583,10 +19819,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &975878157
 GameObject:
   m_ObjectHideFlags: 0
@@ -20071,10 +20310,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1005795360
 GameObject:
   m_ObjectHideFlags: 0
@@ -20535,10 +20777,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1015989601
 GameObject:
   m_ObjectHideFlags: 0
@@ -21032,10 +21277,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1041785408
 GameObject:
   m_ObjectHideFlags: 0
@@ -21416,10 +21664,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1060493863
 GameObject:
   m_ObjectHideFlags: 0
@@ -21809,10 +22060,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1001 &1083404489
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22332,10 +22586,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1108710095
 GameObject:
   m_ObjectHideFlags: 0
@@ -22759,10 +23016,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1154909053
 GameObject:
   m_ObjectHideFlags: 0
@@ -23246,10 +23506,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1171179528
 GameObject:
   m_ObjectHideFlags: 0
@@ -23617,10 +23880,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1184949308
 GameObject:
   m_ObjectHideFlags: 0
@@ -24446,10 +24712,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1229825760
 GameObject:
   m_ObjectHideFlags: 0
@@ -24630,10 +24899,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1240958335
 GameObject:
   m_ObjectHideFlags: 0
@@ -24814,10 +25086,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1242278493
 GameObject:
   m_ObjectHideFlags: 0
@@ -25315,10 +25590,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1255315030
 GameObject:
   m_ObjectHideFlags: 0
@@ -25499,10 +25777,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1258944513
 GameObject:
   m_ObjectHideFlags: 0
@@ -25765,10 +26046,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1274617726
 GameObject:
   m_ObjectHideFlags: 0
@@ -25949,10 +26233,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1281524525
 GameObject:
   m_ObjectHideFlags: 0
@@ -26370,10 +26657,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1293992240
 GameObject:
   m_ObjectHideFlags: 0
@@ -26896,10 +27186,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!82 &1321306080 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 4926049036654826136, guid: 69b0a321fb7aa2d40953a091f3327ac9,
@@ -27250,10 +27543,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1336370232
 GameObject:
   m_ObjectHideFlags: 0
@@ -27598,10 +27894,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1347982632
 GameObject:
   m_ObjectHideFlags: 0
@@ -27782,10 +28081,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1349254354
 GameObject:
   m_ObjectHideFlags: 0
@@ -29776,10 +30078,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1483981774
 GameObject:
   m_ObjectHideFlags: 0
@@ -30147,10 +30452,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1485507963
 GameObject:
   m_ObjectHideFlags: 0
@@ -30331,10 +30639,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1486023555
 GameObject:
   m_ObjectHideFlags: 0
@@ -30515,10 +30826,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1508022671
 GameObject:
   m_ObjectHideFlags: 0
@@ -30778,10 +31092,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1514364530
 GameObject:
   m_ObjectHideFlags: 0
@@ -31314,10 +31631,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1543866513
 GameObject:
   m_ObjectHideFlags: 0
@@ -31498,10 +31818,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1558606895
 GameObject:
   m_ObjectHideFlags: 0
@@ -31682,10 +32005,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1559082013
 GameObject:
   m_ObjectHideFlags: 0
@@ -31949,10 +32275,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1564839934
 GameObject:
   m_ObjectHideFlags: 0
@@ -32863,10 +33192,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!61 &1601697433
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -33073,10 +33405,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1603686702
 GameObject:
   m_ObjectHideFlags: 0
@@ -33740,10 +34075,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1665252608
 GameObject:
   m_ObjectHideFlags: 0
@@ -34254,10 +34592,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1686526688
 GameObject:
   m_ObjectHideFlags: 0
@@ -34423,42 +34764,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 603066924}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: set_interactable
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1688639992}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: set_interactable
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 206233381}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
       - m_Target: {fileID: 787027965}
         m_TargetAssemblyTypeName: 
         m_MethodName: set_alpha
@@ -34506,6 +34811,42 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 206233383}
+        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
+        m_MethodName: set_alpha
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 1
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 206233383}
+        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
+        m_MethodName: set_interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 206233383}
+        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
+        m_MethodName: set_blocksRaycasts
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1688639993
 MonoBehaviour:
@@ -34725,10 +35066,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1700005197
 GameObject:
   m_ObjectHideFlags: 0
@@ -34909,10 +35253,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1001 &1700111754
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35294,10 +35641,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!4 &1709249996 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2196258862148795160, guid: f0dc56880f2d2854ba27f97d986280ea,
@@ -35710,10 +36060,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1740007666
 GameObject:
   m_ObjectHideFlags: 0
@@ -35894,10 +36247,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1752546602
 GameObject:
   m_ObjectHideFlags: 0
@@ -36239,10 +36595,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1776640897
 GameObject:
   m_ObjectHideFlags: 0
@@ -36592,10 +36951,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1799265480
 GameObject:
   m_ObjectHideFlags: 0
@@ -36776,10 +37138,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1001 &1806726399
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37675,10 +38040,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1866560778
 GameObject:
   m_ObjectHideFlags: 0
@@ -37859,10 +38227,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1868921417
 GameObject:
   m_ObjectHideFlags: 0
@@ -38043,10 +38414,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1870220678
 GameObject:
   m_ObjectHideFlags: 0
@@ -38646,10 +39020,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1919668875
 GameObject:
   m_ObjectHideFlags: 0
@@ -38912,10 +39289,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1922368506
 GameObject:
   m_ObjectHideFlags: 0
@@ -39096,10 +39476,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1929246466
 GameObject:
   m_ObjectHideFlags: 0
@@ -39433,10 +39816,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1938956321
 GameObject:
   m_ObjectHideFlags: 0
@@ -39531,6 +39917,7 @@ GameObject:
   - component: {fileID: 1939013054}
   - component: {fileID: 1939013053}
   - component: {fileID: 1939013052}
+  - component: {fileID: 1939013055}
   m_Layer: 5
   m_Name: YesButton
   m_TagString: Untagged
@@ -39602,54 +39989,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 603066924}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: set_interactable
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1688639992}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: set_interactable
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 206233381}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1467555970}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
       - m_Target: {fileID: 1467555975}
         m_TargetAssemblyTypeName: 
         m_MethodName: set_alpha
@@ -39674,10 +40013,46 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameControlFinder, Assembly-CSharp
-        m_MethodName: Loading
+      - m_Target: {fileID: 71569095}
+        m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+        m_MethodName: CheckUnlocker
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 206233383}
+        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
+        m_MethodName: set_alpha
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 206233383}
+        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
+        m_MethodName: set_interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 206233383}
+        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
+        m_MethodName: set_blocksRaycasts
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -39724,6 +40099,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1939013050}
   m_CullTransparentMesh: 0
+--- !u!114 &1939013055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939013050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a11f154be91b604fb4df405c0261d3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttontype: 1
+  selectionLock: 1
+  canvas: {fileID: 206233383}
 --- !u!1 &1941399318
 GameObject:
   m_ObjectHideFlags: 0
@@ -40149,10 +40539,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &1964117242
 GameObject:
   m_ObjectHideFlags: 0
@@ -40720,10 +41113,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &2009877750
 GameObject:
   m_ObjectHideFlags: 0
@@ -40987,10 +41383,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!114 &2020227226 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2196258862148795140, guid: f0dc56880f2d2854ba27f97d986280ea,
@@ -41183,10 +41582,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &2027347046
 GameObject:
   m_ObjectHideFlags: 0
@@ -41367,10 +41769,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &2034583276
 GameObject:
   m_ObjectHideFlags: 0
@@ -42104,10 +42509,13 @@ MonoBehaviour:
   UIgolden: {fileID: 21300000, guid: 2547684b75d5e684b80aec1a286263ed, type: 3}
   UItimer: {fileID: 21300000, guid: 7ed82075c7211394d9895252c09d2e5b, type: 3}
   canvas: {fileID: 1467555975}
-  SaveCanvas: {fileID: 631227895}
-  LoadCanvas: {fileID: 206233381}
+  SaveCanvas: {fileID: 631227896}
+  LoadCanvas: {fileID: 206233383}
   LevelSelect: {fileID: 8300000, guid: 8f03e04ba8d324843aee28b1f1b0e4ca, type: 3}
   mapmanager: {fileID: 71569095}
+  ButtonsEnabler:
+  - {fileID: 849905314}
+  - {fileID: 469772073}
 --- !u!1 &2070860142
 GameObject:
   m_ObjectHideFlags: 0
@@ -42993,6 +43401,7 @@ GameObject:
   - component: {fileID: 2121367351}
   - component: {fileID: 2121367350}
   - component: {fileID: 2121367349}
+  - component: {fileID: 2121367353}
   m_Layer: 5
   m_Name: YesButton
   m_TagString: Untagged
@@ -43101,30 +43510,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 603066924}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: set_interactable
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1688639992}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: set_interactable
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
       - m_Target: {fileID: 787027965}
         m_TargetAssemblyTypeName: 
         m_MethodName: set_interactable
@@ -43136,18 +43521,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1467555970}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 1467555975}
         m_TargetAssemblyTypeName: 
@@ -43164,6 +43537,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1467555975}
         m_TargetAssemblyTypeName: 
         m_MethodName: set_interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 787027965}
+        m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
+        m_MethodName: set_blocksRaycasts
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -43211,6 +43596,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2121367347}
   m_CullTransparentMesh: 0
+--- !u!114 &2121367353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2121367347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a11f154be91b604fb4df405c0261d3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttontype: 1
+  selectionLock: 1
+  canvas: {fileID: 787027965}
 --- !u!1 &2125431278
 GameObject:
   m_ObjectHideFlags: 0

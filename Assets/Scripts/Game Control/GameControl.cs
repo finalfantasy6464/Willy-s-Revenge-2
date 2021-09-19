@@ -84,7 +84,12 @@ public class GameControl : MonoBehaviour
         {
             StartCoroutine(Setcamerasroutine());
         }   
-    } 
+    }
+
+    private void Update()
+    {
+        GameInput.Update();
+    }
 
     public void LevelListGeneration()
     {

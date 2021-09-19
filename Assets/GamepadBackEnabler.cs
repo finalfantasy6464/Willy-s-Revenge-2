@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class GamepadBackEnabler : MonoBehaviour
@@ -10,25 +9,45 @@ public class GamepadBackEnabler : MonoBehaviour
 
     public int buttontype;
 
-    public bool selected;
-    public bool cancelled;
+    public bool selectionLock = true;
 
-    private void Start()
+    public CanvasGroup canvas;
+
+    GamepadBackEnabler[] localenablers;
+
+    public void Start()
     {
         button = GetComponent<Button>();
+
+        localenablers = FindObjectsOfType<GamepadBackEnabler>();
     }
 
-    void OnCancellation(InputAction action)
+    public void Update()
     {
-        cancelled = action.enabled;
-    }
-
-    void OnSelection(InputAction action)
-    {
-        selected = action.enabled;
-    }
-
-    private void Update()
-    {
+        if(canvas.alpha == 1)
+        {
+            if (buttontype == 0)
+            {
+                if (GameInput.GetKeyDown("cancel") && selectionLock == false)
+                {
+                    foreach (GamepadBackEnabler enabler in localenablers)
+                    {
+                        enabler.selectionLock = true;
+                    }
+                    button.onClick.Invoke();
+                }
+            }
+            else if (buttontype == 1)
+            {
+                if (GameInput.GetKeyDown("select") && selectionLock == false)
+                {
+                    foreach (GamepadBackEnabler enabler in localenablers)
+                    {
+                        enabler.selectionLock = true;
+                    }
+                    button.onClick.Invoke();
+                }
+            }
+        }  
     }
 }

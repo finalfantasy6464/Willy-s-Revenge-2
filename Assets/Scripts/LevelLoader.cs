@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.InputSystem;
 
 public class LevelLoader : MonoBehaviour
 {
@@ -29,12 +28,14 @@ public class LevelLoader : MonoBehaviour
     private int completerequired;
 
     public CanvasGroup canvas;
-    public GameObject SaveCanvas;
-    public GameObject LoadCanvas;
+    public CanvasGroup SaveCanvas;
+    public CanvasGroup LoadCanvas;
 
     public AudioClip LevelSelect;
 
     public MapManager mapmanager;
+
+    public GamepadBackEnabler[] ButtonsEnabler;
 
 	void Start(){
 
@@ -56,29 +57,27 @@ public class LevelLoader : MonoBehaviour
     {
         PinVisualUpdate();
 
-        //var gamepad = Gamepad.current;
-        //if(gamepad == null)
-        //{
-        //    return;
-        //}
-
-        if (Input.GetKey(KeyCode.Space) & active == true & caninput == true 
-                || Input.GetKey(KeyCode.Return) & active == true & caninput == true 
-                    /*|| gamepad.buttonSouth.isPressed & active == true & caninput == true*/) {
+        if (GameInput.GetKeyDown("select") && active == true && caninput == true)
+        {
             canvas.alpha = 255;
             canvas.interactable = true;
+            canvas.blocksRaycasts = true;
             GameControl.control.levelID = ID;
             GameSoundManagement.instance.PlaySingle(LevelSelect);
             mapmanager.Checklocked = true;
 
-            if (SaveCanvas.gameObject.activeSelf == true)
+            if (SaveCanvas.alpha == 1)
             {
-                SaveCanvas.gameObject.SetActive(false);
+                SaveCanvas.alpha = 0;
+                SaveCanvas.interactable = false;
+                SaveCanvas.blocksRaycasts = false;
             }
 
-            if (LoadCanvas.gameObject.activeSelf == true)
+            if (LoadCanvas.alpha == 1)
             {
-                LoadCanvas.gameObject.SetActive(false);
+                LoadCanvas.alpha = 0;
+                LoadCanvas.interactable = false;
+                SaveCanvas.blocksRaycasts = false;
             }
         }
 
@@ -174,14 +173,33 @@ public class LevelLoader : MonoBehaviour
 			active = false;
             canvas.alpha = 0;
             canvas.interactable = false;
+            canvas.blocksRaycasts = false;
         }
 	}
 
     void CanvasEnable()
     {
         canvas.alpha = 255;
+        canvas.blocksRaycasts = true;
     }
 
+    private void LateUpdate()
+    {
+        if(canvas.alpha == 1)
+        {
+            foreach (GamepadBackEnabler button in ButtonsEnabler)
+            {
+                button.selectionLock = false;
+            }
+        }
+        else
+        {
+            foreach (GamepadBackEnabler button in ButtonsEnabler)
+            {
+                button.selectionLock = true;
+            }
+        }
+    }
     private void OnDisable()
     {
         GameControl.onSingletonCheck.RemoveListener(PinVisualUpdate);

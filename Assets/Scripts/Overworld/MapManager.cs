@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.InputSystem;
 
 public class MapManager : MonoBehaviour
 {
@@ -21,9 +20,9 @@ public class MapManager : MonoBehaviour
 	private GameObject pinObject;
 
     public CanvasGroup menuCanvas;
-    public GameObject SaveCanvas;
-    public GameObject LoadCanvas;
-    public GameObject LevelCanvas;
+    public CanvasGroup SaveCanvas;
+    public CanvasGroup LoadCanvas;
+    public CanvasGroup LevelCanvas;
 
     public Button backButton;
     public Button playButton;
@@ -32,6 +31,8 @@ public class MapManager : MonoBehaviour
     public AudioClip playsound;
 
     private GameSoundManagement sound;
+
+    public GamepadBackEnabler[] ButtonsEnabler;
 
     public List<GatePin> worldgates = new List<GatePin>();
 
@@ -110,51 +111,29 @@ public class MapManager : MonoBehaviour
 	/// </summary>
 	private void CheckForInput()
 	{
-        //var gamepad = Gamepad.current;
-        //if(gamepad == null)
-        //{
-        //    return;
-        //}
 
-        if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.W) 
-                || Input.GetAxisRaw("Vertical") == 1 /*|| gamepad.dpad.up.isPressed*/)
+        if (GameInput.GetKeyUp("up"))
         {
             character.TrySetDirection(Direction.Up);
         }
-        else if (Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.S) 
-                || Input.GetAxisRaw("Vertical") == -1 /*|| gamepad.dpad.down.isPressed*/)
+        else if (GameInput.GetKeyUp("down"))
         {
             character.TrySetDirection(Direction.Down);
         }
-        else if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.A) 
-                || Input.GetAxisRaw("Horizontal") == -1 /*|| gamepad.dpad.left.isPressed*/)
+        else if (GameInput.GetKeyUp("left"))
         {
             character.TrySetDirection(Direction.Left);
         }
-        else if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.D) 
-                || Input.GetAxisRaw("Horizontal") == 1 /*|| gamepad.dpad.right.isPressed*/)
+        else if (GameInput.GetKeyUp("right"))
         {
             character.TrySetDirection(Direction.Right);
         }
-        else if (Input.GetKeyUp(KeyCode.Escape) /*|| gamepad.startButton.isPressed*/)
+        else if (GameInput.GetKeyUp("pause"))
         {
             menuCanvas.alpha = 1;
+            menuCanvas.blocksRaycasts = true;
             menuCanvas.interactable = true;
-
-            if(SaveCanvas.gameObject.activeSelf == true)
-            {
-                SaveCanvas.gameObject.SetActive(false);
-            }
-
-            if(LoadCanvas.gameObject.activeSelf == true)
-            {
-                LoadCanvas.gameObject.SetActive(false);
-            }
-
-            if(LevelCanvas.gameObject.activeSelf == true)
-            {
-                LevelCanvas.gameObject.SetActive(false);
-            }
+            Checklocked = true;
         }
 	}
 
@@ -176,6 +155,17 @@ public class MapManager : MonoBehaviour
         SelectedLevelText.text = string.Format("{0}", character.CurrentPin.SceneToLoad);
         SelectedLevelParTime.text = string.Format("{0}", character.CurrentPin.ParTime);
         SelectedLevelPreviewImage.sprite = character.CurrentPin.previewimage;
+    }
+
+    private void LateUpdate()
+    {
+        if (menuCanvas.alpha == 1 ^ SaveCanvas.alpha == 1 ^ LoadCanvas.alpha == 1)
+        {
+            foreach (GamepadBackEnabler button in ButtonsEnabler)
+            {
+                button.selectionLock = false;
+            }
+        }
     }
 
     public void OnDisable()
