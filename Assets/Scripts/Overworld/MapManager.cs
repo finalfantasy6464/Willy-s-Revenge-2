@@ -1,28 +1,17 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System;
 
 public class MapManager : MonoBehaviour
 {
-	public Character character;
+	public OverworldCharacter character;
+    public OverworldGUI overworldGUI;
 
-	public Pin StartPin;
-	public Pin TargetPin;
-    public Pin PreviousPin;
-
-	public Text SelectedLevelText;
-    public Text SelectedLevelParTime;
-    public Image SelectedLevelPreviewImage;
-
-    public bool Checklocked = false;
-
-	private GameObject[] allObjects;
-	private GameObject pinObject;
-
-    public CanvasGroup menuCanvas;
-    public CanvasGroup SaveCanvas;
-    public CanvasGroup LoadCanvas;
-    public CanvasGroup LevelCanvas;
+	public LevelPin startPin;
+	public LevelPin targetPin;
+    public LevelPin previousPin;
 
     public Button backButton;
     public Button playButton;
@@ -30,147 +19,88 @@ public class MapManager : MonoBehaviour
     public AudioClip backsound;
     public AudioClip playsound;
 
-    private GameSoundManagement sound;
-
+    public GameSoundManagement soundManagement;
     public GamepadBackEnabler[] ButtonsEnabler;
+    public List<LevelPin> levelPins;
+    public List<GatePin> worldGates;
 
-    public List<GatePin> worldgates = new List<GatePin>();
-
-    /// <summary>
-    /// Use this for initialization
-    /// </summary>
     private void Start ()
 	{
-        character = GameObject.Find("Character").GetComponent<Character>();
+        startPin = levelPins[GameControl.control.levelID];
 
-        if(sound == null)
-        {
-            sound = GameObject.Find("SoundManager").GetComponent<GameSoundManagement>();
-        }
+        if(character == null)
+            character = FindObjectOfType<OverworldCharacter>();
 
-		if (GameControl.control.levelID != 0) {
-			pinObject = GameObject.Find ("LP" + GameControl.control.levelID.ToString ());
-			StartPin = pinObject.GetComponent<Pin> ();
-            character.transform.position = StartPin.transform.position;
-        }
-
-        sound.GetComponent<MusicManagement>().onOverworld.Invoke();
-
-        backButton.onClick.AddListener(()=> sound.PlaySingle(backsound));
-        playButton.onClick.AddListener(()=> sound.PlaySingle(playsound));
-
-
-        // Pass a ref and default the player Starting Pin
-        character.Initialise (this, StartPin);
-
-        GameControl.control.lockedgates.Clear();
-        GameControl.control.destroyedgates.Clear();
-
-        if (GameControl.control.lockedgatescache.Count == 0)
-        {
-            for (int i = 0; i < worldgates.Count; i++)
-            {
-                GameControl.control.lockedgates.Add(true);
-                GameControl.control.destroyedgates.Add(false);
-            }
-        }
-        else
-        {
-            for (int i = 0; i < GameControl.control.lockedgatescache.Count; i++)
-            {
-                GameControl.control.lockedgates.Add(false);
-                GameControl.control.destroyedgates.Add(false);
-                GameControl.control.lockedgates[i] = GameControl.control.lockedgatescache[i];
-                GameControl.control.destroyedgates[i] = GameControl.control.destroyedgatescache[i];
-            }
-        }
+        character.Initialize(startPin);
+        overworldGUI.Initialize(this, character);
+        
+        soundManagement.GetComponent<MusicManagement>().onOverworld.Invoke();
+        backButton.onClick.AddListener(()=> soundManagement.PlaySingle(backsound));
+        playButton.onClick.AddListener(()=> soundManagement.PlaySingle(playsound));
+        GameControl.control.InitializeOverworldMap(worldGates);
+        InitializeWorldGates();
     }
 
-	/// <summary>
-	/// This runs once a frame
-	/// </summary>
-	private void Update()
-	{
-        // Only check input when character is stopped
-        if (character.IsMoving) return;
-
-        // First thing to do is try get the player input
-        if (!Checklocked)
-        {
-            CheckForInput();
-        }
-	}
-
-    public void CheckUnlocker()
+    public void UnlockAndDestroyGate(GatePin gate)
     {
-        Checklocked = false;
+        for(int i = 0; i < worldGates.Count; i++)
+        {
+           if(worldGates[i] == gate)
+            {
+                GameControl.control.lockedgates[i] = false;
+                GameControl.control.destroyedgates[i] = true;
+            }
+        }
     }
 
-	/// <summary>
-	/// Check if the player has pressed a button
-	/// </summary>
-	private void CheckForInput()
-	{
+    void InitializeWorldGates()
+    {
+        bool isCacheEmpty = GameControl.control.lockedgatescache.Count == 0;
+        GatePin gate;
 
-        if (GameInput.GetKeyUp("up"))
+        for (int i = 0; i < worldGates.Count; i++)
         {
-            character.TrySetDirection(Direction.Up);
+            gate = worldGates[i];
+            if (isCacheEmpty)
+            {
+                gate.locked = GameControl.control.lockedgates[i];
+                gate.destroyed = GameControl.control.destroyedgates[i];
+            }
+            else
+            {
+                gate.locked = GameControl.control.lockedgatescache[i];
+                gate.destroyed = GameControl.control.destroyedgatescache[i];
+            }
+            gate.map = this;
+            gate.SetOrbState(gate.locked, gate.destroyed);
         }
-        else if (GameInput.GetKeyUp("down"))
-        {
-            character.TrySetDirection(Direction.Down);
-        }
-        else if (GameInput.GetKeyUp("left"))
-        {
-            character.TrySetDirection(Direction.Left);
-        }
-        else if (GameInput.GetKeyUp("right"))
-        {
-            character.TrySetDirection(Direction.Right);
-        }
-        else if (GameInput.GetKeyUp("pause"))
-        {
-            menuCanvas.alpha = 1;
-            menuCanvas.blocksRaycasts = true;
-            menuCanvas.interactable = true;
-            Checklocked = true;
-        }
-	}
+    }
 
     public void SetWorldGateData(List<bool> lockedgates, List<bool> destroyedgates)
     {
-        for (int i = 0; i < worldgates.Count; i++)
+        for (int i = 0; i < worldGates.Count; i++)
         {
-            worldgates[i].locked = lockedgates[i];
-            worldgates[i].destroyed = destroyedgates[i];
-            worldgates[i].OnLevelLoaded.Invoke();
+            worldGates[i].locked = lockedgates[i];
+            worldGates[i].destroyed = destroyedgates[i];
+            worldGates[i].OnLevelLoaded.Invoke();
         }
     }
-
-    /// <summary>
-    /// Update the GUI text
-    /// </summary>
-    public void UpdateGui()
-	{
-        SelectedLevelText.text = string.Format("{0}", character.CurrentPin.SceneToLoad);
-        SelectedLevelParTime.text = string.Format("{0}", character.CurrentPin.ParTime);
-        SelectedLevelPreviewImage.sprite = character.CurrentPin.previewimage;
-    }
-
-    private void LateUpdate()
-    {
-        if (menuCanvas.alpha == 1 ^ SaveCanvas.alpha == 1 ^ LoadCanvas.alpha == 1)
-        {
-            foreach (GamepadBackEnabler button in ButtonsEnabler)
-            {
-                button.selectionLock = false;
-            }
-        }
-    }
-
+    
     public void OnDisable()
     {
-        backButton.onClick.RemoveListener(() => sound.PlaySingle(backsound));
-        playButton.onClick.RemoveListener(() => sound.PlaySingle(playsound));
+        backButton.onClick.RemoveListener(() => soundManagement.PlaySingle(backsound));
+        playButton.onClick.RemoveListener(() => soundManagement.PlaySingle(playsound));
+    }
+    
+    public void LoadLevelFromCurrentPin()
+    {
+        for (int i = 0; i < levelPins.Count; i++)
+        {
+            if(levelPins[i] == character.currentPin)
+            {
+                SceneManager.LoadScene($"Level{i + 1}");
+                break;
+            }
+        }
     }
 }

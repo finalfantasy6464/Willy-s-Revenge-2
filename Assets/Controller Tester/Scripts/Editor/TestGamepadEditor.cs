@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEditor;
 using System.Collections;
 
@@ -8,11 +9,10 @@ public static class TestGamepadEditor
 
     static TestGamepadEditor()
     {
-        EditorApplication.hierarchyWindowChanged += OnHierarchyChange;
+        EditorApplication.hierarchyChanged += OnHierarchyChange;
     }
     static void OnHierarchyChange()
     {
-
         if (EditorApplication.currentScene.Contains("controllerTest")) 
         {
             PlayerSettings.defaultInterfaceOrientation = UIOrientation.LandscapeLeft;
@@ -582,7 +582,7 @@ public static class TestGamepadEditor
 
 
             //we only need to execute once on our scenes            
-            EditorApplication.hierarchyWindowChanged -= OnHierarchyChange;
+            EditorApplication.hierarchyChanged -= OnHierarchyChange;
         }
 
     }

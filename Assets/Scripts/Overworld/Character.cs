@@ -5,31 +5,28 @@ public class Character : MonoBehaviour
     public float Speed = 3f;
     public bool IsMoving { get; private set; }
 
-    public Pin PreviousPin { get; private set; }
-    public Pin CurrentPin { get; private set; }
-    private Pin _targetPin;
-    private Pin _LastPin;
+    public LevelPin PreviousPin { get; private set; }
+    public LevelPin CurrentPin { get; private set; }
+    private LevelPin _targetPin;
+    private LevelPin _LastPin;
     private MapManager _mapManager;
 
     public CanvasGroup canvas;
 
-    public void Initialise(MapManager mapManager, Pin startPin)
+    public void Initialise(MapManager map)
     {
-        _mapManager = mapManager;
-        SetCurrentPin(startPin);
+        _mapManager = map;
+        SetCurrentPin(map.startPin);
     }
 
     private void Awake()
     {
         if(Time.timeScale == 0)
-        {
             Time.timeScale = 1;
-        }
     }
 
     private void Start()
     {
-        GameControl.control.CallCameraRoutine();
         SetPinPosition();
     }
 
@@ -37,106 +34,27 @@ public class Character : MonoBehaviour
     {
         transform.position = GameControl.control.savedPinPosition;
 
-        foreach (Pin pin in FindObjectsOfType<Pin>())
+        foreach (LevelPin pin in _mapManager.levelPins)
         {
             if (pin.transform.position == GameControl.control.savedPinPosition)
-            {
                 SetCurrentPin(pin);
-            }
         }
     }
-
-    /// <summary>
-    /// This runs once a frame
-    /// </summary>
-    private void Update()
-    {
-        if (_targetPin == null) return;
-
-        // Get the characters current position and the targets position
-        var currentPosition = transform.position;
-        var targetPosition = _targetPin.transform.position;
-
-        // If the character isn't that close to the target move closer
-        if (Vector3.Distance(currentPosition, targetPosition) > .02f)
-        {
-            transform.position = Vector3.MoveTowards(
-                currentPosition,
-                targetPosition,
-                Time.deltaTime * Speed
-            );
-        }
-        else
-        {
-            if (_targetPin.IsAutomatic)
-            {
-                // Get a direction to keep moving in
-                var pin = _targetPin.GetNextPin(CurrentPin);
-                MoveToPin(pin);
-            }
-            else
-            {
-                if (_targetPin.IsEndOfWorld)
-                {
-                    Gatecheck(_targetPin.GetComponent<GatePin>());
-                }
-                else
-                {
-                    SetCurrentPin(_targetPin);
-                }
-            }
-        }
-    }
-
-    
-    /// <summary>
-    /// Check the if the current pin has a reference to another in a direction
-    /// If it does the move there
-    /// </summary>
-    /// <param name="direction"></param>
-    public void TrySetDirection(Direction direction)
-    {
-        // Try get the next pin
-        var pin = CurrentPin.GetPinInDirection(direction);
-        
-        // If there is a pin then move to it
-        if (pin == null) return;
-        MoveToPin(pin);
-    }
-
-    public void Gatecheck(GatePin gate)
-    {
-        if (!gate.LockCheck())
-        {
-            PreviousPin = CurrentPin;
-            // Get a direction to keep moving in
-            var pin = _targetPin.GetNextPin(CurrentPin);
-            MoveToPin(pin);
-        }
-        else
-        {
-            gate.PlaySound(gate.bounce);
-            _targetPin = CurrentPin;
-            MoveToPin(_targetPin);
-        }
-    }
-
     /// <summary>
     /// Move to a new pin
     /// </summary>
     /// <param name="pin"></param>
-    private void MoveToPin(Pin pin)
+    private void MoveToPin(LevelPin pin)
     {
         _targetPin = pin;
         IsMoving = true;
     }
 
-    
     /// <summary>
     /// Set the current pin
     /// </summary>
     /// <param name="pin"></param>
-    public void SetCurrentPin(Pin pin)
+    public void SetCurrentPin(LevelPin pin)
     {
         CurrentPin = pin;
         _targetPin = null;
@@ -144,13 +62,6 @@ public class Character : MonoBehaviour
         IsMoving = false;
 
         if (GameControl.control.levelID == 0)
-        {
             PreviousPin = null;
-        }
-
-        // Tell the map manager that
-        // the current pin has changed
-     
-        _mapManager.UpdateGui();
     }
 }

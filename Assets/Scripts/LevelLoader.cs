@@ -64,7 +64,7 @@ public class LevelLoader : MonoBehaviour
             canvas.blocksRaycasts = true;
             GameControl.control.levelID = ID;
             GameSoundManagement.instance.PlaySingle(LevelSelect);
-            mapmanager.Checklocked = true;
+            //mapmanager.checkLocked = true;
 
             if (SaveCanvas.alpha == 1)
             {

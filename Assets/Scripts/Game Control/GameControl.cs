@@ -14,7 +14,6 @@ public class GameControl : MonoBehaviour
     public int complete;
     public int golden;
     public int timer;
-    public int camerachoice;
 
     public bool returntoselect = false;
     public bool bosscheckpoint = false;
@@ -34,7 +33,7 @@ public class GameControl : MonoBehaviour
     public string currentlevel;
     Scene m_Scene;
     public string sceneName;
-    public Pin savedPin;
+    public LevelPin savedPin;
 
     public Vector3 savedPinPosition;
     public Vector3 AutosavePosition;
@@ -74,16 +73,35 @@ public class GameControl : MonoBehaviour
         onSingletonCheck.Invoke();
         LevelListGeneration();
     }
- 
+
+    public void InitializeOverworldMap(List<GatePin> gates)
+    {
+        lockedgates.Clear();
+        destroyedgates.Clear();
+
+        if (lockedgatescache.Count == 0)
+        {
+            for (int i = 0; i < gates.Count; i++)
+            {
+                lockedgates.Add(true);
+                destroyedgates.Add(false);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < lockedgatescache.Count; i++)
+            {
+                lockedgates.Add(false);
+                destroyedgates.Add(false);
+                lockedgates[i] = lockedgatescache[i];
+                destroyedgates[i] = destroyedgatescache[i];
+            }
+        }
+    }
 
     private void Start()
     {
-        Application.targetFrameRate = 60;
-
-        if (m_Scene.name == "Overworld")
-        {
-            StartCoroutine(Setcamerasroutine());
-        }   
+        Application.targetFrameRate = 60;  
     }
 
     private void Update()
@@ -118,11 +136,6 @@ public class GameControl : MonoBehaviour
       }
     }
 
-    public void CallCameraRoutine()
-    {
-        StartCoroutine(Setcamerasroutine());
-    }
-
     public IEnumerator LoadRoutine(int routinechoice)
     {
         yield return 3;
@@ -138,46 +151,37 @@ public class GameControl : MonoBehaviour
         }
     }
 
-    public IEnumerator Setcamerasroutine()
-    {
-        yield return 3;
-        SetCamera(camerachoice);
-    }
-
     [HideInInspector]
     public IEnumerator SetWorldGates()
     {
         yield return 3;
-        MapManager map = GameObject.Find("MapManager").GetComponent<MapManager>();
+        MapManager map = FindObjectOfType<MapManager>();
         map.SetWorldGateData(lockedgatescache, destroyedgatescache);
-        for (int i = 0; i < map.worldgates.Count; i++)
+        for (int i = 0; i < map.worldGates.Count; i++)
         {
-            map.worldgates[i].SetOrbState(lockedgatescache[i], destroyedgatescache[i]);
+            map.worldGates[i].SetOrbState(lockedgatescache[i], destroyedgatescache[i]);
         }
     }
 
     [HideInInspector] public IEnumerator ChangeCharacterPin()
     {
-        GameObject CharacterObject = GameObject.Find("Character");
+        OverworldCharacter character = FindObjectOfType<OverworldCharacter>();
+        MapManager map = FindObjectOfType<MapManager>();
 
-        if(CharacterObject == null)
-        {
+        if(character == null || map == null)
             yield break;
-        }
 
-        character = CharacterObject.GetComponent<Character>();
-        character.SetPinPosition();
-    }
+        if(savedPinPosition == character.currentPin.transform.position)
+            yield break;
 
-    public void SetCamera(int index)
-    {
-        camerachoice = index;
-        CameraController controller = GameObject.Find("OverworldCameraController").GetComponent<CameraController>();
-        controller.cameras[camerachoice].gameObject.SetActive(true);
-        for (int i = 0; i < controller.cameras.Count; i++)
+        for (int i = 0; i < map.levelPins.Count; i++)
         {
-            if (camerachoice == i) continue;
-            controller.cameras[i].gameObject.SetActive(false);
+            if(map.levelPins[i].transform.position == savedPinPosition)
+            {
+                character.currentPin.onCharacterExit.Invoke();
+                character.SetCurrentPin(map.levelPins[i]);
+                character.currentPin.onCharacterEnter.Invoke();
+            }
         }
     }
 
@@ -185,37 +189,24 @@ public class GameControl : MonoBehaviour
     {
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/autosave.wr2");
-        PlayerData data = new PlayerData(complete, golden, timer, levelID,
-                camerachoice, new SerializedVector3(AutosavePosition), new SerializedVector3Pin(savedPinPosition), completedlevels, goldenpellets, timerchallenge, lockedgates, destroyedgates);
+        PlayerData data = new PlayerData(complete, golden, timer, levelID, new SerializedVector3(AutosavePosition), new SerializedVector3Pin(savedPinPosition), completedlevels, goldenpellets, timerchallenge, lockedgates, destroyedgates);
         bf.Serialize(file, data);
         file.Close();
     }
 
     public void Save()
 	{
-        Character character = GameObject.Find("Character").GetComponent<Character>();
+        OverworldCharacter character = FindObjectOfType<OverworldCharacter>();
+        savedPinPosition = character.transform.position;
 		BinaryFormatter bf = new BinaryFormatter ();
 		FileStream file = File.Create (Application.persistentDataPath + "/playersave.wr2");
-        SetPinFromPosition(character);
-        PlayerData data = new PlayerData(complete, golden, timer, levelID,
-                camerachoice, new SerializedVector3(character.transform.position), new SerializedVector3Pin(savedPinPosition), completedlevels, goldenpellets, timerchallenge, lockedgates, destroyedgates);
+        PlayerData data = new PlayerData(complete, golden, timer, levelID, new SerializedVector3(character.transform.position),
+                new SerializedVector3Pin(savedPinPosition), completedlevels,
+                goldenpellets, timerchallenge, lockedgates, destroyedgates);
+
         bf.Serialize (file, data);
 		file.Close();
 	}
-
-    public void SetPinFromPosition(Character character)
-    {
-        Pin pin;
-        foreach (Collider2D result in
-                Physics2D.OverlapPointAll(character.transform.position))
-        {
-            pin = result.GetComponent<Pin>();
-            if (pin == null) continue;
-            character.SetCurrentPin(pin);
-            savedPin = pin;
-            savedPinPosition = pin.transform.position;
-        }
-    }
 
     public void Load()
 	{
@@ -249,12 +240,14 @@ public class GameControl : MonoBehaviour
             completedlevels = data.completedlevels;
             goldenpellets = data.goldenpellets;
             timerchallenge = data.timerchallenge;
-            camerachoice = data.camerachoice;
             savedPinPosition.x = data.savedPinposition.x;
             savedPinPosition.y = data.savedPinposition.y;
             savedPinPosition.z = data.savedPinposition.z;
             lockedgatescache = data.lockedgates;
             destroyedgatescache = data.destroyedgates;
+
+            lockedgates = lockedgatescache;
+            destroyedgates = destroyedgatescache;
  
             StartCoroutine(SetWorldGates());
         }
@@ -292,7 +285,6 @@ class PlayerData
 	public int golden;
 	public int timer;
 	public int levelID;
-    public int camerachoice;
     public SerializedVector3 playerposition;
     public SerializedVector3Pin savedPinposition;
 
@@ -302,19 +294,18 @@ class PlayerData
     public List<bool> lockedgates;
     public List<bool> destroyedgates;
 
-    public PlayerData(int complete, int golden, int timer, int levelID, int cameraChoice,
+    public PlayerData(int complete, int golden, int timer, int levelID,
             SerializedVector3 serializedPosition, SerializedVector3Pin serializedPinPosition)
     {
         this.complete = complete;
         this.golden = golden;
         this.timer = timer;
         this.levelID = levelID;
-        this.camerachoice = cameraChoice;
         this.playerposition = serializedPosition;
         this.savedPinposition = serializedPinPosition;
     }
 
-    public PlayerData(int complete, int golden, int timer, int levelID, int cameraChoice,
+    public PlayerData(int complete, int golden, int timer, int levelID,
             SerializedVector3 serializedPosition, SerializedVector3Pin serializedPinPosition, List<bool> completedLevels,
             List<bool> goldenPellets, List<bool> timerChallenge, List<bool> lockedgates, List<bool> destroyedgates)
     {
@@ -322,7 +313,6 @@ class PlayerData
         this.golden = golden;
         this.timer = timer;
         this.levelID = levelID;
-        this.camerachoice = cameraChoice;
         this.playerposition = serializedPosition;
         this.savedPinposition = serializedPinPosition;
         this.completedlevels = completedLevels;

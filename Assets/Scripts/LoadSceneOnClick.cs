@@ -12,8 +12,6 @@ public class LoadSceneOnClick : MonoBehaviour
 		SceneManager.LoadScene (sceneIndex);
         if (sceneIndex == 101)
         {
-            GameControl.control.StartCoroutine(GameControl.control.Setcamerasroutine());
-
 			if(type == 0)
             {
                 OverworldLock.loadlocked = false;

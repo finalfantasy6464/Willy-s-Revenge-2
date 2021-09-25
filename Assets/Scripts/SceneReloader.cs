@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class SceneReloader : MonoBehaviour
 {
-
-
     // Update is called once per frame
     void Update()
     {

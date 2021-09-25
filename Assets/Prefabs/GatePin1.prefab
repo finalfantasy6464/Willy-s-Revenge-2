@@ -194,11 +194,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2196258862148795160}
+  - component: {fileID: 2196258862148795142}
   - component: {fileID: 2196258862148795141}
-  - component: {fileID: 2196258862148795140}
   - component: {fileID: 2196258862148795163}
   - component: {fileID: 2196258862148795161}
-  - component: {fileID: 2196258862148795142}
   m_Layer: 0
   m_Name: GatePin1
   m_TagString: Untagged
@@ -223,6 +222,42 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2196258862148795142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2196258862148795167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64e996d8d9b5478429a6d6de4d0c6aad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  previousPath: {fileID: 0}
+  previousDirection: 0
+  nextPath: {fileID: 0}
+  nextDirection: 0
+  onCharacterEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onCharacterExit:
+    m_PersistentCalls:
+      m_Calls: []
+  completerequired: 7
+  greensprite: {fileID: 21300000, guid: a62f729128af5ea4882cf48321491c36, type: 3}
+  destroyedsprite: {fileID: 21300000, guid: 3bf7b609598d1274e8074088c523912d, type: 3}
+  shatter: {fileID: 8300000, guid: 623c53f92ab35fe4baea10402bb102ee, type: 3}
+  bounce: {fileID: 8300000, guid: d33d16a67c0025541948f3f4c10cef6e, type: 3}
+  locked: 1
+  destroyed: 0
+  Crackedorb: {fileID: 3020336837368546307}
+  Completeorb: {fileID: 481690320989055746}
+  Barrier: {fileID: 1449492537209665564}
+  map: {fileID: 0}
+  OnLevelLoaded:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!212 &2196258862148795141
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -274,29 +309,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2196258862148795140
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2196258862148795167}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 722042b00b51849cc96bd86d6c62959f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsAutomatic: 0
-  IsEndOfWorld: 1
-  HideIcon: 0
-  SceneToLoad: Gate One
-  completerequired: 7
-  previewimage: {fileID: 0}
-  ParTime: 
-  UpPin: {fileID: 0}
-  DownPin: {fileID: 0}
-  LeftPin: {fileID: 0}
-  RightPin: {fileID: 0}
 --- !u!95 &2196258862148795163
 Animator:
   serializedVersion: 3
@@ -342,33 +354,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.36, y: 0.36}
   m_EdgeRadius: 0
---- !u!114 &2196258862148795142
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2196258862148795167}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64e996d8d9b5478429a6d6de4d0c6aad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  completerequired: 7
-  greensprite: {fileID: 21300000, guid: a62f729128af5ea4882cf48321491c36, type: 3}
-  destroyedsprite: {fileID: 21300000, guid: 3bf7b609598d1274e8074088c523912d, type: 3}
-  source: {fileID: 0}
-  clip: {fileID: 8300000, guid: 623c53f92ab35fe4baea10402bb102ee, type: 3}
-  bounce: {fileID: 8300000, guid: d33d16a67c0025541948f3f4c10cef6e, type: 3}
-  locked: 1
-  destroyed: 0
-  Crackedorb: {fileID: 3020336837368546307}
-  Completeorb: {fileID: 481690320989055746}
-  Barrier: {fileID: 1449492537209665564}
-  mapmanager: {fileID: 0}
-  OnLevelLoaded:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &2298839361527530742
 GameObject:
   m_ObjectHideFlags: 0
