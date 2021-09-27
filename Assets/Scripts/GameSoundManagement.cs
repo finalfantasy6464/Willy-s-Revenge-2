@@ -36,19 +36,19 @@ public class GameSoundManagement : MonoBehaviour
 
     void Awake()
     {
-
-        if (instance == null)
-            instance = this;
-
-        else if (instance != this)
+        if (instance != null && instance != this)
+        {
             Destroy(gameObject);
-
-        DontDestroyOnLoad(gameObject);
+                return;
+        }   
 
         foreach (AudioSource source in sources)
         {
             soundDataList.Add(null);
         }
+        
+        DontDestroyOnLoad(gameObject);
+        instance = this;
     }
 
     public void Start()

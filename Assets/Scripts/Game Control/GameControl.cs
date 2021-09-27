@@ -9,16 +9,20 @@ using System.IO;
 
 public class GameControl : MonoBehaviour
 {
-    public static GameControl control;
-
     public int complete;
     public int golden;
     public int timer;
-
     public bool returntoselect = false;
     public bool bosscheckpoint = false;
     public bool faded = false;
-
+    public int totallevels;
+    public int targetLevels;
+    public int levelID;
+    public string currentlevel;
+    public string sceneName;
+    public Vector3 savedPinPosition;
+    public Vector3 AutosavePosition;
+    public LevelPin savedPin;
     public List<bool> completedlevels = new List<bool>();
     public List<bool> goldenpellets = new List<bool>();
     public List<bool> timerchallenge = new List<bool>();
@@ -27,20 +31,9 @@ public class GameControl : MonoBehaviour
     public List<bool> lockedgatescache = new List<bool>();
     public List<bool> destroyedgatescache = new List<bool>();
 
-    public int totallevels;
-    public int targetLevels;
-    public int levelID;
-    public string currentlevel;
-    Scene m_Scene;
-    public string sceneName;
-    public LevelPin savedPin;
-
-    public Vector3 savedPinPosition;
-    public Vector3 AutosavePosition;
-
     public static UnityEvent onSingletonCheck;
-
-    public Character character;
+    public static GameControl control;
+    Scene m_Scene;
 
     void Awake()
     {
@@ -50,12 +43,9 @@ public class GameControl : MonoBehaviour
         currentlevel = m_Scene.name;
 
         if(onSingletonCheck == null)
-        {
             onSingletonCheck = new UnityEvent();
-        }
-        bool InitialSingleton = control == null;
 
-        if (!InitialSingleton && control != this)
+        if (control != null && control != this)
         {
             onSingletonCheck.Invoke();
             if (m_Scene.name == "MainMenu")
@@ -65,6 +55,7 @@ public class GameControl : MonoBehaviour
             else
             {
                 Destroy(gameObject);
+                PauseControlCheck(this);
                 return;
             }
         }   
@@ -72,6 +63,18 @@ public class GameControl : MonoBehaviour
         control = this;
         onSingletonCheck.Invoke();
         LevelListGeneration();
+    }
+
+    void PauseControlCheck(GameControl instance)
+    {
+        PauseControl pause = GetComponent<PauseControl>();
+        if(pause == null)
+            pause = gameObject.AddComponent<PauseControl>();
+
+        pause.enabled = instance.m_Scene.name.Contains("Level");
+        Debug.Break();
+        if(pause.enabled)
+            pause.OnLevelLoaded();
     }
 
     public void InitializeOverworldMap(List<GatePin> gates)

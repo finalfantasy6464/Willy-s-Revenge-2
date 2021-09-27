@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,21 @@ public static class GameInput
     public static int VerticalCache;
     public static int HorizontalCache;
 
+    static Dictionary<string, KeyCode[]> keyCodeMap = new Dictionary<string, KeyCode[]>
+    {
+        { "left",   new KeyCode[] {KeyCode.LeftArrow, KeyCode.A} },
+        { "up",     new KeyCode[] {KeyCode.UpArrow, KeyCode.W} },
+        { "right",  new KeyCode[] {KeyCode.RightArrow, KeyCode.D} },
+        { "down",   new KeyCode[] {KeyCode.DownArrow, KeyCode.S} },
+        { "select", new KeyCode[] {KeyCode.JoystickButton0, KeyCode.Space, KeyCode.Return, KeyCode.KeypadEnter} },
+        { "cancel", new KeyCode[] {KeyCode.JoystickButton1, KeyCode.Backspace} },
+        { "pause",  new KeyCode[] {KeyCode.JoystickButton7, KeyCode.Escape} },
+    };
+
+    static string[] directionalKeys = new string[]
+    {
+        "left", "up", "right", "down"
+    };
 
     public static void Update()
     {
@@ -30,120 +46,71 @@ public static class GameInput
             Horizontal = 0;
     }
 
-    public static bool GetKey(string keyname) 
+    public static bool GetKey(string keyName) 
     {
-        if(keyname == "up")
-        {
-            return Input.GetAxisRaw("Vertical") > 0 || Input.GetAxisRaw("DpadY") > 0 
-                    || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W);
-        }
-        else if (keyname == "left")
-        {
-            return Input.GetAxisRaw("Horizontal") < 0 || Input.GetAxisRaw("DpadX") < 0
-                    || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A);
-        }
-        else if (keyname == "right")
-        {
-            return Input.GetAxisRaw("Horizontal") > 0 || Input.GetAxisRaw("DpadX") > 0
-                    || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D);
-        }
-        else if (keyname == "down")
-        {
-            return Input.GetAxisRaw("Vertical") < 0 || Input.GetAxisRaw("DpadY") < 0
-                    || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S);
-        }
-        else if (keyname == "select")
-        {
-            return Input.GetKey(KeyCode.JoystickButton0) || Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Return);
-        }
-        else if (keyname == "cancel")
-        {
-            return Input.GetKey(KeyCode.JoystickButton1) || Input.GetKey(KeyCode.Backspace);
-        }
-        else if (keyname == "pause")
-        {
-            return Input.GetKey(KeyCode.JoystickButton7) || Input.GetKey(KeyCode.Escape);
-        }
-        else
-        {
-            Debug.LogError("No Input Detected");
+        if(!IsKeyValid(keyName))
             return false;
+
+        if(AnyInState(keyCodeMap[keyName], Input.GetKey))
+            return true;
+        else if(Array.Exists(directionalKeys, n => n.Equals(keyName)))
+        {
+            return (keyName == "up"    && (Input.GetAxisRaw("Vertical") > 0   || Input.GetAxisRaw("DpadY") > 0))
+                || (keyName == "left"  && (Input.GetAxisRaw("Horizontal") < 0 || Input.GetAxisRaw("DpadX") < 0))
+                || (keyName == "right" && (Input.GetAxisRaw("Horizontal") > 0 || Input.GetAxisRaw("DpadX") > 0))
+                || (keyName == "down"  && (Input.GetAxisRaw("Vertical") < 0   || Input.GetAxisRaw("DpadY") < 0));
         }
+        return false;
     }
-    public static bool GetKeyDown(string keyname)
+
+    public static bool GetKeyDown(string keyName)
     {
-        if (keyname == "up")
-        {
-            return (Vertical > 0 && VerticalCache <= 0)
-                    || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W);
-        }
-        else if (keyname == "left")
-        {
-            return (Horizontal < 0 && HorizontalCache >= 0)
-                    || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A);
-        }
-        else if (keyname == "right")
-        {
-            return (Horizontal > 0 && HorizontalCache <= 0)
-                    || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D);
-        }
-        else if (keyname == "down")
-        {
-            return (Vertical < 0 && VerticalCache >= 0)
-                    || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S);
-        }
-        else if (keyname == "select")
-        {
-            return Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return);
-        }
-        else if (keyname == "cancel")
-        {
-            return Input.GetKeyDown(KeyCode.JoystickButton1) || Input.GetKeyDown(KeyCode.Backspace);
-        }
-        else if (keyname == "pause")
-        {
-            return Input.GetKeyDown(KeyCode.JoystickButton7) || Input.GetKeyDown(KeyCode.Escape);
-        }
-        else
-        {
-            Debug.LogError("No Input Detected");
+        if(!IsKeyValid(keyName))
             return false;
+
+        if(AnyInState(keyCodeMap[keyName], Input.GetKeyDown))
+            return true;
+        else if(Array.Exists(directionalKeys, n => n.Equals(keyName)))
+        {
+            return (keyName == "up"    && (Vertical > 0 && VerticalCache <= 0))
+                || (keyName == "left"  && (Horizontal < 0 && HorizontalCache >= 0))
+                || (keyName == "right" && (Horizontal > 0 && HorizontalCache <= 0))
+                || (keyName == "down"  && (Vertical < 0 && VerticalCache >= 0));
         }
+        return false;
     }
-    public static bool GetKeyUp(string keyname) 
+
+    public static bool GetKeyUp(string keyName) 
     {
-        if (keyname == "up")
+        if(!IsKeyValid(keyName))
+            return false;
+
+        if(AnyInState(keyCodeMap[keyName], Input.GetKeyUp))
+            return true;
+        else if(Array.Exists(directionalKeys, n => n.Equals(keyName)))
         {
-            return (VerticalCache > 0 && Vertical <= 0)
-                    || Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.W);
+            return (keyName == "up"    && (VerticalCache > 0 && Vertical <= 0))
+                || (keyName == "left"  && (HorizontalCache < 0 && Horizontal >= 0))
+                || (keyName == "right" && (HorizontalCache > 0 && Horizontal <= 0))
+                || (keyName == "down"  && (VerticalCache < 0 && Vertical >= 0));
         }
-        else if (keyname == "left")
+        return false;
+    }
+
+    static bool AnyInState(KeyCode[] keys, Func<KeyCode, bool> stateMethod)
+    {
+        foreach(KeyCode key in keys)
         {
-            return (HorizontalCache < 0 && Horizontal >= 0)
-                    || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.A);
+            if(stateMethod(key))
+                return true;
         }
-        else if (keyname == "right")
-        {
-            return (HorizontalCache > 0 && Horizontal <= 0)
-                    || Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.D);
-        }
-        else if (keyname == "down")
-        {
-            return (VerticalCache < 0 && Vertical >= 0)
-                    || Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.S);
-        }
-        else if (keyname == "select")
-        {
-            return Input.GetKeyUp(KeyCode.JoystickButton0) || Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Return);
-        }
-        else if (keyname == "cancel")
-        {
-            return Input.GetKeyUp(KeyCode.JoystickButton1) || Input.GetKeyUp(KeyCode.Backspace);
-        }
-        else if (keyname == "pause")
-        {
-            return Input.GetKeyUp(KeyCode.JoystickButton7) || Input.GetKeyUp(KeyCode.Escape);
-        }
+        return false;
+    }
+
+    static bool IsKeyValid(string keyName)
+    {
+        if(keyCodeMap.ContainsKey(keyName))
+            return true;
         else
         {
             Debug.LogError("No Input Detected");

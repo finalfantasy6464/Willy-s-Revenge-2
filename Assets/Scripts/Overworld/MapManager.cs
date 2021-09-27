@@ -30,6 +30,9 @@ public class MapManager : MonoBehaviour
 
         if(character == null)
             character = FindObjectOfType<OverworldCharacter>();
+        
+        if(soundManagement == null)
+            soundManagement = FindObjectOfType<GameSoundManagement>();
 
         character.Initialize(startPin);
         overworldGUI.Initialize(this, character);
