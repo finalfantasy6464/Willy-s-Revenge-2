@@ -55,12 +55,12 @@ public class GameControl : MonoBehaviour
             else
             {
                 Destroy(gameObject);
-                PauseControlCheck(this);
                 return;
             }
         }   
         DontDestroyOnLoad(gameObject);
         control = this;
+        PauseControlCheck(this);
         onSingletonCheck.Invoke();
         LevelListGeneration();
     }
@@ -72,9 +72,10 @@ public class GameControl : MonoBehaviour
             pause = gameObject.AddComponent<PauseControl>();
 
         pause.enabled = instance.m_Scene.name.Contains("Level");
-        Debug.Break();
-        if(pause.enabled)
-            pause.OnLevelLoaded();
+        if (pause.enabled)
+        {
+            pause.Initialise();
+        }
     }
 
     public void InitializeOverworldMap(List<GatePin> gates)

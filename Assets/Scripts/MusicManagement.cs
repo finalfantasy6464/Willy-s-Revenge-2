@@ -32,14 +32,18 @@ public class MusicManagement : MonoBehaviour
     private void Awake()
     {
         onLevelStart = new UnityEvent();
-        onLevelStart.AddListener(MusicCheck);
-        onOverworld.AddListener(PlayOverworldMusic);
-        onMainMenu.AddListener(PlayMenuMusic);
-        onCredits.AddListener(PlayCreditsMusic);
+        onOverworld = new UnityEvent();
+        onMainMenu = new UnityEvent();
+        onCredits = new UnityEvent();
     }
 
     public void Start()
     {
+        onOverworld.AddListener(PlayOverworldMusic);
+        onMainMenu.AddListener(PlayMenuMusic);
+        onCredits.AddListener(PlayCreditsMusic);
+        onLevelStart.AddListener(MusicCheck);
+
         if(slider != null)
         {
             slider.value = PlayerPrefs.GetFloat(MUSIC_VOLUME);
@@ -233,5 +237,6 @@ public class MusicManagement : MonoBehaviour
         onLevelStart.RemoveListener(MusicCheck);
         onOverworld.RemoveListener(PlayOverworldMusic);
         onMainMenu.RemoveListener(PlayMenuMusic);
+        onCredits.RemoveListener(PlayCreditsMusic);
     }
 }

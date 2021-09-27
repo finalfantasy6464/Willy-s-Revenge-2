@@ -8,22 +8,29 @@ using UnityEngine.SceneManagement;
 public class PauseControl : MonoBehaviour
 {
     public bool isGamePaused;
-    CanvasGroup menuPromptGroup;
+    GUIWindow menuPrompt;
     List<IPausable> pausables;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (GameInput.GetKeyDown("pause"))
         {
             SetPause(!isGamePaused);
         }
     }
 
-    void SetPause(bool value)
+    public void SetPause(bool value)
     {
-        menuPromptGroup.alpha = value ? 1f : 0f;
-        menuPromptGroup.interactable = value;
-        menuPromptGroup.blocksRaycasts = value;
+        if (value)
+        {
+            menuPrompt.Show();
+        }
+        else
+        {
+            menuPrompt.Hide();
+        }
+
+        isGamePaused = value;
 
         foreach (IPausable pausable in pausables)
         {
@@ -35,10 +42,15 @@ public class PauseControl : MonoBehaviour
         }
     }
 
-    public void OnLevelLoaded()
+    public void OnEnable()
+    {
+        Initialise();
+    }
+
+    public void Initialise()
     {
         // Change to ElementGUI and use Show/Hide, also helps with usability
-        menuPromptGroup = FindObjectOfType<SelectOnInput>().GetComponent<CanvasGroup>();
+        menuPrompt = GameObject.Find("QuitPanel").GetComponent<GUIWindow>();
         RegeneratePausables();  
         isGamePaused = false;
     }

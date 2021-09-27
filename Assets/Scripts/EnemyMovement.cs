@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 
-public class EnemyMovement : MonoBehaviour
+public class EnemyMovement : MonoBehaviour, IPausable
 {
 
 	private float movespeed = 0.0f;
@@ -25,6 +25,8 @@ public class EnemyMovement : MonoBehaviour
     public float death;
 
     [HideInInspector] public UnityEvent onWallHit;
+
+    public bool isPaused { get; set; }
 
     void Awake()
     {
@@ -102,46 +104,15 @@ public class EnemyMovement : MonoBehaviour
 			}
 		}
 
-     void Update(){
-
-        if (lifespan)
+    void Update()
+    {
+        if (!isPaused)
         {
-            age += Time.smoothDeltaTime;
-            if(age >= death)
-            {
-                Destroy(gameObject);
-            }
+            UnPausedUpdate();
         }
+    }
 
-
-        if (hitcount >= 10)
-        {
-            Destroy(gameObject);
-        }
-
-        if (levelstart == true) {
-        this.movespeed += movestep * multiplier;
-        }
-		
-
-		if (this.movespeed >= moveinterval) {
-			Move ();
-            movespeed = movespeed - moveinterval;
-		}
-
-		switch (direction) {
-
-		case 2:
-			enemydir = Vector2.left / 8;
-			break;
-				
-		case 1:
-			
-			enemydir = Vector2.right / 8;
-			break;
-		}
-	}
-
+        
 	void LateUpdate(){
 		justhit = false;
 	}
@@ -152,4 +123,55 @@ public class EnemyMovement : MonoBehaviour
 
 		transform.Translate (enemydir);
 	}
-}
+
+    public void OnPause() { }
+
+
+    public void OnUnpause() { }
+
+    public void PausedUpdate() { }
+
+    public void UnPausedUpdate()
+    {
+            if (lifespan)
+            {
+                age += Time.smoothDeltaTime;
+                if (age >= death)
+                {
+                    Destroy(gameObject);
+                }
+            }
+
+
+            if (hitcount >= 10)
+            {
+                Destroy(gameObject);
+            }
+
+            if (levelstart == true)
+            {
+                this.movespeed += movestep * multiplier;
+            }
+
+
+            if (this.movespeed >= moveinterval)
+            {
+                Move();
+                movespeed = movespeed - moveinterval;
+            }
+
+            switch (direction)
+            {
+
+                case 2:
+                    enemydir = Vector2.left / 8;
+                    break;
+
+                case 1:
+
+                    enemydir = Vector2.right / 8;
+                    break;
+            }
+        }
+
+    }
