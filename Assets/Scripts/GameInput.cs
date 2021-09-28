@@ -26,6 +26,8 @@ public static class GameInput
         "left", "up", "right", "down"
     };
 
+
+
     public static void Update()
     {
         VerticalCache = Vertical;

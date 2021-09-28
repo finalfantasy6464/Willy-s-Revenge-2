@@ -10,27 +10,24 @@ public class PauseControl : MonoBehaviour
     public bool isGamePaused;
     GUIWindow menuPrompt;
     List<IPausable> pausables;
+    EndLevelCanvas endCanvas;
 
     void Update()
     {
+        if(endCanvas == null || endCanvas.gameObject.activeInHierarchy)
+            return;
+        
         if (GameInput.GetKeyDown("pause"))
-        {
             SetPause(!isGamePaused);
-        }
     }
 
     public void SetPause(bool value)
     {
-        if (value)
-        {
-            menuPrompt.Show();
-        }
-        else
-        {
-            menuPrompt.Hide();
-        }
-
         isGamePaused = value;
+        if (value)
+            menuPrompt.Show();
+        else
+            menuPrompt.Hide();
 
         foreach (IPausable pausable in pausables)
         {
@@ -49,8 +46,8 @@ public class PauseControl : MonoBehaviour
 
     public void Initialise()
     {
-        // Change to ElementGUI and use Show/Hide, also helps with usability
         menuPrompt = GameObject.Find("QuitPanel").GetComponent<GUIWindow>();
+        endCanvas = Resources.FindObjectsOfTypeAll<EndLevelCanvas>()[0];
         RegeneratePausables();  
         isGamePaused = false;
     }
