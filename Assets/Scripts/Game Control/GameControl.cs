@@ -55,23 +55,21 @@ public class GameControl : MonoBehaviour
             else
             {
                 Destroy(gameObject);
+                PauseControlCheck();
                 return;
             }
         }   
         DontDestroyOnLoad(gameObject);
         control = this;
-        PauseControlCheck(this);
         onSingletonCheck.Invoke();
         LevelListGeneration();
     }
 
-    void PauseControlCheck(GameControl instance)
+    void PauseControlCheck()
     {
-        PauseControl pause = GetComponent<PauseControl>();
-        if(pause == null)
-            pause = gameObject.AddComponent<PauseControl>();
-
-        pause.enabled = instance.m_Scene.name.Contains("Level");
+        PauseControl pause = control.GetComponent<PauseControl>();
+        control.m_Scene = SceneManager.GetActiveScene();
+        pause.enabled = control.m_Scene.name.Contains("Level");
         if (pause.enabled)
         {
             pause.Initialise();

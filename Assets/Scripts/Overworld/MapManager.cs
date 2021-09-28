@@ -28,11 +28,8 @@ public class MapManager : MonoBehaviour
 	{
         startPin = levelPins[GameControl.control.levelID];
 
-        if(character == null)
-            character = FindObjectOfType<OverworldCharacter>();
-        
-        if(soundManagement == null)
-            soundManagement = FindObjectOfType<GameSoundManagement>();
+        character = FindObjectOfType<OverworldCharacter>();
+        soundManagement = FindObjectOfType<GameSoundManagement>();
 
         character.Initialize(startPin);
         overworldGUI.Initialize(this, character);
