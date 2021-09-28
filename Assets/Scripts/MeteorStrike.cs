@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeteorStrike : MonoBehaviour
+public class MeteorStrike : MonoBehaviour, IPausable
 {
 	public Vector2 center;
 	public Vector2 size;
@@ -15,14 +15,14 @@ public class MeteorStrike : MonoBehaviour
 
 	public GameObject Meteor;
 
-	void Update(){
+    public bool isPaused { get; set; }
 
-		trigger += Time.deltaTime;
+    void Update(){
 
-		if (trigger >= firerate) {
-			SpawnMeteor ();
-			trigger = 0.0f;
-		}
+        if (!isPaused)
+        {
+            UnPausedUpdate();
+        }
 	}
 
 	public void SpawnMeteor(){
@@ -35,4 +35,24 @@ public class MeteorStrike : MonoBehaviour
 		Gizmos.color = new Color (0.5f, 0.0f, 0.5f, 0.25f);
 		Gizmos.DrawCube (center, size);
 	}
+
+    public void OnPause()
+    { }
+
+    public void OnUnpause()
+    { }
+
+    public void PausedUpdate()
+    { }
+
+    public void UnPausedUpdate()
+    {
+        trigger += Time.deltaTime;
+
+        if (trigger >= firerate)
+        {
+            SpawnMeteor();
+            trigger = 0.0f;
+        }
+    }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingShooter : MonoBehaviour
+public class MovingShooter : MonoBehaviour, IPausable
 {
 
 	private Vector3 Distance;
@@ -18,9 +18,14 @@ public class MovingShooter : MonoBehaviour
 	public int shootertype = 1;
 	public float shotspeed = 100.0f;
 
+    public bool isPaused { get; set; }
+
     void Update()
 	{
-		Attacking ();
+        if (!isPaused)
+        {
+			UnPausedUpdate();
+        }
 	}
 
 	void Attacking(){
@@ -60,4 +65,18 @@ public class MovingShooter : MonoBehaviour
 			break;
 	}
 }
+
+	public void OnPause()
+	{ }
+
+	public void OnUnpause()
+	{ }
+
+    public void PausedUpdate()
+    {}
+
+    public void UnPausedUpdate()
+    {
+		Attacking();
+    }
 }

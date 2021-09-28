@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyProjectile : MonoBehaviour
+public class EnemyProjectile : MonoBehaviour, IPausable
 {
 
 	public GameObject bullet;
 
 	public float fireRate;
 	private float nextFire;
+
+    public bool isPaused { get; set; }
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +21,10 @@ public class EnemyProjectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		CheckIfTimeToFire ();
+        if (!isPaused)
+        {
+            UnPausedUpdate();
+        }
     }
 
 	void CheckIfTimeToFire()
@@ -29,4 +34,18 @@ public class EnemyProjectile : MonoBehaviour
 			nextFire = Time.time + fireRate;
 	}
 }
+
+    public void OnPause()
+    { }
+
+    public void OnUnpause()
+    { }
+
+    public void PausedUpdate()
+    { }
+
+    public void UnPausedUpdate()
+    {
+        CheckIfTimeToFire();
+    }
 }

@@ -474,7 +474,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &55144277
 Rigidbody2D:
   serializedVersion: 4
@@ -1039,7 +1044,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &95014317
 Rigidbody2D:
   serializedVersion: 4
@@ -1320,7 +1330,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &99045813
 Rigidbody2D:
   serializedVersion: 4
@@ -1927,7 +1942,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &172501407
 Rigidbody2D:
   serializedVersion: 4
@@ -2564,7 +2584,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &201705116
 Rigidbody2D:
   serializedVersion: 4
@@ -2863,6 +2888,114 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aecbeacc270bcd44b88596872418b09e, type: 3}
+--- !u!1 &207444918
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 207444919}
+  - component: {fileID: 207444923}
+  - component: {fileID: 207444922}
+  - component: {fileID: 207444921}
+  - component: {fileID: 207444920}
+  m_Layer: 5
+  m_Name: QuitPanel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &207444919
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207444918}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.875, y: 1.875, z: 1.875}
+  m_Children:
+  - {fileID: 353471465}
+  - {fileID: 1928516518}
+  - {fileID: 1215896919}
+  m_Father: {fileID: 282985299}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 500, y: 150}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &207444920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207444918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: c93c92e7f89891446a8d9c8deff4a03d, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &207444921
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207444918}
+  m_CullTransparentMesh: 0
+--- !u!225 &207444922
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207444918}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
+--- !u!114 &207444923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207444918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7546a9d87ea06104fa82daf48f0bd3e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  group: {fileID: 207444922}
+  wasShowing: 0
+  wasHiding: 0
+  firstSelected: {fileID: 1928516515}
 --- !u!1 &216054689
 GameObject:
   m_ObjectHideFlags: 0
@@ -2914,7 +3047,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &216054692
 Rigidbody2D:
   serializedVersion: 4
@@ -3303,6 +3441,11 @@ PrefabInstance:
       objectReference: {fileID: 722849038}
     - target: {fileID: 7698881267086589584, guid: 4d00110acb255c445825278b94ab1368,
         type: 3}
+      propertyPath: speedText
+      value: 
+      objectReference: {fileID: 1630016527}
+    - target: {fileID: 7698881267086589584, guid: 4d00110acb255c445825278b94ab1368,
+        type: 3}
       propertyPath: GoldenPellet
       value: 
       objectReference: {fileID: 590331079}
@@ -3493,6 +3636,8 @@ RectTransform:
   - {fileID: 811156611}
   - {fileID: 590331081}
   - {fileID: 986790975}
+  - {fileID: 207444919}
+  - {fileID: 1630016525}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4218,6 +4363,85 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &353471464
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 353471465}
+  - component: {fileID: 353471467}
+  - component: {fileID: 353471466}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &353471465
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 353471464}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
+  m_Children: []
+  m_Father: {fileID: 207444919}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 18.8}
+  m_SizeDelta: {x: 1000, y: 400}
+  m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &353471466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 353471464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 100
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 300
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Return to Main Menu?
+--- !u!222 &353471467
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 353471464}
+  m_CullTransparentMesh: 0
 --- !u!1001 &363499656
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4763,7 +4987,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 4
+  pullstrengthmax: 6.5
+  currentpullstrength: 0
 --- !u!50 &429127691
 Rigidbody2D:
   serializedVersion: 4
@@ -5267,7 +5496,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &450308880
 Rigidbody2D:
   serializedVersion: 4
@@ -5548,7 +5782,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &456823149
 Rigidbody2D:
   serializedVersion: 4
@@ -5904,7 +6143,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &500314351
 Rigidbody2D:
   serializedVersion: 4
@@ -6323,7 +6567,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &521556138
 Rigidbody2D:
   serializedVersion: 4
@@ -7132,7 +7381,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -5
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 5
+  pullstrengthmin: 7.5
+  pullstrengthmax: 3
+  currentpullstrength: 0
 --- !u!50 &567543351
 Rigidbody2D:
   serializedVersion: 4
@@ -7795,7 +8049,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -1
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 1.5
+  pullstrengthmax: 3
+  currentpullstrength: 0
 --- !u!50 &597782711
 Rigidbody2D:
   serializedVersion: 4
@@ -8149,7 +8408,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &604647300
 Rigidbody2D:
   serializedVersion: 4
@@ -8617,7 +8881,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 4.5
+  orthographic size: 5
   m_Depth: 2
   m_CullingMask:
     serializedVersion: 2
@@ -8641,7 +8905,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 631385745}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.98400116, y: 6.893, z: -15}
+  m_LocalPosition: {x: 24.744001, y: 2.9439983, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 59909367}
@@ -8989,7 +9253,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &648696778
 Rigidbody2D:
   serializedVersion: 4
@@ -9270,7 +9539,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &654193406
 Rigidbody2D:
   serializedVersion: 4
@@ -9626,7 +9900,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -0.25
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 0.5
+  pullstrengthmax: 1
+  currentpullstrength: 0
 --- !u!50 &663848348
 Rigidbody2D:
   serializedVersion: 4
@@ -10263,7 +10542,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &700912704
 Rigidbody2D:
   serializedVersion: 4
@@ -10544,7 +10828,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -1.5
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 1.75
+  pullstrengthmin: 3.25
+  pullstrengthmax: 3
+  currentpullstrength: 0
 --- !u!50 &702623478
 Rigidbody2D:
   serializedVersion: 4
@@ -11978,6 +12267,85 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6eb5a2b780f8b943a858a4a2fa28713, type: 3}
+--- !u!1 &828377187
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 828377188}
+  - component: {fileID: 828377190}
+  - component: {fileID: 828377189}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &828377188
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828377187}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1928516518}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &828377189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828377187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 64
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 1
+    m_MaxSize: 64
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: No
+--- !u!222 &828377190
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828377187}
+  m_CullTransparentMesh: 0
 --- !u!1001 &828904529
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12233,7 +12601,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &837801453
 Rigidbody2D:
   serializedVersion: 4
@@ -12520,7 +12893,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &842812695
 Rigidbody2D:
   serializedVersion: 4
@@ -13426,7 +13804,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &927158338
 Rigidbody2D:
   serializedVersion: 4
@@ -13737,7 +14120,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -3
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &932384636
 Rigidbody2D:
   serializedVersion: 4
@@ -14024,7 +14412,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &940490734
 Rigidbody2D:
   serializedVersion: 4
@@ -14454,7 +14847,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &960016645
 Rigidbody2D:
   serializedVersion: 4
@@ -14741,7 +15139,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &986195564
 Rigidbody2D:
   serializedVersion: 4
@@ -15255,7 +15658,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -3
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &1000100273
 Rigidbody2D:
   serializedVersion: 4
@@ -15983,7 +16391,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &1044030805
 Rigidbody2D:
   serializedVersion: 4
@@ -16282,7 +16695,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &1061962827
 Rigidbody2D:
   serializedVersion: 4
@@ -16637,7 +17055,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &1085246931
 Rigidbody2D:
   serializedVersion: 4
@@ -16918,7 +17341,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &1101937078
 Rigidbody2D:
   serializedVersion: 4
@@ -17896,7 +18324,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &1191300201
 Rigidbody2D:
   serializedVersion: 4
@@ -18246,7 +18679,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -3
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &1193043611
 Rigidbody2D:
   serializedVersion: 4
@@ -18671,7 +19109,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &1215525195
 Rigidbody2D:
   serializedVersion: 4
@@ -18901,6 +19344,153 @@ MonoBehaviour:
   currentDistance: 0
   horizontalDistance: 0
   distanceProgress: 0
+--- !u!1 &1215896918
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1215896919}
+  - component: {fileID: 1215896923}
+  - component: {fileID: 1215896922}
+  - component: {fileID: 1215896921}
+  - component: {fileID: 1215896920}
+  m_Layer: 5
+  m_Name: YesButton
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1215896919
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1215896918}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
+  m_Children:
+  - {fileID: 1341810745}
+  m_Father: {fileID: 207444919}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 381.09998, y: -107.2}
+  m_SizeDelta: {x: 150, y: 80}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1215896920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1215896918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4d531dd72c78f843a3e43bef55eb244, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+--- !u!114 &1215896921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1215896918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 4
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 1928516515}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.4056604, g: 0, b: 0, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.4056604, g: 0, b: 0, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Highlighted
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1215896922}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1215896920}
+        m_TargetAssemblyTypeName: LoadSceneOnClick, Assembly-CSharp
+        m_MethodName: LoadByIndex
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 101
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1215896922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1215896918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.49056602, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1215896923
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1215896918}
+  m_CullTransparentMesh: 0
 --- !u!1001 &1238901816
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19021,7 +19611,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -0.5
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 1
+  pullstrengthmax: 2
+  currentpullstrength: 0
 --- !u!50 &1248432664
 Rigidbody2D:
   serializedVersion: 4
@@ -19302,7 +19897,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &1249912328
 Rigidbody2D:
   serializedVersion: 4
@@ -20011,6 +20611,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1269029381}
   - component: {fileID: 1269029380}
+  - component: {fileID: 1269029382}
   m_Layer: 0
   m_Name: GameControl
   m_TagString: Untagged
@@ -20065,6 +20666,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 168
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1269029382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269029379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f71602f6edc7ce43b102d8bcc7d288e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGamePaused: 0
 --- !u!1001 &1269414588
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20265,7 +20879,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &1283009029
 Rigidbody2D:
   serializedVersion: 4
@@ -20690,7 +21309,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -2
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 2
+  pullstrengthmax: 3.5
+  currentpullstrength: 0
 --- !u!50 &1308913666
 Rigidbody2D:
   serializedVersion: 4
@@ -21020,7 +21644,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &1331759345
 Rigidbody2D:
   serializedVersion: 4
@@ -21319,6 +21948,85 @@ PrefabInstance:
     - {fileID: 343069409044717242, guid: c8642a02962aa564a993276a0578c732, type: 3}
     - {fileID: 1020798470371060053, guid: c8642a02962aa564a993276a0578c732, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c8642a02962aa564a993276a0578c732, type: 3}
+--- !u!1 &1341810744
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1341810745}
+  - component: {fileID: 1341810747}
+  - component: {fileID: 1341810746}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1341810745
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341810744}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1215896919}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1341810746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341810744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 64
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 1
+    m_MaxSize: 64
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Yes
+--- !u!222 &1341810747
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341810744}
+  m_CullTransparentMesh: 0
 --- !u!1001 &1343528156
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22426,7 +23134,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &1492377209
 Rigidbody2D:
   serializedVersion: 4
@@ -22801,7 +23514,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &1502707328
 Rigidbody2D:
   serializedVersion: 4
@@ -23189,7 +23907,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &1553022256
 Rigidbody2D:
   serializedVersion: 4
@@ -23470,7 +24193,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &1553782330
 Rigidbody2D:
   serializedVersion: 4
@@ -23763,7 +24491,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -0.5
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 1
+  pullstrengthmax: 2
+  currentpullstrength: 0
 --- !u!50 &1567085609
 Rigidbody2D:
   serializedVersion: 4
@@ -24044,7 +24777,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &1575293525
 Rigidbody2D:
   serializedVersion: 4
@@ -24325,7 +25063,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &1578960632
 Rigidbody2D:
   serializedVersion: 4
@@ -24749,6 +25492,101 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ceb71f1c2e62d224caa868642fd3ccde, type: 3}
+--- !u!1 &1630016524
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1630016525}
+  - component: {fileID: 1630016528}
+  - component: {fileID: 1630016527}
+  - component: {fileID: 1630016526}
+  m_Layer: 5
+  m_Name: SpeedText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1630016525
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630016524}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 282985299}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 15}
+  m_SizeDelta: {x: 600, y: 60}
+  m_Pivot: {x: 0.5, y: 0}
+--- !u!114 &1630016526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630016524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
+--- !u!114 &1630016527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630016524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 36
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 1
+    m_MaxSize: 40
+    m_Alignment: 1
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Speed Text
+--- !u!222 &1630016528
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630016524}
+  m_CullTransparentMesh: 0
 --- !u!1001 &1645742493
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24943,7 +25781,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &1660163405
 Rigidbody2D:
   serializedVersion: 4
@@ -25454,7 +26297,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &1681996044
 Rigidbody2D:
   serializedVersion: 4
@@ -25816,7 +26664,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &1702898421
 Rigidbody2D:
   serializedVersion: 4
@@ -26252,7 +27105,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &1721953856
 Rigidbody2D:
   serializedVersion: 4
@@ -57866,7 +58724,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &1793692074
 Rigidbody2D:
   serializedVersion: 4
@@ -58416,7 +59279,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &1798521191
 Rigidbody2D:
   serializedVersion: 4
@@ -59292,7 +60160,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &1891975694
 Rigidbody2D:
   serializedVersion: 4
@@ -59655,7 +60528,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &1902118125
 Rigidbody2D:
   serializedVersion: 4
@@ -60098,6 +60976,139 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aecbeacc270bcd44b88596872418b09e, type: 3}
+--- !u!1 &1928516514
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1928516518}
+  - component: {fileID: 1928516517}
+  - component: {fileID: 1928516516}
+  - component: {fileID: 1928516515}
+  m_Layer: 5
+  m_Name: NoButton
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1928516515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1928516514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 4
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 1215896921}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.4056604, g: 0, b: 0, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.4056604, g: 0, b: 0, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Highlighted
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1928516516}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PauseControl, Assembly-CSharp
+        m_MethodName: SetPause
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1928516516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1928516514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.49056602, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1928516517
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1928516514}
+  m_CullTransparentMesh: 0
+--- !u!224 &1928516518
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1928516514}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 828377188}
+  m_Father: {fileID: 207444919}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 118.5, y: -107}
+  m_SizeDelta: {x: 150, y: 80}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1934991631
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -60497,7 +61508,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -5
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 5
+  pullstrengthmin: 7.5
+  pullstrengthmax: 3
+  currentpullstrength: 0
 --- !u!50 &1959876276
 Rigidbody2D:
   serializedVersion: 4
@@ -60847,7 +61863,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &1973436112
 Rigidbody2D:
   serializedVersion: 4
@@ -61134,7 +62155,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &1994086393
 Rigidbody2D:
   serializedVersion: 4
@@ -61415,7 +62441,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &1994814851
 Rigidbody2D:
   serializedVersion: 4
@@ -62189,7 +63220,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -1
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 1.5
+  pullstrengthmax: 3
+  currentpullstrength: 0
 --- !u!50 &2078524034
 Rigidbody2D:
   serializedVersion: 4
@@ -62821,7 +63857,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadc175f229dade4086fb4834fd426a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullstrength: -4
+  currentdistance: 0
+  maxDistance: 1
+  minDistance: 0.5
+  pullstrengthmin: 3
+  pullstrengthmax: 5
+  currentpullstrength: 0
 --- !u!50 &2112573914
 Rigidbody2D:
   serializedVersion: 4
@@ -63414,6 +64455,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Quicksand
+      objectReference: {fileID: 0}
+    - target: {fileID: 8281844034808320113, guid: 9cad609ea9631484bbc4171727432a2b,
+        type: 3}
+      propertyPath: maxDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8281844034808320113, guid: 9cad609ea9631484bbc4171727432a2b,
+        type: 3}
+      propertyPath: minDistance
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8281844034808320113, guid: 9cad609ea9631484bbc4171727432a2b,
+        type: 3}
+      propertyPath: pullstrengthmax
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8281844034808320113, guid: 9cad609ea9631484bbc4171727432a2b,
+        type: 3}
+      propertyPath: pullstrengthmin
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 8281844034808320115, guid: 9cad609ea9631484bbc4171727432a2b,
         type: 3}

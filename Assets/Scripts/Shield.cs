@@ -2,31 +2,54 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shield : MonoBehaviour
+public class Shield : MonoBehaviour, IPausable
 {
 
 	PlayerController2021remake playercontroller;
 	GameObject Player;
-	private float shieldtimer = 5.0f;
+	public float shieldtimer = 5.0f;
 
     public AudioClip shieldActive;
 
 	public AudioSource source;
 
+    public bool isPaused { get; set; }
 
-	void Start(){
+    void Start(){
 		Player = GameObject.FindGameObjectWithTag ("Player");
 		playercontroller = Player.GetComponent<PlayerController2021remake>();
         source.PlayOneShot(shieldActive);
 	}
 
 	void Update(){
-		shieldtimer -= Time.deltaTime;
-
-		if (shieldtimer <= 0.0f) {
-			playercontroller.shieldactive = false;
-			Destroy (this.gameObject);
-            source.Stop();
+        if (!isPaused)
+        {
+            UnPausedUpdate();
         }
 	}
+
+    public void OnPause()
+    {
+        GetComponent<ParticleSystem>().Pause();
+    }
+
+    public void OnUnpause()
+    {
+        GetComponent<ParticleSystem>().Play();
+    }
+
+    public void PausedUpdate()
+    { }
+
+    public void UnPausedUpdate()
+    {
+        shieldtimer -= Time.deltaTime;
+
+        if (shieldtimer <= 0.0f)
+        {
+            playercontroller.shieldactive = false;
+            Destroy(this.gameObject);
+            source.Stop();
+        }
+    }
 }
