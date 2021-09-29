@@ -7,6 +7,7 @@ public class MovingShooter : MonoBehaviour, IPausable
 
 	private Vector3 Distance;
 	private float DistanceFrom;
+	public float fireprogress = 0.0f;
 	public float firerate = 0.5f;
 	private float nextfire = 0.0f;
 
@@ -40,9 +41,11 @@ public class MovingShooter : MonoBehaviour, IPausable
 
 	void Attacking()
 	{
-		if (Time.time > nextfire)
+		fireprogress += Time.deltaTime;
+		if (fireprogress >= nextfire)
 		{
-			nextfire = Time.time + firerate;
+			nextfire = firerate;
+			fireprogress -= fireprogress;
 			for (int i = 0; i < shootertype; i++)
 			{
 				GameObject newBullet = Instantiate(ammo, spawnPoints[i].position, spawnPoints[i].rotation);

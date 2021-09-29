@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RadialActivate : MonoBehaviour
+public class RadialActivate : MonoBehaviour, IPausable
 {
     public RadialGauge radial;
 
@@ -26,7 +26,7 @@ public class RadialActivate : MonoBehaviour
 
     private float collenable;
 
-
+    public bool isPaused { get; set; }
 
     private void Start()
     {
@@ -40,18 +40,9 @@ public class RadialActivate : MonoBehaviour
 
     private void Update()
     {
-        if (coll.enabled == false && coll != null && isActive == true)
+        if (!isPaused)
         {
-            collenable += Time.deltaTime;
-
-            if (collenable >= 2.5f)
-            {
-                collenable = 0;
-                coll.enabled = true;
-                newcolor.a = 1;
-                s_renderer.color = newcolor;
-                justspawned = false;
-            }
+            UnPausedUpdate();
         }
     }
     // Start is called before the first frame update
@@ -84,6 +75,7 @@ public class RadialActivate : MonoBehaviour
         {
             isActive = false;
             GameObject newboulder = Instantiate(boulder) as GameObject;
+            PauseControl.TryAddPausable(newboulder);
             boulder.transform.position = spawn.transform.position;
             boulder.transform.localScale = new Vector3(1.5f + (0.2f * boulderamount), 1.5f + (0.2f * boulderamount), 1);
             boulderamount += 1;
@@ -92,5 +84,37 @@ public class RadialActivate : MonoBehaviour
             s_renderer.color = newcolor;
             justspawned = true;
         }
+    }
+
+
+    public void OnPause()
+    { }
+
+    public void OnUnpause()
+    { }
+
+    public void PausedUpdate()
+    { }
+
+    public void UnPausedUpdate()
+    {
+        if (coll.enabled == false && coll != null && isActive == true)
+        {
+            collenable += Time.deltaTime;
+
+            if (collenable >= 2.5f)
+            {
+                collenable = 0;
+                coll.enabled = true;
+                newcolor.a = 1;
+                s_renderer.color = newcolor;
+                justspawned = false;
+            }
+        }
+    }
+
+    public void OnDestroy()
+    {
+        PauseControl.TryRemovePausable(gameObject);
     }
 }

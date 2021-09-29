@@ -1,5 +1,17 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &8548777068707123909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3072188237771019189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91621cdd6fd1f4a43ab6c26539a1cfbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7118707751284949322
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7,10 +19,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5217455453148107519, guid: de91ee5f59f445548b642959bd988d5a,
+    - target: {fileID: 3089430582516031547, guid: de91ee5f59f445548b642959bd988d5a,
         type: 3}
-      propertyPath: m_Name
-      value: Enemy6Projectile 5 speed
+      propertyPath: movespeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5044325755570452387, guid: de91ee5f59f445548b642959bd988d5a,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5044325755570452387, guid: de91ee5f59f445548b642959bd988d5a,
         type: 3}
@@ -29,6 +46,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5044325755570452387, guid: de91ee5f59f445548b642959bd988d5a,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5044325755570452387, guid: de91ee5f59f445548b642959bd988d5a,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -40,16 +62,6 @@ PrefabInstance:
     - target: {fileID: 5044325755570452387, guid: de91ee5f59f445548b642959bd988d5a,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5044325755570452387, guid: de91ee5f59f445548b642959bd988d5a,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5044325755570452387, guid: de91ee5f59f445548b642959bd988d5a,
-        type: 3}
-      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5044325755570452387, guid: de91ee5f59f445548b642959bd988d5a,
@@ -67,10 +79,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3089430582516031547, guid: de91ee5f59f445548b642959bd988d5a,
+    - target: {fileID: 5217455453148107519, guid: de91ee5f59f445548b642959bd988d5a,
         type: 3}
-      propertyPath: movespeed
-      value: 5
+      propertyPath: m_Name
+      value: Enemy6Projectile 5 speed
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de91ee5f59f445548b642959bd988d5a, type: 3}
+--- !u!1 &3072188237771019189 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5217455453148107519, guid: de91ee5f59f445548b642959bd988d5a,
+    type: 3}
+  m_PrefabInstance: {fileID: 7118707751284949322}
+  m_PrefabAsset: {fileID: 0}

@@ -76,7 +76,10 @@ public class Bullet : MonoBehaviour, IPausable
 
     public void OnPause()
     {
-        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+		if(rb != null)
+        {
+			rb.constraints = RigidbodyConstraints2D.FreezeAll;
+		}
     }
 
 	public void SetForce(Vector2 f)

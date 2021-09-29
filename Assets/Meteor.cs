@@ -27,4 +27,9 @@ public class Meteor : MonoBehaviour
         soundData.clip = Meteor2;
         localaudio.SoundPlay();
     }
+
+    public void PlayMeteor3()
+    {
+        Destroy(gameObject);
+    }
 }

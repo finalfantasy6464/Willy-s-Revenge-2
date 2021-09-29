@@ -5,19 +5,22 @@ using UnityEngine;
 public class EnemyProjectile : MonoBehaviour, IPausable
 {
 
-	public GameObject bullet;
+    public GameObject bullet;
 
-	public float fireRate;
-	private float nextFire;
+    public float fireRate;
+    private float nextFire;
+    public float shotspeed;
+
+    Transform player;
+    Vector2 firingangle;
 
     public bool isPaused { get; set; }
 
     // Start is called before the first frame update
     void Start()
     {
-		nextFire = Time.time;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -29,9 +32,18 @@ public class EnemyProjectile : MonoBehaviour, IPausable
 
 	void CheckIfTimeToFire()
 	{
-		if (Time.time > nextFire){
-			Instantiate (bullet, transform.position, Quaternion.identity);
-			nextFire = Time.time + fireRate;
+        nextFire += Time.deltaTime;
+
+		if (nextFire >= fireRate)
+        {
+            nextFire -= nextFire;
+			GameObject newBullet = Instantiate (bullet, transform.position, Quaternion.identity);
+            if (newBullet.TryGetComponent(out Rigidbody2D bulletBody))
+            {
+                bulletBody.AddForce(firingangle.normalized);
+                newBullet.GetComponent<Aimedbullet>().SetForce(firingangle.normalized);
+            }
+            PauseControl.TryAddPausable(newBullet);
 	}
 }
 
@@ -46,6 +58,7 @@ public class EnemyProjectile : MonoBehaviour, IPausable
 
     public void UnPausedUpdate()
     {
+        firingangle = player.position - transform.position;
         CheckIfTimeToFire();
     }
 

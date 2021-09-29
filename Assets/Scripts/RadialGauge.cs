@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class RadialGauge : MonoBehaviour
+public class RadialGauge : MonoBehaviour, IPausable
 {
     // Public UI References
     public Image fillImage;
@@ -29,6 +29,24 @@ public class RadialGauge : MonoBehaviour
         }
     }
 
+    public bool isPaused { get; set; }
+
+    public void OnDestroy()
+    { }
+
+    public void OnPause()
+    { }
+
+    public void OnUnpause()
+    { }
+
+    public void PausedUpdate()
+    { }
+    public void UnPausedUpdate()
+    {
+        CurrentValue += 0.0086f;
+    }
+
     void Start()
     {
         CurrentValue = 0f;
@@ -37,6 +55,9 @@ public class RadialGauge : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CurrentValue += 0.0086f;
+        if (!isPaused)
+        {
+            UnPausedUpdate();
+        }
     }
 }

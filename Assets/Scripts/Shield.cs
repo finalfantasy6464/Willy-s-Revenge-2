@@ -7,6 +7,9 @@ public class Shield : MonoBehaviour, IPausable
 
 	PlayerController2021remake playercontroller;
 	GameObject Player;
+    Spinner spinner;
+    float spinamount;
+
 	public float shieldtimer = 5.0f;
 
     public AudioClip shieldActive;
@@ -18,6 +21,8 @@ public class Shield : MonoBehaviour, IPausable
     void Start(){
 		Player = GameObject.FindGameObjectWithTag ("Player");
 		playercontroller = Player.GetComponent<PlayerController2021remake>();
+        spinner = GetComponent<Spinner>();
+        spinamount = spinner.spinamount;
         source.PlayOneShot(shieldActive);
 	}
 
@@ -25,6 +30,10 @@ public class Shield : MonoBehaviour, IPausable
         if (!isPaused)
         {
             UnPausedUpdate();
+        }
+        else
+        {
+            PausedUpdate();
         }
 	}
 
@@ -39,10 +48,15 @@ public class Shield : MonoBehaviour, IPausable
     }
 
     public void PausedUpdate()
-    { }
+    {
+        spinner.spinamount = 0;
+        source.Pause();
+    }
 
     public void UnPausedUpdate()
     {
+        source.Play();
+        spinner.spinamount = spinamount;
         shieldtimer -= Time.deltaTime;
 
         if (shieldtimer <= 0.0f)

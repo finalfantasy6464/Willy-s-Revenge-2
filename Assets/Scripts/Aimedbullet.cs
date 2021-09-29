@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
-public class Aimedbullet : MonoBehaviour
+public class Aimedbullet : MonoBehaviour, IPausable
 {
 
 	public float movespeed;
@@ -14,7 +14,10 @@ public class Aimedbullet : MonoBehaviour
 
 	PlayerCollision playercoll;
 
-	Vector2 moveDirection;
+	public Vector2 moveDirection;
+    public Vector2 StoredVelocity;
+
+    public bool isPaused { get; set; }
 
     // Start is called before the first frame update
     void Start()
@@ -66,4 +69,34 @@ public class Aimedbullet : MonoBehaviour
 		}
 	}
 }
+	public void SetForce(Vector2 f)
+    {
+		StoredVelocity = f;
+    }
+
+	public void OnPause()
+	{
+		if (rb != null)
+		{
+			rb.constraints = RigidbodyConstraints2D.FreezeAll;
+		}
+	}
+
+	public void OnUnpause()
+    {
+		rb.constraints = RigidbodyConstraints2D.None;
+		rb.velocity = StoredVelocity * (movespeed / 1.32f);
+	}
+
+    public void OnDestroy()
+    {
+		PauseControl.TryRemovePausable(gameObject);
+    }
+
+	public void PausedUpdate()
+	{ }
+
+	public void UnPausedUpdate()
+	{ }
+
 }

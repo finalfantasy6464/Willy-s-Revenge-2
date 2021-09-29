@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.SceneManagement;
 
-public class LavaScript : MonoBehaviour
+public class LavaScript : MonoBehaviour, IPausable
 {
 
     public Sprite[] LavaSprites;
@@ -16,28 +16,13 @@ public class LavaScript : MonoBehaviour
 
     public AudioClip burned;
 
+    public bool isPaused { get; set; }
+
     void Update()
     {
-
-        var renderer = GetComponent<SpriteRenderer>();
-        renderer.sprite = LavaSprites[mysprite];
-        this.lavatimer += Time.deltaTime;
-
-        if (lavatimer >= lavastep)
+        if (!isPaused)
         {
-            CurrentSprite += 1;
-            lavatimer = 0.0f;
-            mysprite++;
-
-            if (CurrentSprite == 28)
-            {
-                CurrentSprite = 0;
-            }
-
-            if (mysprite == LavaSprites.Length)
-            {
-                mysprite = 0;
-            }
+            UnPausedUpdate();
         }
     }
 
@@ -52,6 +37,43 @@ public class LavaScript : MonoBehaviour
             Destroy(hit);
             GameSoundManagement.instance.PlayOneShot(burned);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+    }
+
+    public void OnPause()
+    { }
+
+    public void OnUnpause()
+    { }
+
+    public void OnDestroy()
+    { }
+
+    public void PausedUpdate()
+    { }
+
+    public void UnPausedUpdate()
+    {
+
+        var renderer = GetComponent<SpriteRenderer>();
+        renderer.sprite = LavaSprites[mysprite];
+        this.lavatimer += Time.deltaTime;
+
+        if (lavatimer >= lavastep)
+        {
+            CurrentSprite += 1;
+            lavatimer -= lavatimer;
+            mysprite++;
+
+            if (CurrentSprite == 28)
+            {
+                CurrentSprite = 0;
+            }
+
+            if (mysprite == LavaSprites.Length)
+            {
+                mysprite = 0;
+            }
         }
     }
 }
