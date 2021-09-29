@@ -7,6 +7,7 @@ public interface IPausable
     bool isPaused { get; set;}
     void OnPause();
     void OnUnpause();
+    void OnDestroy();
     void PausedUpdate();
     void UnPausedUpdate();
 }

@@ -56,4 +56,9 @@ public class Aggroactivate : MonoBehaviour, IPausable
             UnPausedUpdate();
         }
     }
+
+    public void OnDestroy()
+    {
+        PauseControl.TryRemovePausable(gameObject);
+    }
 }

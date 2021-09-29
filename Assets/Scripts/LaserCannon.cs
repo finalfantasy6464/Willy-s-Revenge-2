@@ -172,4 +172,8 @@ public class LaserCannon : MonoBehaviour, IPausable
             }
         }
     }
+    public void OnDestroy()
+    {
+        PauseControl.TryRemovePausable(gameObject);
+    }
 }

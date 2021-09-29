@@ -52,4 +52,9 @@ public class Shield : MonoBehaviour, IPausable
             source.Stop();
         }
     }
+
+    public void OnDestroy()
+    {
+        PauseControl.TryRemovePausable(gameObject);
+    }
 }

@@ -100,4 +100,9 @@ public class Quicksand : MonoBehaviour, IPausable
             currentpullstrength = Mathf.Lerp(pullstrengthmax, pullstrengthmin, clampedDistance / maxDistance);
         }
     }
+
+    public void OnDestroy()
+    {
+        PauseControl.TryRemovePausable(gameObject);
+    }
 }

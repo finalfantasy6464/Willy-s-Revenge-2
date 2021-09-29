@@ -56,4 +56,9 @@ public class Reloader : MonoBehaviour, IPausable
             reloadtimer = 0.0f;
         }
     }
+
+    public void OnDestroy()
+    {
+        PauseControl.TryRemovePausable(gameObject);
+    }
 }

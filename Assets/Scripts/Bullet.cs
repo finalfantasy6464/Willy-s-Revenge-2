@@ -3,19 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Bullet : MonoBehaviour
+public class Bullet : MonoBehaviour, IPausable
 {
-
 	PlayerController2021remake playercontroller;
 	GameObject Player;
-	public Vector2 StoredVelocity;
 	Rigidbody2D rb;
+	Collider2D myCollider;
+	Vector2 storedForce;
 
-	void Start()
+    public bool isPaused { get; set; }
+
+    void Start()
 	{
-
 		Player = GameObject.FindGameObjectWithTag("Player");
 		rb = GetComponent<Rigidbody2D>();
+		myCollider = GetComponent<Collider2D>();
 		if (Player != null)
 		{
 			playercontroller = Player.GetComponent<PlayerController2021remake>();
@@ -24,6 +26,7 @@ public class Bullet : MonoBehaviour
 
 	void OnTriggerEnter2D(Collider2D coll)
 	{
+		if(isPaused) return;
 
 		var hit = coll.gameObject;
 
@@ -70,4 +73,29 @@ public class Bullet : MonoBehaviour
 			}
 		}
 	}
+
+    public void OnPause()
+    {
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+    }
+
+	public void SetForce(Vector2 f)
+	{
+		storedForce = f;
+	}
+
+    public void OnUnpause()
+    {
+        rb.constraints = RigidbodyConstraints2D.None;
+		rb.AddForce(storedForce);
+    }
+
+    public void PausedUpdate() {}
+
+    public void UnPausedUpdate() {}
+
+	public void OnDestroy()
+    {
+        PauseControl.TryRemovePausable(gameObject);
+    }
 }

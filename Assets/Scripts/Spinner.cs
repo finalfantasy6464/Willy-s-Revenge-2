@@ -58,5 +58,10 @@ public class Spinner : MonoBehaviour, IPausable
         }
         transform.Rotate(new Vector3(0, 0, spinamount));
     }
+
+    public void OnDestroy()
+    {
+        PauseControl.TryRemovePausable(gameObject);
+    }
 }
 

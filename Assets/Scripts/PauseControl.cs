@@ -11,6 +11,8 @@ public class PauseControl : MonoBehaviour
     GUIWindow menuPrompt;
     List<IPausable> pausables;
     EndLevelCanvas endCanvas;
+    static PauseControl instance;
+    bool quitting;
 
     void Update()
     {
@@ -19,6 +21,32 @@ public class PauseControl : MonoBehaviour
         
         if (GameInput.GetKeyDown("pause"))
             SetPause(!isGamePaused);
+    }
+
+    public static bool TryAddPausable(GameObject pausableObject)
+    {
+        if(pausableObject.TryGetComponent<IPausable>(out IPausable pausable))
+        {
+            if(instance == null)
+                instance = FindObjectOfType<PauseControl>();
+            instance.pausables.Add(pausable);
+            return true;
+        }
+        
+        return false;
+    }
+
+    public static bool TryRemovePausable(GameObject pausableObject)
+    {
+        if(instance.quitting) return false;
+        if(pausableObject.TryGetComponent<IPausable>(out IPausable pausable))
+        {
+            if(instance == null)
+                instance = FindObjectOfType<PauseControl>();
+            instance.pausables.Remove(pausable);
+            return true;
+        }
+        return false;
     }
 
     public void SetPause(bool value)
@@ -63,5 +91,10 @@ public class PauseControl : MonoBehaviour
                 pausables.Add(pausable);
             }
         }
+    }
+
+    void OnApplicationQuit()
+    {
+        quitting = true;
     }
 }

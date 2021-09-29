@@ -173,5 +173,10 @@ public class EnemyMovement : MonoBehaviour, IPausable
                     break;
             }
         }
-
+    public void OnDestroy()
+    {
+        PauseControl.TryRemovePausable(gameObject);
     }
+}
+
+    

@@ -48,4 +48,9 @@ public class EnemyProjectile : MonoBehaviour, IPausable
     {
         CheckIfTimeToFire();
     }
+
+    public void OnDestroy()
+    {
+        PauseControl.TryRemovePausable(gameObject);
+    }
 }

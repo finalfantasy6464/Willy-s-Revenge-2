@@ -35,4 +35,9 @@ public class AnimationOffset : MonoBehaviour, IPausable
         GetComponent<Animator>().SetInteger("AnimIndex", AnimIndex);
     }
 
+    public void OnDestroy()
+    {
+        PauseControl.TryRemovePausable(gameObject);
+    }
+
 }

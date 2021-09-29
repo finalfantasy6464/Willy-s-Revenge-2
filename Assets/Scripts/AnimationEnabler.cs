@@ -45,4 +45,9 @@ public class AnimationEnabler : MonoBehaviour, IPausable
     public void UnPausedUpdate()
     {
     }
+
+    public void OnDestroy()
+    {
+        PauseControl.TryRemovePausable(gameObject);
+    }
 }

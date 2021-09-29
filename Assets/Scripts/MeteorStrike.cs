@@ -55,4 +55,8 @@ public class MeteorStrike : MonoBehaviour, IPausable
             trigger = 0.0f;
         }
     }
+    public void OnDestroy()
+    {
+        PauseControl.TryRemovePausable(gameObject);
+    }
 }

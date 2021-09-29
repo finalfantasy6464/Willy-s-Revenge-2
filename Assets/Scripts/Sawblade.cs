@@ -65,11 +65,15 @@ public class Sawblade : MonoBehaviour, IPausable
 			case 2:
 				transform.position = startPosition + new Vector3(Mathf.Sin(spintime * speed) * Severity, 0.0f, 0.0f);
 				break;
-
 			case 1:
 				transform.position = startPosition + new Vector3(0.0f, Mathf.Sin(spintime * speed) * Severity, 0.0f);
 				break;
 		}
 
 	}
+
+	public void OnDestroy()
+    {
+        PauseControl.TryRemovePausable(gameObject);
+    }
 }

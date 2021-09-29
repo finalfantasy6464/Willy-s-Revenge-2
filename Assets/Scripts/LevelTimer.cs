@@ -52,6 +52,9 @@ public class LevelTimer : MonoBehaviour, IPausable
             UnPausedUpdate();
         }
     }
-	
+	public void OnDestroy()
+    {
+        PauseControl.TryRemovePausable(gameObject);
+    }
 }
 

@@ -28,4 +28,9 @@ public class AIPathPauser : MonoBehaviour, IPausable
 
     public void UnPausedUpdate()
     { }
+
+    public void OnDestroy()
+    {
+        PauseControl.TryRemovePausable(gameObject);
+    }
 }
