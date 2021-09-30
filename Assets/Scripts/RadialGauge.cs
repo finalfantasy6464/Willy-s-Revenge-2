@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class RadialGauge : MonoBehaviour, IPausable
+public class RadialGauge : MonoBehaviour
 {
     // Public UI References
     public Image fillImage;
+    public CanvasGroup group;
+
+    public bool isSteppedOn;
 
     // Trackers for min/max values
     protected float maxValue = 2f, minValue = 0f;
@@ -29,35 +32,9 @@ public class RadialGauge : MonoBehaviour, IPausable
         }
     }
 
-    public bool isPaused { get; set; }
-
-    public void OnDestroy()
-    { }
-
-    public void OnPause()
-    { }
-
-    public void OnUnpause()
-    { }
-
-    public void PausedUpdate()
-    { }
-    public void UnPausedUpdate()
-    {
-        CurrentValue += 0.0086f;
-    }
-
-    void Start()
+    public virtual void Start()
     {
         CurrentValue = 0f;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (!isPaused)
-        {
-            UnPausedUpdate();
-        }
-    }
 }

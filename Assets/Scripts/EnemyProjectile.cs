@@ -40,8 +40,9 @@ public class EnemyProjectile : MonoBehaviour, IPausable
 			GameObject newBullet = Instantiate (bullet, transform.position, Quaternion.identity);
             if (newBullet.TryGetComponent(out Rigidbody2D bulletBody))
             {
-                bulletBody.AddForce(firingangle.normalized);
-                newBullet.GetComponent<Aimedbullet>().SetForce(firingangle.normalized);
+                firingangle = player.position - transform.position;
+                newBullet.GetComponent<Aimedbullet>().SetForce(firingangle.normalized * 100f);
+                bulletBody.AddForce(firingangle.normalized * 100f);
             }
             PauseControl.TryAddPausable(newBullet);
 	}
@@ -58,7 +59,6 @@ public class EnemyProjectile : MonoBehaviour, IPausable
 
     public void UnPausedUpdate()
     {
-        firingangle = player.position - transform.position;
         CheckIfTimeToFire();
     }
 

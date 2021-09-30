@@ -265,9 +265,9 @@ public class BigOrange : MonoBehaviour, IPausable
     void SpawnEnemy3()
     {
         GameObject newenemy = Instantiate(Enemy3, spawn1.transform.position, Quaternion.identity);
-        PauseControl.TryAddPausable(newenemy);
+        PauseControl.TryAddPausable(newenemy.GetComponentInChildren<EnemyMovementThreeVariant>().gameObject);
         GameObject newenemy2 = Instantiate(Enemy4, spawn2.transform.position, Quaternion.identity);
-        PauseControl.TryAddPausable(newenemy2);
+        PauseControl.TryAddPausable(newenemy2.GetComponentInChildren<EnemyMovementThreeVariant>().gameObject);
     }
 
     void SpawnBlocks()

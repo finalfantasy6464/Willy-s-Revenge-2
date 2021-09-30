@@ -14,6 +14,14 @@ public class PauseControl : MonoBehaviour
     static PauseControl instance;
     bool quitting;
 
+    public void Initialise()
+    {
+        menuPrompt = GameObject.Find("QuitPanel").GetComponent<GUIWindow>();
+        endCanvas = Resources.FindObjectsOfTypeAll<EndLevelCanvas>()[0];
+        RegeneratePausables();  
+        isGamePaused = false;
+    }
+
     void Update()
     {
         if(endCanvas == null || endCanvas.gameObject.activeInHierarchy)
@@ -25,15 +33,21 @@ public class PauseControl : MonoBehaviour
 
     public static bool TryAddPausable(GameObject pausableObject)
     {
+        bool exists = false;
+        if(instance == null)
+                instance = FindObjectOfType<PauseControl>();
+
         if(pausableObject.TryGetComponent<IPausable>(out IPausable pausable))
         {
-            if(instance == null)
-                instance = FindObjectOfType<PauseControl>();
-            instance.pausables.Add(pausable);
-            return true;
+            foreach (MonoBehaviour mono in ((MonoBehaviour)pausable).GetComponents<MonoBehaviour>())
+            {
+                if(mono is IPausable)
+                    instance.pausables.Add(pausable);
+            }
+            exists = true;
         }
         
-        return false;
+        return exists;
     }
 
     public static bool TryRemovePausable(GameObject pausableObject)
@@ -60,6 +74,7 @@ public class PauseControl : MonoBehaviour
         foreach (IPausable pausable in pausables)
         {
             pausable.isPaused = value;
+            //Debug.Log($"{(pausable as MonoBehaviour).gameObject.name} .paused:  {pausable.isPaused}");
             if(value)
                 pausable.OnPause();
             else
@@ -70,14 +85,6 @@ public class PauseControl : MonoBehaviour
     public void OnEnable()
     {
         Initialise();
-    }
-
-    public void Initialise()
-    {
-        menuPrompt = GameObject.Find("QuitPanel").GetComponent<GUIWindow>();
-        endCanvas = Resources.FindObjectsOfTypeAll<EndLevelCanvas>()[0];
-        RegeneratePausables();  
-        isGamePaused = false;
     }
 
     void RegeneratePausables()

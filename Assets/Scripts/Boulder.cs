@@ -18,6 +18,7 @@ public class Boulder : MonoBehaviour, IPausable
 
     int bouldertotal;
     Rigidbody2D rb;
+    Vector2 storedForce;
 
     public List<bool> activated = new List<bool>();
 
@@ -74,21 +75,34 @@ public class Boulder : MonoBehaviour, IPausable
             GameSoundManagement.instance.PlayOneShot(hitting);
             Destroy(gameObject);
         }
-        }
+    }
+
+    public void SetForce(Vector2 f)
+	{
+		storedForce = f;
+	}
 
     public void OnPause()
     {
+        if(rb == null)
+            rb = GetComponent<Rigidbody2D>();
+
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
     }
 
     public void OnUnpause()
     {
+        if(rb == null)
+            rb = GetComponent<Rigidbody2D>();
+
         rb.constraints = RigidbodyConstraints2D.None;
-        rb.gravityScale = 1;
+        rb.AddForce(storedForce);
     }
 
     public void OnDestroy()
-    { }
+    {
+        PauseControl.TryRemovePausable(gameObject);
+    }
 
     public void PausedUpdate()
     { }

@@ -15,7 +15,7 @@ public class Aimedbullet : MonoBehaviour, IPausable
 	PlayerCollision playercoll;
 
 	public Vector2 moveDirection;
-    public Vector2 StoredVelocity;
+    public Vector2 storedForce;
 
     public bool isPaused { get; set; }
 
@@ -25,11 +25,6 @@ public class Aimedbullet : MonoBehaviour, IPausable
 		rb = GetComponent<Rigidbody2D> ();
 		playercontroller = GameObject.FindObjectOfType<PlayerController2021remake> ();
 		playercoll = GameObject.FindObjectOfType<PlayerCollision>();
-        if (playercontroller != null)
-        {
-          moveDirection = (playercontroller.transform.position - transform.position).normalized * movespeed;
-        }
-		rb.velocity = new Vector2 (moveDirection.x, moveDirection.y);
     }
 
     // Update is called once per frame
@@ -71,7 +66,7 @@ public class Aimedbullet : MonoBehaviour, IPausable
 }
 	public void SetForce(Vector2 f)
     {
-		StoredVelocity = f;
+		storedForce = f;
     }
 
 	public void OnPause()
@@ -84,8 +79,9 @@ public class Aimedbullet : MonoBehaviour, IPausable
 
 	public void OnUnpause()
     {
+		Debug.Log(gameObject);
 		rb.constraints = RigidbodyConstraints2D.None;
-		rb.velocity = StoredVelocity * (movespeed / 1.32f);
+		rb.AddForce(storedForce);
 	}
 
     public void OnDestroy()

@@ -30,8 +30,6 @@ public class RadialActivate : MonoBehaviour, IPausable
 
     private void Start()
     {
-        radial.gameObject.SetActive(false);
-        radial.enabled = false;
         radial.CurrentValue = 0;
         coll = GetComponent<Collider2D>();
         s_renderer = GetComponent<SpriteRenderer>();
@@ -47,25 +45,22 @@ public class RadialActivate : MonoBehaviour, IPausable
     }
     // Start is called before the first frame update
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        var hit = collision.gameObject;
-
-        if (hit.tag == "Player")
+        if(other.TryGetComponent(out PlayerController2021remake player))
         {
-            radial.gameObject.SetActive(true);
-            radial.enabled = true;
+            radial.group.alpha = 1f;
+            radial.isSteppedOn = true;
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D other)
     {
-        var hit = collision.gameObject;
-        if (hit.tag == "Player")
+        if(other.TryGetComponent(out PlayerController2021remake player))
         {
-            radial.gameObject.SetActive(false);
-            radial.enabled = false;
-            radial.CurrentValue = 0;
+            radial.isSteppedOn = false;
+            radial.group.alpha = 0f;
+            radial.CurrentValue = 0f;
         }
     }
 
@@ -74,8 +69,15 @@ public class RadialActivate : MonoBehaviour, IPausable
         if(justspawned == false)
         {
             isActive = false;
-            GameObject newboulder = Instantiate(boulder) as GameObject;
+            GameObject newboulder = Instantiate(boulder);
             PauseControl.TryAddPausable(newboulder);
+            PauseControl.TryAddPausable(newboulder.transform.GetChild(0).gameObject);
+            if (newboulder.TryGetComponent(out Rigidbody2D boulderBody))
+			{
+				boulderBody.AddForce(Vector3.down);
+				newboulder.GetComponent<Boulder>().SetForce(Vector3.down);
+			}
+
             boulder.transform.position = spawn.transform.position;
             boulder.transform.localScale = new Vector3(1.5f + (0.2f * boulderamount), 1.5f + (0.2f * boulderamount), 1);
             boulderamount += 1;
