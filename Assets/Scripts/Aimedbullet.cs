@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class Aimedbullet : MonoBehaviour, IPausable
 {
-
-	public float movespeed;
-
 	Rigidbody2D rb;
 
 	PlayerController2021remake playercontroller;
@@ -64,6 +61,15 @@ public class Aimedbullet : MonoBehaviour, IPausable
 		}
 	}
 }
+
+	void Update()
+    {
+        if (isPaused)
+        {
+			PausedUpdate();
+        }
+    }
+
 	public void SetForce(Vector2 f)
     {
 		storedForce = f;
@@ -79,7 +85,6 @@ public class Aimedbullet : MonoBehaviour, IPausable
 
 	public void OnUnpause()
     {
-		Debug.Log(gameObject);
 		rb.constraints = RigidbodyConstraints2D.None;
 		rb.AddForce(storedForce);
 	}
@@ -90,7 +95,15 @@ public class Aimedbullet : MonoBehaviour, IPausable
     }
 
 	public void PausedUpdate()
-	{ }
+	{
+		if(rb != null)
+        {
+			if(rb.constraints != RigidbodyConstraints2D.FreezeAll)
+            {
+				rb.constraints = RigidbodyConstraints2D.FreezeAll;
+			}
+        }
+	}
 
 	public void UnPausedUpdate()
 	{ }

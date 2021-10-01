@@ -9,17 +9,23 @@ public class EnemyProjectile : MonoBehaviour, IPausable
 
     public float fireRate;
     private float nextFire;
-    public float shotspeed;
+
+    public float bulletscale = 1.0f;
+    public float shotspeed = 1.0f;
+    private float truespeed;
+
+    private bool firing;
 
     Transform player;
     Vector2 firingangle;
-
+ 
     public bool isPaused { get; set; }
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        truespeed = shotspeed * 10;
     }
     // Update is called once per frame
     void Update()
@@ -37,16 +43,26 @@ public class EnemyProjectile : MonoBehaviour, IPausable
 		if (nextFire >= fireRate)
         {
             nextFire -= nextFire;
-			GameObject newBullet = Instantiate (bullet, transform.position, Quaternion.identity);
+            Fire();
+        }
+    }
+
+    void Fire()
+    {
+            GameObject newBullet = Instantiate(bullet, transform.position, Quaternion.identity);
+            newBullet.transform.localScale = newBullet.transform.localScale * bulletscale;
+            PauseControl.TryAddPausable(newBullet);
+
             if (newBullet.TryGetComponent(out Rigidbody2D bulletBody))
             {
+                if(player != null)
+            {
                 firingangle = player.position - transform.position;
-                newBullet.GetComponent<Aimedbullet>().SetForce(firingangle.normalized * 100f);
-                bulletBody.AddForce(firingangle.normalized * 100f);
             }
-            PauseControl.TryAddPausable(newBullet);
-	}
-}
+                bulletBody.AddForce((firingangle.normalized) * truespeed);
+                newBullet.GetComponent<Aimedbullet>().SetForce((firingangle.normalized) * (truespeed / 2));
+            }
+    }
 
     public void OnPause()
     { }
