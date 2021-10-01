@@ -4189,7 +4189,7 @@ GameObject:
   - component: {fileID: 1031547481858185581}
   - component: {fileID: 7698881267086589584}
   m_Layer: 10
-  m_Name: Player 1
+  m_Name: Player2021
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4381,6 +4381,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LavaWorld: 0
+  canbehit: 1
   playerCollider: {fileID: 7698881267086589588}
   spriterenderer: {fileID: 7698881267086589590}
   onKeyCollect:
@@ -4475,6 +4476,8 @@ MonoBehaviour:
   Shield: {fileID: 7772311802394042586, guid: 967da95b78b6a884b86c292cf3695819, type: 3}
   dirlock: 0
   gotgold: 0
+  delaylock: 0
+  isHeadJumping: 0
   taillist:
   - {fileID: 5626480549850111217}
   - {fileID: 7698881265702379404}
@@ -4556,7 +4559,10 @@ MonoBehaviour:
   - {fileID: 7698881267686005758}
   - {fileID: 7698881266112712415}
   - {fileID: 7698881266517307530}
+  AlphaHistory: []
+  slowdownPositionCache: []
   followDelay: 8
+  speedIncrease: 0
   debugShowFromStart: 0
   SegmentSprites:
   - {fileID: -4947729470161550670, guid: 18c99329419dba3488c73644a7403891, type: 3}
@@ -4569,18 +4575,23 @@ MonoBehaviour:
   SegmentDelaySleep: 5
   SegmentDelaySleepcache: 0
   SegmentDelaySleepCounter: 0
+  SegmentHistorySkipCounter: 0
+  SegmentHistorySkipTimer: 0
   ate: 0
+  isSegmentJumping: 0
+  LastLandPosition: {x: 0, y: 0, z: 0}
   presentdir: 0
   direction: {x: 0, y: 0, z: 0}
   FinalMovementVector: {x: 0, y: 0, z: 0}
-  pushback: {x: 0, y: 0, z: 0}
+  shiftVector: {x: 0, y: 0, z: 0}
   canmove: 1
+  directionreset: 0
   basespeed: 1.8
   finalspeed: 0
   pelletno: 0
   countText: {fileID: 0}
+  speedText: {fileID: 0}
   GoldenPellet: {fileID: 0}
-  MainMenuOption: {fileID: 0}
   onEatPellet:
     m_PersistentCalls:
       m_Calls: []
@@ -5465,7 +5476,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_LightVolumeOpacity: 0
-  m_ApplyToSortingLayers: 000000004dd699ce
+  m_ApplyToSortingLayers: 000000004dd699ceb1a05e18
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 0
   m_LightOrder: 0

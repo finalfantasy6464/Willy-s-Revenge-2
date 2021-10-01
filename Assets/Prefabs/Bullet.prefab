@@ -19,10 +19,53 @@ MonoBehaviour:
   maxVolume: 1
   minDistance: 0.1
   maxDistance: 7
+  panAmount: 0
   playsOnStart: 0
   looping: 0
   currentDistance: 0
+  horizontalDistance: 0
   distanceProgress: 0
+--- !u!114 &5086552990061273049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6935339146627899903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LightType: 3
+  m_BlendStyleIndex: 0
+  m_FalloffIntensity: 0.755
+  m_Color: {r: 1, g: 0.4992268, b: 0, a: 1}
+  m_Intensity: 1
+  m_LightVolumeOpacity: 0
+  m_ApplyToSortingLayers: 00000000b1a05e184dd699ce
+  m_LightCookieSprite: {fileID: 0}
+  m_UseNormalMap: 0
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_ShadowIntensity: 0
+  m_ShadowVolumeIntensity: 0
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 0.5
+  m_PointLightDistance: 3
+  m_PointLightQuality: 1
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 0.5
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}
 --- !u!1001 &6202886800461968551
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30,10 +73,61 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 538910497649175036, guid: 2a2bfd48483299242b811e460bf7cc32,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 79ef37b679aaaa44696eb7ebf90e7005,
+        type: 3}
+    - target: {fileID: 538910497649175036, guid: 2a2bfd48483299242b811e460bf7cc32,
+        type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 538910497649175036, guid: 2a2bfd48483299242b811e460bf7cc32,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+    - target: {fileID: 788744254433594215, guid: 2a2bfd48483299242b811e460bf7cc32,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.18248272
+      objectReference: {fileID: 0}
+    - target: {fileID: 788744254433594215, guid: 2a2bfd48483299242b811e460bf7cc32,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: 0.006984234
+      objectReference: {fileID: 0}
+    - target: {fileID: 788744254433594215, guid: 2a2bfd48483299242b811e460bf7cc32,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 788744254433594215, guid: 2a2bfd48483299242b811e460bf7cc32,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 788744254433594215, guid: 2a2bfd48483299242b811e460bf7cc32,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.72
+      objectReference: {fileID: 0}
     - target: {fileID: 3903022853630678360, guid: 2a2bfd48483299242b811e460bf7cc32,
         type: 3}
       propertyPath: m_Name
       value: Bullet
+      objectReference: {fileID: 0}
+    - target: {fileID: 5077834883232469117, guid: 2a2bfd48483299242b811e460bf7cc32,
+        type: 3}
+      propertyPath: bulletShot
+      value: 
+      objectReference: {fileID: 8300000, guid: 0113eeb81c580d44cad3dcee24a99821, type: 3}
+    - target: {fileID: 6006955766572237187, guid: 2a2bfd48483299242b811e460bf7cc32,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6006955766572237187, guid: 2a2bfd48483299242b811e460bf7cc32,
         type: 3}
@@ -52,6 +146,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6006955766572237187, guid: 2a2bfd48483299242b811e460bf7cc32,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6006955766572237187, guid: 2a2bfd48483299242b811e460bf7cc32,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -63,16 +162,6 @@ PrefabInstance:
     - target: {fileID: 6006955766572237187, guid: 2a2bfd48483299242b811e460bf7cc32,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6006955766572237187, guid: 2a2bfd48483299242b811e460bf7cc32,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6006955766572237187, guid: 2a2bfd48483299242b811e460bf7cc32,
-        type: 3}
-      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6006955766572237187, guid: 2a2bfd48483299242b811e460bf7cc32,
@@ -89,42 +178,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5077834883232469117, guid: 2a2bfd48483299242b811e460bf7cc32,
-        type: 3}
-      propertyPath: bulletShot
-      value: 
-      objectReference: {fileID: 8300000, guid: 0113eeb81c580d44cad3dcee24a99821, type: 3}
-    - target: {fileID: 538910497649175036, guid: 2a2bfd48483299242b811e460bf7cc32,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 79ef37b679aaaa44696eb7ebf90e7005,
-        type: 3}
-    - target: {fileID: 788744254433594215, guid: 2a2bfd48483299242b811e460bf7cc32,
-        type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.72
-      objectReference: {fileID: 0}
-    - target: {fileID: 788744254433594215, guid: 2a2bfd48483299242b811e460bf7cc32,
-        type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 0.72
-      objectReference: {fileID: 0}
-    - target: {fileID: 788744254433594215, guid: 2a2bfd48483299242b811e460bf7cc32,
-        type: 3}
-      propertyPath: m_Offset.x
-      value: 0.006984234
-      objectReference: {fileID: 0}
-    - target: {fileID: 788744254433594215, guid: 2a2bfd48483299242b811e460bf7cc32,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 0.18248272
-      objectReference: {fileID: 0}
-    - target: {fileID: 788744254433594215, guid: 2a2bfd48483299242b811e460bf7cc32,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7928810472944794488, guid: 2a2bfd48483299242b811e460bf7cc32,
         type: 3}
