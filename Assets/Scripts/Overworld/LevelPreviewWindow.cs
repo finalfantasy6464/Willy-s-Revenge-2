@@ -19,7 +19,7 @@ public class LevelPreviewWindow : GUIWindow
     ///</Summary>
     public void UpdatePreviewData(LevelPin pin)
     {
-        levelNameLabel.text = $"Current Level: {pin.levelDisplayName}";
+        levelNameLabel.text = $"{pin.levelDisplayName}";
         parSpan = TimeSpan.FromSeconds(pin.parTime);
         levelParLabel.text = "Par Time: " + parSpan.ToString(@"mm\:ss");
         snapshot.sprite = pin.levelPreviewSprite;
