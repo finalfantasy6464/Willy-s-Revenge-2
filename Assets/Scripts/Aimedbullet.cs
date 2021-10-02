@@ -96,12 +96,9 @@ public class Aimedbullet : MonoBehaviour, IPausable
 
 	public void PausedUpdate()
 	{
-		if(rb != null)
-        {
-			if(rb.constraints != RigidbodyConstraints2D.FreezeAll)
-            {
+		if(rb != null && rb.constraints != RigidbodyConstraints2D.FreezeAll)
+		{
 				rb.constraints = RigidbodyConstraints2D.FreezeAll;
-			}
         }
 	}
 

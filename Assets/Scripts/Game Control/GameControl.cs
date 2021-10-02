@@ -12,9 +12,12 @@ public class GameControl : MonoBehaviour
     public int complete;
     public int golden;
     public int timer;
+
     public bool returntoselect = false;
     public bool bosscheckpoint = false;
     public bool faded = false;
+    public bool InitialGameStarted = false;
+
     public int totallevels;
     public int targetLevels;
     public int levelID;
@@ -158,11 +161,14 @@ public class GameControl : MonoBehaviour
     {
         yield return 3;
         MapManager map = FindObjectOfType<MapManager>();
-        map.SetWorldGateData(lockedgatescache, destroyedgatescache);
-        for (int i = 0; i < map.worldGates.Count; i++)
+        if(map != null)
         {
-            map.worldGates[i].SetOrbState(lockedgatescache[i], destroyedgatescache[i]);
-        }
+            map.SetWorldGateData(lockedgatescache, destroyedgatescache);
+            for (int i = 0; i < map.worldGates.Count; i++)
+            {
+                map.worldGates[i].SetOrbState(lockedgatescache[i], destroyedgatescache[i]);
+            }
+        }  
     }
 
     [HideInInspector] public IEnumerator ChangeCharacterPin()
@@ -191,7 +197,7 @@ public class GameControl : MonoBehaviour
     {
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/autosave.wr2");
-        PlayerData data = new PlayerData(complete, golden, timer, levelID, new SerializedVector3(AutosavePosition), new SerializedVector3Pin(savedPinPosition), completedlevels, goldenpellets, timerchallenge, lockedgates, destroyedgates);
+        PlayerData data = new PlayerData(complete, golden, timer, levelID, new SerializedVector3(AutosavePosition), new SerializedVector3Pin(savedPinPosition), completedlevels, goldenpellets, timerchallenge, lockedgates, destroyedgates, InitialGameStarted);
         bf.Serialize(file, data);
         file.Close();
     }
@@ -204,7 +210,7 @@ public class GameControl : MonoBehaviour
 		FileStream file = File.Create (Application.persistentDataPath + "/playersave.wr2");
         PlayerData data = new PlayerData(complete, golden, timer, levelID, new SerializedVector3(character.transform.position),
                 new SerializedVector3Pin(savedPinPosition), completedlevels,
-                goldenpellets, timerchallenge, lockedgates, destroyedgates);
+                goldenpellets, timerchallenge, lockedgates, destroyedgates, InitialGameStarted);
 
         bf.Serialize (file, data);
 		file.Close();
@@ -247,11 +253,26 @@ public class GameControl : MonoBehaviour
             savedPinPosition.z = data.savedPinposition.z;
             lockedgatescache = data.lockedgates;
             destroyedgatescache = data.destroyedgates;
+            InitialGameStarted = data.InitialGameStarted;
 
             lockedgates = lockedgatescache;
             destroyedgates = destroyedgatescache;
  
             StartCoroutine(SetWorldGates());
+        }
+    }
+
+    public void CheckForDeletion()
+    {
+        DeleteFiles("/autosave.wr2");
+        DeleteFiles("/playersave.wr2");
+    }
+
+    public void DeleteFiles(string localPath)
+    {
+        if(File.Exists(Application.persistentDataPath + localPath))
+        {
+            File.Delete(Application.persistentDataPath + localPath);
         }
     }
 }
@@ -290,6 +311,8 @@ class PlayerData
     public SerializedVector3 playerposition;
     public SerializedVector3Pin savedPinposition;
 
+    public bool InitialGameStarted;
+
 	public List<bool> completedlevels;
 	public List<bool> goldenpellets;
 	public List<bool> timerchallenge;
@@ -297,7 +320,7 @@ class PlayerData
     public List<bool> destroyedgates;
 
     public PlayerData(int complete, int golden, int timer, int levelID,
-            SerializedVector3 serializedPosition, SerializedVector3Pin serializedPinPosition)
+            SerializedVector3 serializedPosition, SerializedVector3Pin serializedPinPosition, bool InitialGameStarted)
     {
         this.complete = complete;
         this.golden = golden;
@@ -305,11 +328,12 @@ class PlayerData
         this.levelID = levelID;
         this.playerposition = serializedPosition;
         this.savedPinposition = serializedPinPosition;
+        this.InitialGameStarted = InitialGameStarted;
     }
 
     public PlayerData(int complete, int golden, int timer, int levelID,
             SerializedVector3 serializedPosition, SerializedVector3Pin serializedPinPosition, List<bool> completedLevels,
-            List<bool> goldenPellets, List<bool> timerChallenge, List<bool> lockedgates, List<bool> destroyedgates)
+            List<bool> goldenPellets, List<bool> timerChallenge, List<bool> lockedgates, List<bool> destroyedgates, bool InitialGameStarted)
     {
         this.complete = complete;
         this.golden = golden;
@@ -322,5 +346,6 @@ class PlayerData
         this.timerchallenge = timerChallenge;
         this.lockedgates = lockedgates;
         this.destroyedgates = destroyedgates;
+        this.InitialGameStarted = InitialGameStarted;
     }
 }
