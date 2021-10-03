@@ -35,11 +35,6 @@ public class Bullet : MonoBehaviour, IPausable
 			Destroy(gameObject);
 		}
 
-		if (hit.tag == "Enemy5")
-		{
-			Destroy(gameObject);
-		}
-
 		if (hit.tag == "Bullet")
 		{
 			Destroy(gameObject);

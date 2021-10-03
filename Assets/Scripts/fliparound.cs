@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class fliparound : MonoBehaviour
 {
-
-	public Sprite sprite1;
 	public Sprite sprite2;
 
 
 	Collider2D m_Collider;
+
+	public Sprite sprite1;
 
 	void Start(){
 		m_Collider = GetComponent<Collider2D>();
@@ -22,6 +22,7 @@ public class fliparound : MonoBehaviour
 
 				m_Collider.enabled = false;
 				this.GetComponent<SpriteRenderer> ().sprite = sprite2;
+			    this.GetComponent<SpriteRenderer>().sortingOrder = -1;
 			}
 				
 }
