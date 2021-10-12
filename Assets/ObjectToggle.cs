@@ -4,34 +4,55 @@ using UnityEngine;
 
 public class ObjectToggle : MonoBehaviour
 {
-    public GameObject[] toDissapear;
-    public GameObject[] toAppear;
+    public SpriteRenderer[] toUnfade;
+    public SpriteRenderer[] toFade;
+    public SpriteRenderer[] toVanish;
 
-    public Camera mainCamera;
-    public Color changeColour;
+    public GameObject[] objectsToTurnOff;
+    public GameObject[] objectsToTurnOn;
+
+    public GameObject TwinToggle;
 
     public OverworldCharacter character;
+
 
     private void OnTriggerEnter2D(Collider2D coll)
     {
         if (coll.CompareTag("Player"))
         {
-            if(toDissapear != null)
             {
-                for (int i = 0; i < toDissapear.Length; i++)
+                foreach (SpriteRenderer sprite in toUnfade)
                 {
-                    toDissapear[i].SetActive(false);
+                    if (sprite.enabled == false)
+                        sprite.enabled = true;
+                    sprite.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
                 }
-            }
 
-            if(toAppear != null)
-            {
-                for (int i = 0; i < toAppear.Length; i++)
+                foreach (SpriteRenderer sprite in toFade)
                 {
-                    toAppear[i].SetActive(true);
+                    sprite.color = new Color(0.25f, 0.25f, 0.25f, 0.5f);
+                }
+
+                foreach (SpriteRenderer sprite in toVanish)
+                {
+                    if (sprite.enabled == true)
+                    {
+                        sprite.enabled = false;
+                    }
+                }
+
+                foreach (GameObject obj in objectsToTurnOff)
+                {
+                    obj.SetActive(false);
+                }
+
+                foreach (GameObject obj in objectsToTurnOn)
+                {
+                    obj.SetActive(true);
                 }
             }
+            this.gameObject.SetActive(false);
+            TwinToggle.gameObject.SetActive(true);
         }
-        mainCamera.backgroundColor = changeColour;
     }
 }
