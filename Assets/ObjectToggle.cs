@@ -26,11 +26,13 @@ public class ObjectToggle : MonoBehaviour
                     if (sprite.enabled == false)
                         sprite.enabled = true;
                     sprite.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+                    sprite.gameObject.layer = 0;
                 }
 
                 foreach (SpriteRenderer sprite in toFade)
                 {
                     sprite.color = new Color(0.25f, 0.25f, 0.25f, 0.5f);
+                    sprite.gameObject.layer = 20;
                 }
 
                 foreach (SpriteRenderer sprite in toVanish)
