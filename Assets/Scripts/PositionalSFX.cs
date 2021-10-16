@@ -39,7 +39,7 @@ public class PositionalSFX : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "Overworld")
         {
-            player = GameObject.Find("Character").GetComponent<Character>().transform;
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<OverworldCharacter>().transform;
         }
         else
         {

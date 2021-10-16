@@ -14,6 +14,8 @@ public class LavaScript : MonoBehaviour, IPausable
     public int CurrentSprite = 1;
     public int mysprite = 0;
 
+    public bool doeskill = true;
+
     public AudioClip burned;
 
     public bool isPaused { get; set; }
@@ -32,7 +34,7 @@ public class LavaScript : MonoBehaviour, IPausable
         var mysprite = this.GetComponent<SpriteRenderer>().sprite;
         var hit = Lava.gameObject;
 
-        if (hit.tag == "Player" & mysprite == LavaSprites[13] | hit.tag == "Player" & mysprite == LavaSprites[14])
+        if (hit.tag == "Player" & mysprite == LavaSprites[13] | hit.tag == "Player" & mysprite == LavaSprites[14] && doeskill)
         {
             Destroy(hit);
             GameSoundManagement.instance.PlayOneShot(burned);
