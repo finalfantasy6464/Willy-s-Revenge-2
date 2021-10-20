@@ -7,6 +7,10 @@ using UnityEngine;
 ///</Summary>
 public class MoonToAlienTransition : WorldTransition
 {
+    public Animator playerAnimator;
+    public Animator shipAnimator;
+    public Animator holeAnimator;
+
     void Update()
     {
         

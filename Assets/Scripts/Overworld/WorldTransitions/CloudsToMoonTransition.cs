@@ -7,6 +7,10 @@ using UnityEngine;
 ///</Summary>
 public class CloudsToMoonTransition : WorldTransition
 {
+    public Animator playerAnimator;
+    public Animator cycloneAnimator;
+    public BezierNode rocketPath;
+    
     void Update()
     {
         

@@ -7,6 +7,10 @@ using UnityEngine;
 ///</Summary>
 public class CavernsToRuinsTransition : WorldTransition
 {
+    public Animator playerAnimator;
+    public Transform cannon;
+    public BezierNode slidePath;
+
     void Update()
     {
         

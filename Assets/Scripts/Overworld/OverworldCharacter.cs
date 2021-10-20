@@ -12,6 +12,7 @@ public class OverworldCharacter : MonoBehaviour
     [Header("Live Data")]
     public NavigationPin currentPin;
     public NavigationPin targetPin;
+    public bool isIgnoringPath;
     [HideInInspector] public UnityEvent onMove;
     IEnumerator moveRoutine;
 
@@ -93,7 +94,7 @@ public class OverworldCharacter : MonoBehaviour
             targetPin = end.GetComponent<LevelPin>();
             if(moveRoutine != null)
                 StopCoroutine(moveRoutine);
-
+            
             moveRoutine = MoveRoutine(path, isReturning);
             StartCoroutine(moveRoutine);
         }
@@ -113,6 +114,9 @@ public class OverworldCharacter : MonoBehaviour
         
         while(t < 1f)
         {
+            if(isIgnoringPath)
+                yield break;
+
             t += moveStep;
             transform.position = BezierManager.GetPositionAtTime(points, t); 
             lookDirection = (Vector2)BezierManager.GetPositionAtTime(points, t + moveStep)
@@ -122,15 +126,23 @@ public class OverworldCharacter : MonoBehaviour
             yield return null;
         }
 
-        currentPin = isReturning ? path.start.GetComponent<NavigationPin>()
-                : path.end.GetComponent<NavigationPin>();
+        NavigationPin start = path.start.GetComponent<NavigationPin>();
+        NavigationPin end = path.end.GetComponent<NavigationPin>();
+        NavigationPin targetPin = isReturning ? start : end;
+
+        SetMovePin(targetPin, isReturning);
+    }
+
+    public void SetMovePin(NavigationPin pin, bool isReturning)
+    {
+        currentPin = pin;
         currentPin.onCharacterEnter.Invoke();
 
         if(currentPin is LevelPin)
         {
             targetPin = null;
             isMoving = false;
-            yield break;
+            return;
         }
 
         // When colliding with a Gate, automatically follow the right direction.
@@ -141,7 +153,7 @@ public class OverworldCharacter : MonoBehaviour
             targetDirection = currentPin.nextDirection;
         else if(isLocked && !isReturning || !isLocked && isReturning)
             targetDirection = currentPin.previousDirection;
-
+        
         TryFollowPath(targetDirection);
     }
 }

@@ -5,69 +5,100 @@ using UnityEngine;
 public abstract class WorldTransition : MonoBehaviour
 {
     public Behaviour[] toDisable;
-
-    bool secondTraversed;
+    public OverworldCharacter character;
+    
+    public bool secondTraversed;
     IEnumerator forwardRoutine;
     IEnumerator backwardRoutine;
-    WorldTransitionNode first;
-    WorldTransitionNode second;
+    WorldTransitionNode nodeA;
+    WorldTransitionNode nodeB;
 
-    void Start()
-    {
-        first = transform.GetChild(0).GetComponent<WorldTransitionNode>();
-        second = transform.GetChild(1).GetComponent<WorldTransitionNode>();
-    }
+    protected Collider2D characterCollider;
 
-    public void OnEnterNode(WorldTransitionNode node)
+    protected virtual void Start()
     {
-        if(node == first && !secondTraversed)
-            OnEnterForward();
-        else if(node == second && !secondTraversed)
-            OnEnterBackward();
-        else
-            Debug.LogError("Unrecognized node in World Transition");
-    }
-
-    void OnEnterForward()
-    {
-        if(forwardRoutine != null)
-        {
-            StopCoroutine(forwardRoutine);
-            forwardRoutine = null;
-            Debug.LogWarning("ForwardRoutine hadn't finished and had to be stopped");
-        }
-        OnTransitionStart();
-        StartCoroutine(ForwardRoutine());
-    }
-
-    void OnEnterBackward()
-    {
-        if(backwardRoutine != null)
-        {
-            StopCoroutine(backwardRoutine);
-            backwardRoutine = null;
-            Debug.LogWarning("BackwardRoutine hadn't finished and had to be stopped");
-        }
-        OnTransitionStart();
-        StartCoroutine(ForwardRoutine());
+        nodeA = transform.GetChild(0).GetComponent<WorldTransitionNode>();
+        nodeB = transform.GetChild(1).GetComponent<WorldTransitionNode>();
+        characterCollider = character.GetComponent<Collider2D>();
     }
 
     void OnTransitionStart()
     {
-        secondTraversed = false;
         foreach (Behaviour b in toDisable)
         {
             b.enabled = false;
-            Debug.Log("Disabling behaviour");
             //Or other stopping code here, implement Interface if necessary.
         }
     }
 
-    protected void OnTransitionEnd()
+    void RoutineOverwriteCheck(IEnumerator routine)
     {
+        if(routine == null)
+            return;
+
+        StopCoroutine(forwardRoutine);
+        routine = null;
+        Debug.LogWarning("Coroutine hadn't finished, had to be stopped");
+    }
+
+    protected void OnEnterAForward()
+    {
+        RoutineOverwriteCheck(forwardRoutine);
+        OnTransitionStart();
+
+        character.isIgnoringPath = true;
+        characterCollider.enabled = false;
+        secondTraversed = true;   
+        StartCoroutine(ForwardRoutine());
+    }
+
+    protected void OnEnterBForward()
+    {
+        secondTraversed = false;
+    }
+
+    protected void OnEnterABackward()
+    {
+        secondTraversed = false;
+    }
+
+    protected void OnEnterBBackward()
+    {
+        RoutineOverwriteCheck(backwardRoutine);
+        OnTransitionStart();
+
+        character.isIgnoringPath = true;
+        characterCollider.enabled = false;
         secondTraversed = true;
+        StartCoroutine(BackwardRoutine());
+    }
+
+    protected virtual void OnTransitionEnd()
+    {
         foreach (Behaviour b in toDisable)
             b.enabled = true;
+
+        characterCollider.enabled = true;
+    }
+
+    public void OnEnterNode(WorldTransitionNode node)
+    {
+        if(node == nodeA)
+        {
+            if(!secondTraversed)
+                OnEnterAForward();
+            else
+                OnEnterABackward();
+        } else if (node == nodeB)
+        {
+            if(!secondTraversed)
+                OnEnterBBackward();
+            else
+                OnEnterBForward();
+        } else
+        {
+            Debug.LogError("Unrecognized node order in World Transition");
+        }
     }
 
     protected abstract IEnumerator ForwardRoutine();

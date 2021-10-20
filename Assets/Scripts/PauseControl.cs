@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -20,6 +21,16 @@ public class PauseControl : MonoBehaviour
         endCanvas = Resources.FindObjectsOfTypeAll<EndLevelCanvas>()[0];
         RegeneratePausables();  
         isGamePaused = false;
+    }
+
+    void Awake()
+    {
+        instance = this;
+    }
+
+    void Start()
+    {
+        EditorApplication.playModeStateChanged += UpdatePlayState;
     }
 
     void Update()
@@ -57,11 +68,11 @@ public class PauseControl : MonoBehaviour
 
     public static bool TryRemovePausable(GameObject pausableObject)
     {
-        if(instance.quitting) return false;
+        if(instance == null || instance.pausables == null || instance.quitting)
+            return false;
+            
         if(pausableObject.TryGetComponent<IPausable>(out IPausable pausable))
         {
-            if(instance == null)
-                instance = FindObjectOfType<PauseControl>();
             instance.pausables.Remove(pausable);
             return true;
         }
@@ -105,8 +116,9 @@ public class PauseControl : MonoBehaviour
         }
     }
 
-    void OnApplicationQuit()
+    void UpdatePlayState(PlayModeStateChange state)
     {
-        quitting = true;
+        if(state == PlayModeStateChange.ExitingPlayMode)
+            quitting = true;
     }
 }

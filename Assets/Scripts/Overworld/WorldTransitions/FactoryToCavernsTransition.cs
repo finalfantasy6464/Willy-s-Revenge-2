@@ -7,6 +7,12 @@ using UnityEngine;
 ///</Summary>
 public class FactoryToCavernsTransition : WorldTransition
 {
+    public Animator playerAnimator;
+    public Transform waterPipe;
+    public Animator waterPipeAnimator;
+    public Transform cave;
+    public Animator caveAnimator;
+
     void Update()
     {
         

@@ -24,10 +24,9 @@ public class MapManager : MonoBehaviour
     public List<LevelPin> levelPins;
     public List<GatePin> worldGates;
 
+
     private void Start ()
 	{
-        startPin = levelPins[GameControl.control.levelID];
-
         character = FindObjectOfType<OverworldCharacter>();
         soundManagement = FindObjectOfType<GameSoundManagement>();
 

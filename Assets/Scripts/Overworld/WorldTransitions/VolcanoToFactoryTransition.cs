@@ -7,6 +7,9 @@ using UnityEngine;
 ///</Summary>
 public class VolcanoToFactoryTransition : WorldTransition
 {
+    public Transform conveyor;
+    public Animator conveyorAnimator;
+
     void Update()
     {
         

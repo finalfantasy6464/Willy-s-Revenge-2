@@ -7,6 +7,9 @@ using UnityEngine;
 ///</Summary>
 public class RuinsToCloudsTransition : WorldTransition
 {
+    public Animator playerAnimator;
+    public Animator sproutAnimator;
+
     void Update()
     {
         
