@@ -20,12 +20,9 @@ public class AlienToggle : MonoBehaviour
             mainCamera.transform.position = next;
         }
     }
-    private void OnTriggerEnter2D(Collider2D coll)
+    public void WaypointBehaviour()
     {
-        if(coll.CompareTag("Player"))
-            {
             following = true;
             mainCamera.orthographicSize = zoomLevel;
-            }
     }
 }

@@ -17,19 +17,31 @@ public class DesertToVolcanoTransition : WorldTransition
 
     protected override IEnumerator BackwardRoutine()
     {
+        Transform parentCache = character.transform.parent;
         playerAnimator.enabled = true;
-        
+        orbitBackwardAnimator.enabled = true;
+        character.transform.SetParent(orbitParentBackward);
+
         playerAnimator.Play("QuicksandBackward", -1);
+        orbitBackwardAnimator.Play("OrbitBackward", -1);
         yield return null;
-        while(playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+        while (playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+        {
             yield return null;
+        }
 
         // to simulate touching node A
+        orbitBackwardAnimator.enabled = false;
         playerAnimator.enabled = false;
         secondTraversed = false;
-        character.isIgnoringPath = false;
+        character.GetComponent<SpriteRenderer>().sprite = character.skinSprites[2];
+        GameControl.control.currentCharacterSprite = 2;
 
+        character.isIgnoringPath = false;
+        character.transform.SetParent(parentCache);
+        character.transform.position = new Vector3(character.transform.position.x, character.transform.position.y, 0f);
         Vector3 target = character.currentPin.previousPath.end.position;
+
         while(Vector3.Distance(character.transform.position, target) > 0.01f)
         {
             Vector2 lookDirection = target - character.transform.position;
@@ -61,6 +73,9 @@ public class DesertToVolcanoTransition : WorldTransition
         orbitForwardAnimator.enabled = false;
         playerAnimator.enabled = false;
         secondTraversed = false;
+        character.GetComponent<SpriteRenderer>().sprite = character.skinSprites[3];
+        GameControl.control.currentCharacterSprite = 3;
+
         character.isIgnoringPath = false;
         character.transform.SetParent(parentCache);
         character.transform.position = new Vector3(character.transform.position.x, character.transform.position.y, 0f);

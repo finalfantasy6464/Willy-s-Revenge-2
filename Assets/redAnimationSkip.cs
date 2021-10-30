@@ -13,11 +13,7 @@ public class redAnimationSkip : StateMachineBehaviour
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-          if (!animator.GetBool("Red") && changed == false)
-            {
-                animator.StopPlayback();
-                changed = true;
-            }
+
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

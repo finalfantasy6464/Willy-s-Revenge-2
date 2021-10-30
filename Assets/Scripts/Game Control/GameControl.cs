@@ -13,6 +13,8 @@ public class GameControl : MonoBehaviour
     public int golden;
     public int timer;
 
+    public int currentCharacterSprite = 0;
+
     public bool returntoselect = false;
     public bool bosscheckpoint = false;
     public bool faded = false;
@@ -21,6 +23,7 @@ public class GameControl : MonoBehaviour
     public int totallevels;
     public int targetLevels;
     public int levelID;
+    public int savedPinID;
     public string currentlevel;
     public string sceneName;
     public Vector3 savedPinPosition;
@@ -106,7 +109,7 @@ public class GameControl : MonoBehaviour
 
     private void Start()
     {
-        Application.targetFrameRate = 60;  
+        Application.targetFrameRate = 60;
     }
 
     private void Update()
@@ -139,6 +142,12 @@ public class GameControl : MonoBehaviour
             goldenpellets.Add(false);
             timerchallenge.Add(false);
       }
+    }
+
+    void OverworldLevelStateUpdate()
+    {
+        MapManager mapManager = FindObjectOfType<MapManager>();
+        mapManager?.InitializeLevelState();
     }
 
     public IEnumerator LoadRoutine(int routinechoice)
@@ -197,7 +206,7 @@ public class GameControl : MonoBehaviour
     {
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/autosave.wr2");
-        PlayerData data = new PlayerData(complete, golden, timer, levelID, new SerializedVector3(AutosavePosition), new SerializedVector3Pin(savedPinPosition), completedlevels, goldenpellets, timerchallenge, lockedgates, destroyedgates, InitialGameStarted);
+        PlayerData data = new PlayerData(complete, golden, timer, levelID, currentCharacterSprite, new SerializedVector3(AutosavePosition), new SerializedVector3Pin(savedPinPosition), completedlevels, goldenpellets, timerchallenge, lockedgates, destroyedgates, InitialGameStarted);
         bf.Serialize(file, data);
         file.Close();
     }
@@ -208,7 +217,7 @@ public class GameControl : MonoBehaviour
         savedPinPosition = character.transform.position;
 		BinaryFormatter bf = new BinaryFormatter ();
 		FileStream file = File.Create (Application.persistentDataPath + "/playersave.wr2");
-        PlayerData data = new PlayerData(complete, golden, timer, levelID, new SerializedVector3(character.transform.position),
+        PlayerData data = new PlayerData(complete, golden, timer, levelID, currentCharacterSprite, new SerializedVector3(character.transform.position),
                 new SerializedVector3Pin(savedPinPosition), completedlevels,
                 goldenpellets, timerchallenge, lockedgates, destroyedgates, InitialGameStarted);
 
@@ -224,6 +233,7 @@ public class GameControl : MonoBehaviour
         {
             Debug.Log("Starting coroutine");
             StartCoroutine(ChangeCharacterPin());
+            OverworldLevelStateUpdate();
         }
     }
 
@@ -308,6 +318,8 @@ class PlayerData
 	public int golden;
 	public int timer;
 	public int levelID;
+    public int currentCharacterSprite;
+
     public SerializedVector3 playerposition;
     public SerializedVector3Pin savedPinposition;
 
@@ -319,19 +331,20 @@ class PlayerData
     public List<bool> lockedgates;
     public List<bool> destroyedgates;
 
-    public PlayerData(int complete, int golden, int timer, int levelID,
+    public PlayerData(int complete, int golden, int timer, int levelID, int currentCharacterSprite,
             SerializedVector3 serializedPosition, SerializedVector3Pin serializedPinPosition, bool InitialGameStarted)
     {
         this.complete = complete;
         this.golden = golden;
         this.timer = timer;
         this.levelID = levelID;
+        this.currentCharacterSprite = currentCharacterSprite;
         this.playerposition = serializedPosition;
         this.savedPinposition = serializedPinPosition;
         this.InitialGameStarted = InitialGameStarted;
     }
 
-    public PlayerData(int complete, int golden, int timer, int levelID,
+    public PlayerData(int complete, int golden, int timer, int levelID, int currentCharacterSprite,
             SerializedVector3 serializedPosition, SerializedVector3Pin serializedPinPosition, List<bool> completedLevels,
             List<bool> goldenPellets, List<bool> timerChallenge, List<bool> lockedgates, List<bool> destroyedgates, bool InitialGameStarted)
     {
@@ -339,6 +352,7 @@ class PlayerData
         this.golden = golden;
         this.timer = timer;
         this.levelID = levelID;
+        this.currentCharacterSprite = currentCharacterSprite;
         this.playerposition = serializedPosition;
         this.savedPinposition = serializedPinPosition;
         this.completedlevels = completedLevels;

@@ -30,6 +30,10 @@ public class MapManager : MonoBehaviour
         character = FindObjectOfType<OverworldCharacter>();
         soundManagement = FindObjectOfType<GameSoundManagement>();
 
+        if(GameControl.control.savedPin != null)
+        {
+        startPin = GameControl.control.savedPin;
+        }
         character.Initialize(startPin);
         overworldGUI.Initialize(this, character);
         
@@ -38,6 +42,7 @@ public class MapManager : MonoBehaviour
         playButton.onClick.AddListener(()=> soundManagement.PlaySingle(playsound));
         GameControl.control.InitializeOverworldMap(worldGates);
         InitializeWorldGates();
+        InitializeLevelState();
     }
 
     public void UnlockAndDestroyGate(GatePin gate)
@@ -72,6 +77,33 @@ public class MapManager : MonoBehaviour
             }
             gate.map = this;
             gate.SetOrbState(gate.locked, gate.destroyed);
+        }
+    }
+
+    public void InitializeLevelState()
+    {
+        for (int i = 1; i < GameControl.control.completedlevels.Count - 1; i++)
+        {
+            bool isComplete = GameControl.control.completedlevels[i];
+            bool isGolden = GameControl.control.goldenpellets[i];
+            bool isTimer = GameControl.control.timerchallenge[i];
+
+            if (isComplete)
+            {
+                levelPins[i - 1].complete = true;
+            }
+
+            if (isGolden)
+            {
+                levelPins[i - 1].goldChallenge = true;
+            }
+
+            if (isTimer)
+            {
+                levelPins[i - 1].timeChallenge = true;
+            }
+
+            levelPins[i - 1].SetState();
         }
     }
 

@@ -31,42 +31,47 @@ public class ColourWaypoints : MonoBehaviour
 
     public CameraFollow camerafollow;
 
-    private void OnTriggerEnter2D(Collider2D coll)
+    public void OnTriggerEnter2D(Collider2D coll)
     {
         if (coll.CompareTag("Player"))
         {
-            if (isBackwards)
+            WaypointBehaviour();
+        }
+    }
+
+    public void WaypointBehaviour()
+    {
+        if (isBackwards)
+        {
+            camerafollow.isClamping = false;
+            if (viewSetting == 0)
             {
-                camerafollow.isClamping = false;
-                if(viewSetting == 0)
-                {
-                    camerafollow.overworldCamera.transform.position = HemisphereView;
-                    camerafollow.overworldCamera.orthographicSize = zoomEnd;
-                }
-                else if (viewSetting == 1)
-                {
-                    camerafollow.transform.position = FullWorldView;
-                    camerafollow.overworldCamera.orthographicSize = zoomEnd;
-                }
-                else if (viewSetting == 2)
-                {
-                    camerafollow.transform.position = FullCloudView;
-                    camerafollow.overworldCamera.orthographicSize = zoomEnd;
-                }
-                return;
+                camerafollow.overworldCamera.transform.position = HemisphereView;
+                camerafollow.overworldCamera.orthographicSize = zoomEnd;
             }
-            camerafollow.isClamping = true;
-
-            bgController.progressIndex = progressIndex;
-            bgController.SetVectorTransforms(checkStart, checkEnd);
-
-            camerafollow.progressIndex = progressIndex;
-            camerafollow.SetCameraState(checkStart.position, checkEnd.position, cameraStart, cameraEnd, zoomStart, zoomEnd);
-
-            if (resetsCamera)
+            else if (viewSetting == 1)
             {
-                camerafollow.overworldCamera.orthographicSize = zoomStart;
+                camerafollow.transform.position = FullWorldView;
+                camerafollow.overworldCamera.orthographicSize = zoomEnd;
             }
+            else if (viewSetting == 2)
+            {
+                camerafollow.transform.position = FullCloudView;
+                camerafollow.overworldCamera.orthographicSize = zoomEnd;
+            }
+            return;
+        }
+        camerafollow.isClamping = true;
+
+        bgController.progressIndex = progressIndex;
+        bgController.SetVectorTransforms(checkStart, checkEnd);
+
+        camerafollow.progressIndex = progressIndex;
+        camerafollow.SetCameraState(checkStart.position, checkEnd.position, cameraStart, cameraEnd, zoomStart, zoomEnd);
+
+        if (resetsCamera)
+        {
+            camerafollow.overworldCamera.orthographicSize = zoomStart;
         }
     }
 }

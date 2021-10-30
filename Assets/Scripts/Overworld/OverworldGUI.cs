@@ -40,12 +40,13 @@ public class OverworldGUI : MonoBehaviour
 
         if(GameInput.GetKeyDown("select"))
         {
-            if(!wasAnyShowing && !character.isMoving)
+            if (!wasAnyShowing && !character.isMoving)
             {
                 ((LevelPreviewWindow)levelPreview).UpdatePreviewData((LevelPin)character.currentPin);
+                GameControl.control.savedPin = (LevelPin)character.currentPin;
                 levelPreview.Show();
             }
-            else if(levelPreview.isShowing)
+            else if (levelPreview.isShowing)
                  map.LoadLevelFromCurrentPin();
         }
         

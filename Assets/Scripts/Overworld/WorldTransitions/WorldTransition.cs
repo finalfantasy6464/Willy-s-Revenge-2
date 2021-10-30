@@ -15,6 +15,11 @@ public abstract class WorldTransition : MonoBehaviour
 
     protected Collider2D characterCollider;
 
+    public ObjectToggle toggle;
+    public ObjectToggle backwardToggle;
+    public MonoBehaviour waypoint;
+    public MonoBehaviour backwardswaypoint;
+
     protected virtual void Start()
     {
         nodeA = transform.GetChild(0).GetComponent<WorldTransitionNode>();
@@ -22,8 +27,57 @@ public abstract class WorldTransition : MonoBehaviour
         characterCollider = character.GetComponent<Collider2D>();
     }
 
+    public void TriggerToggleBehaviour()
+    {
+        if (toggle != null)
+        {
+            toggle.ToggleBehaviour();
+        }
+
+        if (waypoint != null)
+        {
+                if (waypoint is ColourWaypoints)
+                {
+                    ((ColourWaypoints)waypoint).WaypointBehaviour();
+                }
+                else if (waypoint is MoonToggle)
+                {
+                    ((MoonToggle)waypoint).WaypointBehaviour();
+                }
+                else if (waypoint is MoonToggle)
+                {
+                    ((AlienToggle)waypoint).WaypointBehaviour();
+                }
+        }
+    }
+
+    public void TriggerToggleBehaviourBackward()
+    {
+        if (backwardToggle != null)
+        {
+            backwardToggle.ToggleBehaviour();
+        }
+
+        if (backwardswaypoint != null)
+        {
+            if (backwardswaypoint is ColourWaypoints)
+            {
+                ((ColourWaypoints)backwardswaypoint).WaypointBehaviour();
+            }
+            else if (backwardswaypoint is MoonToggle)
+            {
+                ((MoonToggle)backwardswaypoint).WaypointBehaviour();
+            }
+            else if (backwardswaypoint is MoonToggle)
+            {
+                ((AlienToggle)backwardswaypoint).WaypointBehaviour();
+            }
+        }
+    }
+
     void OnTransitionStart()
     {
+        character.currentWorldTransition = this;
         foreach (Behaviour b in toDisable)
         {
             b.enabled = false;

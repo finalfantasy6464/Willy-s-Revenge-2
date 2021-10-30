@@ -10,9 +10,8 @@ public class MoonToggle : MonoBehaviour
 
     public ColourWaypoints[] togglers;
 
-    private void OnTriggerEnter2D(Collider2D coll)
+    public void WaypointBehaviour()
     {
-        if(coll.gameObject.CompareTag("Player"))
         {
             mainCamera.transform.position = cameraPosition;
             mainCamera.orthographicSize = zoomLevel;

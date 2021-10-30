@@ -9,6 +9,8 @@ public class OverworldCharacter : MonoBehaviour
     public float moveSpeed;
     public bool isMoving;
     public  bool canMove;
+    public Sprite[] skinSprites;
+
     [Header("Live Data")]
     public NavigationPin currentPin;
     public NavigationPin targetPin;
@@ -16,9 +18,17 @@ public class OverworldCharacter : MonoBehaviour
     [HideInInspector] public UnityEvent onMove;
     IEnumerator moveRoutine;
 
+
+    public WorldTransition currentWorldTransition = null;
+
     void Awake()
     {
         onMove = new UnityEvent();
+    }
+
+    void Start()
+    {
+        gameObject.GetComponent<SpriteRenderer>().sprite = skinSprites[GameControl.control.currentCharacterSprite];
     }
 
     public void Initialize(NavigationPin startPin)
@@ -155,5 +165,21 @@ public class OverworldCharacter : MonoBehaviour
             targetDirection = currentPin.previousDirection;
         
         TryFollowPath(targetDirection);
+    }
+
+    public void TriggerCurrentBehaviours()
+    {
+        if(currentWorldTransition != null)
+        {
+            currentWorldTransition.TriggerToggleBehaviour();
+        }
+    }
+
+    public void TriggerCurrentBackwardBehaviours()
+    {
+        if (currentWorldTransition != null)
+        {
+            currentWorldTransition.TriggerToggleBehaviourBackward();
+        }
     }
 }

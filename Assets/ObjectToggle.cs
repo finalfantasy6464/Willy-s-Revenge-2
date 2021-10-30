@@ -11,50 +11,49 @@ public class ObjectToggle : MonoBehaviour
     public GameObject[] objectsToTurnOff;
     public GameObject[] objectsToTurnOn;
 
+    public Color[] fadedColor;
+
     public GameObject TwinToggle;
 
     public OverworldCharacter character;
 
-
-    private void OnTriggerEnter2D(Collider2D coll)
+    public void ToggleBehaviour()
     {
-        if (coll.CompareTag("Player"))
+        for (int i = 0; i < toUnfade.Length; i++)
         {
-            {
-                foreach (SpriteRenderer sprite in toUnfade)
-                {
-                    if (sprite.enabled == false)
-                        sprite.enabled = true;
-                    sprite.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-                    sprite.gameObject.layer = 0;
-                }
-
-                foreach (SpriteRenderer sprite in toFade)
-                {
-                    sprite.color = new Color(0.25f, 0.25f, 0.25f, 0.5f);
-                    sprite.gameObject.layer = 20;
-                }
-
-                foreach (SpriteRenderer sprite in toVanish)
-                {
-                    if (sprite.enabled == true)
-                    {
-                        sprite.enabled = false;
-                    }
-                }
-
-                foreach (GameObject obj in objectsToTurnOff)
-                {
-                    obj.SetActive(false);
-                }
-
-                foreach (GameObject obj in objectsToTurnOn)
-                {
-                    obj.SetActive(true);
-                }
-            }
-            this.gameObject.SetActive(false);
-            TwinToggle.gameObject.SetActive(true);
+            SpriteRenderer sprite = toUnfade[i];
+            if (sprite.enabled == false)
+                sprite.enabled = true;
+            sprite.color = fadedColor[i];
+            sprite.gameObject.layer = 0;
         }
+
+        foreach (SpriteRenderer sprite in toFade)
+        {
+            if (sprite.enabled == false)
+                sprite.enabled = true;
+            sprite.color = new Color(0.25f, 0.25f, 0.25f, 0.5f);
+            sprite.gameObject.layer = 20;
+        }
+
+        foreach (SpriteRenderer sprite in toVanish)
+        {
+            if (sprite.enabled == true)
+            {
+                sprite.enabled = false;
+            }
+        }
+
+        foreach (GameObject obj in objectsToTurnOff)
+        {
+            obj.SetActive(false);
+        }
+
+        foreach (GameObject obj in objectsToTurnOn)
+        {
+            obj.SetActive(true);
+        }
+        this.gameObject.SetActive(false);
+        TwinToggle.gameObject.SetActive(true);
     }
 }
