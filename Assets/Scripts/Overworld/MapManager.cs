@@ -24,16 +24,51 @@ public class MapManager : MonoBehaviour
     public List<LevelPin> levelPins;
     public List<GatePin> worldGates;
 
+    public MonoBehaviour[] waypoints;
+    public ObjectToggle[] toggle;
 
     private void Start ()
 	{
         character = FindObjectOfType<OverworldCharacter>();
         soundManagement = FindObjectOfType<GameSoundManagement>();
 
-        if(GameControl.control.savedPin != null)
+        if (GameControl.control.lastSceneWasLevel)
         {
-        startPin = GameControl.control.savedPin;
+            GameControl.control.savedPin = levelPins[GameControl.control.savedPinID - 1];
+            GameControl.control.lastSceneWasLevel = false;
+
+            if(GameControl.control.savedPinID > 0 && GameControl.control.savedPinID < 31)
+            {
+                (waypoints[0] as ColourWaypoints).WaypointBehaviour();
+                toggle[0].ToggleBehaviour();
+            }
+            if (GameControl.control.savedPinID >= 31 && GameControl.control.savedPinID <= 70)
+            {
+                (waypoints[1] as ColourWaypoints).WaypointBehaviour();
+                toggle[1].ToggleBehaviour();
+            }
+            if (GameControl.control.savedPinID >= 71 && GameControl.control.savedPinID <= 80)
+            {
+                (waypoints[2] as ColourWaypoints).WaypointBehaviour();
+                toggle[2].ToggleBehaviour();
+            }
+            if (GameControl.control.savedPinID >= 81 && GameControl.control.savedPinID <= 90)
+            {
+                (waypoints[3] as MoonToggle).WaypointBehaviour();
+                toggle[3].ToggleBehaviour();
+            }
+            if (GameControl.control.savedPinID > 90)
+            {
+                (waypoints[4] as AlienToggle).WaypointBehaviour();
+                toggle[4].ToggleBehaviour();
+            }
         }
+
+        if (GameControl.control.savedPin != null)
+        {
+            startPin = GameControl.control.savedPin;
+        }
+
         character.Initialize(startPin);
         overworldGUI.Initialize(this, character);
         

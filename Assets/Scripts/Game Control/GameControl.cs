@@ -15,6 +15,7 @@ public class GameControl : MonoBehaviour
 
     public int currentCharacterSprite = 0;
 
+    public bool lastSceneWasLevel = false;
     public bool returntoselect = false;
     public bool bosscheckpoint = false;
     public bool faded = false;
@@ -29,6 +30,7 @@ public class GameControl : MonoBehaviour
     public Vector3 savedPinPosition;
     public Vector3 AutosavePosition;
     public LevelPin savedPin;
+
     public List<bool> completedlevels = new List<bool>();
     public List<bool> goldenpellets = new List<bool>();
     public List<bool> timerchallenge = new List<bool>();
@@ -165,7 +167,29 @@ public class GameControl : MonoBehaviour
         }
     }
 
-    [HideInInspector]
+    public static void CompletedLevelCheck(int levelID, bool gotGold, bool timerExpired)
+    {
+        control.bosscheckpoint = false;
+        control.savedPinID = levelID;
+
+        if (!control.completedlevels[levelID])
+        {
+            control.completedlevels[levelID] = true;
+            control.complete++;
+        }
+        if (!control.goldenpellets[levelID] && gotGold)
+        {
+            control.goldenpellets[levelID] = true;
+            control.golden++;
+        }
+
+        if (!control.timerchallenge[levelID] && !timerExpired)
+        {
+            control.timerchallenge[levelID] = true;
+            control.timer++;
+        }
+    }
+
     public IEnumerator SetWorldGates()
     {
         yield return 3;
@@ -180,7 +204,7 @@ public class GameControl : MonoBehaviour
         }  
     }
 
-    [HideInInspector] public IEnumerator ChangeCharacterPin()
+    public IEnumerator ChangeCharacterPin()
     {
         OverworldCharacter character = FindObjectOfType<OverworldCharacter>();
         MapManager map = FindObjectOfType<MapManager>();
