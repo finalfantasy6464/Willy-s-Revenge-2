@@ -109,7 +109,7 @@ public class GameControl : MonoBehaviour
             }
         }
 
-        if(completionPercent >= 99.9f)
+        if(completionPercent >= 99f)
         {
             completionPercent = 100f;
         }
