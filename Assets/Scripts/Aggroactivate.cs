@@ -10,6 +10,8 @@ public class Aggroactivate : MonoBehaviour, IPausable
 	public float range;
 	private AIDestinationSetter pathing;
 
+    public Animator animator;
+
     public bool isPaused { get; set; }
 
     public void OnPause()
@@ -30,6 +32,7 @@ public class Aggroactivate : MonoBehaviour, IPausable
             if (Vector2.Distance(transform.position, player.transform.position) <= range)
             {
                 active = true;
+                animator.enabled = true;
             }
 
             if (active == false)

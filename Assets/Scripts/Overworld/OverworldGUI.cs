@@ -18,6 +18,8 @@ public class OverworldGUI : MonoBehaviour
     public GUIWindow savePrompt;
     public GUIWindow loadPrompt;
     public GUIWindow levelPreview;
+
+    public Text completionText;
     
     [HideInInspector] public OverworldCharacter character;
     [HideInInspector] public MapManager map;
@@ -30,7 +32,7 @@ public class OverworldGUI : MonoBehaviour
 
     void Start()
     {
-        
+        UpdateText();
     }
 
     void Update()
@@ -70,5 +72,10 @@ public class OverworldGUI : MonoBehaviour
         ((LevelPreviewWindow)levelPreview).UpdatePreviewData(level);
         levelPreview.Toggle();
         selectedLevel = level;
+    }
+
+    public void UpdateText()
+    {
+        completionText.text = "Completion: " + GameControl.control.completionPercent.ToString() + "%";
     }
 }

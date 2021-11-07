@@ -13,6 +13,12 @@ public abstract class WorldTransition : MonoBehaviour
     WorldTransitionNode nodeA;
     WorldTransitionNode nodeB;
 
+    public Camera followingCamera;
+    public Animator cameraAnim;
+    public string animStateforward;
+    public string animStatebackward;
+    public CameraFollow followScript;
+
     protected Collider2D characterCollider;
 
     public ObjectToggle toggle;
@@ -102,7 +108,10 @@ public abstract class WorldTransition : MonoBehaviour
 
         character.isIgnoringPath = true;
         characterCollider.enabled = false;
-        secondTraversed = true;   
+        secondTraversed = true;
+        cameraAnim.GetComponent<CameraFollow>().enabled = false;
+        cameraAnim.enabled = true;
+        cameraAnim.Play(animStateforward);
         StartCoroutine(ForwardRoutine());
     }
 
@@ -124,6 +133,9 @@ public abstract class WorldTransition : MonoBehaviour
         character.isIgnoringPath = true;
         characterCollider.enabled = false;
         secondTraversed = true;
+        cameraAnim.GetComponent<CameraFollow>().enabled = false;
+        cameraAnim.enabled = true;
+        cameraAnim.Play(animStatebackward);
         StartCoroutine(BackwardRoutine());
     }
 
@@ -133,6 +145,9 @@ public abstract class WorldTransition : MonoBehaviour
             b.enabled = true;
 
         characterCollider.enabled = true;
+
+        cameraAnim.enabled = false;
+        cameraAnim.GetComponent<CameraFollow>().enabled = true;
     }
 
     public void OnEnterNode(WorldTransitionNode node)

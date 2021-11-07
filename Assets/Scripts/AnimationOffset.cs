@@ -32,7 +32,10 @@ public class AnimationOffset : MonoBehaviour, IPausable
     {
 		GetComponent<Animator>().SetFloat("Offset", NewOffset);
 		GetComponent<Animator> ().SetFloat ("Speed", NewSpeed);
-        GetComponent<Animator>().SetInteger("AnimIndex", AnimIndex);
+        if(AnimIndex != -1)
+        {
+            GetComponent<Animator>().SetInteger("AnimIndex", AnimIndex);
+        }
     }
 
     public void OnDestroy()

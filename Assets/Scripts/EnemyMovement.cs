@@ -35,6 +35,14 @@ public class EnemyMovement : MonoBehaviour, IPausable
     void Start()
     {
         StartCoroutine(LevelStarting());
+        if(direction == 2)
+        {
+            gameObject.transform.localScale = new Vector3(1,1,1);
+        }
+        else
+        {
+            gameObject.transform.localScale = new Vector3(-1, 1, 1);
+        }
     }
 
     IEnumerator LevelStarting()
@@ -59,6 +67,7 @@ public class EnemyMovement : MonoBehaviour, IPausable
                     direction = 2;
                     hitcount += 1;
                     justhit = true;
+                    gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x * -1, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
                 }
 
                 if (coll.gameObject.tag != "Teleport" && coll.gameObject.tag != "Enemy")
@@ -66,12 +75,18 @@ public class EnemyMovement : MonoBehaviour, IPausable
 					direction = 2;
 					justhit = true;
                     onWallHit.Invoke();
-				}
+                    gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x * -1, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
+                }
 
 				if (coll.gameObject.tag == "Teleport") {
 
 					justhit = true;
 				}
+
+                if(coll.gameObject.tag == "Void")
+                {
+                    Destroy(this.gameObject);
+                }
 			}
 		}
 
@@ -86,6 +101,7 @@ public class EnemyMovement : MonoBehaviour, IPausable
                     direction = 1;
                     hitcount += 1;
                     justhit = true;
+                    gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x * -1, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
                 }
 
                 if (coll.gameObject.tag != "Teleport" && coll.gameObject.tag != "Enemy") {
@@ -93,14 +109,18 @@ public class EnemyMovement : MonoBehaviour, IPausable
 					direction = 1;
 					justhit = true;
                     onWallHit.Invoke();
+                    gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x * -1, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
                 }
 
 				if (coll.gameObject.tag == "Teleport") {
 
 					justhit = true;
 				}
-
-				}
+                if (coll.gameObject.tag == "Void")
+                {
+                    Destroy(this.gameObject);
+                }
+            }
 			}
 		}
 
