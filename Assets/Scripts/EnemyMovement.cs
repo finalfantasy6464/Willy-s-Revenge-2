@@ -87,6 +87,11 @@ public class EnemyMovement : MonoBehaviour, IPausable
                 {
                     Destroy(this.gameObject);
                 }
+
+                if(coll.gameObject.tag == "Tail")
+                {
+                    coll.gameObject.SetActive(false);
+                }
 			}
 		}
 

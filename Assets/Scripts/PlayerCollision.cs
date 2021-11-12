@@ -62,6 +62,8 @@ public class PlayerCollision : MonoBehaviour {
     private void Start()
     {
 		playeranim = GetComponent<Animator>();
+
+
     }
 
     void Update(){
@@ -188,15 +190,17 @@ public class PlayerCollision : MonoBehaviour {
     {
 		chosenevent.Invoke();
 	    spriterenderer.enabled = false;
-		foreach(GameObject segment in GetComponent<PlayerController2021remake>().taillist)
-        {
-			segment.SetActive(false);
-        }
+
+			foreach (GameObject segment in GetComponent<PlayerController2021remake>().taillist)
+			{
+				segment.SetActive(false);
+			}
+
 		justcollided = true;
 	}
 
 	void Death()
 	{
-		    onDeath.Invoke();
+		onDeath.Invoke();
 	}
 }

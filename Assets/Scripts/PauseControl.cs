@@ -30,7 +30,10 @@ public class PauseControl : MonoBehaviour
 
     void Start()
     {
-        EditorApplication.playModeStateChanged += UpdatePlayState;
+        //if(Application.isEditor)
+        //{
+        //    EditorApplication.playModeStateChanged += UpdatePlayState;
+        //}
     }
 
     void Update()
@@ -116,9 +119,9 @@ public class PauseControl : MonoBehaviour
         }
     }
 
-    void UpdatePlayState(PlayModeStateChange state)
-    {
-        if(state == PlayModeStateChange.ExitingPlayMode)
-            quitting = true;
-    }
+    //void UpdatePlayState(PlayModeStateChange state)
+    //{
+    //    if(state == PlayModeStateChange.ExitingPlayMode)
+    //        quitting = true;
+   // }
 }

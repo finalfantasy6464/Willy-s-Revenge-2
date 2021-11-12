@@ -169,4 +169,9 @@ public class MapManager : MonoBehaviour
             }
         }
     }
+
+    public void LoadLevelFromSceneIndex(int index)
+    {
+        SceneManager.LoadScene(index);
+    }
 }
