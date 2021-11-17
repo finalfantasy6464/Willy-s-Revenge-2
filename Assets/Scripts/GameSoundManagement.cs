@@ -59,7 +59,9 @@ public class GameSoundManagement : MonoBehaviour
             audioMixer.SetFloat(SOUND_VOLUME, Mathf.Log10(slider.value) * 20);
         }
 
-        if (SceneManager.GetActiveScene().name != "Overworld" && SceneManager.GetActiveScene().name != "MainMenu" && SceneManager.GetActiveScene().name != "Credits")
+        if (SceneManager.GetActiveScene().name != "Overworld"
+                && SceneManager.GetActiveScene().name != "MainMenu"
+                && SceneManager.GetActiveScene().name != "Credits")
         {
             player = GameObject.FindGameObjectWithTag("Player").transform;
         }
@@ -84,15 +86,17 @@ public class GameSoundManagement : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "Overworld" && SceneManager.GetActiveScene().isLoaded)
         {
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Character>().transform;
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<OverworldCharacter>().transform;
         }
-
+        else if (SceneManager.GetActiveScene().name == "ArenaLevel" && SceneManager.GetActiveScene().isLoaded)
+        {
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2021Arena>().transform;
+        }
         else
         {
-                player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2021remake>().transform;
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2021remake>().transform;
         }
     }
-
 
     public void SetLevel()
     {

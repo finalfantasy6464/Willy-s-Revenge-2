@@ -15,6 +15,7 @@ public class CameraProgressPreview : MonoBehaviour
     OverworldCamera.Checkpoint a;
     OverworldCamera.Checkpoint b;
     
+    #if UNITY_EDITOR
     void OnDrawGizmos()
     {
         if(preview == null) return;
@@ -28,6 +29,7 @@ public class CameraProgressPreview : MonoBehaviour
     {
         TryUpdatePreview();
     }
+    #endif
 
     public void TryUpdatePreview()
     {

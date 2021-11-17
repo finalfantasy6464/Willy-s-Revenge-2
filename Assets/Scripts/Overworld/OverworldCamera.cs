@@ -24,6 +24,30 @@ public class OverworldCamera : MonoBehaviour
         CustomSteps
     }
 
+    #if UNITY_EDITOR
+    void OnDrawGizmos()
+    {
+        if(debugStyle == null)
+            debugStyle = new GUIStyle();
+            
+        if(checkpoints == null || checkpoints.Length == 0) return;
+
+        foreach (Checkpoint checkpoint in checkpoints)
+        {
+            if(checkpoint.hideDebug)
+                continue;
+
+            debugStyle.normal.textColor = checkpoint.color;
+            Handles.color = checkpoint.color;
+            Handles.Label(checkpoint.bottomLeft, checkpoint.anchor?.name, debugStyle);
+            Handles.DrawDottedLine(checkpoint.xCenterLeft, checkpoint.xCenterRight, 0.5f);
+            Handles.DrawDottedLine(checkpoint.yCenterBottom, checkpoint.yCenterTop, 0.5f);
+            Gizmos.color = checkpoint.color;
+            Gizmos.DrawWireCube(checkpoint.rect.center, checkpoint.rect.size);
+        }
+    }
+    #endif
+
     void Start()
     {
         SetFromPin(character.currentPin);
@@ -76,9 +100,6 @@ public class OverworldCamera : MonoBehaviour
             float bIndex = 0f;
             if(character.targetPin != null)
                 bIndex = (float)character.targetPin.transform.GetSiblingIndex();
-            // Vector3 currentPinPosition = pinTransform.position;
-            // Vector3 nextPinPosition = pinTransform.parent.GetChild(pinIndex + 1).position;
-            // return Vector3InverseLerp(currentPinPosition, nextPinPosition, );
             return Mathf.Lerp(aIndex / 10f, bIndex / 10f, character.currentPathTime);
         }
         else // ProgressSetting.CustomSteps
@@ -113,27 +134,6 @@ public class OverworldCamera : MonoBehaviour
                 checkpointA.orthographicSize, checkpointB.orthographicSize, progress);
     }
 
-    void OnDrawGizmos()
-    {
-        if(debugStyle == null)
-            debugStyle = new GUIStyle();
-            
-        if(checkpoints == null || checkpoints.Length == 0) return;
-
-        foreach (Checkpoint checkpoint in checkpoints)
-        {
-            if(checkpoint.hideDebug)
-                continue;
-
-            debugStyle.normal.textColor = checkpoint.color;
-            Handles.color = checkpoint.color;
-            Handles.Label(checkpoint.bottomLeft, checkpoint.anchor?.name, debugStyle);
-            Handles.DrawDottedLine(checkpoint.xCenterLeft, checkpoint.xCenterRight, 0.5f);
-            Handles.DrawDottedLine(checkpoint.yCenterBottom, checkpoint.yCenterTop, 0.5f);
-            Gizmos.color = checkpoint.color;
-            Gizmos.DrawWireCube(checkpoint.rect.center, checkpoint.rect.size);
-        }
-    }
 
     float Vector3InverseLerp(Vector3 a, Vector3 b, Vector3 value)
     {

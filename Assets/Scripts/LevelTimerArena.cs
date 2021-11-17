@@ -5,18 +5,12 @@ using UnityEngine.UI;
 
 public class LevelTimerArena : MonoBehaviour, IPausable
 {
-
 	public float timermin;
 	public float timersec;
-
 	public float goaltime;
-
     public float leveltime;
-
     public bool timerLock = false;
-
 	public Text text;
-
 	public bool gameOver = false;
 
     public Canvas ScoreCanvas;
@@ -39,7 +33,7 @@ public class LevelTimerArena : MonoBehaviour, IPausable
     {
         if (!timerLock)
         {
-            leveltime -= Time.deltaTime;
+            leveltime = Mathf.Max(0, leveltime - Time.deltaTime);
             text.text = Mathf.Floor(leveltime / 60).ToString("00") + ":" + ((int)leveltime % 60).ToString("00");
 
             if (leveltime <= 0)
