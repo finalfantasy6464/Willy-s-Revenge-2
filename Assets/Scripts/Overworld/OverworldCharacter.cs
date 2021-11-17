@@ -16,8 +16,8 @@ public class OverworldCharacter : MonoBehaviour
     public NavigationPin targetPin;
     public bool isIgnoringPath;
     [HideInInspector] public UnityEvent onMove;
+    [HideInInspector] public float currentPathTime;
     IEnumerator moveRoutine;
-
 
     public WorldTransition currentWorldTransition = null;
 
@@ -128,6 +128,7 @@ public class OverworldCharacter : MonoBehaviour
                 yield break;
 
             t += moveStep;
+            currentPathTime = t;
             transform.position = BezierManager.GetPositionAtTime(points, t); 
             lookDirection = (Vector2)BezierManager.GetPositionAtTime(points, t + moveStep)
                     - (Vector2)transform.position;
@@ -139,7 +140,7 @@ public class OverworldCharacter : MonoBehaviour
         NavigationPin start = path.start.GetComponent<NavigationPin>();
         NavigationPin end = path.end.GetComponent<NavigationPin>();
         NavigationPin targetPin = isReturning ? start : end;
-
+        currentPathTime = 0f;
         SetMovePin(targetPin, isReturning);
     }
 

@@ -14,6 +14,8 @@ public class LevelPin : NavigationPin
 	public bool timeChallenge;
 	public bool goldChallenge;
 	public Animator animator;
+	public Transform previousGate;
+	public Transform nextGate;
 	public bool allcleared => complete && timeChallenge && goldChallenge;
 
 	public PathArrowsDisplay pathArrows;

@@ -18,7 +18,8 @@ public class PauseControl : MonoBehaviour
     public void Initialise()
     {
         menuPrompt = GameObject.Find("QuitPanel").GetComponent<GUIWindow>();
-        endCanvas = Resources.FindObjectsOfTypeAll<EndLevelCanvas>()[0];
+        EndLevelCanvas[] levelCanvas = Resources.FindObjectsOfTypeAll<EndLevelCanvas>();
+        endCanvas = levelCanvas.Length > 0 ? levelCanvas[0] : null;
         RegeneratePausables();  
         isGamePaused = false;
     }
