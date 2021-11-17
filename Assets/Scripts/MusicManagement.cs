@@ -44,9 +44,6 @@ public class MusicManagement : MonoBehaviour
         onCredits.AddListener(PlayCreditsMusic);
         onLevelStart.AddListener(MusicCheck);
 
-        if(SceneManager.GetActiveScene().name == "ArenaLevel")
-            MusicCheck();
-
         if(slider != null)
         {
             slider.value = PlayerPrefs.GetFloat(MUSIC_VOLUME);

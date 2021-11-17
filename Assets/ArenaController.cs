@@ -10,6 +10,9 @@ public class ArenaController : MonoBehaviour
 
     public GameObject[] spawnTable;
 
+    public GameObject SoundManager;
+    MusicManagement music;
+
     public Vector3[] spawnPositions;
 
     public bool spawnLock;
@@ -27,6 +30,10 @@ public class ArenaController : MonoBehaviour
 
     private void Start()
     {
+        SoundManager = GameObject.Find("SoundManager");
+
+        music = SoundManager.GetComponent<MusicManagement>();
+        music.onLevelStart.Invoke();
 
         SetSpawnPosition();
         SpawnPickup();
