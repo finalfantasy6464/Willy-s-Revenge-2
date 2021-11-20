@@ -44,6 +44,8 @@ public class GameControl : MonoBehaviour
     public List<bool> lockedgatescache = new List<bool>();
     public List<bool> destroyedgatescache = new List<bool>();
 
+    public ScriptablePlayerSettings settings;
+
     public static UnityEvent onSingletonCheck;
     public static GameControl control;
     Scene m_Scene;
