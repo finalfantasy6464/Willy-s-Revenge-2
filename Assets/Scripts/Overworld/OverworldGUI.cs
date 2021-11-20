@@ -18,6 +18,10 @@ public class OverworldGUI : MonoBehaviour
     public GUIWindow savePrompt;
     public GUIWindow loadPrompt;
     public GUIWindow levelPreview;
+    public GUIWindow optionsPanel;
+    public GUIWindow tutorial_1;
+    public GUIWindow tutorial_2;
+    public GUIWindow tutorial_3;
 
     public Text completionText;
     
@@ -25,10 +29,16 @@ public class OverworldGUI : MonoBehaviour
     [HideInInspector] public MapManager map;
     
     bool isAnyShowing => menuPrompt.isShowing || savePrompt.isShowing
-            || loadPrompt.isShowing || levelPreview.isShowing;
+            || loadPrompt.isShowing || levelPreview.isShowing || optionsPanel.isShowing;
+
+    bool isLevelPreviewValid => !(menuPrompt.isShowing || savePrompt.isShowing
+            || loadPrompt.isShowing || optionsPanel.isShowing);
    
     bool wasAnyShowing => menuPrompt.wasShowing || savePrompt.wasShowing
-            || loadPrompt.wasShowing || levelPreview.wasShowing;
+            || loadPrompt.wasShowing || levelPreview.wasShowing || optionsPanel.wasShowing;
+
+    bool isTutorialShowing => tutorial_1.isShowing || tutorial_2.isShowing || tutorial_3.isShowing;
+    bool wasTutorialShowing => tutorial_1.wasShowing || tutorial_2.wasShowing || tutorial_3.wasShowing;
 
     void Start()
     {
@@ -40,7 +50,7 @@ public class OverworldGUI : MonoBehaviour
         character.canMove = !isAnyShowing;
         if(character.currentPin is GatePin) return;
 
-        if(GameInput.GetKeyDown("select"))
+        if(GameInput.GetKeyDown("select") && isLevelPreviewValid && !isTutorialShowing)
         {
             if (!wasAnyShowing && !character.isMoving)
             {
@@ -54,6 +64,32 @@ public class OverworldGUI : MonoBehaviour
         
         if(GameInput.GetKeyDown("pause"))
         {
+            if(optionsPanel.isShowing)
+            {
+                optionsPanel.Hide();
+                return;
+            }
+
+            if(loadPrompt.isShowing)
+            {
+                optionsPanel.Hide();
+                return;
+            }
+
+            if(savePrompt.isShowing)
+            {
+                optionsPanel.Hide();
+                return;
+            }
+
+            if(isTutorialShowing)
+            {
+                tutorial_1.Hide();
+                tutorial_2.Hide();
+                tutorial_3.Hide();
+                return;
+            }
+
             if(!levelPreview.isShowing)
                 menuPrompt.Toggle();
             else
