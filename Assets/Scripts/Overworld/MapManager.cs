@@ -16,10 +16,15 @@ public class MapManager : MonoBehaviour
     public Button backButton;
     public Button playButton;
 
+    public Slider musicSlider;
+    public Slider soundSlider;
+
     public AudioClip backsound;
     public AudioClip playsound;
 
     public GameSoundManagement soundManagement;
+    public MusicManagement musicManagement;
+
     public GamepadBackEnabler[] ButtonsEnabler;
     public List<LevelPin> levelPins;
     public List<GatePin> worldGates;
@@ -31,6 +36,10 @@ public class MapManager : MonoBehaviour
 	{
         character = FindObjectOfType<OverworldCharacter>();
         soundManagement = FindObjectOfType<GameSoundManagement>();
+        musicManagement = FindObjectOfType<MusicManagement>();
+
+        soundManagement.slider = soundSlider;
+        musicManagement.slider = musicSlider;
 
         if (GameControl.control.lastSceneWasLevel)
         {
@@ -69,10 +78,10 @@ public class MapManager : MonoBehaviour
             startPin = GameControl.control.savedPin;
         }
 
+        musicManagement.onLevelStart.Invoke();
         character.Initialize(startPin);
         overworldGUI.Initialize(this, character);
         
-        soundManagement.GetComponent<MusicManagement>().onOverworld.Invoke();
         backButton.onClick.AddListener(()=> soundManagement.PlaySingle(backsound));
         playButton.onClick.AddListener(()=> soundManagement.PlaySingle(playsound));
         GameControl.control.InitializeOverworldMap(worldGates);

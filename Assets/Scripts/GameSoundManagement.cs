@@ -29,7 +29,7 @@ public class GameSoundManagement : MonoBehaviour
     public float lowPitchRange = 0.85f;
     public float highPitchRange = 1.15f;
 
-    private Transform player;
+    public Transform player;
 
 
     const string SOUND_VOLUME = "SFXVolume";
@@ -51,17 +51,22 @@ public class GameSoundManagement : MonoBehaviour
         instance = this;
     }
 
-    public void Start()
+    private void Start()
     {
-        if(slider != null)
+        if (SceneManager.GetActiveScene().name == "Overworld")
         {
-            slider.value = PlayerPrefs.GetFloat(SOUND_VOLUME);
-            audioMixer.SetFloat(SOUND_VOLUME, Mathf.Log10(slider.value) * 20);
+            SetAudioInformation();
         }
+    }
 
-        if (SceneManager.GetActiveScene().name != "Overworld"
-                && SceneManager.GetActiveScene().name != "MainMenu"
-                && SceneManager.GetActiveScene().name != "Credits")
+    private void SetAudioInformation()
+    {
+        
+        slider.value = PlayerPrefs.GetFloat(SOUND_VOLUME);
+        audioMixer.SetFloat(SOUND_VOLUME, Mathf.Log10(slider.value) * 20);
+  
+        if (SceneManager.GetActiveScene().name != "MainMenu"
+            && SceneManager.GetActiveScene().name != "Credits")
         {
             player = GameObject.FindGameObjectWithTag("Player").transform;
         }

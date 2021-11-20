@@ -52,8 +52,8 @@ public class MeteorStrike : MonoBehaviour, IPausable
 
         if (trigger >= firerate)
         {
-            SpawnMeteor();
             trigger = 0.0f;
+            SpawnMeteor();
         }
     }
     public void OnDestroy()
