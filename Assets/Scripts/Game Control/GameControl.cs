@@ -22,6 +22,7 @@ public class GameControl : MonoBehaviour
     public bool bosscheckpoint = false;
     public bool faded = false;
     public bool InitialGameStarted = false;
+    public bool justloaded = false;
 
     public int totallevels;
     public int targetLevels;
@@ -84,10 +85,13 @@ public class GameControl : MonoBehaviour
     {
         PauseControl pause = control.GetComponent<PauseControl>();
         control.m_Scene = SceneManager.GetActiveScene();
-        pause.enabled = control.m_Scene.name.Contains("Level");
-        if (pause.enabled)
+        if(pause != null)
         {
-            pause.Initialise();
+            pause.enabled = control.m_Scene.name.Contains("Level");
+            if (pause.enabled)
+            {
+                pause.Initialise();
+            }
         }
     }
 
@@ -181,7 +185,7 @@ public class GameControl : MonoBehaviour
       }
     }
 
-    void OverworldLevelStateUpdate()
+    public void OverworldLevelStateUpdate()
     {
         MapManager mapManager = FindObjectOfType<MapManager>();
         mapManager?.InitializeLevelState();
@@ -249,7 +253,7 @@ public class GameControl : MonoBehaviour
         if(character == null || map == null)
             yield break;
 
-        if(savedPinPosition == character.currentPin.transform.position)
+        if(savedPinPosition == character.currentPin.transform.position && savedPinPosition != null)
             yield break;
 
         for (int i = 0; i < map.levelPins.Count; i++)
@@ -265,6 +269,11 @@ public class GameControl : MonoBehaviour
 
     public void AutoSave()
     {
+        if(savedPinPosition != null)
+        {
+            AutosavePosition = savedPinPosition;
+        }
+
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/autosave.wr2");
         PlayerData data = new PlayerData(complete, golden, timer, completionPercent, ArenahighScore, levelID, currentCharacterSprite, new SerializedVector3(AutosavePosition), new SerializedVector3Pin(savedPinPosition), completedlevels, goldenpellets, timerchallenge, lockedgates, destroyedgates, InitialGameStarted);

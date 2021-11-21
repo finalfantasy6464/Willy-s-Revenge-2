@@ -58,16 +58,6 @@ public class EnemyMovementArena : MonoBehaviour, IPausable
         }
     }
 
-    void OnCollisionEnter2D(Collision2D coll)
-    {
-        if (coll.gameObject.tag == "Tail")
-        {
-            coll.gameObject.SetActive(false);
-            arena.pelletno--;
-            arena.SegmentSetter();
-        }
-    }
-
     void Update()
     {
         if (!isPaused)

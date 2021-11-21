@@ -15,7 +15,12 @@ public class ArenaController : MonoBehaviour
 
     public Vector3[] spawnPositions;
 
+    public ArenaSetup arenaSetup;
+    public PlayerController2021Arena player;
+
     public bool spawnLock;
+    private bool levelStarted; 
+
     public float spawnTimer;
     public float spawnTimerCache;
     public float timerObjectChance;
@@ -34,20 +39,44 @@ public class ArenaController : MonoBehaviour
 
         music = SoundManager.GetComponent<MusicManagement>();
         music.onLevelStart.Invoke();
-
+    }
+    public void ArenaStart()
+    {
         SetSpawnPosition();
         SpawnPickup();
         SetSpawnIndex();
         spawnTimerCache = spawnTimer;
         SetSpawnTimer();
+        levelStarted = true;
     }
 
     public void Update()
     {
-        SpawnEnemyTimer();
-        ItemSpawnCheck();
+        if(levelStarted == true)
+        {
+            SpawnEnemyTimer();
+            ItemSpawnCheck();
+        }
     }
 
+    public void SetArenaState()
+    {
+            player.spriteRenderer.sprite = arenaSetup.skinSprites[arenaSetup.skinIndex];
+            player.taillist[0].GetComponent<SpriteRenderer>().sprite = arenaSetup.tailSprites[arenaSetup.skinIndex];
+
+        foreach (GameObject grid in arenaSetup.gridLayouts)
+        {
+            grid.SetActive(false);
+        }
+
+        foreach (GameObject bg in arenaSetup.backgrounds)
+        {
+            bg.SetActive(false);
+        }
+
+        arenaSetup.gridLayouts[arenaSetup.levelIndex].SetActive(true);
+        arenaSetup.backgrounds[arenaSetup.levelIndex].SetActive(true);
+    }
     void ItemSpawnCheck()
     {
         itemCounter += Time.deltaTime;

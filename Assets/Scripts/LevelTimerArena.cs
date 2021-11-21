@@ -9,7 +9,7 @@ public class LevelTimerArena : MonoBehaviour, IPausable
 	public float timersec;
 	public float goaltime;
     public float leveltime;
-    public bool timerLock = false;
+    public bool timerLock = true;
 	public Text text;
 	public bool gameOver = false;
 
@@ -29,6 +29,17 @@ public class LevelTimerArena : MonoBehaviour, IPausable
     public void PausedUpdate() {}
     #endregion
 
+    // Start is called before the first frame update
+    void Start()
+    {
+		timersec = 0.0f;
+        text.text = Mathf.Floor(leveltime / 60).ToString("00") + ":" + ((int)leveltime % 60).ToString("00");
+    }
+
+    public void UnlockTimer()
+    {
+        timerLock = false;
+    }
     public void UnPausedUpdate()
     {
         if (!timerLock)
@@ -43,12 +54,6 @@ public class LevelTimerArena : MonoBehaviour, IPausable
                 arenacoll.Die(arenacoll.onWallCollide);
             }
         }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-		timersec = 0.0f;
     }
 
     void Update()

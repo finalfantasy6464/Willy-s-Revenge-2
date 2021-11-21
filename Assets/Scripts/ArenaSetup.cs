@@ -15,8 +15,8 @@ public class ArenaSetup : GUIWindow
     public Image levelIcon;
     public PlayerController2021Arena arenaPlayer;
     
-    int skinIndex;
-    int levelIndex;
+    public int skinIndex;
+    public int levelIndex;
 
     public void SetSkinNext()
     {

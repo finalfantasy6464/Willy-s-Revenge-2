@@ -20,6 +20,7 @@ public static class GameInput
         { "select", new KeyCode[] {KeyCode.JoystickButton0, KeyCode.Space, KeyCode.Return, KeyCode.KeypadEnter} },
         { "cancel", new KeyCode[] {KeyCode.JoystickButton1, KeyCode.Backspace} },
         { "pause",  new KeyCode[] {KeyCode.JoystickButton7, KeyCode.Escape} },
+        { "reset",  new KeyCode[] {KeyCode.JoystickButton3, KeyCode.R}}
     };
 
     static string[] directionalKeys = new string[]

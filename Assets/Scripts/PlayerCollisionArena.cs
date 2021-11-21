@@ -98,6 +98,8 @@ public class PlayerCollisionArena : MonoBehaviour {
     {
 		chosenevent.Invoke();
 	    spriterenderer.enabled = false;
+		playerCollider.enabled = false;
+		arena.canmove = false;
 
 			foreach (GameObject segment in GetComponent<PlayerController2021Arena>().taillist)
 			{
