@@ -8,10 +8,12 @@ public class OverworldCamera : MonoBehaviour
 {
     public Camera gameCamera;
     public OverworldCharacter character;
-    public Checkpoint checkpointA;
-    public Checkpoint checkpointB;
-    public Checkpoint[] checkpoints;
     public ProgressSetting progressCalculation;
+    public Checkpoint currentCheckpointA;
+    public Checkpoint currentCheckpointB;
+    public Checkpoint[] checkpoints;
+    public Transform[] checkpointSteps;
+
     GUIStyle debugStyle;
     float progress;
     float lastProgress;
@@ -60,57 +62,84 @@ public class OverworldCamera : MonoBehaviour
 
     public void SetCheckpoints(Checkpoint a, Checkpoint b)
     {
-        checkpointA = a;
-        checkpointB = b;
+        currentCheckpointA = a;
+        currentCheckpointB = b;
     }
 
     public void SetFromPin(NavigationPin pin)
     {
-        for (int i = 0; i < checkpoints.Length - 1; i++)
-        {
-            if ((pin is GatePin && pin.transform == checkpoints[i].anchor)
-                    || (pin is LevelPin level && level.previousGate == checkpoints[i].anchor))
-            {
-                Checkpoint a = checkpoints[i];
-                Checkpoint b = checkpoints[i + 1];
-                float pinProgress = 0f;
-                
-                if(pin is LevelPin)
-                    pinProgress = GetLevelPinProgress(a, b);
+        Checkpoint a = null;
+        Checkpoint b = null;
+        int aIndex = 0;
+        int bIndex = 0;
+        int pinIndex = 0;
 
-                SetCheckpoints(checkpoints[i], checkpoints[i + 1]);
-                SetProgress(pinProgress);
-                UpdateCamera();
-                return;
+        for (int i = 0; i < checkpointSteps.Length - 1; i++)
+        {
+            if(IsCheckpointAnchor(checkpointSteps[i], out Checkpoint previousCheckpoint))
+            {
+                a = previousCheckpoint;
+                aIndex = i;
+            }
+
+            if(checkpointSteps[i] == pin.transform)
+            {
+                pinIndex = i;
+                int j = i;
+                while(j < checkpointSteps.Length)
+                {
+                    if(IsCheckpointAnchor(checkpointSteps[j],
+                            out Checkpoint nextCheckpoint))
+                    {
+                        b = nextCheckpoint;
+                        bIndex = j;
+                        break;
+                    }
+                    j++;
+                }
+
+                if(a == null || b == null)
+                {
+                    Debug.LogError("Closest Checkpoint was never found, aborting.");
+                    return;
+                }
+                break;
             }
         }
-        Debug.LogError("Previous GatePin was not found. Is it included in your Checkpoints?");
+            
+        SetCheckpoints(a, b);
+        float currentProgress = Mathf.InverseLerp(aIndex, bIndex, GetStepIndex(character.currentPin.transform));
+        float targetProgress = character.targetPin == null ? currentProgress :
+                Mathf.InverseLerp(aIndex, bIndex, GetStepIndex(character.targetPin.transform));
+        SetProgress(Mathf.Lerp(currentProgress, targetProgress, character.currentPathTime));
+        //  SetProgress(Mathf.InverseLerp(aIndex, bIndex, pinIndex));
+        UpdateCamera();
+        return;
     }
 
-    private float GetLevelPinProgress(Checkpoint a, Checkpoint b)
+    public int GetStepIndex(Transform t)
     {
-        if(progressCalculation == ProgressSetting.AnchorDistance)
-            return Mathf.Lerp(0, 1, Vector3InverseLerp(
-                    a.anchor.position, b.anchor.position, character.transform.position));
-        else if(progressCalculation == ProgressSetting.CheckpointDistance)
-            return Mathf.Lerp(0, 1, Vector3InverseLerp(a.rect.center, b.rect.center, character.transform.position));
-        else if(progressCalculation == ProgressSetting.PinOrder)
+        for (int i = 0; i < checkpointSteps.Length; i++)
         {
-            float aIndex = (float)character.currentPin.transform.GetSiblingIndex();
-            float bIndex = 0f;
-            if(character.targetPin != null)
-                bIndex = (float)character.targetPin.transform.GetSiblingIndex();
-            return Mathf.Lerp(aIndex / 10f, bIndex / 10f, character.currentPathTime);
+            if(checkpointSteps[i] == t)
+                return i;
         }
-        else // ProgressSetting.CustomSteps
+        return -1;
+    }
+
+
+    bool IsCheckpointAnchor(Transform t, out Checkpoint result)
+    {
+        foreach (Checkpoint checkpoint in checkpoints)
         {
-            int aIndex = character.currentPin.transform.GetSiblingIndex();
-            int bIndex = 0;
-            if(character.targetPin != null)
-                bIndex = character.targetPin.transform.GetSiblingIndex();
-            return Mathf.Lerp(a.customSteps[aIndex],
-                    a.customSteps[bIndex], character.currentPathTime);
-        }
+            if(checkpoint.anchor == t)
+            {
+                result = checkpoint;
+                return true;
+            }
+        } 
+        result = null;
+        return false;
     }
 
     public void SetCamera(Camera c)
@@ -127,11 +156,11 @@ public class OverworldCamera : MonoBehaviour
     public void UpdateCamera()
     {
         Vector3 newPosition = Vector2.Lerp(
-                checkpointA.rect.center, checkpointB.rect.center, progress);
+                currentCheckpointA.rect.center, currentCheckpointB.rect.center, progress);
         newPosition.z = gameCamera.transform.position.z;
         gameCamera.transform.position = newPosition;
         gameCamera.orthographicSize = Mathf.Lerp(
-                checkpointA.orthographicSize, checkpointB.orthographicSize, progress);
+                currentCheckpointA.orthographicSize, currentCheckpointB.orthographicSize, progress);
     }
 
 
@@ -156,6 +185,5 @@ public class OverworldCamera : MonoBehaviour
         public Vector2 yCenterTop => yCenterBottom + Vector2.up * rect.height;
         public Rect rect => new Rect(bottomLeft.x, bottomLeft.y, size * 1.6f, size * 0.9f);
         public float orthographicSize => rect.yMax - rect.center.y;
-        public float[] customSteps;
     }
 }

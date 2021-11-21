@@ -128800,141 +128800,221 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameCamera: {fileID: 2105055295}
   character: {fileID: 1281524528}
-  checkpointA:
+  progressCalculation: 0
+  currentCheckpointA:
     hideDebug: 0
     anchor: {fileID: 0}
     color: {r: 0, g: 0, b: 0, a: 0}
     bottomLeft: {x: 0, y: 0}
     size: 0
-    customSteps: []
-  checkpointB:
+  currentCheckpointB:
     hideDebug: 0
     anchor: {fileID: 0}
     color: {r: 0, g: 0, b: 0, a: 0}
     bottomLeft: {x: 0, y: 0}
     size: 0
-    customSteps: []
   checkpoints:
   - hideDebug: 0
     anchor: {fileID: 1442712028}
     color: {r: 1, g: 1, b: 1, a: 0.5019608}
     bottomLeft: {x: -46.41, y: -3.37}
     size: 8.57
-    customSteps:
-    - 0
-    - 0.2
-    - 0.1
-    - 0.3
-    - 0.5
-    - 0.6
-    - 0.7
-    - 0.9
-    - 0.6
-    - 0
-    - 0
   - hideDebug: 0
     anchor: {fileID: 822712914}
     color: {r: 0.24070525, g: 1, b: 0, a: 0.5019608}
     bottomLeft: {x: -36.65, y: 8.18}
     size: 5
-    customSteps: []
   - hideDebug: 0
     anchor: {fileID: 2114784649}
     color: {r: 0.7311321, g: 1, b: 0.96526325, a: 0.5019608}
     bottomLeft: {x: -23.8, y: 15.5}
     size: 5.5
-    customSteps: []
   - hideDebug: 0
     anchor: {fileID: 1534008183}
     color: {r: 0, g: 0.47852492, b: 1, a: 0.5019608}
     bottomLeft: {x: -23.19, y: 9.6}
     size: 6
-    customSteps: []
   - hideDebug: 0
     anchor: {fileID: 771149962}
     color: {r: 1, g: 0.63795877, b: 0, a: 0.5019608}
     bottomLeft: {x: -17.9, y: 0.82}
     size: 9
-    customSteps: []
   - hideDebug: 0
     anchor: {fileID: 1135706520}
     color: {r: 1, g: 0.2573743, b: 0, a: 0.5019608}
     bottomLeft: {x: -7.44, y: -3.02}
     size: 5.94
-    customSteps: []
   - hideDebug: 0
     anchor: {fileID: 1702191324}
     color: {r: 0.6509434, g: 0, b: 0.10210876, a: 0.5019608}
     bottomLeft: {x: 2.7, y: -16.41}
     size: 6
-    customSteps: []
   - hideDebug: 0
     anchor: {fileID: 1767040071}
     color: {r: 0.65671253, g: 0.48584908, b: 1, a: 0.5019608}
     bottomLeft: {x: 8.39, y: -12.49}
     size: 5
-    customSteps: []
   - hideDebug: 0
     anchor: {fileID: 538657078}
     color: {r: 1, g: 1, b: 1, a: 0.5019608}
     bottomLeft: {x: 14.5, y: -16.96}
     size: 5
-    customSteps: []
   - hideDebug: 0
     anchor: {fileID: 1178987928}
     color: {r: 0.4481132, g: 0.588044, b: 1, a: 0.5019608}
     bottomLeft: {x: 12.11, y: -11.53}
     size: 5
-    customSteps: []
   - hideDebug: 0
     anchor: {fileID: 157498968}
     color: {r: 0.4481132, g: 0.9263312, b: 1, a: 0.5019608}
     bottomLeft: {x: 17.92, y: 10.5}
     size: 5
-    customSteps: []
   - hideDebug: 0
     anchor: {fileID: 1168221368}
     color: {r: 0.5518868, g: 1, b: 0.7645243, a: 0.5019608}
     bottomLeft: {x: 19.83, y: 4.8}
     size: 6
-    customSteps: []
   - hideDebug: 0
     anchor: {fileID: 586725067}
     color: {r: 0.4009434, g: 1, b: 0.7038354, a: 0.5019608}
     bottomLeft: {x: 19.2, y: 0}
     size: 5
-    customSteps: []
   - hideDebug: 0
     anchor: {fileID: 1114573116}
     color: {r: 0.6586795, g: 1, b: 0.5424528, a: 0.5019608}
     bottomLeft: {x: 6.78, y: -12.35}
     size: 5
-    customSteps: []
   - hideDebug: 0
     anchor: {fileID: 122264018}
     color: {r: 0.6462264, g: 1, b: 0.96792245, a: 0.5019608}
     bottomLeft: {x: -30.2, y: -14.2}
     size: 37.5
-    customSteps: []
   - hideDebug: 0
     anchor: {fileID: 116997837}
     color: {r: 0.4433962, g: 0.26934418, b: 0.035555363, a: 0.5019608}
     bottomLeft: {x: -15.8, y: 3.4}
     size: 20
-    customSteps: []
   - hideDebug: 0
     anchor: {fileID: 1656221453}
     color: {r: 0.4433962, g: 0.26934418, b: 0.035555363, a: 0.5019608}
     bottomLeft: {x: -15.8, y: 3.4}
     size: 20
-    customSteps: []
   - hideDebug: 0
     anchor: {fileID: 1168221368}
     color: {r: 0.6132076, g: 0.41362587, b: 0.44142282, a: 0.5019608}
     bottomLeft: {x: -8.32, y: 39.83}
     size: 12
-    customSteps: []
-  progressCalculation: 0
+  checkpointSteps:
+  - {fileID: 1442712028}
+  - {fileID: 822633051}
+  - {fileID: 473057869}
+  - {fileID: 1491779634}
+  - {fileID: 2125852727}
+  - {fileID: 481015015}
+  - {fileID: 1928083648}
+  - {fileID: 117730826}
+  - {fileID: 950370050}
+  - {fileID: 1474248482}
+  - {fileID: 1851235386}
+  - {fileID: 822712914}
+  - {fileID: 1414162243}
+  - {fileID: 946716653}
+  - {fileID: 1517544742}
+  - {fileID: 1970579769}
+  - {fileID: 798427130}
+  - {fileID: 741658735}
+  - {fileID: 2114784649}
+  - {fileID: 2119378048}
+  - {fileID: 473517237}
+  - {fileID: 2144181971}
+  - {fileID: 1534008183}
+  - {fileID: 1870237149}
+  - {fileID: 1000548149}
+  - {fileID: 740762011}
+  - {fileID: 1383532098}
+  - {fileID: 771149962}
+  - {fileID: 612757935}
+  - {fileID: 898148153}
+  - {fileID: 1323300076}
+  - {fileID: 517636359}
+  - {fileID: 221860485}
+  - {fileID: 1135706520}
+  - {fileID: 1798760910}
+  - {fileID: 1896911922}
+  - {fileID: 1935326034}
+  - {fileID: 1401715422}
+  - {fileID: 1582403914}
+  - {fileID: 1919437768}
+  - {fileID: 1702191324}
+  - {fileID: 126221092}
+  - {fileID: 1668307722}
+  - {fileID: 2058434520}
+  - {fileID: 1767040071}
+  - {fileID: 1851471566}
+  - {fileID: 908343225}
+  - {fileID: 191336630}
+  - {fileID: 850553512}
+  - {fileID: 268919363}
+  - {fileID: 538657078}
+  - {fileID: 1699825309}
+  - {fileID: 552896672}
+  - {fileID: 900211329}
+  - {fileID: 183655486}
+  - {fileID: 1178987928}
+  - {fileID: 939414373}
+  - {fileID: 1348724477}
+  - {fileID: 664087483}
+  - {fileID: 1058024387}
+  - {fileID: 1505367006}
+  - {fileID: 244579786}
+  - {fileID: 1557890831}
+  - {fileID: 183861614}
+  - {fileID: 2140941693}
+  - {fileID: 43365027}
+  - {fileID: 157498968}
+  - {fileID: 1986535700}
+  - {fileID: 39472560}
+  - {fileID: 1946984234}
+  - {fileID: 1056240506}
+  - {fileID: 990626717}
+  - {fileID: 1307539497}
+  - {fileID: 899084194}
+  - {fileID: 1665444697}
+  - {fileID: 1948968042}
+  - {fileID: 2388373}
+  - {fileID: 586725067}
+  - {fileID: 1114573116}
+  - {fileID: 162043707}
+  - {fileID: 1821220232}
+  - {fileID: 542620006}
+  - {fileID: 81694507}
+  - {fileID: 1291456811}
+  - {fileID: 934764667}
+  - {fileID: 2055485972}
+  - {fileID: 2108495993}
+  - {fileID: 501630051}
+  - {fileID: 122264018}
+  - {fileID: 116997837}
+  - {fileID: 439515978}
+  - {fileID: 1329516439}
+  - {fileID: 794992545}
+  - {fileID: 797234668}
+  - {fileID: 253882211}
+  - {fileID: 1367444860}
+  - {fileID: 1695122609}
+  - {fileID: 142900687}
+  - {fileID: 2143109172}
+  - {fileID: 1656221453}
+  - {fileID: 1785938293}
+  - {fileID: 1372645924}
+  - {fileID: 930950851}
+  - {fileID: 523838698}
+  - {fileID: 165728549}
+  - {fileID: 349103543}
+  - {fileID: 950734425}
+  - {fileID: 145651482}
+  - {fileID: 398918609}
+  - {fileID: 1168221368}
 --- !u!114 &2105055302
 MonoBehaviour:
   m_ObjectHideFlags: 0

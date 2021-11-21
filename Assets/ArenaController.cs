@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ArenaController : MonoBehaviour
 {
+    public Transform playerTransform;
     public GameObject[] pickups;
     public GameObject timerObject;
     public GameObject enemyParent;
@@ -26,6 +27,7 @@ public class ArenaController : MonoBehaviour
     public float timerObjectChance;
     public float itemTime;
 
+    Vector3 playerStartPosition;
     float spawnCounter;
     float randomSpawnTimer;
     float itemCounter;
@@ -39,9 +41,21 @@ public class ArenaController : MonoBehaviour
 
         music = SoundManager.GetComponent<MusicManagement>();
         music.onLevelStart.Invoke();
+        playerStartPosition = playerTransform.position;
     }
+
+    public void Reset()
+    {
+        foreach (GameObject go in FindObjectsOfType<GameObject>())
+        {
+            if(go.tag.Contains("Enemy"))
+                Destroy(go);
+        }
+    }
+
     public void ArenaStart()
     {
+        playerTransform.position = playerStartPosition;
         SetSpawnPosition();
         SpawnPickup();
         SetSpawnIndex();
@@ -61,8 +75,8 @@ public class ArenaController : MonoBehaviour
 
     public void SetArenaState()
     {
-            player.spriteRenderer.sprite = arenaSetup.skinSprites[arenaSetup.skinIndex];
-            player.taillist[0].GetComponent<SpriteRenderer>().sprite = arenaSetup.tailSprites[arenaSetup.skinIndex];
+        player.spriteRenderer.sprite = arenaSetup.skinSprites[arenaSetup.skinIndex];
+        player.taillist[0].GetComponent<SpriteRenderer>().sprite = arenaSetup.tailSprites[arenaSetup.skinIndex];
 
         foreach (GameObject grid in arenaSetup.gridLayouts)
         {

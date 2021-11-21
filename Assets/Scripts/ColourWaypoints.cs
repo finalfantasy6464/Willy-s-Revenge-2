@@ -33,6 +33,7 @@ public class ColourWaypoints : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D coll)
     {
+        if(!enabled) return;
         if (coll.CompareTag("Player"))
         {
             WaypointBehaviour();
@@ -61,7 +62,9 @@ public class ColourWaypoints : MonoBehaviour
             }
             return;
         }
-        camerafollow.isClamping = true;
+        
+        if(camerafollow.isActiveAndEnabled)
+            camerafollow.isClamping = true;
 
         bgController.progressIndex = progressIndex;
         bgController.SetVectorTransforms(checkStart, checkEnd);

@@ -8,7 +8,8 @@ public class LevelTimerArena : MonoBehaviour, IPausable
 	public float timermin;
 	public float timersec;
 	public float goaltime;
-    public float leveltime;
+    public float startingLevelTime;
+    public float currentLevelTime;
     public bool timerLock = true;
 	public Text text;
 	public bool gameOver = false;
@@ -33,23 +34,30 @@ public class LevelTimerArena : MonoBehaviour, IPausable
     void Start()
     {
 		timersec = 0.0f;
-        text.text = Mathf.Floor(leveltime / 60).ToString("00") + ":" + ((int)leveltime % 60).ToString("00");
+        text.text = Mathf.Floor(currentLevelTime / 60).ToString("00") + ":" + ((int)currentLevelTime % 60).ToString("00");
+    }
+
+    public void Reset()
+    {
+        timerLock = false;
+        currentLevelTime = startingLevelTime;
     }
 
     public void UnlockTimer()
     {
         timerLock = false;
     }
+
     public void UnPausedUpdate()
     {
         if (!timerLock)
         {
-            leveltime = Mathf.Max(0, leveltime - Time.deltaTime);
-            text.text = Mathf.Floor(leveltime / 60).ToString("00") + ":" + ((int)leveltime % 60).ToString("00");
+            currentLevelTime = Mathf.Max(0, currentLevelTime - Time.deltaTime);
+            text.text = Mathf.Floor(currentLevelTime / 60).ToString("00") + ":" + ((int)currentLevelTime % 60).ToString("00");
 
-            if (leveltime <= 0)
+            if (currentLevelTime <= 0)
             {
-                leveltime = 0;
+                currentLevelTime = 0;
                 score.TitleText.text = "Time Up!";
                 arenacoll.Die(arenacoll.onWallCollide);
             }
