@@ -15,7 +15,6 @@ public class MoonToggle : MonoBehaviour
         {
             mainCamera.transform.position = cameraPosition;
             mainCamera.orthographicSize = zoomLevel;
-            mainCamera.GetComponent<CameraFollow>().isClamping = false;
             mainCamera.backgroundColor = Color.black;
 
             foreach (ColourWaypoints toggle in togglers)

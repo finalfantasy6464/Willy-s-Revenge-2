@@ -474,6 +474,7 @@ MonoBehaviour:
   cameraAnim: {fileID: 2105055298}
   animStateforward: Sky2Moon
   animStatebackward: Moon2Sky
+  overworldCamera: {fileID: 2105055301}
   toggle: {fileID: 1417503125}
   backwardToggle: {fileID: 346324056}
   waypoint: {fileID: 880859813}
@@ -6232,7 +6233,7 @@ Transform:
   m_GameObject: {fileID: 45335892}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.15, y: 1.15, z: 1}
+  m_LocalScale: {x: 1.35, y: 1.35, z: 1}
   m_Children: []
   m_Father: {fileID: 364054445}
   m_RootOrder: 2
@@ -12222,6 +12223,7 @@ MonoBehaviour:
   cameraAnim: {fileID: 2105055298}
   animStateforward: Caves2Ruins
   animStatebackward: Ruins2Caves
+  overworldCamera: {fileID: 2105055301}
   toggle: {fileID: 0}
   backwardToggle: {fileID: 0}
   waypoint: {fileID: 0}
@@ -14177,6 +14179,7 @@ MonoBehaviour:
   cameraAnim: {fileID: 2105055298}
   animStateforward: Desert2Volcano
   animStatebackward: Volcano2Desert
+  overworldCamera: {fileID: 2105055301}
   toggle: {fileID: 185100883}
   backwardToggle: {fileID: 1344492922}
   waypoint: {fileID: 1977048625}
@@ -16248,6 +16251,7 @@ MonoBehaviour:
   cameraAnim: {fileID: 2105055298}
   animStateforward: Forest2Arctic
   animStatebackward: Arctic2Forest
+  overworldCamera: {fileID: 2105055301}
   toggle: {fileID: 0}
   backwardToggle: {fileID: 0}
   waypoint: {fileID: 0}
@@ -21465,7 +21469,7 @@ GameObject:
   - component: {fileID: 240203390}
   - component: {fileID: 240203389}
   m_Layer: 0
-  m_Name: Ufo -> Moon
+  m_Name: Ufo -> WorldLeft
   m_TagString: Untagged
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -21524,8 +21528,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toUnfade:
-  - {fileID: 1452484668}
-  toFade: []
+  - {fileID: 799963450}
+  toFade:
+  - {fileID: 633223641}
   toVanish:
   - {fileID: 184505768}
   objectsToTurnOff:
@@ -21533,9 +21538,17 @@ MonoBehaviour:
   - {fileID: 274634474}
   - {fileID: 1881924686}
   objectsToTurnOn:
-  - {fileID: 345972874}
+  - {fileID: 1948483072}
+  - {fileID: 479235441}
+  - {fileID: 1890708634}
+  - {fileID: 1970059236}
+  - {fileID: 1586611490}
+  - {fileID: 123482184}
+  - {fileID: 1910386847}
+  - {fileID: 1722473716}
+  - {fileID: 352741568}
   fadedColor:
-  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 0.8117647, g: 0.6862745, b: 0.6862745, a: 0.36862746}
   TwinToggle: {fileID: 1946793163}
   character: {fileID: 1281524528}
 --- !u!1 &241124983
@@ -22493,7 +22506,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b5d9fd09e608a0e42af3c3d0197a61d8, type: 2}
+  - {fileID: 2100000, guid: ba58c35ee5a623441987c81df82a411b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -28357,7 +28370,7 @@ PrefabInstance:
     - target: {fileID: 7023888089811537826, guid: b1c8e7473810b6d4ca5fa271cfc77d7c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7023888089811537826, guid: b1c8e7473810b6d4ca5fa271cfc77d7c,
         type: 3}
@@ -39289,6 +39302,7 @@ MonoBehaviour:
   cameraAnim: {fileID: 2105055298}
   animStateforward: Arctic2Desert
   animStatebackward: Desert2Arctic
+  overworldCamera: {fileID: 2105055301}
   toggle: {fileID: 0}
   backwardToggle: {fileID: 0}
   waypoint: {fileID: 0}
@@ -39765,7 +39779,7 @@ PrefabInstance:
     - target: {fileID: 7023888089811537826, guid: b1c8e7473810b6d4ca5fa271cfc77d7c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7023888089811537826, guid: b1c8e7473810b6d4ca5fa271cfc77d7c,
         type: 3}
@@ -40838,6 +40852,7 @@ Transform:
   - {fileID: 1286901207}
   - {fileID: 2109951997}
   - {fileID: 1379539715}
+  - {fileID: 1289879326}
   m_Father: {fileID: 1109296619}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -49732,20 +49747,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkStart: {fileID: 1798760910}
   checkEnd: {fileID: 586725067}
-  cameraStart: {x: 5.4, y: -9.9, z: -100}
-  cameraEnd: {x: -0.2, y: 0.3, z: -100}
-  HemisphereView: {x: 0, y: 0, z: 0}
-  FullWorldView: {x: -0.2, y: 0.3, z: -100}
-  FullCloudView: {x: 0, y: 0, z: 0}
-  resetsCamera: 1
-  isBackwards: 1
-  zoomStart: 22.92428
-  zoomEnd: 22.92428
   progressIndex: 1
-  viewSetting: 1
   character: {fileID: 1281524528}
   bgController: {fileID: 1387504285}
-  camerafollow: {fileID: 0}
 --- !u!1 &597532263
 GameObject:
   m_ObjectHideFlags: 0
@@ -55456,20 +55460,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkStart: {fileID: 1798760910}
   checkEnd: {fileID: 586725067}
-  cameraStart: {x: 5.4, y: -9.9, z: -100}
-  cameraEnd: {x: -0.2, y: 0.3, z: -100}
-  HemisphereView: {x: -20.4, y: 9.03, z: -100}
-  FullWorldView: {x: 0, y: 0, z: 0}
-  FullCloudView: {x: 0, y: 0, z: 0}
-  resetsCamera: 1
-  isBackwards: 1
-  zoomStart: 11.72775
-  zoomEnd: 11.72775
   progressIndex: 1
-  viewSetting: 0
   character: {fileID: 1281524528}
   bgController: {fileID: 1387504285}
-  camerafollow: {fileID: 0}
 --- !u!1 &869733587
 GameObject:
   m_ObjectHideFlags: 0
@@ -81705,7 +81698,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1140415954
 Transform:
   m_ObjectHideFlags: 0
@@ -86894,6 +86887,11 @@ PrefabInstance:
       objectReference: {fileID: 1785938293}
     - target: {fileID: 7645057730996583874, guid: ef3da47daef431d4187ed39979316ae0,
         type: 3}
+      propertyPath: nextPath
+      value: 
+      objectReference: {fileID: 1841931106}
+    - target: {fileID: 7645057730996583874, guid: ef3da47daef431d4187ed39979316ae0,
+        type: 3}
       propertyPath: previousGate
       value: 
       objectReference: {fileID: 1656221453}
@@ -86902,6 +86900,11 @@ PrefabInstance:
       propertyPath: previousPath
       value: 
       objectReference: {fileID: 1379539714}
+    - target: {fileID: 7645057730996583874, guid: ef3da47daef431d4187ed39979316ae0,
+        type: 3}
+      propertyPath: nextDirection
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7645057730996583874, guid: ef3da47daef431d4187ed39979316ae0,
         type: 3}
       propertyPath: levelDisplayName
@@ -88367,20 +88370,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkStart: {fileID: 398918609}
   checkEnd: {fileID: 1168221368}
-  cameraStart: {x: 13.13, y: 0.68, z: -100}
-  cameraEnd: {x: 1.15, y: 0.79, z: -100}
-  HemisphereView: {x: 0, y: 0, z: 0}
-  FullWorldView: {x: 0, y: 0, z: 0}
-  FullCloudView: {x: 0, y: 0, z: 0}
-  resetsCamera: 1
-  isBackwards: 0
-  zoomStart: 3
-  zoomEnd: 23.5
   progressIndex: 0
-  viewSetting: 0
   character: {fileID: 1281524528}
   bgController: {fileID: 1387504285}
-  camerafollow: {fileID: 0}
 --- !u!114 &1265637177 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7645057730996583874, guid: ef3da47daef431d4187ed39979316ae0,
@@ -89035,6 +89027,7 @@ MonoBehaviour:
   cameraAnim: {fileID: 2105055298}
   animStateforward: Ruins2Sky
   animStatebackward: Sky2Ruins
+  overworldCamera: {fileID: 2105055301}
   toggle: {fileID: 2092331867}
   backwardToggle: {fileID: 386438554}
   waypoint: {fileID: 2103455202}
@@ -89221,6 +89214,86 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1288237205}
   m_CullTransparentMesh: 0
+--- !u!1001 &1289879325
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 445354356}
+    m_Modifications:
+    - target: {fileID: 7023888088661591921, guid: b1c8e7473810b6d4ca5fa271cfc77d7c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -26.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7023888088661591921, guid: b1c8e7473810b6d4ca5fa271cfc77d7c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 36.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7023888088861449890, guid: b1c8e7473810b6d4ca5fa271cfc77d7c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -41.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7023888088861449890, guid: b1c8e7473810b6d4ca5fa271cfc77d7c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 8.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7023888089811537826, guid: b1c8e7473810b6d4ca5fa271cfc77d7c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7023888089811537826, guid: b1c8e7473810b6d4ca5fa271cfc77d7c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -11.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 7023888089811537826, guid: b1c8e7473810b6d4ca5fa271cfc77d7c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 7023888089811537826, guid: b1c8e7473810b6d4ca5fa271cfc77d7c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7023888089811537826, guid: b1c8e7473810b6d4ca5fa271cfc77d7c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7023888089811537826, guid: b1c8e7473810b6d4ca5fa271cfc77d7c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7023888089811537827, guid: b1c8e7473810b6d4ca5fa271cfc77d7c,
+        type: 3}
+      propertyPath: end
+      value: 
+      objectReference: {fileID: 822633051}
+    - target: {fileID: 7023888089811537827, guid: b1c8e7473810b6d4ca5fa271cfc77d7c,
+        type: 3}
+      propertyPath: start
+      value: 
+      objectReference: {fileID: 1168221368}
+    - target: {fileID: 7023888089811537836, guid: b1c8e7473810b6d4ca5fa271cfc77d7c,
+        type: 3}
+      propertyPath: m_Name
+      value: 100-1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b1c8e7473810b6d4ca5fa271cfc77d7c, type: 3}
+--- !u!4 &1289879326 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7023888089811537826, guid: b1c8e7473810b6d4ca5fa271cfc77d7c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1289879325}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1290862184 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7645057730996583874, guid: ef3da47daef431d4187ed39979316ae0,
@@ -94220,7 +94293,7 @@ PrefabInstance:
     - target: {fileID: 7023888089811537826, guid: b1c8e7473810b6d4ca5fa271cfc77d7c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7023888089811537826, guid: b1c8e7473810b6d4ca5fa271cfc77d7c,
         type: 3}
@@ -95012,6 +95085,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7023888089811537826, guid: b1c8e7473810b6d4ca5fa271cfc77d7c,
         type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7023888089811537826, guid: b1c8e7473810b6d4ca5fa271cfc77d7c,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.77
       objectReference: {fileID: 0}
@@ -95590,12 +95668,12 @@ PrefabInstance:
     - target: {fileID: 161995908611176314, guid: 00c17a8da84a1f342a57a03262ff4f1d,
         type: 3}
       propertyPath: m_Size.x
-      value: 0.25
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 161995908611176314, guid: 00c17a8da84a1f342a57a03262ff4f1d,
         type: 3}
       propertyPath: m_Size.y
-      value: 0.25
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1114528403229195492, guid: 00c17a8da84a1f342a57a03262ff4f1d,
         type: 3}
@@ -95680,12 +95758,12 @@ PrefabInstance:
     - target: {fileID: 7117720299389712189, guid: 00c17a8da84a1f342a57a03262ff4f1d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.56
+      value: -11.18
       objectReference: {fileID: 0}
     - target: {fileID: 7117720299389712189, guid: 00c17a8da84a1f342a57a03262ff4f1d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -19.72
+      value: 1.52
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00c17a8da84a1f342a57a03262ff4f1d, type: 3}
@@ -101316,6 +101394,7 @@ MonoBehaviour:
   cameraAnim: {fileID: 2105055298}
   animStateforward: Volcano2Factory
   animStatebackward: Factory2Volcano
+  overworldCamera: {fileID: 2105055301}
   toggle: {fileID: 0}
   backwardToggle: {fileID: 0}
   waypoint: {fileID: 0}
@@ -101604,20 +101683,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkStart: {fileID: 822633051}
   checkEnd: {fileID: 1135706520}
-  cameraStart: {x: -36.94, y: 0.42, z: -100}
-  cameraEnd: {x: -20.4, y: 9.03, z: -100}
-  HemisphereView: {x: 0, y: 0, z: 0}
-  FullWorldView: {x: 0, y: 0, z: 0}
-  FullCloudView: {x: 0, y: 0, z: 0}
-  resetsCamera: 0
-  isBackwards: 0
-  zoomStart: 1.848645
-  zoomEnd: 11.72775
   progressIndex: 0
-  viewSetting: 0
   character: {fileID: 1281524528}
   bgController: {fileID: 1387504285}
-  camerafollow: {fileID: 0}
 --- !u!1001 &1557890830
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -103561,20 +103629,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkStart: {fileID: 1798760910}
   checkEnd: {fileID: 586725067}
-  cameraStart: {x: 5.4, y: -9.9, z: -100}
-  cameraEnd: {x: -0.2, y: 0.3, z: -100}
-  HemisphereView: {x: 0, y: 0, z: 0}
-  FullWorldView: {x: 0, y: 0, z: 0}
-  FullCloudView: {x: 0.52, y: 2.29, z: -100}
-  resetsCamera: 1
-  isBackwards: 1
-  zoomStart: 16.74373
-  zoomEnd: 16.74373
   progressIndex: 1
-  viewSetting: 2
   character: {fileID: 1281524528}
   bgController: {fileID: 1387504285}
-  camerafollow: {fileID: 0}
 --- !u!1 &1646023740
 GameObject:
   m_ObjectHideFlags: 0
@@ -103723,7 +103780,7 @@ Transform:
   m_GameObject: {fileID: 1652682638}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1, y: 1.1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_Children: []
   m_Father: {fileID: 364054445}
   m_RootOrder: 1
@@ -111629,7 +111686,7 @@ PrefabInstance:
     - target: {fileID: 7023888089811537826, guid: b1c8e7473810b6d4ca5fa271cfc77d7c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7023888089811537826, guid: b1c8e7473810b6d4ca5fa271cfc77d7c,
         type: 3}
@@ -111721,14 +111778,15 @@ MonoBehaviour:
   followingCamera: {fileID: 2105055295}
   cameraAnim: {fileID: 2105055298}
   animStateforward: Moon2Alien
-  animStatebackward: Alien2Moon
+  animStatebackward: Alien2Home
+  overworldCamera: {fileID: 2105055301}
   toggle: {fileID: 1946793166}
   backwardToggle: {fileID: 240203390}
   waypoint: {fileID: 522810454}
   backwardswaypoint: {fileID: 880859813}
   playerAnimator: {fileID: 1281524532}
-  shipAnimator: {fileID: 0}
-  holeAnimator: {fileID: 0}
+  FighterAnimator: {fileID: 0}
+  WormholeAnimator: {fileID: 0}
 --- !u!1001 &1767040070
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -112226,7 +112284,7 @@ PrefabInstance:
         type: 3}
       propertyPath: previousPath
       value: 
-      objectReference: {fileID: 1692327773}
+      objectReference: {fileID: 0}
     - target: {fileID: 7645057730996583874, guid: ef3da47daef431d4187ed39979316ae0,
         type: 3}
       propertyPath: nextDirection
@@ -112240,7 +112298,7 @@ PrefabInstance:
     - target: {fileID: 7645057730996583874, guid: ef3da47daef431d4187ed39979316ae0,
         type: 3}
       propertyPath: previousDirection
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7842850351076069415, guid: ef3da47daef431d4187ed39979316ae0,
         type: 3}
@@ -113263,6 +113321,18 @@ MonoBehaviour:
   wasHiding: 0
   firstSelected: {fileID: 575692992}
   loadButton: {fileID: 1677466928}
+--- !u!114 &1841931106 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7023888089811537827, guid: b1c8e7473810b6d4ca5fa271cfc77d7c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1289879325}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef89f18241a4c8845a2c2c15de3ba259, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1842242864
 GameObject:
   m_ObjectHideFlags: 0
@@ -120434,6 +120504,9 @@ MonoBehaviour:
   - {fileID: 1522729370}
   - {fileID: 1586611490}
   - {fileID: 1970059236}
+  - {fileID: 364054444}
+  - {fileID: 2123621901}
+  - {fileID: 1207537765}
   objectsToTurnOn:
   - {fileID: 1746609577}
   - {fileID: 274634474}
@@ -121661,20 +121734,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkStart: {fileID: 1798760910}
   checkEnd: {fileID: 586725067}
-  cameraStart: {x: 5.4, y: -9.9, z: -100}
-  cameraEnd: {x: -0.2, y: 0.3, z: -100}
-  HemisphereView: {x: 0, y: 0, z: 0}
-  FullWorldView: {x: 0, y: 0, z: 0}
-  FullCloudView: {x: 0, y: 0, z: 0}
-  resetsCamera: 1
-  isBackwards: 0
-  zoomStart: 2.801201
-  zoomEnd: 22.92428
   progressIndex: 1
-  viewSetting: 0
   character: {fileID: 1281524528}
   bgController: {fileID: 1387504285}
-  camerafollow: {fileID: 0}
 --- !u!1001 &1986535699
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -128495,20 +128557,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkStart: {fileID: 1114573116}
   checkEnd: {fileID: 122264018}
-  cameraStart: {x: 3.13, y: -10.62, z: -100}
-  cameraEnd: {x: 0.52, y: 2.29, z: -100}
-  HemisphereView: {x: 0, y: 0, z: 0}
-  FullWorldView: {x: 0, y: 0, z: 0}
-  FullCloudView: {x: 0, y: 0, z: 0}
-  resetsCamera: 1
-  isBackwards: 0
-  zoomStart: 4.09132
-  zoomEnd: 20
   progressIndex: 2
-  viewSetting: 0
   character: {fileID: 1281524528}
   bgController: {fileID: 1387504285}
-  camerafollow: {fileID: 0}
 --- !u!1 &2104274726
 GameObject:
   m_ObjectHideFlags: 0
@@ -128825,6 +128876,11 @@ MonoBehaviour:
     bottomLeft: {x: -36.65, y: 8.18}
     size: 5
   - hideDebug: 0
+    anchor: {fileID: 1414162243}
+    color: {r: 0.2392157, g: 1, b: 0, a: 0.5019608}
+    bottomLeft: {x: -34.11, y: 11}
+    size: 5
+  - hideDebug: 0
     anchor: {fileID: 2114784649}
     color: {r: 0.7311321, g: 1, b: 0.96526325, a: 0.5019608}
     bottomLeft: {x: -23.8, y: 15.5}
@@ -128834,6 +128890,11 @@ MonoBehaviour:
     color: {r: 0, g: 0.47852492, b: 1, a: 0.5019608}
     bottomLeft: {x: -23.19, y: 9.6}
     size: 6
+  - hideDebug: 0
+    anchor: {fileID: 1870237149}
+    color: {r: 0, g: 0.47852492, b: 1, a: 0.5019608}
+    bottomLeft: {x: -18.56, y: 5.7}
+    size: 4
   - hideDebug: 0
     anchor: {fileID: 771149962}
     color: {r: 1, g: 0.63795877, b: 0, a: 0.5019608}
@@ -128845,6 +128906,11 @@ MonoBehaviour:
     bottomLeft: {x: -7.44, y: -3.02}
     size: 5.94
   - hideDebug: 0
+    anchor: {fileID: 1798760910}
+    color: {r: 1, g: 0.2573743, b: 0, a: 0.5019608}
+    bottomLeft: {x: -0.23, y: -9.92}
+    size: 4
+  - hideDebug: 0
     anchor: {fileID: 1702191324}
     color: {r: 0.6509434, g: 0, b: 0.10210876, a: 0.5019608}
     bottomLeft: {x: 2.7, y: -16.41}
@@ -128855,10 +128921,10 @@ MonoBehaviour:
     bottomLeft: {x: 8.39, y: -12.49}
     size: 5
   - hideDebug: 0
-    anchor: {fileID: 538657078}
+    anchor: {fileID: 268919363}
     color: {r: 1, g: 1, b: 1, a: 0.5019608}
-    bottomLeft: {x: 14.5, y: -16.96}
-    size: 5
+    bottomLeft: {x: 12.15, y: -17.9}
+    size: 6
   - hideDebug: 0
     anchor: {fileID: 1178987928}
     color: {r: 0.4481132, g: 0.588044, b: 1, a: 0.5019608}
@@ -128870,7 +128936,7 @@ MonoBehaviour:
     bottomLeft: {x: 17.92, y: 10.5}
     size: 5
   - hideDebug: 0
-    anchor: {fileID: 1168221368}
+    anchor: {fileID: 990626717}
     color: {r: 0.5518868, g: 1, b: 0.7645243, a: 0.5019608}
     bottomLeft: {x: 19.83, y: 4.8}
     size: 6
@@ -128885,9 +128951,14 @@ MonoBehaviour:
     bottomLeft: {x: 6.78, y: -12.35}
     size: 5
   - hideDebug: 0
+    anchor: {fileID: 542620006}
+    color: {r: 0.6462264, g: 1, b: 0.96792245, a: 0.5019608}
+    bottomLeft: {x: -19.33, y: -14.1}
+    size: 18
+  - hideDebug: 0
     anchor: {fileID: 122264018}
     color: {r: 0.6462264, g: 1, b: 0.96792245, a: 0.5019608}
-    bottomLeft: {x: -30.2, y: -14.2}
+    bottomLeft: {x: -29.5, y: -14.1}
     size: 37.5
   - hideDebug: 0
     anchor: {fileID: 116997837}
@@ -128900,10 +128971,25 @@ MonoBehaviour:
     bottomLeft: {x: -15.8, y: 3.4}
     size: 20
   - hideDebug: 0
+    anchor: {fileID: 1785938293}
+    color: {r: 0.6132076, g: 0.41362587, b: 0.44142282, a: 0.5019608}
+    bottomLeft: {x: 5.42, y: -11.09}
+    size: 5
+  - hideDebug: 0
+    anchor: {fileID: 523838698}
+    color: {r: 0.6132076, g: 0.41362587, b: 0.44142282, a: 0.5019608}
+    bottomLeft: {x: -18.3, y: -12.37}
+    size: 14
+  - hideDebug: 0
     anchor: {fileID: 1168221368}
     color: {r: 0.6132076, g: 0.41362587, b: 0.44142282, a: 0.5019608}
-    bottomLeft: {x: -8.32, y: 39.83}
-    size: 12
+    bottomLeft: {x: -35.43, y: -15.7}
+    size: 45
+  - hideDebug: 0
+    anchor: {fileID: 1442712028}
+    color: {r: 1, g: 1, b: 1, a: 0.5019608}
+    bottomLeft: {x: -46.41, y: -3.37}
+    size: 8.57
   checkpointSteps:
   - {fileID: 1442712028}
   - {fileID: 822633051}
@@ -129015,6 +129101,7 @@ MonoBehaviour:
   - {fileID: 145651482}
   - {fileID: 398918609}
   - {fileID: 1168221368}
+  - {fileID: 1442712028}
 --- !u!114 &2105055302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130055,6 +130142,7 @@ MonoBehaviour:
   cameraAnim: {fileID: 2105055298}
   animStateforward: Factory2Caves
   animStatebackward: Caves2Factory
+  overworldCamera: {fileID: 2105055301}
   toggle: {fileID: 0}
   backwardToggle: {fileID: 0}
   waypoint: {fileID: 0}

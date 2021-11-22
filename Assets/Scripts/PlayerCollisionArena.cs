@@ -115,6 +115,14 @@ public class PlayerCollisionArena : MonoBehaviour {
 		score.ScoreCheck();
 	}
 
+	public void ArenaReset()
+    {
+		justcollided = false;
+		arenaControl.spawnLock = false;
+		arena.scoreLock = false;
+		arena.Score = 0;
+		arena.pelletno = 0;
+    }
 	void Death()
 	{
 		onDeath.Invoke();

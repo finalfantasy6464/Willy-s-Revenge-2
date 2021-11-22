@@ -7,7 +7,6 @@ public class LevelTimerArena : MonoBehaviour, IPausable
 {
 	public float timermin;
 	public float timersec;
-	public float goaltime;
     public float startingLevelTime;
     public float currentLevelTime;
     public bool timerLock = true;
@@ -34,6 +33,7 @@ public class LevelTimerArena : MonoBehaviour, IPausable
     void Start()
     {
 		timersec = 0.0f;
+        currentLevelTime = startingLevelTime;
         text.text = Mathf.Floor(currentLevelTime / 60).ToString("00") + ":" + ((int)currentLevelTime % 60).ToString("00");
     }
 

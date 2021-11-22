@@ -27,7 +27,7 @@ public class ArenaController : MonoBehaviour
     public float timerObjectChance;
     public float itemTime;
 
-    Vector3 playerStartPosition;
+    public Vector3 playerStartPosition;
     float spawnCounter;
     float randomSpawnTimer;
     float itemCounter;
@@ -48,9 +48,17 @@ public class ArenaController : MonoBehaviour
     {
         foreach (GameObject go in FindObjectsOfType<GameObject>())
         {
-            if(go.tag.Contains("Enemy"))
+            if (go.tag.Contains("Enemy") || go.tag.Contains("Enemy2") || go.tag.Contains("Enemy3")) 
+            {
                 Destroy(go);
+            }
+            if (go.tag.Contains("Pickup"))
+            {
+                go.SetActive(false);
+            }
         }
+        itemCounter = 0f;
+        spawnCounter = 0f;
     }
 
     public void ArenaStart()

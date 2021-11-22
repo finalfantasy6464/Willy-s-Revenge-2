@@ -20,6 +20,8 @@ public abstract class WorldTransition : MonoBehaviour
 
     protected Collider2D characterCollider;
 
+    public OverworldCamera overworldCamera;
+
     public ObjectToggle toggle;
     public ObjectToggle backwardToggle;
     public MonoBehaviour waypoint;
@@ -49,7 +51,7 @@ public abstract class WorldTransition : MonoBehaviour
                 {
                     ((MoonToggle)waypoint).WaypointBehaviour();
                 }
-                else if (waypoint is MoonToggle)
+                else if (waypoint is AlienToggle)
                 {
                     ((AlienToggle)waypoint).WaypointBehaviour();
                 }
@@ -73,7 +75,7 @@ public abstract class WorldTransition : MonoBehaviour
             {
                 ((MoonToggle)backwardswaypoint).WaypointBehaviour();
             }
-            else if (backwardswaypoint is MoonToggle)
+            else if (backwardswaypoint is AlienToggle)
             {
                 ((AlienToggle)backwardswaypoint).WaypointBehaviour();
             }
@@ -88,6 +90,7 @@ public abstract class WorldTransition : MonoBehaviour
             b.enabled = false;
             //Or other stopping code here, implement Interface if necessary.
         }
+        overworldCamera.enabled = false;
     }
 
     void RoutineOverwriteCheck(IEnumerator routine)
@@ -144,6 +147,7 @@ public abstract class WorldTransition : MonoBehaviour
         characterCollider.enabled = true;
 
         cameraAnim.enabled = false;
+        overworldCamera.enabled = true;
     }
 
     public void OnEnterNode(WorldTransitionNode node)
