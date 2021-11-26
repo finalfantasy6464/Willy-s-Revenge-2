@@ -50,11 +50,6 @@ public class OverworldCamera : MonoBehaviour
     }
     #endif
 
-    void Start()
-    {
-        SetFromPin(character.currentPin);
-    }
-
     void Update()
     {
         SetFromPin(character.currentPin);
@@ -64,6 +59,12 @@ public class OverworldCamera : MonoBehaviour
     {
         currentCheckpointA = a;
         currentCheckpointB = b;
+    }
+
+    public void SetFromSaved(Vector3 position, float ortographicSize)
+    {
+        transform.position = new Vector3(position.x, position.y, transform.position.z);
+        gameCamera.orthographicSize = ortographicSize;
     }
 
     public void SetFromPin(NavigationPin pin)
@@ -112,7 +113,6 @@ public class OverworldCamera : MonoBehaviour
         float targetProgress = character.targetPin == null ? currentProgress :
                 Mathf.InverseLerp(aIndex, bIndex, GetStepIndex(character.targetPin.transform));
         SetProgress(Mathf.Lerp(currentProgress, targetProgress, character.currentPathTime));
-        //  SetProgress(Mathf.InverseLerp(aIndex, bIndex, pinIndex));
         UpdateCamera();
         return;
     }

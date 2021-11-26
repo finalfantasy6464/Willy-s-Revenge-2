@@ -30,11 +30,13 @@ public class GameControl : MonoBehaviour
     public int savedPinID;
 
     public float completionPercent;
+    public float savedOrtographicSize;
 
     public string currentlevel;
     public string sceneName;
     public Vector3 savedPinPosition;
     public Vector3 AutosavePosition;
+    public Vector3 savedCameraPosition;
     public LevelPin savedPin;
 
     public List<bool> completedlevels = new List<bool>();
@@ -267,6 +269,57 @@ public class GameControl : MonoBehaviour
         }
     }
 
+    public IEnumerator DelayedChangeCharacterPin()
+    {
+        float timeoutTime = 3f;
+        float timeoutCounter = 0f;
+        bool timedOut = true;
+        OverworldCharacter character = null;
+        MapManager map = null;
+        StartChecker checker = FindObjectOfType<StartChecker>();
+        OverworldCamera overworldCamera = null;
+
+        while(timeoutCounter < timeoutTime)
+        {
+            timeoutCounter += Time.deltaTime;
+            character = FindObjectOfType<OverworldCharacter>();
+            map = FindObjectOfType<MapManager>();
+            overworldCamera = FindObjectOfType<OverworldCamera>();
+
+            if(character == null || map == null || overworldCamera == null)
+                yield return null;
+            else
+            {
+                timedOut = false;
+                break;
+            }
+        }
+
+        if(timedOut)
+        {
+            Debug.LogError("Overworld never loaded ):");
+            yield break;
+        }
+        
+        overworldCamera.SetFromSaved(savedCameraPosition, savedOrtographicSize);
+
+        if(savedPinPosition != null &&
+                savedPinPosition == character.currentPin.transform.position)
+            yield break;
+
+        for (int i = 0; i < map.levelPins.Count; i++)
+        {
+            if(map.levelPins[i].transform.position == savedPinPosition)
+            {
+                character.currentPin.onCharacterExit.Invoke();
+                character.SetCurrentPin(map.levelPins[i]);
+                character.currentPin.onCharacterEnter.Invoke();
+            }
+        }
+
+        OverworldLevelStateUpdate();
+    }
+
     public void AutoSave()
     {
         if(savedPinPosition != null)
@@ -276,7 +329,9 @@ public class GameControl : MonoBehaviour
 
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/autosave.wr2");
-        PlayerData data = new PlayerData(complete, golden, timer, completionPercent, ArenahighScore, levelID, currentCharacterSprite, new SerializedVector3(AutosavePosition), new SerializedVector3Pin(savedPinPosition), completedlevels, goldenpellets, timerchallenge, lockedgates, destroyedgates, InitialGameStarted);
+        PlayerData data = new PlayerData(complete, golden, timer, completionPercent, savedOrtographicSize, ArenahighScore, levelID, currentCharacterSprite,
+                new SerializedVector3(AutosavePosition), new SerializedVector3(savedCameraPosition), new SerializedVector3Pin(savedPinPosition), new SerializedVector3Pin(AutosavePosition), completedlevels,
+                goldenpellets, timerchallenge, lockedgates, destroyedgates, InitialGameStarted);
         bf.Serialize(file, data);
         file.Close();
     }
@@ -287,8 +342,8 @@ public class GameControl : MonoBehaviour
         savedPinPosition = character.transform.position;
 		BinaryFormatter bf = new BinaryFormatter ();
 		FileStream file = File.Create (Application.persistentDataPath + "/playersave.wr2");
-        PlayerData data = new PlayerData(complete, golden, timer, completionPercent, ArenahighScore, levelID, currentCharacterSprite, new SerializedVector3(character.transform.position),
-                new SerializedVector3Pin(savedPinPosition), completedlevels,
+        PlayerData data = new PlayerData(complete, golden, timer, completionPercent, savedOrtographicSize, ArenahighScore, levelID, currentCharacterSprite, new SerializedVector3(character.transform.position), new SerializedVector3(savedCameraPosition),
+                new SerializedVector3Pin(savedPinPosition), new SerializedVector3Pin(AutosavePosition), completedlevels,
                 goldenpellets, timerchallenge, lockedgates, destroyedgates, InitialGameStarted);
 
         bf.Serialize (file, data);
@@ -310,6 +365,12 @@ public class GameControl : MonoBehaviour
     public void AutoLoad()
     {
         LoadFromFile("/autosave.wr2");
+
+        if(m_Scene.name == "MainMenu")
+        {
+            Debug.Log("Starting wait for overworld coroutine");
+            StartCoroutine(DelayedChangeCharacterPin());
+        }
     }
 
     public void LoadFromFile(string localPath)
@@ -325,6 +386,7 @@ public class GameControl : MonoBehaviour
             golden = data.golden;
             timer = data.timer;
             completionPercent = data.completionPercent;
+            savedOrtographicSize = data.savedOrtographicSize;
             levelID = data.levelID;
             completedlevels = data.completedlevels;
             goldenpellets = data.goldenpellets;
@@ -335,7 +397,13 @@ public class GameControl : MonoBehaviour
             lockedgatescache = data.lockedgates;
             destroyedgatescache = data.destroyedgates;
             InitialGameStarted = data.InitialGameStarted;
-
+            AutosavePosition.x = data.autoSavedPinposition.x;
+            AutosavePosition.y = data.autoSavedPinposition.y;
+            AutosavePosition.z = data.autoSavedPinposition.z;
+            savedCameraPosition.x = data.savedCameraPosition.x;
+            savedCameraPosition.y = data.savedCameraPosition.y;
+            savedCameraPosition.z = data.savedCameraPosition.z;
+            
             lockedgates = lockedgatescache;
             destroyedgates = destroyedgatescache;
  
@@ -390,13 +458,16 @@ class PlayerData
 	public int timer;
 
     public float completionPercent;
+    public float savedOrtographicSize;
     public float ArenahighScore; 
 
 	public int levelID;
     public int currentCharacterSprite;
 
     public SerializedVector3 playerposition;
+    public SerializedVector3 savedCameraPosition;
     public SerializedVector3Pin savedPinposition;
+    public SerializedVector3Pin autoSavedPinposition;
 
     public bool InitialGameStarted;
 
@@ -406,34 +477,40 @@ class PlayerData
     public List<bool> lockedgates;
     public List<bool> destroyedgates;
 
-    public PlayerData(int complete, int golden, int timer, float completionPercent, float ArenahighScore, int levelID, int currentCharacterSprite,
-            SerializedVector3 serializedPosition, SerializedVector3Pin serializedPinPosition, bool InitialGameStarted)
+    public PlayerData(int complete, int golden, int timer, float completionPercent, float savedOrtographicSize, float ArenahighScore, int levelID, int currentCharacterSprite,
+            SerializedVector3 serializedPosition, SerializedVector3 savedCameraPosition, SerializedVector3Pin serializedPinPosition, SerializedVector3Pin autoSavedPinPosition, bool InitialGameStarted)
     {
         this.complete = complete;
         this.golden = golden;
         this.timer = timer;
         this.completionPercent = completionPercent;
+        this.savedOrtographicSize = savedOrtographicSize;
         this.ArenahighScore = ArenahighScore;
         this.levelID = levelID;
         this.currentCharacterSprite = currentCharacterSprite;
         this.playerposition = serializedPosition;
+        this.savedCameraPosition = savedCameraPosition;
         this.savedPinposition = serializedPinPosition;
+        this.autoSavedPinposition = autoSavedPinPosition;
         this.InitialGameStarted = InitialGameStarted;
     }
 
-    public PlayerData(int complete, int golden, int timer, float completionPercent, float ArenahighScore, int levelID, int currentCharacterSprite,
-            SerializedVector3 serializedPosition, SerializedVector3Pin serializedPinPosition, List<bool> completedLevels,
+    public PlayerData(int complete, int golden, int timer, float completionPercent, float savedOrtographicSize, float ArenahighScore, int levelID, int currentCharacterSprite,
+            SerializedVector3 serializedPosition, SerializedVector3 savedCameraPosition, SerializedVector3Pin serializedPinPosition, SerializedVector3Pin autoSavedPinPosition, List<bool> completedLevels,
             List<bool> goldenPellets, List<bool> timerChallenge, List<bool> lockedgates, List<bool> destroyedgates, bool InitialGameStarted)
     {
         this.complete = complete;
         this.golden = golden;
         this.timer = timer;
         this.completionPercent = completionPercent;
+        this.savedOrtographicSize = savedOrtographicSize;
         this.ArenahighScore = ArenahighScore;
         this.levelID = levelID;
         this.currentCharacterSprite = currentCharacterSprite;
         this.playerposition = serializedPosition;
+        this.savedCameraPosition = savedCameraPosition;
         this.savedPinposition = serializedPinPosition;
+        this.autoSavedPinposition = autoSavedPinPosition;
         this.completedlevels = completedLevels;
         this.goldenpellets = goldenPellets;
         this.timerchallenge = timerChallenge;

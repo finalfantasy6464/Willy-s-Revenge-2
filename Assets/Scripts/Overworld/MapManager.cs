@@ -7,6 +7,7 @@ using System;
 public class MapManager : MonoBehaviour
 {
 	public OverworldCharacter character;
+    public OverworldCamera overworldCamera;
     public OverworldGUI overworldGUI;
 
 	public LevelPin startPin;
@@ -182,5 +183,12 @@ public class MapManager : MonoBehaviour
     public void LoadLevelFromSceneIndex(int index)
     {
         SceneManager.LoadScene(index);
+    }
+
+    public void SetAutoSavePinPosition()
+    {
+        GameControl.control.savedPinPosition = character.currentPin.transform.position;
+        GameControl.control.savedCameraPosition = overworldCamera.transform.position;
+        GameControl.control.savedOrtographicSize = overworldCamera.gameCamera.orthographicSize;
     }
 }
