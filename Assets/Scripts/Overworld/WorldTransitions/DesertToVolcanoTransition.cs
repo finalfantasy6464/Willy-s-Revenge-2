@@ -14,6 +14,8 @@ public class DesertToVolcanoTransition : WorldTransition
     public Animator orbitForwardAnimator;
     public Animator orbitBackwardAnimator;
     public Animator playerAnimator;
+    public ParticleSystem spoutForwardParticle;
+    public ParticleSystem spoutBackwardParticle;
 
     protected override IEnumerator BackwardRoutine()
     {
@@ -24,6 +26,8 @@ public class DesertToVolcanoTransition : WorldTransition
 
         playerAnimator.Play("QuicksandBackward", -1);
         orbitBackwardAnimator.Play("OrbitBackward", -1);
+        spoutBackwardParticle.gameObject.SetActive(true);
+        spoutBackwardParticle.Play();
         yield return null;
         while (playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
         {
@@ -33,7 +37,8 @@ public class DesertToVolcanoTransition : WorldTransition
         // to simulate touching node A
         orbitBackwardAnimator.enabled = false;
         playerAnimator.enabled = false;
-        secondTraversed = false;
+        secondTraversed = false;       
+        spoutBackwardParticle.Stop();
         character.GetComponent<SpriteRenderer>().sprite = character.skinSprites[2];
         GameControl.control.currentCharacterSprite = 2;
 
@@ -63,6 +68,8 @@ public class DesertToVolcanoTransition : WorldTransition
         
         playerAnimator.Play("QuicksandForward", -1);
         orbitForwardAnimator.Play("OrbitForward", -1);
+        spoutForwardParticle.gameObject.SetActive(true);
+        spoutForwardParticle.Play();
         yield return null;
         while(playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
         {
@@ -72,6 +79,7 @@ public class DesertToVolcanoTransition : WorldTransition
         // to simulate touching node B
         orbitForwardAnimator.enabled = false;
         playerAnimator.enabled = false;
+        spoutForwardParticle.Stop();
         secondTraversed = false;
         character.GetComponent<SpriteRenderer>().sprite = character.skinSprites[3];
         GameControl.control.currentCharacterSprite = 3;

@@ -11,6 +11,9 @@ public class FactoryToCavernsTransition : WorldTransition
     public Animator waterPipeAnimator;
     public Animator caveAnimator;
 
+    public ParticleSystem pipeParticle;
+    public ParticleSystem WaterParticle;
+
     protected override IEnumerator BackwardRoutine()
     {
         playerAnimator.enabled = true;
@@ -46,6 +49,8 @@ public class FactoryToCavernsTransition : WorldTransition
         playerAnimator.enabled = true;
 
         playerAnimator.Play("Pipe", -1);
+        pipeParticle.Play();
+        WaterParticle.Play();
         yield return null;
         while (playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
             yield return null;
@@ -56,6 +61,8 @@ public class FactoryToCavernsTransition : WorldTransition
         GameControl.control.currentCharacterSprite = 5;
 
         secondTraversed = false;
+        pipeParticle.Stop();
+        WaterParticle.Stop();
         character.isIgnoringPath = false;
 
         Vector3 target = character.currentPin.nextPath.end.position;
