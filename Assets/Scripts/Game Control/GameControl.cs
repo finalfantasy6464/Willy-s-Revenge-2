@@ -316,70 +316,70 @@ public class GameControl : MonoBehaviour
 
     void SetFromGameState()
     {
-        complete = gameState.complete;
-        golden = gameState.golden;
-        timer = gameState.timer;
+        //complete = gameState.complete;
+        //golden = gameState.golden;
+        //timer = gameState.timer;
 
-        savedPinPosition = gameState.manualPinPosition;
-        completedlevels = new List<bool>(gameState.completedLevels);
-        goldenpellets = new List<bool>(gameState.goldenPellets);
-        timerchallenge = new List<bool>(gameState.timerChallenge);
-        lockedgates = new List<bool>(gameState.lockedGates);
-        destroyedgates = new List<bool>(gameState.destroyedGates);
-        lockedgatescache = new List<bool>(gameState.lockedGatesCache);
-        destroyedgatescache = new List<bool>(gameState.destroyedGatesCache);
+        //savedPinPosition = gameState.manualPinPosition;
+        //completedlevels = new List<bool>(gameState.completedLevels);
+        //goldenpellets = new List<bool>(gameState.goldenPellets);
+        //timerchallenge = new List<bool>(gameState.timerChallenge);
+        //lockedgates = new List<bool>(gameState.lockedGates);
+        //destroyedgates = new List<bool>(gameState.destroyedGates);
+        //lockedgatescache = new List<bool>(gameState.lockedGatesCache);
+        //destroyedgatescache = new List<bool>(gameState.destroyedGatesCache);
         
-        progressView = gameState.view;
-        savedCameraPosition = gameState.cameraPosition;
-        savedOrtographicSize = gameState.ortographicSize;
+        //progressView = gameState.view;
+        //savedCameraPosition = gameState.cameraPosition;
+        //savedOrtographicSize = gameState.ortographicSize;
     }
 
     public void Save(int saveSlot)
     {
-        gameState.SetFromGameControl(control);
-        gameState.WriteToManual(saveSlot);
+        //gameState.SetFromGameControl(control);
+        //gameState.WriteToManual(saveSlot);
     }
 
     public void AutoSave()
     {
-        gameState.SetFromGameControl(control);
-        gameState.WriteToAuto();
+        //gameState.SetFromGameControl(control);
+        //gameState.WriteToAuto();
     }
 
     public void Load(int saveSlot)
 	{
-        if(gameState.SetFromManual(saveSlot))
-        {
+        //if(gameState.SetFromManual(saveSlot))
+        //{
             //StartCoroutine(SetWorldGates());
-            SetFromGameState();
-        }
+        //    SetFromGameState();
+        //}
 
-        if(m_Scene.name == "Overworld")
-        {
-            Debug.Log("Starting coroutine");
-            StartCoroutine(ChangeCharacterPin());
-            OverworldLevelStateUpdate();
-        }
+        //if(m_Scene.name == "Overworld")
+        //{
+        //    Debug.Log("Starting coroutine");
+        //    StartCoroutine(ChangeCharacterPin());
+        //    OverworldLevelStateUpdate();
+        //}
     }
 
     public void AutoLoad()
     {
-        if(gameState.SetFromAuto())
-        {
-            SetFromGameState();
-            StartCoroutine(SetWorldGates());
-        }
+        //if(gameState.SetFromAuto())
+        //{
+        //    SetFromGameState();
+        //    StartCoroutine(SetWorldGates());
+        //}
 
-        if(m_Scene.name == "MainMenu")
-        {
-            Debug.Log("Starting wait for overworld coroutine");
-            StartCoroutine(DelayedChangeCharacterPin());
-        }
+        //if(m_Scene.name == "MainMenu")
+        //{
+        //    Debug.Log("Starting wait for overworld coroutine");
+        //    StartCoroutine(DelayedChangeCharacterPin());
+        //}
     }
 
     public void CheckForDeletion(int saveSlot)
     {
-        gameState.DeleteManualSave(saveSlot);
+        //gameState.DeleteManualSave(saveSlot);
     }
 }
 

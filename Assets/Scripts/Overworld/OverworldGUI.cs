@@ -29,17 +29,17 @@ public class OverworldGUI : MonoBehaviour
     
     [HideInInspector] public OverworldCharacter character;
     [HideInInspector] public MapManager map;
-    
+
     bool isAnyShowing => menuPrompt.isShowing || savePrompt.isShowing
-            || loadPrompt.isShowing || levelPreview.isShowing || optionsPanel.isShowing
-            || saveLoadPanel.isShowing || saveLoadConfirmationPanel.isShowing;
+            || loadPrompt.isShowing || levelPreview.isShowing || optionsPanel.isShowing;
+            //|| saveLoadPanel.isShowing || saveLoadConfirmationPanel.isShowing;
 
     bool isLevelPreviewValid => !(menuPrompt.isShowing || savePrompt.isShowing
             || loadPrompt.isShowing || optionsPanel.isShowing);
-   
+
     bool wasAnyShowing => menuPrompt.wasShowing || savePrompt.wasShowing
-            || loadPrompt.wasShowing || levelPreview.wasShowing || optionsPanel.wasShowing
-            || saveLoadPanel.wasShowing || saveLoadConfirmationPanel.wasShowing;
+            || loadPrompt.wasShowing || levelPreview.wasShowing || optionsPanel.wasShowing;
+           //|| saveLoadPanel.wasShowing || saveLoadConfirmationPanel.wasShowing;
 
     bool isTutorialShowing => tutorial_1.isShowing || tutorial_2.isShowing || tutorial_3.isShowing;
     bool wasTutorialShowing => tutorial_1.wasShowing || tutorial_2.wasShowing || tutorial_3.wasShowing;
@@ -86,17 +86,17 @@ public class OverworldGUI : MonoBehaviour
                 return;
             }
 
-            if(saveLoadPanel.isShowing)
-            {
-                saveLoadPanel.Hide();
-                return;
-            }
+            //if(saveLoadPanel.isShowing)
+            //{
+            //    saveLoadPanel.Hide();
+            //    return;
+            //}
 
-            if(saveLoadConfirmationPanel.isShowing)
-            {
-                saveLoadConfirmationPanel.Hide();
-                return;
-            }
+            //if(saveLoadConfirmationPanel.isShowing)
+            //{
+            //    saveLoadConfirmationPanel.Hide();
+            //    return;
+            //}
 
             if(isTutorialShowing)
             {

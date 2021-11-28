@@ -17,22 +17,22 @@ public class SaveLoadPanel : GUIWindow
     public ScriptableGameState gameState;
 
     string confirmationString;
-    
+
     public void Start()
     {
-        for (int i = 0; i < saveFileRows.Length; i++)
+        /*for (int i = 0; i < saveFileRows.Length; i++)
         {
             GameStatePreview preview = new GameStatePreview(i);
             if(preview.isEmpty)
                 saveFileRows[i].SetEmpty();
             else
                 saveFileRows[i].SetFromStatePreview(preview);
-        }
+        }*/
     }
-    
+
     public void UpdateSelection()
     {
-        selected = null;
+        /*selected = null;
         foreach (SaveFileRow row in saveFileRows)
         {
             if(row.toggle.isOn)
@@ -42,54 +42,55 @@ public class SaveLoadPanel : GUIWindow
         SetButtons(selected != null,
                 selected != null && !selected.isEmpty,
                 selected != null && !selected.isEmpty);
-    }
+    }*/
 
-    void SaveCurrent()
-    {
-        GameControl.control.Save(selected.saveSlot);
-        selected.SetFromControl();
-    }
-
-    void LoadCurrent()
-    {
-        GameControl.control.Load(selected.saveSlot);
-    }
-
-    void DeleteCurrent()
-    {
-        // GameControl.control.Delete(selected.saveSlot);
-        selected.SetEmpty();
-    }
-
-    public void SetButtons(bool value)
-    {
-        SetButtons(value, value, value);
-    }
-
-    public void SetButtons(bool save, bool load, bool delete)
-    {
-        saveCurrentButton.interactable = save;
-        loadCurrentButton.interactable = load;
-        deleteCurrentButton.interactable = delete;
-    }
-
-    public void ShowConfirmation(string verb)
-    {
-        confirmationWindow.Show();
-        confirmationLabel.SetText($"Are you sure you want to {verb} the selected file?");
-        confirmationString = verb;
-    }
-
-    public void ConfirmationYesAction()
-    {
-        if(confirmationString =="save")
-            SaveCurrent();
-        else if(confirmationString == "load")
+        void SaveCurrent()
         {
-            LoadCurrent();
-            InspectorHide();
+            //GameControl.control.Save(selected.saveSlot);
+            //selected.SetFromControl();
         }
-        else if(confirmationString == "delete")
-            DeleteCurrent();
+
+        void LoadCurrent()
+        {
+            //GameControl.control.Load(selected.saveSlot);
+        }
+
+        void DeleteCurrent()
+        {
+            // GameControl.control.Delete(selected.saveSlot);
+            //selected.SetEmpty();
+        }
+
+        //public void SetButtons(bool value)
+        {
+            //SetButtons(value, value, value);
+        }
+
+        //public void SetButtons(bool save, bool load, bool delete)
+        {
+            //saveCurrentButton.interactable = save;
+            //loadCurrentButton.interactable = load;
+            //deleteCurrentButton.interactable = delete;
+        }
+
+        //public void ShowConfirmation(string verb)
+        {
+            //confirmationWindow.Show();
+            //confirmationLabel.SetText($"Are you sure you want to {verb} the selected file?");
+            //confirmationString = verb;
+        }
+
+        //public void ConfirmationYesAction()
+        {
+            if (confirmationString == "save")
+                SaveCurrent();
+            else if (confirmationString == "load")
+            {
+                LoadCurrent();
+                InspectorHide();
+            }
+            else if (confirmationString == "delete")
+                DeleteCurrent();
+        }
     }
 }
