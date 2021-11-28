@@ -190,5 +190,6 @@ public class MapManager : MonoBehaviour
         GameControl.control.savedPinPosition = character.currentPin.transform.position;
         GameControl.control.savedCameraPosition = overworldCamera.transform.position;
         GameControl.control.savedOrtographicSize = overworldCamera.gameCamera.orthographicSize;
+        GameControl.control.progressView = overworldCamera.viewToggler.view;
     }
 }

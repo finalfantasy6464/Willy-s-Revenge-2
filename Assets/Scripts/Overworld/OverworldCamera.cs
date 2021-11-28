@@ -7,6 +7,7 @@ using System;
 public class OverworldCamera : MonoBehaviour
 {
     public Camera gameCamera;
+    public OverworldViewToggler viewToggler;
     public OverworldCharacter character;
     public ProgressSetting progressCalculation;
     public Checkpoint currentCheckpointA;
@@ -65,6 +66,7 @@ public class OverworldCamera : MonoBehaviour
     {
         transform.position = new Vector3(position.x, position.y, transform.position.z);
         gameCamera.orthographicSize = ortographicSize;
+        viewToggler.Set(GameControl.control.progressView);
     }
 
     public void SetFromPin(NavigationPin pin)

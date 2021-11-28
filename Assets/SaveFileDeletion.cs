@@ -6,9 +6,8 @@ using UnityEngine.SceneManagement;
 public class SaveFileDeletion : MonoBehaviour
 {
     // Start is called before the first frame update
-    public void SaveFileDelete()
+    public void SaveFileDelete(int saveSlot)
     {
-        GameControl.control.CheckForDeletion();
-        SceneManager.LoadScene(0);
+        GameControl.control.CheckForDeletion(saveSlot);
     }
 }

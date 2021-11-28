@@ -19,6 +19,8 @@ public class OverworldGUI : MonoBehaviour
     public GUIWindow loadPrompt;
     public GUIWindow levelPreview;
     public GUIWindow optionsPanel;
+    public GUIWindow saveLoadPanel;
+    public GUIWindow saveLoadConfirmationPanel;
     public GUIWindow tutorial_1;
     public GUIWindow tutorial_2;
     public GUIWindow tutorial_3;
@@ -29,13 +31,15 @@ public class OverworldGUI : MonoBehaviour
     [HideInInspector] public MapManager map;
     
     bool isAnyShowing => menuPrompt.isShowing || savePrompt.isShowing
-            || loadPrompt.isShowing || levelPreview.isShowing || optionsPanel.isShowing;
+            || loadPrompt.isShowing || levelPreview.isShowing || optionsPanel.isShowing
+            || saveLoadPanel.isShowing || saveLoadConfirmationPanel.isShowing;
 
     bool isLevelPreviewValid => !(menuPrompt.isShowing || savePrompt.isShowing
             || loadPrompt.isShowing || optionsPanel.isShowing);
    
     bool wasAnyShowing => menuPrompt.wasShowing || savePrompt.wasShowing
-            || loadPrompt.wasShowing || levelPreview.wasShowing || optionsPanel.wasShowing;
+            || loadPrompt.wasShowing || levelPreview.wasShowing || optionsPanel.wasShowing
+            || saveLoadPanel.wasShowing || saveLoadConfirmationPanel.wasShowing;
 
     bool isTutorialShowing => tutorial_1.isShowing || tutorial_2.isShowing || tutorial_3.isShowing;
     bool wasTutorialShowing => tutorial_1.wasShowing || tutorial_2.wasShowing || tutorial_3.wasShowing;
@@ -72,13 +76,25 @@ public class OverworldGUI : MonoBehaviour
 
             if(loadPrompt.isShowing)
             {
-                optionsPanel.Hide();
+                loadPrompt.Hide();
                 return;
             }
 
             if(savePrompt.isShowing)
             {
-                optionsPanel.Hide();
+                savePrompt.Hide();
+                return;
+            }
+
+            if(saveLoadPanel.isShowing)
+            {
+                saveLoadPanel.Hide();
+                return;
+            }
+
+            if(saveLoadConfirmationPanel.isShowing)
+            {
+                saveLoadConfirmationPanel.Hide();
                 return;
             }
 

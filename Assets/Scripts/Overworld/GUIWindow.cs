@@ -9,13 +9,13 @@ public class GUIWindow : GUIElement
 
     public override void Show()
     {
-        firstSelected.Select();
+        firstSelected?.Select();
         base.Show();
     }
     
     public override void Show(float time)
     {
-        firstSelected.Select();
+        firstSelected?.Select();
         base.Show(time);
     }
 }

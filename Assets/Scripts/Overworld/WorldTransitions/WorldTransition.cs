@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class WorldTransition : MonoBehaviour
 {
+    public OverworldProgressView progressViewForward;
+    public OverworldProgressView progressViewBackward;
     public Behaviour[] toDisable;
     public OverworldCharacter character;
     
@@ -36,50 +38,55 @@ public abstract class WorldTransition : MonoBehaviour
 
     public void TriggerToggleBehaviour()
     {
-        if (toggle != null)
-        {
-            toggle.ToggleBehaviour();
-        }
 
-        if (waypoint != null)
-        {
-                if (waypoint is ColourWaypoints)
-                {
-                    ((ColourWaypoints)waypoint).WaypointBehaviour();
-                }
-                else if (waypoint is MoonToggle)
-                {
-                    ((MoonToggle)waypoint).WaypointBehaviour();
-                }
-                else if (waypoint is AlienToggle)
-                {
-                    ((AlienToggle)waypoint).WaypointBehaviour();
-                }
-        }
+        if(progressViewForward != OverworldProgressView.None)
+            overworldCamera.viewToggler.Set(progressViewForward);
+        // if (toggle != null && toggle.enabled)
+        // {
+            // toggle.ToggleBehaviour();
+        // }
+// 
+        // if (waypoint != null)
+        // {
+                // if (waypoint is ColourWaypoints)
+                // {
+                    // ((ColourWaypoints)waypoint).WaypointBehaviour();
+                // }
+                // else if (waypoint is MoonToggle)
+                // {
+                    // ((MoonToggle)waypoint).WaypointBehaviour();
+                // }
+                // else if (waypoint is AlienToggle)
+                // {
+                    // ((AlienToggle)waypoint).WaypointBehaviour();
+                // }
+        // }
     }
 
     public void TriggerToggleBehaviourBackward()
     {
-        if (backwardToggle != null)
-        {
-            backwardToggle.ToggleBehaviour();
-        }
-
-        if (backwardswaypoint != null)
-        {
-            if (backwardswaypoint is ColourWaypoints)
-            {
-                ((ColourWaypoints)backwardswaypoint).WaypointBehaviour();
-            }
-            else if (backwardswaypoint is MoonToggle)
-            {
-                ((MoonToggle)backwardswaypoint).WaypointBehaviour();
-            }
-            else if (backwardswaypoint is AlienToggle)
-            {
-                ((AlienToggle)backwardswaypoint).WaypointBehaviour();
-            }
-        }
+        if(progressViewBackward != OverworldProgressView.None)
+            overworldCamera.viewToggler.Set(progressViewBackward);
+        // if (backwardToggle != null && backwardToggle.enabled)
+        // {
+            // backwardToggle.ToggleBehaviour();
+        // }
+// 
+        // if (backwardswaypoint != null)
+        // {
+            // if (backwardswaypoint is ColourWaypoints)
+            // {
+                // ((ColourWaypoints)backwardswaypoint).WaypointBehaviour();
+            // }
+            // else if (backwardswaypoint is MoonToggle)
+            // {
+                // ((MoonToggle)backwardswaypoint).WaypointBehaviour();
+            // }
+            // else if (backwardswaypoint is AlienToggle)
+            // {
+                // ((AlienToggle)backwardswaypoint).WaypointBehaviour();
+            // }
+        // }
     }
 
     void OnTransitionStart()
