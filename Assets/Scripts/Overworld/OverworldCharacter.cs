@@ -20,10 +20,12 @@ public class OverworldCharacter : MonoBehaviour
     IEnumerator moveRoutine;
 
     public WorldTransition currentWorldTransition = null;
+    MapManager map;
 
     void Awake()
     {
         onMove = new UnityEvent();
+        map = FindObjectOfType<MapManager>();
     }
 
     void Start()
@@ -35,6 +37,7 @@ public class OverworldCharacter : MonoBehaviour
     {
         SetCurrentPin((LevelPin) startPin);
         currentPin.onCharacterEnter.Invoke();
+        map.SetAutoSavePinPosition();
     }
 
     public void SetCurrentPin(LevelPin pin)
@@ -153,6 +156,7 @@ public class OverworldCharacter : MonoBehaviour
         {
             targetPin = null;
             isMoving = false;
+            map.SetAutoSavePinPosition();
             return;
         }
 

@@ -5,16 +5,22 @@ using UnityEngine.UI;
 
 public class SavePrompt : GUIWindow
 {
-    public Button saveButton;
+    public Button button;
+    public int toSave;
+    
+    public void SetSlot(int saveSlot)
+    {
+        toSave = saveSlot;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        saveButton.onClick.AddListener(() => GameControl.control.Save());
+        button.onClick.AddListener(() => GameControl.control.Save(toSave));
     }
 
     private void OnDisable()
     {
-        saveButton.onClick.RemoveListener(() => GameControl.control.Save());
+        button.onClick.RemoveListener(() => GameControl.control.Save(toSave));
     }
 }
