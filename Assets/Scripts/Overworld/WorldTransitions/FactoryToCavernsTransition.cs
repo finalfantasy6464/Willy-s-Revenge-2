@@ -25,8 +25,6 @@ public class FactoryToCavernsTransition : WorldTransition
 
         // to simulate touching node A
         playerAnimator.enabled = false;
-        character.GetComponent<SpriteRenderer>().sprite = character.skinSprites[4];
-        GameControl.control.currentCharacterSprite = 4;
 
         secondTraversed = false;
         character.isIgnoringPath = false;
@@ -57,8 +55,6 @@ public class FactoryToCavernsTransition : WorldTransition
 
         // to simulate touching node B
         playerAnimator.enabled = false;
-        character.GetComponent<SpriteRenderer>().sprite = character.skinSprites[5];
-        GameControl.control.currentCharacterSprite = 5;
 
         secondTraversed = false;
         pipeParticle.Stop();

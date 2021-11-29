@@ -48,7 +48,7 @@ public class ScriptableGameState : ScriptableObject
 
     private void SaveToFile(string path)
     {
-        saveTime = (int)DateTime.Now.Subtract(new DateTime(1970,1,1,0,0,0)).TotalSeconds;
+        saveTime = (Int32)DateTime.Now.Subtract(new DateTime(1970,1,1,0,0,0)).TotalSeconds;
 
         using (BinaryWriter writer = new BinaryWriter(File.Open(path, FileMode.Create)))
         {
@@ -117,7 +117,7 @@ public class ScriptableGameState : ScriptableObject
 
             characterSkinIndex = reader.ReadInt32();
             savedOrtographicSize = reader.ReadSingle();
-            progressView = (OverworldProgressView)reader.ReadInt32();
+            progressView = (OverworldProgressView)(reader.ReadInt32());
             completionPercent = reader.ReadSingle();
 
             savedCameraPosition = new Vector3(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
@@ -155,13 +155,13 @@ public class ScriptableGameState : ScriptableObject
         timer    = control.timer;
 
         arenaScore = (int)control.ArenahighScore;
-        completedlevels =  new List<bool>(completedlevels);
-        goldenpellets   =  new List<bool>(goldenpellets);
-        timerchallenge  =  new List<bool>(timerchallenge);
-        lockedgates     =  new List<bool>(lockedgates);
-        destroyedgates  =  new List<bool>(destroyedgates);
-        lockedgatescache = new List<bool>(lockedgatescache);
-        destroyedgatescache =   new List<bool>(destroyedgatescache);
+        completedlevels =  new List<bool>(control.completedlevels);
+        goldenpellets   =  new List<bool>(control.goldenpellets);
+        timerchallenge  =  new List<bool>(control.timerchallenge);
+        lockedgates     =  new List<bool>(control.lockedgates);
+        destroyedgates  =  new List<bool>(control.destroyedgates);
+        lockedgatescache = new List<bool>(control.lockedgatescache);
+        destroyedgatescache =   new List<bool>(control.destroyedgatescache);
 
         characterSkinIndex = control.currentCharacterSprite;
         savedOrtographicSize = control.savedOrtographicSize;

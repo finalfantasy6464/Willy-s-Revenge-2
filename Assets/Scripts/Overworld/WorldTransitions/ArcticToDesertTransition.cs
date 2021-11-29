@@ -38,8 +38,6 @@ public class ArcticToDesertTransition : WorldTransition
         playerAnimator.enabled = false;
         secondTraversed = false;
         character.isIgnoringPath = false;
-        character.GetComponent<SpriteRenderer>().sprite = character.skinSprites[1];
-        GameControl.control.currentCharacterSprite = 1;
 
         Vector3 target = character.currentPin.previousPath.end.position;
         while(Vector3.Distance(character.transform.position, target) > 0.01f)
@@ -78,8 +76,6 @@ public class ArcticToDesertTransition : WorldTransition
         playerAnimator.enabled = false;
         secondTraversed = false;
         character.isIgnoringPath = false;
-        character.GetComponent<SpriteRenderer>().sprite = character.skinSprites[2];
-        GameControl.control.currentCharacterSprite = 2;
 
         Vector3 target = character.currentPin.nextPath.end.position;
         while(Vector3.Distance(character.transform.position, target) > 0.01f)

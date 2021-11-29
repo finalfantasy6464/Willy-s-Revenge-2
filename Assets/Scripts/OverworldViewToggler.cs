@@ -22,7 +22,7 @@ public class OverworldViewToggler : MonoBehaviour
     public void Set(OverworldProgressView view)
     {
         this.view = view;
-        GetAll[(int)view].Trigger();
+        GetAll[(int)view]?.Trigger();
     }
 
     [System.Serializable]

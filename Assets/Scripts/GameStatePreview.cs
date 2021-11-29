@@ -29,9 +29,9 @@ public class GameStatePreview
             reader.ReadInt32();              // Timer
             arenaScore = reader.ReadInt32(); 
 
-            completedPercent = GetPercent(reader, 101);
-            goldenPercent = GetPercent(reader, 101);
-            challengePercent = GetPercent(reader, 101);
+            completedPercent = GetPercent(reader, 102);
+            goldenPercent = GetPercent(reader, 102);
+            challengePercent = GetPercent(reader, 102);
             GetPercent(reader, 9); // unused, to skip lockedGates
             destroyedPercent = GetPercent(reader, 9);
         }

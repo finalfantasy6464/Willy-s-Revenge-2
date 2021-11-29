@@ -39,8 +39,6 @@ public class DesertToVolcanoTransition : WorldTransition
         playerAnimator.enabled = false;
         secondTraversed = false;       
         spoutBackwardParticle.Stop();
-        character.GetComponent<SpriteRenderer>().sprite = character.skinSprites[2];
-        GameControl.control.currentCharacterSprite = 2;
 
         character.isIgnoringPath = false;
         character.transform.SetParent(parentCache);
@@ -81,8 +79,6 @@ public class DesertToVolcanoTransition : WorldTransition
         playerAnimator.enabled = false;
         spoutForwardParticle.Stop();
         secondTraversed = false;
-        character.GetComponent<SpriteRenderer>().sprite = character.skinSprites[3];
-        GameControl.control.currentCharacterSprite = 3;
 
         character.isIgnoringPath = false;
         character.transform.SetParent(parentCache);

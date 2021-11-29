@@ -22,6 +22,8 @@ public class OverworldCharacter : MonoBehaviour
     public WorldTransition currentWorldTransition = null;
     MapManager map;
 
+    public Animator myAnimator;
+
     void Awake()
     {
         onMove = new UnityEvent();
@@ -49,6 +51,12 @@ public class OverworldCharacter : MonoBehaviour
             StopCoroutine(moveRoutine);
             moveRoutine = null;
         }    
+    }
+
+    public void SetCurrentSkin(int index)
+    {
+        this.GetComponent<SpriteRenderer>().sprite = skinSprites[index];
+        GameControl.control.currentCharacterSprite = index;
     }
 
     void Update()

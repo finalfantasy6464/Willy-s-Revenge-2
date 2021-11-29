@@ -154,12 +154,12 @@ public class MapManager : MonoBehaviour
 
     public void SetWorldGateData(List<bool> lockedgates, List<bool> destroyedgates)
     {
-        for (int i = 0; i < worldGates.Count; i++)
-        {
-            worldGates[i].locked = lockedgates[i];
-            worldGates[i].destroyed = destroyedgates[i];
-            worldGates[i].OnLevelLoaded.Invoke();
-        }
+        //for (int i = 0; i < worldGates.Count; i++)
+        //{
+        //    worldGates[i].locked = lockedgates[i];
+        //    worldGates[i].destroyed = destroyedgates[i];
+        //    worldGates[i].OnLevelLoaded.Invoke();
+        //}
     }
     
     public void OnDisable()

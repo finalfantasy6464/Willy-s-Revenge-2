@@ -22,8 +22,6 @@ public class MoonToAlienTransition : WorldTransition
 
         // to simulate touching node A
         playerAnimator.enabled = false;
-        character.GetComponent<SpriteRenderer>().sprite = character.skinSprites[0];
-        GameControl.control.currentCharacterSprite = 0;
 
         secondTraversed = false;
         character.isIgnoringPath = false;
@@ -52,8 +50,6 @@ public class MoonToAlienTransition : WorldTransition
 
         // to simulate touching node B
         playerAnimator.enabled = false;
-        character.GetComponent<SpriteRenderer>().sprite = character.skinSprites[8];
-        GameControl.control.currentCharacterSprite = 8;
 
         secondTraversed = false;
         character.isIgnoringPath = false;

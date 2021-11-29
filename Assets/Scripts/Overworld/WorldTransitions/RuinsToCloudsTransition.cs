@@ -22,8 +22,6 @@ public class RuinsToCloudsTransition : WorldTransition
 
         // to simulate touching node A
         playerAnimator.enabled = false;
-        character.GetComponent<SpriteRenderer>().sprite = character.skinSprites[6];
-        GameControl.control.currentCharacterSprite = 6;
 
         secondTraversed = false;
         character.isIgnoringPath = false;
@@ -58,8 +56,6 @@ public class RuinsToCloudsTransition : WorldTransition
         // to simulate touching node B
         playerAnimator.enabled = false;
         sproutAnimator.enabled = false;
-        character.GetComponent<SpriteRenderer>().sprite = character.skinSprites[7];
-        GameControl.control.currentCharacterSprite = 7;
 
         maskremoved = true;
         secondTraversed = false;

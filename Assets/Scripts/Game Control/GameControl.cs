@@ -329,6 +329,7 @@ public class GameControl : MonoBehaviour
         lockedgatescache = new List<bool>(gameState.lockedgatescache);
         destroyedgatescache = new List<bool>(gameState.destroyedgatescache);
         progressView = gameState.progressView;
+        currentCharacterSprite = gameState.characterSkinIndex;
 
         savedCameraPosition = gameState.savedCameraPosition;
         savedOrtographicSize = gameState.savedOrtographicSize;
@@ -336,12 +337,20 @@ public class GameControl : MonoBehaviour
 
     public void Save(int saveSlot)
     {
+        if(progressView == OverworldProgressView.None)
+        {
+            progressView = OverworldProgressView.WorldLeft;
+        }
         gameState.SetFromGameControl(control);
         gameState.WriteToManual(saveSlot);
     }
 
     public void AutoSave()
     {
+        if (progressView == OverworldProgressView.None)
+        {
+            progressView = OverworldProgressView.WorldLeft;
+        }
         gameState.SetFromGameControl(control);
         gameState.WriteToAuto();
     }
@@ -350,7 +359,7 @@ public class GameControl : MonoBehaviour
 	{
         if(gameState.SetFromManual(saveSlot))
         {
-            StartCoroutine(SetWorldGates());
+            //StartCoroutine(SetWorldGates());
             SetFromGameState();
         }
 
@@ -358,6 +367,8 @@ public class GameControl : MonoBehaviour
         {
             StartCoroutine(ChangeCharacterPin());
             OverworldLevelStateUpdate();
+            OverworldCharacter Player = GameObject.FindGameObjectWithTag("Player").GetComponent<OverworldCharacter>();
+            Player.GetComponent<SpriteRenderer>().sprite = Player.skinSprites[currentCharacterSprite];
         }
     }
 
@@ -366,7 +377,7 @@ public class GameControl : MonoBehaviour
         if(gameState.SetFromAuto())
         {
             SetFromGameState();
-            StartCoroutine(SetWorldGates());
+            //StartCoroutine(SetWorldGates());
         }
 
         if(m_Scene.name == "MainMenu")

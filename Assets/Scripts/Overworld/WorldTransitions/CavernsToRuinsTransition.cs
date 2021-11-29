@@ -22,8 +22,6 @@ public class CavernsToRuinsTransition : WorldTransition
 
         // to simulate touching node A
         playerAnimator.enabled = false;
-        character.GetComponent<SpriteRenderer>().sprite = character.skinSprites[5];
-        GameControl.control.currentCharacterSprite = 5;
 
         secondTraversed = false;
         character.isIgnoringPath = false;
@@ -53,8 +51,6 @@ public class CavernsToRuinsTransition : WorldTransition
 
         // to simulate touching node B
         playerAnimator.enabled = false;
-        character.GetComponent<SpriteRenderer>().sprite = character.skinSprites[6];
-        GameControl.control.currentCharacterSprite = 6;
 
         secondTraversed = false;
         character.isIgnoringPath = false;

@@ -26,8 +26,6 @@ public class VolcanoToFactoryTransition : WorldTransition
         // to simulate touching node A
         playerAnimator.enabled = false;
         conveyorAnimator.enabled = false;
-        character.GetComponent<SpriteRenderer>().sprite = character.skinSprites[3];
-        GameControl.control.currentCharacterSprite = 3;
 
         secondTraversed = false;
         character.isIgnoringPath = false;
@@ -60,8 +58,6 @@ public class VolcanoToFactoryTransition : WorldTransition
         // to simulate touching node B
         playerAnimator.enabled = false;
         conveyorAnimator.enabled = false;
-        character.GetComponent<SpriteRenderer>().sprite = character.skinSprites[4];
-        GameControl.control.currentCharacterSprite = 4;
 
         secondTraversed = false;
         character.isIgnoringPath = false;
