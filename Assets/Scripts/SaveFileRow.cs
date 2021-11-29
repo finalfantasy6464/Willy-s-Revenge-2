@@ -28,11 +28,22 @@ public class SaveFileRow : MonoBehaviour
 
     public void SetFromStatePreview(GameStatePreview preview)
     {
-
+        arenaScoreLabel.SetText($"{preview.arenaScore}");
+        completeLabel.SetText($"{Mathf.FloorToInt(preview.completedPercent)}%");
+        gateLabel.SetText($"{Mathf.FloorToInt(preview.destroyedPercent)}%");
+        challengeLabel.SetText($"{Mathf.FloorToInt(preview.challengePercent)}%");
+        goldenLabel.SetText($"{Mathf.FloorToInt(preview.goldenPercent)}%");
+        timeLabel.SetText(preview.formattedSaveTime);
     }
 
     public void SetFromControl(GameControl state)
     {
-        throw new NotImplementedException();
+        Debug.Log("setting from control");
+        arenaScoreLabel.SetText($"{state.ArenahighScore}%");
+        completeLabel.SetText($"{Mathf.FloorToInt(state.complete / state.completedlevels.Count)}%");
+        gateLabel.SetText($"{Mathf.FloorToInt(state.complete / state.completedlevels.Count)}%");
+        challengeLabel.SetText($"{Mathf.FloorToInt(state.complete / state.completedlevels.Count)}%");
+        goldenLabel.SetText($"{Mathf.FloorToInt(state.complete / state.completedlevels.Count)}%");
+        timeLabel.SetText(DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"));
     }
 }

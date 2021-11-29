@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu]
 public class ScriptableGameState : ScriptableObject
 {
     public static string AUTOSAVE_PATH;
@@ -34,7 +35,7 @@ public class ScriptableGameState : ScriptableObject
     public List<bool> lockedgatescache = new List<bool>();
     public List<bool> destroyedgatescache = new List<bool>();
 
-    void Awake()
+    void OnEnable()
     {
         AUTOSAVE_PATH = Application.persistentDataPath + "/Save_Auto.wr2";
         MANUAL_SAVE_PATHS = new string[]
@@ -45,15 +46,17 @@ public class ScriptableGameState : ScriptableObject
         };
     }
 
-    public void SaveToFile(int slot)
+    private void SaveToFile(string path)
     {
-        using (BinaryWriter writer = new BinaryWriter(File.Open(MANUAL_SAVE_PATHS[slot], FileMode.Create)))
+        saveTime = (int)DateTime.Now.Subtract(new DateTime(1970,1,1,0,0,0)).TotalSeconds;
+
+        using (BinaryWriter writer = new BinaryWriter(File.Open(path, FileMode.Create)))
         {
-            writer.Write(saveTime);
-            writer.Write(complete);
-            writer.Write(golden);
-            writer.Write(timer);
-            writer.Write(arenaScore);
+            writer.Write((Int32)saveTime);
+            writer.Write((Int32)complete);
+            writer.Write((Int32)golden);
+            writer.Write((Int32)timer);
+            writer.Write((Int32)arenaScore);
 
             WriteBoolList(writer, completedlevels);
             WriteBoolList(writer, goldenpellets);
@@ -63,7 +66,7 @@ public class ScriptableGameState : ScriptableObject
             WriteBoolList(writer, lockedgatescache);
             WriteBoolList(writer, destroyedgatescache);
 
-            writer.Write(characterSkinIndex);
+            writer.Write((Int32)characterSkinIndex);
             writer.Write(savedOrtographicSize);
             writer.Write((Int32)progressView);
             writer.Write(completionPercent);
@@ -82,15 +85,21 @@ public class ScriptableGameState : ScriptableObject
         }
     }
 
-    public void LoadFromFile(int slot)
+    public void DeleteFile(string path)
     {
-        if(!File.Exists(MANUAL_SAVE_PATHS[slot]))
+        if(File.Exists(path))
+            File.Delete(path);
+    }
+
+    private bool TryLoadFromFile(string path)
+    {
+        if(!File.Exists(path))
         {
             Debug.LogWarning("Load path did not exist. Aborting");
-            return;
+            return false;
         }
 
-        using (BinaryReader reader = new BinaryReader(File.Open(MANUAL_SAVE_PATHS[slot], FileMode.Open)))
+        using (BinaryReader reader = new BinaryReader(File.Open(path, FileMode.Open)))
         {
             saveTime = reader.ReadInt32();
             complete = reader.ReadInt32();
@@ -103,8 +112,8 @@ public class ScriptableGameState : ScriptableObject
             timerchallenge  = ReadBoolList(reader, timerchallenge.Count);
             lockedgates     = ReadBoolList(reader, lockedgates.Count);
             destroyedgates  = ReadBoolList(reader, destroyedgates.Count);
-            lockedgatescache = ReadBoolList(reader, lockedgates.Count);
-            destroyedgatescache = ReadBoolList(reader, destroyedgates.Count);
+            lockedgatescache = ReadBoolList(reader, lockedgatescache.Count);
+            destroyedgatescache = ReadBoolList(reader, destroyedgatescache.Count);
 
             characterSkinIndex = reader.ReadInt32();
             savedOrtographicSize = reader.ReadSingle();
@@ -115,6 +124,8 @@ public class ScriptableGameState : ScriptableObject
             savedPinPosition    = new Vector3(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
             AutosavePosition    = new Vector3(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
         }
+
+        return true;
     }
 
     List<bool> ReadBoolList(BinaryReader reader, int listSize)
@@ -130,5 +141,55 @@ public class ScriptableGameState : ScriptableObject
     {
         foreach (bool value in list)
             writer.Write(value);
+    }
+
+    public void WriteToManual(int saveSlot)
+    {
+        SaveToFile(MANUAL_SAVE_PATHS[saveSlot]);
+    }
+
+    public void SetFromGameControl(GameControl control)
+    {
+        complete = control.complete;
+        golden   = control.golden;
+        timer    = control.timer;
+
+        arenaScore = (int)control.ArenahighScore;
+        completedlevels =  new List<bool>(completedlevels);
+        goldenpellets   =  new List<bool>(goldenpellets);
+        timerchallenge  =  new List<bool>(timerchallenge);
+        lockedgates     =  new List<bool>(lockedgates);
+        destroyedgates  =  new List<bool>(destroyedgates);
+        lockedgatescache = new List<bool>(lockedgatescache);
+        destroyedgatescache =   new List<bool>(destroyedgatescache);
+
+        characterSkinIndex = control.currentCharacterSprite;
+        savedOrtographicSize = control.savedOrtographicSize;
+        progressView = control.progressView;
+        completionPercent = control.completionPercent;
+
+        savedCameraPosition = control.savedCameraPosition;
+        savedPinPosition = control.savedPinPosition;
+        AutosavePosition = control.AutosavePosition;
+    }
+
+    public void WriteToAuto()
+    {
+        SaveToFile(AUTOSAVE_PATH);
+    }
+
+    public bool SetFromManual(int saveSlot)
+    {
+        return TryLoadFromFile(MANUAL_SAVE_PATHS[saveSlot]);
+    }
+
+    public bool SetFromAuto()
+    {
+        return TryLoadFromFile(AUTOSAVE_PATH);
+    }
+
+    public void DeleteManualSave(int saveSlot)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,9 +18,16 @@ public class SaveLoadPanel : GUIWindow
     public ScriptableGameState gameState;
 
     string confirmationString;
+    bool initialized;
 
     public void Start()
     {
+        StartCoroutine(DelayedStart());
+    }
+
+    IEnumerator DelayedStart()
+    {
+        yield return null;
         for (int i = 0; i < saveFileRows.Length; i++)
         {
             GameStatePreview preview = new GameStatePreview(i);
@@ -57,7 +65,7 @@ public class SaveLoadPanel : GUIWindow
 
     void DeleteCurrent()
     {
-        //GameControl.control.Delete(selected.saveSlot);
+        GameControl.control.Delete(selected.saveSlot);
         selected.SetEmpty();
     }
 

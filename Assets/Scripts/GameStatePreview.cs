@@ -6,9 +6,10 @@ using UnityEngine;
 public class GameStatePreview
 {
     public string formattedSaveTime;
+    public int arenaScore;
     public float completedPercent;
     public float goldenPercent;
-    public float timerPercent;
+    public float challengePercent;
     public float destroyedPercent;
     public bool isEmpty;
 
@@ -22,14 +23,17 @@ public class GameStatePreview
 
         using (BinaryReader reader = new BinaryReader(File.Open(ScriptableGameState.MANUAL_SAVE_PATHS[slot], FileMode.Open)))
         {
-            SetSaveTime(reader.ReadInt32());
-            reader.ReadInt32(); reader.ReadInt32(); reader.ReadInt32(); reader.ReadInt32();
+            SetSaveTime(reader.ReadInt32()); // Save Time
+            reader.ReadInt32();              // Complete
+            reader.ReadInt32();              // Golden
+            reader.ReadInt32();              // Timer
+            arenaScore = reader.ReadInt32(); 
 
-            completedPercent = GetPercent(reader, 102);
-            goldenPercent = GetPercent(reader, 102);
-            timerPercent = GetPercent(reader, 102);
-            GetPercent(reader, 102); // unused, to skip lockedGates
-            destroyedPercent = GetPercent(reader, 102);
+            completedPercent = GetPercent(reader, 101);
+            goldenPercent = GetPercent(reader, 101);
+            challengePercent = GetPercent(reader, 101);
+            GetPercent(reader, 9); // unused, to skip lockedGates
+            destroyedPercent = GetPercent(reader, 9);
         }
     }
 
