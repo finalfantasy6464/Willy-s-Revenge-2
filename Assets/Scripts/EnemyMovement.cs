@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 
-public class EnemyMovement : MonoBehaviour
+public class EnemyMovement : MonoBehaviour, IPausable
 {
 
 	private float movespeed = 0.0f;
@@ -26,6 +26,8 @@ public class EnemyMovement : MonoBehaviour
 
     [HideInInspector] public UnityEvent onWallHit;
 
+    public bool isPaused { get; set; }
+
     void Awake()
     {
         onWallHit = new UnityEvent();
@@ -33,6 +35,14 @@ public class EnemyMovement : MonoBehaviour
     void Start()
     {
         StartCoroutine(LevelStarting());
+        if(direction == 2)
+        {
+            gameObject.transform.localScale = new Vector3(1,1,1);
+        }
+        else
+        {
+            gameObject.transform.localScale = new Vector3(-1, 1, 1);
+        }
     }
 
     IEnumerator LevelStarting()
@@ -57,6 +67,7 @@ public class EnemyMovement : MonoBehaviour
                     direction = 2;
                     hitcount += 1;
                     justhit = true;
+                    gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x * -1, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
                 }
 
                 if (coll.gameObject.tag != "Teleport" && coll.gameObject.tag != "Enemy")
@@ -64,12 +75,23 @@ public class EnemyMovement : MonoBehaviour
 					direction = 2;
 					justhit = true;
                     onWallHit.Invoke();
-				}
+                    gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x * -1, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
+                }
 
 				if (coll.gameObject.tag == "Teleport") {
 
 					justhit = true;
 				}
+
+                if(coll.gameObject.tag == "Void")
+                {
+                    Destroy(this.gameObject);
+                }
+
+                if(coll.gameObject.tag == "Tail")
+                {
+                    coll.gameObject.SetActive(false);
+                }
 			}
 		}
 
@@ -84,6 +106,7 @@ public class EnemyMovement : MonoBehaviour
                     direction = 1;
                     hitcount += 1;
                     justhit = true;
+                    gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x * -1, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
                 }
 
                 if (coll.gameObject.tag != "Teleport" && coll.gameObject.tag != "Enemy") {
@@ -91,57 +114,30 @@ public class EnemyMovement : MonoBehaviour
 					direction = 1;
 					justhit = true;
                     onWallHit.Invoke();
+                    gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x * -1, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
                 }
 
 				if (coll.gameObject.tag == "Teleport") {
 
 					justhit = true;
 				}
-
-				}
+                if (coll.gameObject.tag == "Void")
+                {
+                    Destroy(this.gameObject);
+                }
+            }
 			}
 		}
 
-     void Update(){
-
-        if (lifespan)
+    void Update()
+    {
+        if (!isPaused)
         {
-            age += Time.smoothDeltaTime;
-            if(age >= death)
-            {
-                Destroy(gameObject);
-            }
+            UnPausedUpdate();
         }
+    }
 
-
-        if (hitcount >= 10)
-        {
-            Destroy(gameObject);
-        }
-
-        if (levelstart == true) {
-        this.movespeed += movestep * multiplier;
-        }
-		
-
-		if (this.movespeed >= moveinterval) {
-			Move ();
-            movespeed = movespeed - moveinterval;
-		}
-
-		switch (direction) {
-
-		case 2:
-			enemydir = Vector2.left / 8;
-			break;
-				
-		case 1:
-			
-			enemydir = Vector2.right / 8;
-			break;
-		}
-	}
-
+        
 	void LateUpdate(){
 		justhit = false;
 	}
@@ -152,4 +148,60 @@ public class EnemyMovement : MonoBehaviour
 
 		transform.Translate (enemydir);
 	}
+
+    public void OnPause() { }
+
+
+    public void OnUnpause() { }
+
+    public void PausedUpdate() { }
+
+    public void UnPausedUpdate()
+    {
+            if (lifespan)
+            {
+                age += Time.smoothDeltaTime;
+                if (age >= death)
+                {
+                    Destroy(gameObject);
+                }
+            }
+
+
+            if (hitcount >= 10)
+            {
+                Destroy(gameObject);
+            }
+
+            if (levelstart == true)
+            {
+                this.movespeed += movestep * multiplier;
+            }
+
+
+            if (this.movespeed >= moveinterval)
+            {
+                Move();
+                movespeed = movespeed - moveinterval;
+            }
+
+            switch (direction)
+            {
+
+                case 2:
+                    enemydir = Vector2.left / 8;
+                    break;
+
+                case 1:
+
+                    enemydir = Vector2.right / 8;
+                    break;
+            }
+        }
+    public void OnDestroy()
+    {
+        PauseControl.TryRemovePausable(gameObject);
+    }
 }
+
+    

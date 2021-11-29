@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 
-public class LaserCannon : MonoBehaviour
+public class LaserCannon : MonoBehaviour, IPausable
 {
     private float RaycastMax = 100f;
 
@@ -39,11 +39,15 @@ public class LaserCannon : MonoBehaviour
     Vector2 midpos;
     Vector2 thickness;
 
+    public Material material;
+
     public Transform raycastPoint;
 
     RaycastHit2D hit;
 
     [HideInInspector] public UnityEvent onElectricHit;
+
+    public bool isPaused { get; set; }
 
     private void Awake()
     {
@@ -59,44 +63,9 @@ public class LaserCannon : MonoBehaviour
 
     private void Update()
     {
-        if(usestimer == false)
+        if (!isPaused)
         {
-           RaycastDirection();
-            UpdateParticles();
-            if (!source.isPlaying)
-            {
-                source = audioplay.SoundPlay();
-            }
-        }
-       
-        if (usestimer == true)
-        {
-            shootLength += Time.deltaTime;
-
-            if (shootLength < firerate)
-            {
-                RaycastDirection();
-                UpdateParticles();
-                Raycaststopped = false;
-            }
-
-            if (shootLength >= firerate && shootLength < (firerate + 0.1f) && Raycaststopped == false)
-            {
-                RaycastStop();
-                source.Stop();
-                audioplay.soundData.clip = laserstop;
-                source = audioplay.SoundPlay();
-                Raycaststopped = true;
-            }
-  
-            if (shootLength >= (firerate + firereset) && Raycaststopped == true)
-            { 
-                shootLength = 0;
-                beamRenderer.enabled = true;
-                audioplay.soundData.clip = laserstart;
-                source = audioplay.SoundPlay();
-                
-            }
+            UnPausedUpdate();
         }
     }
 
@@ -145,5 +114,66 @@ public class LaserCannon : MonoBehaviour
             Endparticles.Play();
             Startparticles.Play();
         }
+    }
+
+    public void OnPause()
+    {
+        material.SetVector("_Speed", Vector2.zero);
+    }
+        
+
+    public void OnUnpause()
+    {
+        material.SetVector("_Speed", new Vector2(-0.2f,0));
+    }
+
+    public void PausedUpdate()
+    {}
+
+    public void UnPausedUpdate()
+    {
+        if (usestimer == false)
+        {
+            RaycastDirection();
+            UpdateParticles();
+            if (!source.isPlaying)
+            {
+                source = audioplay.SoundPlay();
+            }
+        }
+
+        if (usestimer == true)
+        {
+            shootLength += Time.deltaTime;
+
+            if (shootLength < firerate)
+            {
+                RaycastDirection();
+                UpdateParticles();
+                Raycaststopped = false;
+            }
+
+            if (shootLength >= firerate && shootLength < (firerate + 0.1f) && Raycaststopped == false)
+            {
+                RaycastStop();
+                source.Stop();
+                audioplay.soundData.clip = laserstop;
+                source = audioplay.SoundPlay();
+                Raycaststopped = true;
+            }
+
+            if (shootLength >= (firerate + firereset) && Raycaststopped == true)
+            {
+                shootLength = 0;
+                beamRenderer.enabled = true;
+                audioplay.soundData.clip = laserstart;
+                source = audioplay.SoundPlay();
+
+            }
+        }
+    }
+    public void OnDestroy()
+    {
+        PauseControl.TryRemovePausable(gameObject);
     }
 }

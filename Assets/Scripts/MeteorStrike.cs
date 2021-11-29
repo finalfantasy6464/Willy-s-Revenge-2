@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeteorStrike : MonoBehaviour
+public class MeteorStrike : MonoBehaviour, IPausable
 {
 	public Vector2 center;
 	public Vector2 size;
@@ -15,24 +15,49 @@ public class MeteorStrike : MonoBehaviour
 
 	public GameObject Meteor;
 
-	void Update(){
+    public bool isPaused { get; set; }
 
-		trigger += Time.deltaTime;
+    void Update(){
 
-		if (trigger >= firerate) {
-			SpawnMeteor ();
-			trigger = 0.0f;
-		}
+        if (!isPaused)
+        {
+            UnPausedUpdate();
+        }
 	}
 
 	public void SpawnMeteor(){
 		Vector2 pos = center + new Vector2 (Random.Range(-size.x / 2, size.x / 2),Random.Range(-size.y / 2, size.y / 2));
 
-		Instantiate (Meteor, pos, Quaternion.Euler(0,0,Random.Range(firearcmin,firearcmax))); 
-	}
+		GameObject newMeteor = Instantiate (Meteor, pos, Quaternion.Euler(0,0,Random.Range(firearcmin,firearcmax)));
+        PauseControl.TryAddPausable(newMeteor);
+    }
 
 	void OnDrawGizmosSelected(){
 		Gizmos.color = new Color (0.5f, 0.0f, 0.5f, 0.25f);
 		Gizmos.DrawCube (center, size);
 	}
+
+    public void OnPause()
+    { }
+
+    public void OnUnpause()
+    { }
+
+    public void PausedUpdate()
+    { }
+
+    public void UnPausedUpdate()
+    {
+        trigger += Time.deltaTime;
+
+        if (trigger >= firerate)
+        {
+            trigger = 0.0f;
+            SpawnMeteor();
+        }
+    }
+    public void OnDestroy()
+    {
+        PauseControl.TryRemovePausable(gameObject);
+    }
 }

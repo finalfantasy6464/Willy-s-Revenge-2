@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -29,37 +29,44 @@ public class GameSoundManagement : MonoBehaviour
     public float lowPitchRange = 0.85f;
     public float highPitchRange = 1.15f;
 
-    private Transform player;
+    public Transform player;
 
 
     const string SOUND_VOLUME = "SFXVolume";
 
     void Awake()
     {
-
-        if (instance == null)
-            instance = this;
-
-        else if (instance != this)
+        if (instance != null && instance != this)
+        {
             Destroy(gameObject);
-
-        DontDestroyOnLoad(gameObject);
+                return;
+        }   
 
         foreach (AudioSource source in sources)
         {
             soundDataList.Add(null);
         }
+        
+        DontDestroyOnLoad(gameObject);
+        instance = this;
     }
 
-    public void Start()
+    private void Start()
     {
-        if(slider != null)
+        if (SceneManager.GetActiveScene().name == "Overworld")
         {
-            slider.value = PlayerPrefs.GetFloat(SOUND_VOLUME);
-            audioMixer.SetFloat(SOUND_VOLUME, Mathf.Log10(slider.value) * 20);
+            SetAudioInformation();
         }
+    }
 
-        if (SceneManager.GetActiveScene().name != "Overworld" && SceneManager.GetActiveScene().name != "MainMenu" && SceneManager.GetActiveScene().name != "Credits")
+    private void SetAudioInformation()
+    {
+        
+        slider.value = PlayerPrefs.GetFloat(SOUND_VOLUME);
+        audioMixer.SetFloat(SOUND_VOLUME, Mathf.Log10(slider.value) * 20);
+  
+        if (SceneManager.GetActiveScene().name != "MainMenu"
+            && SceneManager.GetActiveScene().name != "Credits")
         {
             player = GameObject.FindGameObjectWithTag("Player").transform;
         }
@@ -84,15 +91,17 @@ public class GameSoundManagement : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "Overworld" && SceneManager.GetActiveScene().isLoaded)
         {
-            player = GameObject.FindGameObjectWithTag("Character").GetComponent<Character>().transform;
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<OverworldCharacter>().transform;
         }
-
+        else if (SceneManager.GetActiveScene().name == "ArenaLevel" && SceneManager.GetActiveScene().isLoaded)
+        {
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2021Arena>().transform;
+        }
         else
         {
-                player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().transform;
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2021remake>().transform;
         }
     }
-
 
     public void SetLevel()
     {

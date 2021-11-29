@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class Boulder : MonoBehaviour
+public class Boulder : MonoBehaviour, IPausable
 {
     BigOrange orangeScript;
     PlayerController playercontroller;
@@ -17,8 +17,12 @@ public class Boulder : MonoBehaviour
     public AudioClip hitting;
 
     int bouldertotal;
+    Rigidbody2D rb;
+    Vector2 storedForce;
 
     public List<bool> activated = new List<bool>();
+
+    public bool isPaused { get; set; }
 
     void Start()
     {
@@ -27,6 +31,7 @@ public class Boulder : MonoBehaviour
         FloorSwitches = GameObject.FindGameObjectsWithTag("Switch");
         activate = new RadialActivate[FloorSwitches.Length];
         sprite = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
         GameSoundManagement.instance.PlayOneShot(falling);
 
         for (int i = 0; i < FloorSwitches.Length; i++)
@@ -70,5 +75,38 @@ public class Boulder : MonoBehaviour
             GameSoundManagement.instance.PlayOneShot(hitting);
             Destroy(gameObject);
         }
-        }
     }
+
+    public void SetForce(Vector2 f)
+	{
+		storedForce = f;
+	}
+
+    public void OnPause()
+    {
+        if(rb == null)
+            rb = GetComponent<Rigidbody2D>();
+
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+    }
+
+    public void OnUnpause()
+    {
+        if(rb == null)
+            rb = GetComponent<Rigidbody2D>();
+
+        rb.constraints = RigidbodyConstraints2D.None;
+        rb.AddForce(storedForce);
+    }
+
+    public void OnDestroy()
+    {
+        PauseControl.TryRemovePausable(gameObject);
+    }
+
+    public void PausedUpdate()
+    { }
+
+    public void UnPausedUpdate()
+    { }
+}

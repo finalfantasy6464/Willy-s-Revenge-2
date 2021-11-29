@@ -5,13 +5,11 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using System;
 
 public class MusicManagement : MonoBehaviour
 {
     public AudioSource musicSource;
-    public AudioClip OverworldMusic;
-    public AudioClip MenuMusic;
-    public AudioClip CreditsMusic;
     public AudioMixer audioMixer;
     public Slider slider;
 
@@ -26,25 +24,29 @@ public class MusicManagement : MonoBehaviour
     [HideInInspector] public UnityEvent onOverworld;
     [HideInInspector] public UnityEvent onMainMenu;
     [HideInInspector] public UnityEvent onCredits;
+    [HideInInspector] public UnityEvent onArena;
 
     public List<AudioClip> musicClips = new List<AudioClip>();
 
     private void Awake()
     {
         onLevelStart = new UnityEvent();
-        onLevelStart.AddListener(MusicCheck);
-        onOverworld.AddListener(PlayOverworldMusic);
-        onMainMenu.AddListener(PlayMenuMusic);
-        onCredits.AddListener(PlayCreditsMusic);
     }
 
     public void Start()
     {
-        if(slider != null)
+        onLevelStart.AddListener(MusicCheck);
+        if(SceneManager.GetActiveScene().name == "Overworld")
         {
+            SetAudioInformation();
+        }
+        MusicCheck();
+    }
+
+    private void SetAudioInformation()
+    {
             slider.value = PlayerPrefs.GetFloat(MUSIC_VOLUME);
             audioMixer.SetFloat(MUSIC_VOLUME, Mathf.Log10(slider.value) * 20);
-        }
     }
 
     public void SetLevel()
@@ -77,6 +79,10 @@ public class MusicManagement : MonoBehaviour
     {
         int index = SceneManager.GetActiveScene().buildIndex;
 
+       if(index == 0)
+        {
+            return musicClips[37];
+        }
        if(index == 1 || index == 2)
         {
             return musicClips[0];
@@ -199,28 +205,22 @@ public class MusicManagement : MonoBehaviour
             return musicClips[28];
         }
 
+        if (index == 101)
+        {
+            return musicClips[31];
+        }
+
+        if (index == 102)
+        {
+            return musicClips[29];
+        }
+
+        if (index == 103)
+        {
+            return musicClips[30];
+        }
+
         return null;
-    }
-
-    public void PlayOverworldMusic()
-    {
-        musicSource.clip = OverworldMusic;
-        musicSource.loop = true;
-        musicSource.Play();
-    }
-
-    public void PlayMenuMusic()
-    {
-        musicSource.clip = MenuMusic;
-        musicSource.loop = true;
-        musicSource.Play();
-    }
-
-    public void PlayCreditsMusic()
-    {
-        musicSource.clip = CreditsMusic;
-        musicSource.loop = true;
-        musicSource.Play();
     }
 
     public void StopMusic()
@@ -231,7 +231,5 @@ public class MusicManagement : MonoBehaviour
     public void OnDisable()
     {
         onLevelStart.RemoveListener(MusicCheck);
-        onOverworld.RemoveListener(PlayOverworldMusic);
-        onMainMenu.RemoveListener(PlayMenuMusic);
     }
 }

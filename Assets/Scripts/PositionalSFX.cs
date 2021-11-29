@@ -39,7 +39,7 @@ public class PositionalSFX : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "Overworld")
         {
-            player = GameObject.Find("Character").GetComponent<Character>().transform;
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<OverworldCharacter>().transform;
         }
         else
         {
@@ -50,7 +50,7 @@ public class PositionalSFX : MonoBehaviour
             }
             else
             {
-                player = playerobject.GetComponent<PlayerController>().transform;
+                player = playerobject.GetComponent<PlayerController2021remake>().transform;
             }
         }
         source.loop = looping;
@@ -64,7 +64,6 @@ public class PositionalSFX : MonoBehaviour
 
     IEnumerator findPlayerRoutine()
     {
-        Debug.Log("Entering Routine" + Time.time);
 
         do {
 
@@ -80,7 +79,6 @@ public class PositionalSFX : MonoBehaviour
 
         } while (player == null);
 
-        Debug.Log("Exiting Routine" + Time.time);
     }
 
     void Update()

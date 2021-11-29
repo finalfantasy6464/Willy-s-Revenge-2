@@ -3,15 +3,50 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
-public class Aggroactivate : MonoBehaviour
+public class Aggroactivate : MonoBehaviour, IPausable
 {
 	public bool active = false;
 	public Transform player;
 	public float range;
 	private AIDestinationSetter pathing;
 
+    public Animator animator;
 
-	void Start (){
+    public bool isPaused { get; set; }
+
+    public void OnPause()
+    {
+    }
+
+    public void OnUnpause()
+    {
+    }
+
+    public void PausedUpdate()
+    { }
+
+    public void UnPausedUpdate()
+    {
+        if (player)
+        {
+            if (Vector2.Distance(transform.position, player.transform.position) <= range)
+            {
+                active = true;
+                animator.enabled = true;
+            }
+
+            if (active == false)
+            {
+                pathing.enabled = false;
+            }
+            else if (active == true)
+            {
+                pathing.enabled = true;
+            }
+        }
+    }
+
+    void Start (){
 
 		pathing = GetComponent<AIDestinationSetter> ();
 	}
@@ -19,16 +54,14 @@ public class Aggroactivate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		if (player) {
-			if (Vector2.Distance (transform.position, player.transform.position) <= range) {
-				active = true;
-			}
+        if (!isPaused)
+        {
+            UnPausedUpdate();
+        }
+    }
 
-			if (active == false) {
-				pathing.enabled = false;
-			} else if (active == true) {
-				pathing.enabled = true;
-			}
-		}
-}
+    public void OnDestroy()
+    {
+        PauseControl.TryRemovePausable(gameObject);
+    }
 }

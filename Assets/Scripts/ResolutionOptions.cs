@@ -61,8 +61,6 @@ public class ResolutionOptions : MonoBehaviour
         SetFullscreen(currentFullscreenIndex);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
-
-
     }
 
     public void SetResolution(int index)

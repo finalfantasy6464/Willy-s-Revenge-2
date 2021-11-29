@@ -18,11 +18,14 @@ public class PlayerCollision : MonoBehaviour {
 
     public bool LavaWorld = false;
 
+	public bool canbehit = true;
+
 	public delegate void MyDelegate();
 	public event MyDelegate onDeath;
 
 	public Collider2D playerCollider;
 	public SpriteRenderer spriterenderer;
+	private Animator playeranim;
 
 	string[] hostileStrings;
 
@@ -56,6 +59,13 @@ public class PlayerCollision : MonoBehaviour {
 		};
     }
 
+    private void Start()
+    {
+		playeranim = GetComponent<Animator>();
+
+
+    }
+
     void Update(){
 
 		safetytimer += Time.deltaTime;
@@ -77,58 +87,79 @@ public class PlayerCollision : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D col){
 
 		var hit = col.gameObject;
-		if (hostileStrings.Any(s => hit.tag.Equals(s)) && justcollided == false)
+
+		if(canbehit == true)
         {
-			Die(onWallCollide);
-			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+			if (hostileStrings.Any(s => hit.tag.Equals(s)) && justcollided == false)
+			{
+				Die(onWallCollide);
+				SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+			}
+
+			if (hit.tag == "Key")
+			{
+
+				GameObject[] gos = GameObject.FindGameObjectsWithTag("Gate");
+				foreach (GameObject go in gos)
+					Destroy(go);
+				Destroy(hit);
+				onKeyCollect.Invoke();
+			}
+
+			if (hit.tag == "Key2")
+			{
+
+				GameObject[] gos = GameObject.FindGameObjectsWithTag("Gate2");
+				foreach (GameObject go in gos)
+					Destroy(go);
+				Destroy(hit);
+				onKeyCollect.Invoke();
+			}
+
+			if (hit.tag == "Tail")
+			{
+				Destroy(gameObject);
+				SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+			}
+
+			if (hit.tag == "Exit")
+			{
+				canbehit = false;
+				playeranim.SetBool("Exited", true);
+			}
 		}
 		
-		if (hit.tag == "Key") {
-
-			GameObject[] gos = GameObject.FindGameObjectsWithTag ("Gate");
-			foreach (GameObject go in gos)
-				Destroy (go);
-			Destroy (hit);
-			onKeyCollect.Invoke();
-		}
-
-		if (hit.tag == "Key2") {
-
-			GameObject[] gos = GameObject.FindGameObjectsWithTag ("Gate2");
-			foreach (GameObject go in gos)
-				Destroy (go);
-			Destroy (hit);
-            onKeyCollect.Invoke();
-        }
-
-		if (hit.tag == "Tail") {
-			Destroy (gameObject);
-			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
-		}
 	}
 	void OnTriggerEnter2D(Collider2D trig){
 
 		var hit = trig.gameObject;
-		if (hostileStrings.Any(s => hit.tag.Equals(s)) && justcollided == false)
-		{
-			Die(onWallCollide);
-			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		if (canbehit == true)
+        {
+			if (hostileStrings.Any(s => hit.tag.Equals(s)) && justcollided == false)
+			{
+				Die(onWallCollide);
+				SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+			}
+
+			if (hit.tag == "Safety")
+			{
+				Safe = true;
+				safetytimer = 0.0f;
+			}
+
+			if (hit.tag == "Platform")
+			{
+				platformcounter++;
+				isPlatform = true;
+			}
+
+			if (hit.tag == "Disable")
+			{
+				isPlatform = false;
+			}
 		}
-
-		if (hit.tag == "Safety"){
-			Safe = true;
-			safetytimer = 0.0f;
-}
-
-		if (hit.tag == "Platform") {
-			platformcounter++;
-			isPlatform = true;
-		}
-
-		if (hit.tag == "Disable"){
-			isPlatform = false;
 	}
-	}
+			
 
 	void OnTriggerExit2D (Collider2D exit){
 		var hit = exit.gameObject;
@@ -159,15 +190,17 @@ public class PlayerCollision : MonoBehaviour {
     {
 		chosenevent.Invoke();
 	    spriterenderer.enabled = false;
-		foreach(follower segment in GetComponent<PlayerController>().taillist)
-        {
-			segment.gameObject.SetActive(false);
-        }
+
+			foreach (GameObject segment in GetComponent<PlayerController2021remake>().taillist)
+			{
+				segment.SetActive(false);
+			}
+
 		justcollided = true;
 	}
 
 	void Death()
 	{
-		    onDeath.Invoke();
+		onDeath.Invoke();
 	}
 }

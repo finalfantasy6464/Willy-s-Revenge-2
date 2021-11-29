@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RadialActivate : MonoBehaviour
+public class RadialActivate : MonoBehaviour, IPausable
 {
     public RadialGauge radial;
 
@@ -26,12 +26,10 @@ public class RadialActivate : MonoBehaviour
 
     private float collenable;
 
-
+    public bool isPaused { get; set; }
 
     private void Start()
     {
-        radial.gameObject.SetActive(false);
-        radial.enabled = false;
         radial.CurrentValue = 0;
         coll = GetComponent<Collider2D>();
         s_renderer = GetComponent<SpriteRenderer>();
@@ -39,6 +37,68 @@ public class RadialActivate : MonoBehaviour
     }
 
     private void Update()
+    {
+        if (!isPaused)
+        {
+            UnPausedUpdate();
+        }
+    }
+    // Start is called before the first frame update
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.TryGetComponent(out PlayerController2021remake player))
+        {
+            radial.group.alpha = 1f;
+            radial.isSteppedOn = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if(other.TryGetComponent(out PlayerController2021remake player))
+        {
+            radial.isSteppedOn = false;
+            radial.group.alpha = 0f;
+            radial.CurrentValue = 0f;
+        }
+    }
+
+    public void TriggerBoulder()
+    {
+        if(justspawned == false)
+        {
+            isActive = false;
+            GameObject newboulder = Instantiate(boulder);
+            PauseControl.TryAddPausable(newboulder);
+            PauseControl.TryAddPausable(newboulder.transform.GetChild(0).gameObject);
+            if (newboulder.TryGetComponent(out Rigidbody2D boulderBody))
+			{
+				boulderBody.AddForce(Vector3.down);
+				newboulder.GetComponent<Boulder>().SetForce(Vector3.down);
+			}
+
+            boulder.transform.position = spawn.transform.position;
+            boulder.transform.localScale = new Vector3(1.5f + (0.2f * boulderamount), 1.5f + (0.2f * boulderamount), 1);
+            boulderamount += 1;
+            coll.enabled = false;
+            newcolor.a = 0.25f;
+            s_renderer.color = newcolor;
+            justspawned = true;
+        }
+    }
+
+
+    public void OnPause()
+    { }
+
+    public void OnUnpause()
+    { }
+
+    public void PausedUpdate()
+    { }
+
+    public void UnPausedUpdate()
     {
         if (coll.enabled == false && coll != null && isActive == true)
         {
@@ -54,43 +114,9 @@ public class RadialActivate : MonoBehaviour
             }
         }
     }
-    // Start is called before the first frame update
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void OnDestroy()
     {
-        var hit = collision.gameObject;
-
-        if (hit.tag == "Player")
-        {
-            radial.gameObject.SetActive(true);
-            radial.enabled = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        var hit = collision.gameObject;
-        if (hit.tag == "Player")
-        {
-            radial.gameObject.SetActive(false);
-            radial.enabled = false;
-            radial.CurrentValue = 0;
-        }
-    }
-
-    public void TriggerBoulder()
-    {
-        if(justspawned == false)
-        {
-            isActive = false;
-            GameObject newboulder = Instantiate(boulder) as GameObject;
-            boulder.transform.position = spawn.transform.position;
-            boulder.transform.localScale = new Vector3(1.5f + (0.2f * boulderamount), 1.5f + (0.2f * boulderamount), 1);
-            boulderamount += 1;
-            coll.enabled = false;
-            newcolor.a = 0.25f;
-            s_renderer.color = newcolor;
-            justspawned = true;
-        }
+        PauseControl.TryRemovePausable(gameObject);
     }
 }

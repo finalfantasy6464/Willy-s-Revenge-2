@@ -5,6 +5,9 @@ public class RadialGauge : MonoBehaviour
 {
     // Public UI References
     public Image fillImage;
+    public CanvasGroup group;
+
+    public bool isSteppedOn;
 
     // Trackers for min/max values
     protected float maxValue = 2f, minValue = 0f;
@@ -29,14 +32,9 @@ public class RadialGauge : MonoBehaviour
         }
     }
 
-    void Start()
+    public virtual void Start()
     {
         CurrentValue = 0f;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        CurrentValue += 0.0086f;
-    }
 }
