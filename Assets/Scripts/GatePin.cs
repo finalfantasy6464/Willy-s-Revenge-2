@@ -29,7 +29,7 @@ public class GatePin : NavigationPin
     protected override void Awake()
     {
         base.Awake();
-        OnLevelLoaded.AddListener(DestroyCheck);
+        OnLevelLoaded.AddListener(DestroyActivate);
     }
 
     void Start()
@@ -47,13 +47,13 @@ public class GatePin : NavigationPin
     }
 
     //This checks the state of the world orbs when the level is loaded.
-    void DestroyCheck()
+    public void DestroyActivate()
     {
-        if (!locked)
-        {
             Barrier.SetActive(false);
             Crackedorb.SetActive(true);
-        }
+            Completeorb.SetActive(false);
+            destroyed = true;
+            locked = false;
     }
 
     //This checks the state of the world orbs when the player attempts to pass through it

@@ -15,7 +15,7 @@ public class GUIElement : MonoBehaviour
         wasShowing = wasHiding = false;
     }
     
-    public void Hide()
+    public virtual void Hide()
     {
         group.alpha = 0f;
         group.interactable = false;

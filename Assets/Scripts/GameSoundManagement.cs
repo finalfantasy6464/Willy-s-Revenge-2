@@ -31,6 +31,7 @@ public class GameSoundManagement : MonoBehaviour
 
     public Transform player;
 
+    public ScriptablePlayerSettings settings;
 
     const string SOUND_VOLUME = "SFXVolume";
 
@@ -55,16 +56,16 @@ public class GameSoundManagement : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "Overworld")
         {
+            slider = GameObject.FindGameObjectWithTag("soundSlider").GetComponent<Slider>();
+            slider.value = settings.sfxVolume;
             SetAudioInformation();
         }
     }
 
-    private void SetAudioInformation()
+    public void SetAudioInformation()
     {
-        
-        slider.value = PlayerPrefs.GetFloat(SOUND_VOLUME);
-        audioMixer.SetFloat(SOUND_VOLUME, Mathf.Log10(slider.value) * 20);
-  
+        audioMixer.SetFloat(SOUND_VOLUME, Mathf.Log10(settings.sfxVolume) * 20);
+
         if (SceneManager.GetActiveScene().name != "MainMenu"
             && SceneManager.GetActiveScene().name != "Credits")
         {

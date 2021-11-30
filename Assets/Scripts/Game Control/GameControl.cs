@@ -87,6 +87,7 @@ public class GameControl : MonoBehaviour
         control = this;
         onSingletonCheck.Invoke();
         LevelListGeneration();
+        settings.LoadFromDisk();
     }
 
     void PauseControlCheck()
@@ -128,31 +129,6 @@ public class GameControl : MonoBehaviour
         if(completionPercent >= 99f)
         {
             completionPercent = 100f;
-        }
-    }
-
-    public void InitializeOverworldMap(List<GatePin> gates)
-    {
-        lockedgates.Clear();
-        destroyedgates.Clear();
-
-        if (lockedgatescache.Count == 0)
-        {
-            for (int i = 0; i < gates.Count; i++)
-            {
-                lockedgates.Add(true);
-                destroyedgates.Add(false);
-            }
-        }
-        else
-        {
-            for (int i = 0; i < lockedgatescache.Count; i++)
-            {
-                lockedgates.Add(false);
-                destroyedgates.Add(false);
-                lockedgates[i] = lockedgatescache[i];
-                destroyedgates[i] = destroyedgatescache[i];
-            }
         }
     }
 
@@ -201,7 +177,7 @@ public class GameControl : MonoBehaviour
         overworldgui?.UpdateText();
         OverworldCamera overworldCamera = FindObjectOfType<OverworldCamera>();
         overworldCamera?.SetFromSaved(savedCameraPosition, savedOrtographicSize);
-        
+        mapManager?.UpdateWorldGates();
     }
 
     public static void CompletedLevelCheck(int levelID, bool gotGold, bool timerExpired)
@@ -343,6 +319,7 @@ public class GameControl : MonoBehaviour
         }
         gameState.SetFromGameControl(control);
         gameState.WriteToManual(saveSlot);
+        settings.SaveToDisk();
     }
 
     public void AutoSave()
@@ -353,6 +330,7 @@ public class GameControl : MonoBehaviour
         }
         gameState.SetFromGameControl(control);
         gameState.WriteToAuto();
+        settings.SaveToDisk();
     }
 
     public void Load(int saveSlot)
@@ -361,10 +339,12 @@ public class GameControl : MonoBehaviour
         {
             //StartCoroutine(SetWorldGates());
             SetFromGameState();
+            settings.LoadFromDisk();
         }
 
        if(m_Scene.name == "Overworld")
         {
+            Screen.SetResolution(settings.resolutionWidth, settings.resolutionHeight, (FullScreenMode)settings.displayModeIndex);
             StartCoroutine(ChangeCharacterPin());
             OverworldLevelStateUpdate();
             OverworldCharacter Player = GameObject.FindGameObjectWithTag("Player").GetComponent<OverworldCharacter>();
@@ -377,12 +357,13 @@ public class GameControl : MonoBehaviour
         if(gameState.SetFromAuto())
         {
             SetFromGameState();
+            settings.LoadFromDisk();
             //StartCoroutine(SetWorldGates());
         }
 
         if(m_Scene.name == "MainMenu")
         {
-            Debug.Log("Starting wait for overworld coroutine");
+            Screen.SetResolution(settings.resolutionWidth, settings.resolutionHeight, (FullScreenMode)settings.displayModeIndex);
             StartCoroutine(DelayedChangeCharacterPin());
         }
     }

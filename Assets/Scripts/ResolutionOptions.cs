@@ -17,6 +17,8 @@ public class ResolutionOptions : MonoBehaviour
     const string RESOLUTION_OPTION = "ResolutionOption";
     const string FULLSCREEN_OPTION = "FullscreenOption";
 
+    public ScriptablePlayerSettings settings;
+
 
     void Awake()
     {
@@ -61,6 +63,7 @@ public class ResolutionOptions : MonoBehaviour
         SetFullscreen(currentFullscreenIndex);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
+        SetFromSettings();
     }
 
     public void SetResolution(int index)
@@ -70,11 +73,16 @@ public class ResolutionOptions : MonoBehaviour
         Resolution res = options[index];
         Screen.SetResolution(res.width, res.height, Screen.fullScreenMode);
         PlayerPrefs.SetInt(RESOLUTION_OPTION, currentResolutionIndex);
+        settings.resolutionHeight = res.height;
+        settings.resolutionWidth = res.width;
     }
 
     public void SetResolution(int width, int height)
     {
         Screen.SetResolution(width, height, Screen.fullScreenMode);
+        settings.resolutionHeight = height;
+        settings.resolutionWidth = width;
+
         for (int i = 0; i < options.Count; i++)
         {
             if (options[i].width == width
@@ -89,10 +97,27 @@ public class ResolutionOptions : MonoBehaviour
         PlayerPrefs.SetInt(RESOLUTION_OPTION, currentResolutionIndex);
     }
 
+    public void SetFromSettings()
+    {
+        for (int i = 0; i < options.Count; i++)
+        {
+            if (options[i].width == settings.resolutionWidth
+                    && options[i].height == settings.resolutionHeight)
+            {
+                currentResolutionIndex = i;
+                PlayerPrefs.SetInt(RESOLUTION_OPTION, currentResolutionIndex);
+                resolutionDropdown.value = currentResolutionIndex;
+                resolutionDropdown.RefreshShownValue();
+                return;
+            }
+        }
+    }
+
     public void SetFullscreen(int index)
     {
         currentFullscreenIndex = index;
         fullscreenDropdown.value = index;
+        settings.displayModeIndex = index;
         if (index == 0)
             Screen.fullScreenMode = FullScreenMode.Windowed;
         else if (index == 1)

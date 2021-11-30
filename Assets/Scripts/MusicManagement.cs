@@ -13,9 +13,6 @@ public class MusicManagement : MonoBehaviour
     public AudioMixer audioMixer;
     public Slider slider;
 
-    float sliderValue;
-    float logvolume;
-
     public const string MUSIC_VOLUME = "MusicVolume";
 
     AudioClip CurrentMusic;
@@ -28,6 +25,8 @@ public class MusicManagement : MonoBehaviour
 
     public List<AudioClip> musicClips = new List<AudioClip>();
 
+    public ScriptablePlayerSettings settings;
+
     private void Awake()
     {
         onLevelStart = new UnityEvent();
@@ -38,25 +37,17 @@ public class MusicManagement : MonoBehaviour
         onLevelStart.AddListener(MusicCheck);
         if(SceneManager.GetActiveScene().name == "Overworld")
         {
+            slider = GameObject.FindGameObjectWithTag("musicSlider").GetComponent<Slider>();
+            slider.value = settings.bgmVolume;
             SetAudioInformation();
         }
         MusicCheck();
     }
 
-    private void SetAudioInformation()
+    public void SetAudioInformation()
     {
-            slider.value = PlayerPrefs.GetFloat(MUSIC_VOLUME);
-            audioMixer.SetFloat(MUSIC_VOLUME, Mathf.Log10(slider.value) * 20);
+        audioMixer.SetFloat(MUSIC_VOLUME, Mathf.Log10(settings.bgmVolume) * 20);
     }
-
-    public void SetLevel()
-    {
-        logvolume = Mathf.Log10(slider.value) * 20;
-        sliderValue = slider.value;
-        audioMixer.SetFloat(MUSIC_VOLUME, logvolume);
-        PlayerPrefs.SetFloat(MUSIC_VOLUME, sliderValue);
-    }
-
 
     private void MusicCheck()
     {

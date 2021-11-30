@@ -33,6 +33,8 @@ public class MapManager : MonoBehaviour
     public MonoBehaviour[] waypoints;
     public ObjectToggle[] toggle;
 
+    public ScriptablePlayerSettings settings;
+
     private void Start ()
 	{
         character = FindObjectOfType<OverworldCharacter>();
@@ -85,7 +87,6 @@ public class MapManager : MonoBehaviour
         
         backButton.onClick.AddListener(()=> soundManagement.PlaySingle(backsound));
         playButton.onClick.AddListener(()=> soundManagement.PlaySingle(playsound));
-        GameControl.control.InitializeOverworldMap(worldGates);
         InitializeWorldGates();
         InitializeLevelState();
     }
@@ -104,22 +105,15 @@ public class MapManager : MonoBehaviour
 
     void InitializeWorldGates()
     {
-        bool isCacheEmpty = GameControl.control.lockedgatescache.Count == 0;
         GatePin gate;
 
         for (int i = 0; i < worldGates.Count; i++)
         {
             gate = worldGates[i];
-            if (isCacheEmpty)
-            {
-                gate.locked = GameControl.control.lockedgates[i];
-                gate.destroyed = GameControl.control.destroyedgates[i];
-            }
-            else
-            {
-                gate.locked = GameControl.control.lockedgatescache[i];
-                gate.destroyed = GameControl.control.destroyedgatescache[i];
-            }
+
+            gate.locked = GameControl.control.lockedgates[i];
+            gate.destroyed = GameControl.control.destroyedgates[i];
+
             gate.map = this;
             gate.SetOrbState(gate.locked, gate.destroyed);
         }
@@ -149,6 +143,17 @@ public class MapManager : MonoBehaviour
             }
 
             levelPins[i - 1].SetState();
+        }
+    }
+
+    public void UpdateWorldGates()
+    {
+        for (int j = 0; j < worldGates.Count; j++)
+        {
+            if (GameControl.control.destroyedgates[j] == true)
+            {
+                worldGates[j].DestroyActivate();
+            }
         }
     }
 
