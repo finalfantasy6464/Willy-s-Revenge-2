@@ -34,6 +34,9 @@ public class MusicManagement : MonoBehaviour
 
     public void Start()
     {
+        if(!settings.TryLoadFromDisk())
+            settings.CreateNew();
+        
         onLevelStart.AddListener(MusicCheck);
         if(SceneManager.GetActiveScene().name == "Overworld")
         {

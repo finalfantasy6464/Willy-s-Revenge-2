@@ -54,6 +54,20 @@ public class GameSoundManagement : MonoBehaviour
 
     private void Start()
     {
+        if(!settings.TryLoadFromDisk())
+            settings.CreateNew();
+
+        // For checking which scenes are currently active. Can delete after audio works
+        //
+        // int countLoaded = SceneManager.sceneCount;
+        // Scene[] loadedScenes = new Scene[countLoaded];
+        //  
+        // for (int i = 0; i < countLoaded; i++)
+        // {
+            // loadedScenes[i] = SceneManager.GetSceneAt(i);
+            // Debug.Log(loadedScenes[i].name);
+        // }
+        
         if (SceneManager.GetActiveScene().name == "Overworld")
         {
             slider = GameObject.FindGameObjectWithTag("soundSlider").GetComponent<Slider>();

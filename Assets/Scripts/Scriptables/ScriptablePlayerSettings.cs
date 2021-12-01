@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System;
 
 [CreateAssetMenu]
 public class ScriptablePlayerSettings : ScriptableObject
@@ -61,8 +62,26 @@ public class ScriptablePlayerSettings : ScriptableObject
         File.WriteAllLines(SETTINGS_PATH, saveLines);
     }
 
-    public void LoadFromDisk()
+    public void CreateNew()
     {
+        string[] saveLines = new string[]
+        {
+            $"SFX_VOLUME = 0",
+            $"BGM_VOLUME = 0",
+            $"REFRESHRATE = 60",
+            $"RESOLUTION_WIDTH = 1280",
+            $"RESOLUTION_HEIGHT = 720",
+            $"FULLSCREENMODE = 0",
+        };
+
+        File.WriteAllLines(SETTINGS_PATH, saveLines);
+    }
+
+    public bool TryLoadFromDisk()
+    {
+        if(!File.Exists(SETTINGS_PATH))
+            return false;
+
         string[] loadLines = File.ReadAllLines(SETTINGS_PATH);
         
         sfxVolume = float.Parse(TrimFromLine(loadLines[0]));
@@ -71,6 +90,7 @@ public class ScriptablePlayerSettings : ScriptableObject
         resolutionWidth = int.Parse(TrimFromLine(loadLines[3]));
         resolutionHeight = int.Parse(TrimFromLine(loadLines[4]));
         displayModeIndex = int.Parse(TrimFromLine(loadLines[5]));
+        return true;
     }
 
     string TrimFromLine(string s) => (s.Split('=')[1]).TrimStart();

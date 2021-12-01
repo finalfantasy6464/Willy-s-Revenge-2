@@ -87,7 +87,6 @@ public class GameControl : MonoBehaviour
         control = this;
         onSingletonCheck.Invoke();
         LevelListGeneration();
-        settings.LoadFromDisk();
     }
 
     void PauseControlCheck()
@@ -339,7 +338,7 @@ public class GameControl : MonoBehaviour
         {
             //StartCoroutine(SetWorldGates());
             SetFromGameState();
-            settings.LoadFromDisk();
+            settings.TryLoadFromDisk();
         }
 
        if(m_Scene.name == "Overworld")
@@ -357,7 +356,7 @@ public class GameControl : MonoBehaviour
         if(gameState.SetFromAuto())
         {
             SetFromGameState();
-            settings.LoadFromDisk();
+            settings.TryLoadFromDisk();
             //StartCoroutine(SetWorldGates());
         }
 
