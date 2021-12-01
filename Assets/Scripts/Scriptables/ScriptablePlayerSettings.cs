@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System;
+using UnityEngine.Audio;
 
 [CreateAssetMenu]
 public class ScriptablePlayerSettings : ScriptableObject
@@ -15,6 +16,7 @@ public class ScriptablePlayerSettings : ScriptableObject
     public int resolutionWidth;
     public int resolutionHeight;
     public int displayModeIndex; // FullScreenMode
+    public AudioMixer mixer;
 
     void OnEnable()
     {

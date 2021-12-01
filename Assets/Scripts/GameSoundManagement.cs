@@ -31,8 +31,6 @@ public class GameSoundManagement : MonoBehaviour
 
     public Transform player;
 
-    public ScriptablePlayerSettings settings;
-
     const string SOUND_VOLUME = "SFXVolume";
 
     void Awake()
@@ -54,32 +52,15 @@ public class GameSoundManagement : MonoBehaviour
 
     private void Start()
     {
-        if(!settings.TryLoadFromDisk())
-            settings.CreateNew();
-
-        // For checking which scenes are currently active. Can delete after audio works
-        //
-        // int countLoaded = SceneManager.sceneCount;
-        // Scene[] loadedScenes = new Scene[countLoaded];
-        //  
-        // for (int i = 0; i < countLoaded; i++)
-        // {
-            // loadedScenes[i] = SceneManager.GetSceneAt(i);
-            // Debug.Log(loadedScenes[i].name);
-        // }
-        
         if (SceneManager.GetActiveScene().name == "Overworld")
         {
             slider = GameObject.FindGameObjectWithTag("soundSlider").GetComponent<Slider>();
-            slider.value = settings.sfxVolume;
             SetAudioInformation();
         }
     }
 
     public void SetAudioInformation()
     {
-        audioMixer.SetFloat(SOUND_VOLUME, Mathf.Log10(settings.sfxVolume) * 20);
-
         if (SceneManager.GetActiveScene().name != "MainMenu"
             && SceneManager.GetActiveScene().name != "Credits")
         {

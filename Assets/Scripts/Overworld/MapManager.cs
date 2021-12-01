@@ -44,6 +44,8 @@ public class MapManager : MonoBehaviour
         soundManagement.slider = soundSlider;
         musicManagement.slider = musicSlider;
 
+        SetSlidersFromSettings();
+
         if (GameControl.control.lastSceneWasLevel)
         {
             GameControl.control.savedPin = levelPins[GameControl.control.savedPinID - 1];
@@ -89,6 +91,12 @@ public class MapManager : MonoBehaviour
         playButton.onClick.AddListener(()=> soundManagement.PlaySingle(playsound));
         InitializeWorldGates();
         InitializeLevelState();
+    }
+
+    private void SetSlidersFromSettings()
+    {
+        musicSlider.value = settings.bgmVolume;
+        soundSlider.value = settings.sfxVolume;
     }
 
     public void UnlockAndDestroyGate(GatePin gate)

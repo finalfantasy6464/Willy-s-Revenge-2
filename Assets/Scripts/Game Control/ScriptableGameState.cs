@@ -35,6 +35,8 @@ public class ScriptableGameState : ScriptableObject
     public List<bool> lockedgatescache = new List<bool>();
     public List<bool> destroyedgatescache = new List<bool>();
 
+    public bool initialGameStarted;
+
     void OnEnable()
     {
         AUTOSAVE_PATH = Application.persistentDataPath + "/Save_Auto.wr2";
@@ -82,6 +84,8 @@ public class ScriptableGameState : ScriptableObject
             writer.Write(AutosavePosition.x);
             writer.Write(AutosavePosition.y);
             writer.Write(AutosavePosition.z);
+
+            writer.Write(initialGameStarted);
         }
     }
 
@@ -123,6 +127,8 @@ public class ScriptableGameState : ScriptableObject
             savedCameraPosition = new Vector3(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
             savedPinPosition    = new Vector3(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
             AutosavePosition    = new Vector3(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
+
+            initialGameStarted = reader.ReadBoolean();
         }
 
         return true;
@@ -171,6 +177,8 @@ public class ScriptableGameState : ScriptableObject
         savedCameraPosition = control.savedCameraPosition;
         savedPinPosition = control.savedPinPosition;
         AutosavePosition = control.AutosavePosition;
+
+        initialGameStarted = control.InitialGameStarted;
     }
 
     public void WriteToAuto()

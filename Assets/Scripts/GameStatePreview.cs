@@ -29,15 +29,15 @@ public class GameStatePreview
             reader.ReadInt32();              // Timer
             arenaScore = reader.ReadInt32(); 
 
-            completedPercent = GetPercent(reader, 102);
-            goldenPercent = GetPercent(reader, 102);
-            challengePercent = GetPercent(reader, 102);
-            GetPercent(reader, 9); // unused, to skip lockedGates
-            destroyedPercent = GetPercent(reader, 9);
+            completedPercent = GetPercent(reader, 102, 100);
+            goldenPercent = GetPercent(reader, 102, 100);
+            challengePercent = GetPercent(reader, 102, 100);
+            GetPercent(reader, 9, 1); // unused, to skip lockedGates
+            destroyedPercent = GetGatePercent(reader);
         }
     }
 
-    private float GetPercent(BinaryReader reader, int listSize)
+    float GetPercent(BinaryReader reader, int listSize, int denominator)
     {
         List<bool> cacheList = new List<bool>();
         int fulfilled = 0;
@@ -47,10 +47,24 @@ public class GameStatePreview
             cacheList.Add(current);
             if(current) fulfilled++;
         }
-        return (float)fulfilled / (float)listSize;
+        return (float)fulfilled / (float)denominator;
     }
 
-    private void SetSaveTime(int epochTime)
+    float GetGatePercent(BinaryReader reader)
+    {
+        int destroyed = 0;
+        const int gateAmount = 9;
+        for (int i = 0; i < gateAmount; i++)
+        {
+            if(reader.ReadBoolean())
+                destroyed++;
+        }
+        return (float) destroyed / (float)gateAmount;
+    }
+
+    
+
+    void SetSaveTime(int epochTime)
     {
         formattedSaveTime = DateTimeOffset.FromUnixTimeSeconds(epochTime).ToString("MM/dd/yyyy HH:mm:ss");
     }

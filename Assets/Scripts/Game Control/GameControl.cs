@@ -308,6 +308,8 @@ public class GameControl : MonoBehaviour
 
         savedCameraPosition = gameState.savedCameraPosition;
         savedOrtographicSize = gameState.savedOrtographicSize;
+
+        InitialGameStarted = gameState.initialGameStarted;
     }
 
     public void Save(int saveSlot)
