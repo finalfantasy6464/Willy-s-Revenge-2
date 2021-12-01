@@ -104,7 +104,6 @@ public class GameSoundManagement : MonoBehaviour
         logvolume = Mathf.Log10(slider.value) * 20;
         sliderValue = slider.value;
         audioMixer.SetFloat(SOUND_VOLUME, logvolume);
-        PlayerPrefs.SetFloat(SOUND_VOLUME, sliderValue);
     }
 
     public void PlaySingle(AudioClip clip)

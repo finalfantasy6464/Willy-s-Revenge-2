@@ -58,12 +58,10 @@ public class ResolutionOptions : MonoBehaviour
         }
 
         resolutionDropdown.AddOptions(optionlabels);
-        currentResolutionIndex = PlayerPrefs.GetInt(RESOLUTION_OPTION);
-        currentFullscreenIndex = PlayerPrefs.GetInt(FULLSCREEN_OPTION);
         SetFullscreen(currentFullscreenIndex);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
-        SetFromSettings();
+        SetResolutionFromSettings();
     }
 
     public void SetResolution(int index)
@@ -72,7 +70,6 @@ public class ResolutionOptions : MonoBehaviour
         resolutionDropdown.value = index;
         Resolution res = options[index];
         Screen.SetResolution(res.width, res.height, Screen.fullScreenMode);
-        PlayerPrefs.SetInt(RESOLUTION_OPTION, currentResolutionIndex);
         settings.resolutionHeight = res.height;
         settings.resolutionWidth = res.width;
     }
@@ -89,15 +86,13 @@ public class ResolutionOptions : MonoBehaviour
                     && options[i].height == height)
             {
                 currentResolutionIndex = i;
-                PlayerPrefs.SetInt(RESOLUTION_OPTION, currentResolutionIndex);
                 return;
             }
         }
         currentResolutionIndex = 0;
-        PlayerPrefs.SetInt(RESOLUTION_OPTION, currentResolutionIndex);
     }
 
-    public void SetFromSettings()
+    public void SetResolutionFromSettings()
     {
         for (int i = 0; i < options.Count; i++)
         {
@@ -105,7 +100,6 @@ public class ResolutionOptions : MonoBehaviour
                     && options[i].height == settings.resolutionHeight)
             {
                 currentResolutionIndex = i;
-                PlayerPrefs.SetInt(RESOLUTION_OPTION, currentResolutionIndex);
                 resolutionDropdown.value = currentResolutionIndex;
                 resolutionDropdown.RefreshShownValue();
                 return;
@@ -126,6 +120,5 @@ public class ResolutionOptions : MonoBehaviour
             Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
         else if (index == 3)
             Screen.fullScreenMode = FullScreenMode.MaximizedWindow;
-        PlayerPrefs.SetInt(FULLSCREEN_OPTION, currentFullscreenIndex);
     }
 }
