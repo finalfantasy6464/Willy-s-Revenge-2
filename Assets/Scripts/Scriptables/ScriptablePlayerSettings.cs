@@ -68,8 +68,8 @@ public class ScriptablePlayerSettings : ScriptableObject
     {
         string[] saveLines = new string[]
         {
-            $"SFX_VOLUME = 0",
-            $"BGM_VOLUME = 0",
+            $"SFX_VOLUME = 0.25",
+            $"BGM_VOLUME = 0.25",
             $"REFRESHRATE = 60",
             $"RESOLUTION_WIDTH = 1280",
             $"RESOLUTION_HEIGHT = 720",

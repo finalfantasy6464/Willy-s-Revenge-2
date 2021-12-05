@@ -172,8 +172,6 @@ public class GameControl : MonoBehaviour
     {
         MapManager mapManager = FindObjectOfType<MapManager>();
         mapManager?.InitializeLevelState();
-        OverworldGUI overworldgui = FindObjectOfType<OverworldGUI>();
-        overworldgui?.UpdateText();
         OverworldCamera overworldCamera = FindObjectOfType<OverworldCamera>();
         overworldCamera?.SetFromSaved(savedCameraPosition, savedOrtographicSize);
         mapManager?.UpdateWorldGates();
@@ -245,7 +243,6 @@ public class GameControl : MonoBehaviour
         bool timedOut = true;
         OverworldCharacter character = null;
         MapManager map = null;
-        StartChecker checker = FindObjectOfType<StartChecker>();
         OverworldCamera overworldCamera = null;
 
         while(timeoutCounter < timeoutTime)
@@ -338,14 +335,16 @@ public class GameControl : MonoBehaviour
 	{
         if(gameState.SetFromManual(saveSlot))
         {
-            //StartCoroutine(SetWorldGates());
             SetFromGameState();
             settings.TryLoadFromDisk();
         }
 
        if(m_Scene.name == "Overworld")
         {
-            Screen.SetResolution(settings.resolutionWidth, settings.resolutionHeight, (FullScreenMode)settings.displayModeIndex);
+            ResolutionOptions Res = GameObject.Find("OptionsPanel").GetComponent<ResolutionOptions>();
+            OverworldMusicSelector music = GameObject.Find("OverworldMusic").GetComponent<OverworldMusicSelector>();
+            music.overworldmusicCheck();
+            Res.SetResolution(settings.resolutionWidth, settings.resolutionHeight);
             StartCoroutine(ChangeCharacterPin());
             OverworldLevelStateUpdate();
             OverworldCharacter Player = GameObject.FindGameObjectWithTag("Player").GetComponent<OverworldCharacter>();
@@ -359,12 +358,10 @@ public class GameControl : MonoBehaviour
         {
             SetFromGameState();
             settings.TryLoadFromDisk();
-            //StartCoroutine(SetWorldGates());
         }
 
         if(m_Scene.name == "MainMenu")
         {
-            Screen.SetResolution(settings.resolutionWidth, settings.resolutionHeight, (FullScreenMode)settings.displayModeIndex);
             StartCoroutine(DelayedChangeCharacterPin());
         }
     }

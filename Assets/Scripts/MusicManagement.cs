@@ -34,9 +34,13 @@ public class MusicManagement : MonoBehaviour
     {
         onLevelStart.AddListener(MusicCheck);
         if(SceneManager.GetActiveScene().name == "Overworld")
+        {
             slider = GameObject.FindGameObjectWithTag("musicSlider").GetComponent<Slider>();
-
-        MusicCheck();
+        }
+        else
+        {
+            MusicCheck();
+        }
     }
 
     private void MusicCheck()
@@ -189,11 +193,6 @@ public class MusicManagement : MonoBehaviour
         if (index == 100)
         {
             return musicClips[28];
-        }
-
-        if (index == 101)
-        {
-            return musicClips[31];
         }
 
         if (index == 102)

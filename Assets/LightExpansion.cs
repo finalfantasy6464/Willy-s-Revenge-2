@@ -8,6 +8,7 @@ public class LightExpansion : MonoBehaviour
     public float minSize;
     public float maxSize;
     public float changeSpeed = 1.0f;
+    public float initialStartSize;
 
     public bool descending;
 
@@ -16,6 +17,10 @@ public class LightExpansion : MonoBehaviour
     private void Start()
     {
         lightsource = GetComponent<Light2D>();
+        if(initialStartSize != 0)
+        {
+            lightsource.pointLightOuterRadius = initialStartSize;
+        }
     }
 
     private void Update()

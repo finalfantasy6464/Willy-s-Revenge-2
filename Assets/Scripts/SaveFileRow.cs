@@ -42,19 +42,26 @@ public class SaveFileRow : MonoBehaviour
     {
         Debug.Log("setting from control");
         arenaScoreLabel.SetText($"{state.ArenahighScore}");
-        completeLabel.SetText($"{Mathf.FloorToInt(state.complete / 100)}%");
-        gateLabel.SetText($"{Mathf.FloorToInt(GetFulfilled(state.destroyedgates) / 9)}%");
-        challengeLabel.SetText($"{Mathf.FloorToInt(state.timer / 100)}%");
-        goldenLabel.SetText($"{Mathf.FloorToInt(state.golden / 100)}%");
+        completeLabel.SetText($"{Mathf.FloorToInt(state.complete)}%");
+        gateLabel.SetText($"{Mathf.FloorToInt(GetFulfilled(state.destroyedgates))}%");
+        challengeLabel.SetText($"{Mathf.FloorToInt(state.timer)}%");
+        goldenLabel.SetText($"{Mathf.FloorToInt(state.golden)}%");
         timeLabel.SetText(DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"));
     }
 
-    public int GetFulfilled(List<bool> list)
+    public float GetFulfilled(List<bool> list)
     {
-        int fulfilled = 0;
+        float fulfilled = 0;
         foreach (bool value in list)
-            if(value) fulfilled++;
-        
-        return fulfilled;
+            if(value) fulfilled += 11;
+ 
+        if(fulfilled == 99f)
+        {
+            return 100f;
+        }
+        else
+        {
+            return fulfilled;
+        }
     }
 }

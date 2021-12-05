@@ -35,6 +35,8 @@ public class MapManager : MonoBehaviour
 
     public ScriptablePlayerSettings settings;
 
+    public ResolutionOptions resolution;
+
     private void Start ()
 	{
         character = FindObjectOfType<OverworldCharacter>();
@@ -45,6 +47,7 @@ public class MapManager : MonoBehaviour
         musicManagement.slider = musicSlider;
 
         SetSlidersFromSettings();
+        SetResolutionFromSettings();
 
         if (GameControl.control.lastSceneWasLevel)
         {
@@ -91,6 +94,11 @@ public class MapManager : MonoBehaviour
         playButton.onClick.AddListener(()=> soundManagement.PlaySingle(playsound));
         InitializeWorldGates();
         InitializeLevelState();
+    }
+
+    private void SetResolutionFromSettings()
+    {
+        resolution.SetResolution(settings.resolutionWidth, settings.resolutionHeight);
     }
 
     private void SetSlidersFromSettings()

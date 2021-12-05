@@ -24,8 +24,6 @@ public class OverworldGUI : MonoBehaviour
     public GUIWindow tutorial_1;
     public GUIWindow tutorial_2;
     public GUIWindow tutorial_3;
-
-    public Text completionText;
     
     [HideInInspector] public OverworldCharacter character;
     [HideInInspector] public MapManager map;
@@ -43,11 +41,6 @@ public class OverworldGUI : MonoBehaviour
 
     bool isTutorialShowing => tutorial_1.isShowing || tutorial_2.isShowing || tutorial_3.isShowing;
     bool wasTutorialShowing => tutorial_1.wasShowing || tutorial_2.wasShowing || tutorial_3.wasShowing;
-
-    void Start()
-    {
-        UpdateText();
-    }
 
     void Update()
     {
@@ -124,10 +117,5 @@ public class OverworldGUI : MonoBehaviour
         ((LevelPreviewWindow)levelPreview).UpdatePreviewData(level);
         levelPreview.Toggle();
         selectedLevel = level;
-    }
-
-    public void UpdateText()
-    {
-        completionText.text = "Completion: " + GameControl.control.completionPercent.ToString() + "%";
     }
 }
