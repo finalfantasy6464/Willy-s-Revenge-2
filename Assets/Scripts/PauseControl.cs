@@ -37,7 +37,7 @@ public class PauseControl : MonoBehaviour
         //}
     }
 
-    void Update()
+    void LateUpdate()
     {
         if(endCanvas == null || endCanvas.gameObject.activeInHierarchy)
             return;

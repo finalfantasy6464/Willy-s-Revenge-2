@@ -22,9 +22,6 @@ public class Aggroactivate : MonoBehaviour, IPausable
     {
     }
 
-    public void PausedUpdate()
-    { }
-
     public void UnPausedUpdate()
     {
         if (player)

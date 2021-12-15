@@ -38,10 +38,6 @@ public class AnimationEnabler : MonoBehaviour, IPausable
         m_Animator.SetFloat("Speed", 1);
     }
 
-    public void PausedUpdate()
-    {
-    }
-
     public void UnPausedUpdate()
     {
     }

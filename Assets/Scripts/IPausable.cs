@@ -8,6 +8,5 @@ public interface IPausable
     void OnPause();
     void OnUnpause();
     void OnDestroy();
-    void PausedUpdate();
     void UnPausedUpdate();
 }

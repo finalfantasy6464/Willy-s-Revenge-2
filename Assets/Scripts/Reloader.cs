@@ -26,17 +26,12 @@ public class Reloader : MonoBehaviour, IPausable
     void Update()
 	{
         if (!isPaused)
-        {
             UnPausedUpdate();
-        }
 	}
 
     public void OnPause()
     { }
     public void OnUnpause()
-    { }
-
-    public void PausedUpdate()
     { }
 
     public void UnPausedUpdate()

@@ -29,7 +29,8 @@ public class DoorSwitcher : MonoBehaviour
         justchanged = false;
 }
 
-	void OnTriggerEnter2D(Collider2D coll){
+	void OnTriggerEnter2D(Collider2D coll)
+    {
 		var hit = coll.gameObject;
 
 		if (hit.tag == "Player" & type == 1) {
@@ -53,16 +54,22 @@ public class DoorSwitcher : MonoBehaviour
 				door [i].Green = !door [i].Green;
 			}
         }
+    }
 
-}
+    void OnTriggerExit2D(Collider2D coll)
+    {
+        if(coll.gameObject.tag == "Player")
+        {
+            justchanged = false ;
+        }
+    }
+
     void ChangeSprite()
     {
-   
         if (m_spriterenderer.sprite == colours[0] && justchanged == false)
         {
             m_spriterenderer.sprite = colours[1];
             justchanged = true;
-
         }
 
         if (m_spriterenderer.sprite == colours[1] && justchanged == false)
@@ -83,9 +90,4 @@ public class DoorSwitcher : MonoBehaviour
             justchanged = true;
         }
     }
-
-    void LateUpdate()
-        {
-        justchanged = false;
-        }
 }

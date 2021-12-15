@@ -23,8 +23,6 @@ public class AIPathPauser : MonoBehaviour, IPausable
         aicontrol.canMove = true;
     }
 
-    public void PausedUpdate()
-    { }
 
     public void UnPausedUpdate()
     { }

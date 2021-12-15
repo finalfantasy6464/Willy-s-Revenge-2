@@ -28,9 +28,6 @@ public class particlesystemtoggler : MonoBehaviour, IPausable
         }
     }
 
-    public void PausedUpdate()
-    { }
-
     public void UnPausedUpdate()
     { }
 

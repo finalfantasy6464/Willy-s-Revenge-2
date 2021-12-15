@@ -62,9 +62,6 @@ public class RadialProgress : RadialGauge, IPausable
 
     public void OnUnpause()
     { }
-
-    public void PausedUpdate()
-    { }
     
     public void UnPausedUpdate()
     {

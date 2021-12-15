@@ -23,9 +23,7 @@ public class LavaScript : MonoBehaviour, IPausable
     void Update()
     {
         if (!isPaused)
-        {
             UnPausedUpdate();
-        }
     }
 
     void OnTriggerStay2D(Collider2D Lava)
@@ -49,9 +47,6 @@ public class LavaScript : MonoBehaviour, IPausable
     { }
 
     public void OnDestroy()
-    { }
-
-    public void PausedUpdate()
     { }
 
     public void UnPausedUpdate()

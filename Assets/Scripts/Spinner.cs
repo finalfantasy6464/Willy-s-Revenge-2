@@ -44,9 +44,6 @@ public class Spinner : MonoBehaviour, IPausable
     public void OnUnpause()
     { }
 
-    public void PausedUpdate()
-    { }
-
     public void UnPausedUpdate()
     {
         spintimer += Time.deltaTime;

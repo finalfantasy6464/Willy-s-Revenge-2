@@ -40,13 +40,7 @@ public class Quicksand : MonoBehaviour, IPausable
     void Update()
     {
         if (!isPaused)
-        {
             UnPausedUpdate();
-        }
-        else
-        {
-            PausedUpdate();
-        }
     }
 
 
@@ -68,15 +62,12 @@ public class Quicksand : MonoBehaviour, IPausable
     }
 
     public void OnPause()
-    { }
-
-    public void OnUnpause()
-    { }
-
-    public void PausedUpdate()
     {
         move.velocity = new Vector2(0, 0);
     }
+
+    public void OnUnpause()
+    { }
 
     public void UnPausedUpdate()
     {

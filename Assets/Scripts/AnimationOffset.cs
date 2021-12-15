@@ -21,9 +21,6 @@ public class AnimationOffset : MonoBehaviour, IPausable
         GetComponent<Animator>().SetFloat("Speed", NewSpeed);
     }
 
-    public void PausedUpdate()
-    { }
-
     public void UnPausedUpdate()
     { }
 

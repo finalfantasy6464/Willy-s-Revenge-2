@@ -16,9 +16,10 @@ public class Boulder : MonoBehaviour, IPausable
     public AudioClip falling;
     public AudioClip hitting;
 
+    public float maxYVelocity;
     int bouldertotal;
     Rigidbody2D rb;
-    Vector2 storedForce;
+    public Vector2 storedForce;
 
     public List<bool> activated = new List<bool>();
 
@@ -38,6 +39,12 @@ public class Boulder : MonoBehaviour, IPausable
         {
             activate[i] = FloorSwitches[i].GetComponent<RadialActivate>();
         }
+    }
+
+    void Update()
+    {
+        if(!isPaused)
+            UnPausedUpdate();
     }
 
     void OnTriggerEnter2D(Collider2D coll)
@@ -87,16 +94,15 @@ public class Boulder : MonoBehaviour, IPausable
         if(rb == null)
             rb = GetComponent<Rigidbody2D>();
 
-        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        storedForce = rb.velocity;
+        if (rb != null && rb.constraints != RigidbodyConstraints2D.FreezeAll)
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
     }
 
     public void OnUnpause()
     {
-        if(rb == null)
-            rb = GetComponent<Rigidbody2D>();
-
         rb.constraints = RigidbodyConstraints2D.None;
-        rb.AddForce(storedForce);
+        rb.AddForce(storedForce, ForceMode2D.Impulse);
     }
 
     public void OnDestroy()
@@ -104,9 +110,11 @@ public class Boulder : MonoBehaviour, IPausable
         PauseControl.TryRemovePausable(gameObject);
     }
 
-    public void PausedUpdate()
-    { }
-
     public void UnPausedUpdate()
-    { }
+    {
+        if(rb.velocity.y > maxYVelocity)
+        {
+            rb.AddForce(Vector2.down * 5f);
+        }
+    }
 }

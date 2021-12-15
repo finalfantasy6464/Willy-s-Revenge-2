@@ -26,7 +26,6 @@ public class LevelTimerArena : MonoBehaviour, IPausable
 
     public void OnUnpause() {}
 
-    public void PausedUpdate() {}
     #endregion
 
     // Start is called before the first frame update
@@ -67,9 +66,7 @@ public class LevelTimerArena : MonoBehaviour, IPausable
     void Update()
     {
         if (!isPaused)
-        {
             UnPausedUpdate();
-        }
     }
 	public void OnDestroy()
     {

@@ -52,8 +52,6 @@ public class BigOrange : MonoBehaviour, IPausable
 
     public bool isPaused { get; set; }
 
-
-    // Start is called before the first frame update
     void Start()
     {
         m_animator = gameObject.GetComponent<Animator>();
@@ -65,9 +63,7 @@ public class BigOrange : MonoBehaviour, IPausable
 
         speeds = new int[]
         {
-            150,
-            100,
-            50
+            150, 100, 50
         };
     }
 
@@ -78,13 +74,11 @@ public class BigOrange : MonoBehaviour, IPausable
         slider.value = HP;
 
         hpText.text = HP.ToString() + " / " + MaxHP.ToString();
-        {
 
-            if (HP <= 0)
-            {
-                m_animator.Play("Death");
-                hpText.text = "0" + " / " + MaxHP.ToString();
-            }
+        if (HP <= 0)
+        {
+            m_animator.Play("Death");
+            hpText.text = "0" + " / " + MaxHP.ToString();
         }
     }
 
@@ -117,9 +111,7 @@ public class BigOrange : MonoBehaviour, IPausable
         {
             m_animator.SetBool("Stomp", true);
             if(stompspeedindex < 2)
-            {
-                stompspeedindex += 1;
-            }
+                stompspeedindex ++;
         }
     }
 
@@ -141,11 +133,8 @@ public class BigOrange : MonoBehaviour, IPausable
         foreach (AnimatorControllerParameter parameter in m_animator.parameters)
         {
             if (parameter.type == AnimatorControllerParameterType.Bool)
-            {
                 m_animator.SetBool(parameter.name, false);
-            }
         }
-
 
         HPpercentage = Mathf.Round(HP / MaxHP * 100) / 100;
 
@@ -186,80 +175,38 @@ public class BigOrange : MonoBehaviour, IPausable
 
     void SpawnEnemy1()
     {
-        GameObject newenemy = Instantiate(Enemy1) as GameObject;
-        PauseControl.TryAddPausable(newenemy);
-        EnemyMovement movement = newenemy.GetComponent<EnemyMovement>();
-        newenemy.transform.position = spawn1.transform.position;
-        movement.multiplier = 3;
+        CreateEnemy<EnemyMovement>(Enemy1, spawn1, Vector2.zero);
+        CreateEnemy<EnemyMovement>(Enemy1, spawn1, new Vector2(-0.72f, 0));
+        CreateEnemy<EnemyMovement>(Enemy1, spawn1, new Vector2(0.72f, 0));
 
-        GameObject newenemy2 = Instantiate(Enemy1) as GameObject;
-        PauseControl.TryAddPausable(newenemy2);
-        EnemyMovement movement2 = newenemy2.GetComponent<EnemyMovement>();
-        newenemy2.transform.position = spawn1.transform.position + new Vector3(-0.72f, 0, 0);
-        movement2.multiplier = 3;
-
-        GameObject newenemy3 = Instantiate(Enemy1) as GameObject;
-        PauseControl.TryAddPausable(newenemy3);
-        EnemyMovement movement3 = newenemy3.GetComponent<EnemyMovement>();
-        newenemy3.transform.position = spawn1.transform.position + new Vector3(0.72f, 0, 0);
-        movement3.multiplier = 3;
-
-        GameObject newenemy4 = Instantiate(Enemy5) as GameObject;
-        PauseControl.TryAddPausable(newenemy4);
-        EnemyMovementTwo movement4 = newenemy4.GetComponent<EnemyMovementTwo>();
-        newenemy4.transform.position = spawn3.transform.position;
-        movement4.multiplier = 3;
-
-        GameObject newenemy5 = Instantiate(Enemy5) as GameObject;
-        PauseControl.TryAddPausable(newenemy5);
-        EnemyMovementTwo movement5 = newenemy5.GetComponent<EnemyMovementTwo>();
-        newenemy5.transform.position = spawn3.transform.position + new Vector3(0, -0.72f, 0);
-        movement5.multiplier = 3;
-
-        GameObject newenemy6 = Instantiate(Enemy5) as GameObject;
-        PauseControl.TryAddPausable(newenemy6);
-        EnemyMovementTwo movement6 = newenemy6.GetComponent<EnemyMovementTwo>();
-        newenemy6.transform.position = spawn3.transform.position + new Vector3(0, 0.72f, 0);
-        movement6.multiplier = 3;
+        CreateEnemy<EnemyMovementTwo>(Enemy5, spawn3, Vector2.zero);
+        CreateEnemy<EnemyMovementTwo>(Enemy5, spawn3, new Vector2(0, -0.72f));
+        CreateEnemy<EnemyMovementTwo>(Enemy5, spawn3, new Vector2(0, 0.72f));
     }
 
     void SpawnEnemy2()
     {
-        GameObject newenemy = Instantiate(Enemy2) as GameObject;
-        PauseControl.TryAddPausable(newenemy);
-        EnemyMovement movement = newenemy.GetComponent<EnemyMovement>();
-        newenemy.transform.position = spawn2.transform.position;
-        movement.multiplier = 3;
 
-        GameObject newenemy2 = Instantiate(Enemy2) as GameObject;
-        PauseControl.TryAddPausable(newenemy2);
-        EnemyMovement movement2 = newenemy2.GetComponent<EnemyMovement>();
-        newenemy2.transform.position = spawn2.transform.position + new Vector3(-0.72f, 0, 0);
-        movement2.multiplier = 3;
+        CreateEnemy<EnemyMovement>(Enemy2, spawn2, Vector2.zero);
+        CreateEnemy<EnemyMovement>(Enemy2, spawn2, new Vector2(-0.72f, 0));
+        CreateEnemy<EnemyMovement>(Enemy2, spawn2, new Vector2(0.72f, 0));
 
-        GameObject newenemy3 = Instantiate(Enemy2) as GameObject;
-        PauseControl.TryAddPausable(newenemy3);
-        EnemyMovement movement3 = newenemy3.GetComponent<EnemyMovement>();
-        newenemy3.transform.position = spawn2.transform.position + new Vector3(0.72f, 0, 0);
-        movement3.multiplier = 3;
+        CreateEnemy<EnemyMovementTwo>(Enemy6, spawn4, Vector2.zero);
+        CreateEnemy<EnemyMovementTwo>(Enemy6, spawn4, new Vector2(0, -0.72f));
+        CreateEnemy<EnemyMovementTwo>(Enemy6, spawn4, new Vector2(0, 0.72f));
+    }
 
-        GameObject newenemy4 = Instantiate(Enemy6) as GameObject;
-        PauseControl.TryAddPausable(newenemy4);
-        EnemyMovementTwo movement4 = newenemy4.GetComponent<EnemyMovementTwo>();
-        newenemy4.transform.position = spawn4.transform.position;
-        movement4.multiplier = 3;
-
-        GameObject newenemy5 = Instantiate(Enemy6) as GameObject;
-        PauseControl.TryAddPausable(newenemy5);
-        EnemyMovementTwo movement5 = newenemy5.GetComponent<EnemyMovementTwo>();
-        newenemy5.transform.position = spawn4.transform.position + new Vector3(0, 0.72f, 0);
-        movement5.multiplier = 3;
-
-        GameObject newenemy6 = Instantiate(Enemy6) as GameObject;
-        PauseControl.TryAddPausable(newenemy6);
-        EnemyMovementTwo movement6 = newenemy6.GetComponent<EnemyMovementTwo>();
-        newenemy6.transform.position = spawn4.transform.position + new Vector3(0, -0.72f, 0);
-        movement6.multiplier = 3;
+    void CreateEnemy<T>(GameObject prefab, Transform spawn, Vector2 positionOffset)
+    {
+        GameObject newEnemy = Instantiate(prefab);
+        PauseControl.TryAddPausable(newEnemy);
+        T moveComponent = newEnemy.GetComponent<T>();
+        newEnemy.transform.position = spawn.position + (Vector3)positionOffset;
+        
+        if(moveComponent is EnemyMovement moveOne)
+            moveOne.multiplier = 3;
+        if(moveComponent is EnemyMovementTwo moveTwo)
+            moveTwo.multiplier = 3;
     }
 
     void SpawnEnemy3()
@@ -366,9 +313,6 @@ public class BigOrange : MonoBehaviour, IPausable
         m_animator.SetFloat("EntranceSpeed", 1);
         m_animator.SetFloat("Speed", 1 + (3 - (3 * HPpercentage)));
     }
-
-    public void PausedUpdate()
-    { }
 
     public void UnPausedUpdate()
     { }

@@ -88,8 +88,6 @@ public class Bullet : MonoBehaviour, IPausable
 		rb.AddForce(storedForce);
     }
 
-    public void PausedUpdate() {}
-
     public void UnPausedUpdate() {}
 
 	public void OnDestroy()

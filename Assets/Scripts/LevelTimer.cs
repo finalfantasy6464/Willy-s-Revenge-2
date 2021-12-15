@@ -23,8 +23,6 @@ public class LevelTimer : MonoBehaviour, IPausable
     public void OnPause() {}
 
     public void OnUnpause() {}
-
-    public void PausedUpdate() {}
     #endregion
 
     public void UnPausedUpdate()
@@ -48,9 +46,7 @@ public class LevelTimer : MonoBehaviour, IPausable
     void Update()
     {
         if (!isPaused)
-        {
             UnPausedUpdate();
-        }
     }
 	public void OnDestroy()
     {

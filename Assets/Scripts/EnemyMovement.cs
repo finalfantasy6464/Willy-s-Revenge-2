@@ -154,8 +154,6 @@ public class EnemyMovement : MonoBehaviour, IPausable
 
     public void OnUnpause() { }
 
-    public void PausedUpdate() { }
-
     public void UnPausedUpdate()
     {
             if (lifespan)

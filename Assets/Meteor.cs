@@ -52,11 +52,6 @@ public class Meteor : MonoBehaviour, IPausable
         PauseControl.TryRemovePausable(gameObject);
     }
 
-    public void PausedUpdate()
-    {
-        
-    }
-
     public void UnPausedUpdate()
     {
         

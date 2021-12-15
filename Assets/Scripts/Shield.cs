@@ -28,29 +28,19 @@ public class Shield : MonoBehaviour, IPausable
 
 	void Update(){
         if (!isPaused)
-        {
             UnPausedUpdate();
-        }
-        else
-        {
-            PausedUpdate();
-        }
 	}
 
     public void OnPause()
     {
         GetComponent<ParticleSystem>().Pause();
+        spinner.spinamount = 0;
+        source.Pause();
     }
 
     public void OnUnpause()
     {
         GetComponent<ParticleSystem>().Play();
-    }
-
-    public void PausedUpdate()
-    {
-        spinner.spinamount = 0;
-        source.Pause();
     }
 
     public void UnPausedUpdate()

@@ -31,9 +31,7 @@ public class EnemyProjectile : MonoBehaviour, IPausable
     void Update()
     {
         if (!isPaused)
-        {
             UnPausedUpdate();
-        }
     }
 
 	void CheckIfTimeToFire()
@@ -49,28 +47,26 @@ public class EnemyProjectile : MonoBehaviour, IPausable
 
     void Fire()
     {
-            GameObject newBullet = Instantiate(bullet, transform.position, Quaternion.identity);
-            newBullet.transform.localScale = newBullet.transform.localScale * bulletscale;
-            PauseControl.TryAddPausable(newBullet);
+        GameObject newBullet = Instantiate(bullet, transform.position, Quaternion.identity);
+        newBullet.transform.localScale = newBullet.transform.localScale * bulletscale;
+        PauseControl.TryAddPausable(newBullet);
+        PauseControl.TryAddPausable(newBullet.transform.GetChild(0).gameObject);
 
-            if (newBullet.TryGetComponent(out Rigidbody2D bulletBody))
-            {
-                if(player != null)
-            {
-                firingangle = player.position - transform.position;
-            }
-                bulletBody.AddForce((firingangle.normalized) * truespeed);
-                newBullet.GetComponent<Aimedbullet>().SetForce((firingangle.normalized) * (truespeed / 2));
-            }
+        if (newBullet.TryGetComponent(out Rigidbody2D bulletBody))
+        {
+            if(player != null)
+        {
+            firingangle = player.position - transform.position;
+        }
+            bulletBody.AddForce((firingangle.normalized) * truespeed);
+            newBullet.GetComponent<Aimedbullet>().SetForce((firingangle.normalized) * (truespeed / 2));
+        }
     }
 
     public void OnPause()
     { }
 
     public void OnUnpause()
-    { }
-
-    public void PausedUpdate()
     { }
 
     public void UnPausedUpdate()

@@ -27,48 +27,30 @@ public class Aimedbullet : MonoBehaviour, IPausable
     // Update is called once per frame
 	void OnTriggerEnter2D(Collider2D coll)
 	{
-	var hit = coll.gameObject;
+		var hit = coll.gameObject;
+		string tag = coll.gameObject.tag;
 
-	if (hit.tag == "Arena"){
-		Destroy (gameObject);
-	}
+		if (tag == "Arena" || tag == "Enemy5" || tag == "Bullet" || tag == "Switch2")
+			Destroy (gameObject);
 
-	if (hit.tag == "Enemy5"){
-		Destroy (gameObject);
-	}
+		if (playercontroller == null)
+			return;
 
-	if (hit.tag == "Bullet") {
-		Destroy (gameObject);
-	}
-
-	if (hit.tag == "Switch2") {
-		Destroy (gameObject);
-	}
-
-	if (playercontroller != null) {
-		if (playercontroller.shieldactive == false) {
-			if (hit.tag == "Player" && playercoll.canbehit == true) {
-				Destroy (hit);
-				SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
+		if (!playercontroller.shieldactive)
+		{
+			if (hit.tag == "Player" && playercoll.canbehit)
+			{
+				Destroy(hit);
+				SceneManager.LoadScene(SceneManager.GetActiveScene ().name);
 			}
 		}
 
-		if (playercontroller.shieldactive == true) {
-			if (hit.tag == "Player") {
+		if (playercontroller.shieldactive)
+		{
+			if (hit.tag == "Player")
 				Destroy (gameObject);
-			}
-		} else {
 		}
 	}
-}
-
-	void Update()
-    {
-        if (isPaused)
-        {
-			PausedUpdate();
-        }
-    }
 
 	public void SetForce(Vector2 f)
     {
@@ -77,7 +59,8 @@ public class Aimedbullet : MonoBehaviour, IPausable
 
 	public void OnPause()
 	{
-		if (rb != null)
+		storedForce = rb.velocity;
+		if (rb != null && rb.constraints != RigidbodyConstraints2D.FreezeAll)
 		{
 			rb.constraints = RigidbodyConstraints2D.FreezeAll;
 		}
@@ -86,21 +69,13 @@ public class Aimedbullet : MonoBehaviour, IPausable
 	public void OnUnpause()
     {
 		rb.constraints = RigidbodyConstraints2D.None;
-		rb.AddForce(storedForce);
+		rb.AddForce(storedForce, ForceMode2D.Impulse);
 	}
 
     public void OnDestroy()
     {
 		PauseControl.TryRemovePausable(gameObject);
     }
-
-	public void PausedUpdate()
-	{
-		if(rb != null && rb.constraints != RigidbodyConstraints2D.FreezeAll)
-		{
-				rb.constraints = RigidbodyConstraints2D.FreezeAll;
-        }
-	}
 
 	public void UnPausedUpdate()
 	{ }

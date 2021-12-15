@@ -33,9 +33,6 @@ public class Sawblade : MonoBehaviour, IPausable
     public void OnUnpause()
     {}
 
-    public void PausedUpdate()
-    {}
-
     public void UnPausedUpdate()
     {
 		transform.Rotate(0, 0, rotspeed);

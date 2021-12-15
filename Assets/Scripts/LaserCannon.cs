@@ -64,9 +64,7 @@ public class LaserCannon : MonoBehaviour, IPausable
     private void Update()
     {
         if (!isPaused)
-        {
             UnPausedUpdate();
-        }
     }
 
     private void RaycastDirection()
@@ -126,9 +124,6 @@ public class LaserCannon : MonoBehaviour, IPausable
     {
         material.SetVector("_Speed", new Vector2(-0.2f,0));
     }
-
-    public void PausedUpdate()
-    {}
 
     public void UnPausedUpdate()
     {

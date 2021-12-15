@@ -39,9 +39,7 @@ public class RadialActivate : MonoBehaviour, IPausable
     private void Update()
     {
         if (!isPaused)
-        {
             UnPausedUpdate();
-        }
     }
     // Start is called before the first frame update
 
@@ -74,8 +72,8 @@ public class RadialActivate : MonoBehaviour, IPausable
             PauseControl.TryAddPausable(newboulder.transform.GetChild(0).gameObject);
             if (newboulder.TryGetComponent(out Rigidbody2D boulderBody))
 			{
-				boulderBody.AddForce(Vector3.down);
-				newboulder.GetComponent<Boulder>().SetForce(Vector3.down);
+				boulderBody.AddForce(Vector3.down * 80 );
+				newboulder.GetComponent<Boulder>().SetForce(Vector3.down * 80);
 			}
 
             boulder.transform.position = spawn.transform.position;
@@ -93,9 +91,6 @@ public class RadialActivate : MonoBehaviour, IPausable
     { }
 
     public void OnUnpause()
-    { }
-
-    public void PausedUpdate()
     { }
 
     public void UnPausedUpdate()

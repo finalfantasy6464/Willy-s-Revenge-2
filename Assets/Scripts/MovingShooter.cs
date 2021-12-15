@@ -34,9 +34,7 @@ public class MovingShooter : MonoBehaviour, IPausable
     void Update()
 	{
         if (!isPaused)
-        {
 			UnPausedUpdate();
-        }
 	}
 
 	void Attacking()
@@ -62,8 +60,6 @@ public class MovingShooter : MonoBehaviour, IPausable
 	public void OnPause() {}
 
 	public void OnUnpause() {}
-
-    public void PausedUpdate() {}
 
     public void UnPausedUpdate()
     {
