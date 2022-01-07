@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GoldenPellet : MonoBehaviour
 {
-
 	PlayerController playercontroller;
 	GameObject Player;
 
