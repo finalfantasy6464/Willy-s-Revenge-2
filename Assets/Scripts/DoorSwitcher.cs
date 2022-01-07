@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class DoorSwitcher : MonoBehaviour
 {
+
+    public Light2D switchlight;
 
 	public int type = 1;
 
@@ -14,6 +17,9 @@ public class DoorSwitcher : MonoBehaviour
     private bool justchanged;
 
     public Sprite initialsprite;
+
+    public Color initialColor;
+
     public Sprite[] colours;
 
     public SpriteRenderer m_spriterenderer;
@@ -26,6 +32,7 @@ public class DoorSwitcher : MonoBehaviour
 		Colourdoor = GameObject.FindGameObjectsWithTag ("Colour");
 		door = new ColouredDoor[Colourdoor.Length];
         m_spriterenderer.sprite = initialsprite;
+        switchlight.color = initialColor;
         justchanged = false;
 }
 
@@ -69,24 +76,28 @@ public class DoorSwitcher : MonoBehaviour
         if (m_spriterenderer.sprite == colours[0] && justchanged == false)
         {
             m_spriterenderer.sprite = colours[1];
+            switchlight.color = new Color(0, 0, 0.5f);
             justchanged = true;
         }
 
         if (m_spriterenderer.sprite == colours[1] && justchanged == false)
         {
             m_spriterenderer.sprite = colours[0];
+            switchlight.color = new Color(0.5f, 0, 0);
             justchanged = true;
         }
 
         if (m_spriterenderer.sprite == colours[2] && justchanged == false)
         {
             m_spriterenderer.sprite = colours[3];
+            switchlight.color = new Color(0, 0.5f, 0);
             justchanged = true;
         }
 
         if (m_spriterenderer.sprite == colours[3] && justchanged == false)
         {
             m_spriterenderer.sprite = colours[2];
+            switchlight.color = new Color(0.5f, 0.5f,0);
             justchanged = true;
         }
     }
