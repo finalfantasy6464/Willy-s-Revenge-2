@@ -40,7 +40,11 @@ public abstract class WorldTransition : MonoBehaviour
     {
 
         if(progressViewForward != OverworldProgressView.None)
+        {
             overworldCamera.viewToggler.Set(progressViewForward);
+            GameObject gameControl = GameObject.Find("GameControl");
+            gameControl.GetComponent<GameControl>().progressView = progressViewForward;
+        }
         // if (toggle != null && toggle.enabled)
         // {
             // toggle.ToggleBehaviour();
@@ -66,7 +70,12 @@ public abstract class WorldTransition : MonoBehaviour
     public void TriggerToggleBehaviourBackward()
     {
         if(progressViewBackward != OverworldProgressView.None)
+        {
             overworldCamera.viewToggler.Set(progressViewBackward);
+            GameObject gameControl = GameObject.Find("GameControl");
+            gameControl.GetComponent<GameControl>().progressView = progressViewBackward;
+        }
+
         // if (backwardToggle != null && backwardToggle.enabled)
         // {
             // backwardToggle.ToggleBehaviour();

@@ -11,6 +11,8 @@ public class OverworldCharacter : MonoBehaviour
     public  bool canMove;
     public Sprite[] skinSprites;
 
+    OverworldMusicSelector owMusic;
+
     [Header("Live Data")]
     public NavigationPin currentPin;
     public NavigationPin targetPin;
@@ -57,6 +59,12 @@ public class OverworldCharacter : MonoBehaviour
     {
         this.GetComponent<SpriteRenderer>().sprite = skinSprites[index];
         GameControl.control.currentCharacterSprite = index;
+    }
+
+    public void ChangeOverworldMusic()
+    {
+        owMusic = GameObject.Find("OverworldMusic").GetComponent<OverworldMusicSelector>();
+        owMusic.overworldmusicCheck();
     }
 
     void Update()

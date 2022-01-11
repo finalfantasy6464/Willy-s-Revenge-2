@@ -8,6 +8,7 @@ public class OverworldCamera : MonoBehaviour
 {
     public Camera gameCamera;
     public OverworldViewToggler viewToggler;
+    public BackgroundColourController bgColour;
     public OverworldCharacter character;
     public ProgressSetting progressCalculation;
     public Checkpoint currentCheckpointA;

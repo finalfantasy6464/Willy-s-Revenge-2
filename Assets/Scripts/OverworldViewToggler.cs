@@ -23,15 +23,18 @@ public class OverworldViewToggler : MonoBehaviour
     {
         this.view = view;
         GetAll[(int)view]?.Trigger();
+        GetAll[(int)view]?.SetSkyBoxColour();
     }
 
     [System.Serializable]
     public class ActivationPair
     {
+        public OverworldCamera owCamera;
         public GameObject[] toActivate;
         public GameObject[] toDeactivate;
         public SpriteRenderer[] renderersToActivate;
         public SpriteRenderer[] renderersToDeactivate;
+        public Color skyboxColour;
 
         public void Trigger()
         {
@@ -46,6 +49,11 @@ public class OverworldViewToggler : MonoBehaviour
 
             foreach (SpriteRenderer sr in renderersToDeactivate)
                 sr.enabled = false;
+        }
+        public void SetSkyBoxColour()
+        {
+            if (skyboxColour != Color.white)
+                owCamera.gameCamera.backgroundColor = skyboxColour;
         }
     }
 }

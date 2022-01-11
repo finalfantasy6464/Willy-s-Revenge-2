@@ -5,11 +5,15 @@ using UnityEngine;
 public class BackgroundColourController : MonoBehaviour
 {
     public Camera mainCamera;
+    OverworldViewToggler viewToggler;
+
     public Gradient changeGradient;
 
     private float changeProgress = 0f;
 
     public int progressIndex;
+
+    private bool settingprogress = false;
 
     public OverworldCharacter character;
 
@@ -18,12 +22,25 @@ public class BackgroundColourController : MonoBehaviour
 
     private void Start()
     {
-        TrySetProgress(0.0f);
+        viewToggler = mainCamera.GetComponent<OverworldViewToggler>();
+        if (viewToggler.view != OverworldProgressView.Moon && viewToggler.view != OverworldProgressView.UFO)
+        {
+            ProgressStateCheck(viewToggler.view);
+            TrySetProgress(0.0f);
+        }
+    }
+
+    public void ProgressStateCheck(OverworldProgressView view)
+    {
+        settingprogress = view != OverworldProgressView.Moon && view != OverworldProgressView.UFO;
     }
 
     private void Update()
     {
-        SetProgressFromIndex(progressIndex);
+        if (settingprogress)
+        {
+            SetProgressFromIndex(progressIndex);
+        }
     }
 
     public float InverseLerp(Vector3 a, Vector3 b, Vector3 value)
