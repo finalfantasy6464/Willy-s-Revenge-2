@@ -45,26 +45,6 @@ public abstract class WorldTransition : MonoBehaviour
             GameObject gameControl = GameObject.Find("GameControl");
             gameControl.GetComponent<GameControl>().progressView = progressViewForward;
         }
-        // if (toggle != null && toggle.enabled)
-        // {
-            // toggle.ToggleBehaviour();
-        // }
-// 
-        // if (waypoint != null)
-        // {
-                // if (waypoint is ColourWaypoints)
-                // {
-                    // ((ColourWaypoints)waypoint).WaypointBehaviour();
-                // }
-                // else if (waypoint is MoonToggle)
-                // {
-                    // ((MoonToggle)waypoint).WaypointBehaviour();
-                // }
-                // else if (waypoint is AlienToggle)
-                // {
-                    // ((AlienToggle)waypoint).WaypointBehaviour();
-                // }
-        // }
     }
 
     public void TriggerToggleBehaviourBackward()
@@ -75,27 +55,6 @@ public abstract class WorldTransition : MonoBehaviour
             GameObject gameControl = GameObject.Find("GameControl");
             gameControl.GetComponent<GameControl>().progressView = progressViewBackward;
         }
-
-        // if (backwardToggle != null && backwardToggle.enabled)
-        // {
-            // backwardToggle.ToggleBehaviour();
-        // }
-// 
-        // if (backwardswaypoint != null)
-        // {
-            // if (backwardswaypoint is ColourWaypoints)
-            // {
-                // ((ColourWaypoints)backwardswaypoint).WaypointBehaviour();
-            // }
-            // else if (backwardswaypoint is MoonToggle)
-            // {
-                // ((MoonToggle)backwardswaypoint).WaypointBehaviour();
-            // }
-            // else if (backwardswaypoint is AlienToggle)
-            // {
-                // ((AlienToggle)backwardswaypoint).WaypointBehaviour();
-            // }
-        // }
     }
 
     void OnTransitionStart()

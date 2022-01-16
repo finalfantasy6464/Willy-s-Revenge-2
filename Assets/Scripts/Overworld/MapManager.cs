@@ -56,27 +56,22 @@ public class MapManager : MonoBehaviour
 
             if(GameControl.control.savedPinID > 0 && GameControl.control.savedPinID < 31)
             {
-                (waypoints[0] as ColourWaypoints).WaypointBehaviour();
                 toggle[0].ToggleBehaviour();
             }
             if (GameControl.control.savedPinID >= 31 && GameControl.control.savedPinID <= 70)
             {
-                (waypoints[1] as ColourWaypoints).WaypointBehaviour();
                 toggle[1].ToggleBehaviour();
             }
             if (GameControl.control.savedPinID >= 71 && GameControl.control.savedPinID <= 80)
             {
-                (waypoints[2] as ColourWaypoints).WaypointBehaviour();
                 toggle[2].ToggleBehaviour();
             }
             if (GameControl.control.savedPinID >= 81 && GameControl.control.savedPinID <= 90)
             {
-                (waypoints[3] as MoonToggle).WaypointBehaviour();
                 toggle[3].ToggleBehaviour();
             }
             if (GameControl.control.savedPinID > 90)
             {
-                (waypoints[4] as AlienToggle).WaypointBehaviour();
                 toggle[4].ToggleBehaviour();
             }
         }

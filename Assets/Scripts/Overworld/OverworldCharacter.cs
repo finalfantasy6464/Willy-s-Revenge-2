@@ -12,6 +12,7 @@ public class OverworldCharacter : MonoBehaviour
     public Sprite[] skinSprites;
 
     OverworldMusicSelector owMusic;
+    public OverworldViewToggler viewToggler;
 
     [Header("Live Data")]
     public NavigationPin currentPin;
@@ -25,6 +26,8 @@ public class OverworldCharacter : MonoBehaviour
     MapManager map;
 
     public Animator myAnimator;
+
+    public event Action<float> OnMovePinRoutine;
 
     void Awake()
     {
@@ -135,21 +138,23 @@ public class OverworldCharacter : MonoBehaviour
 
         isMoving = true;
         currentPin.onCharacterExit.Invoke();
-        float t = 0f;
+        float counter = 0f;
+        float moveTime = 1f;
+        StartCoroutine(viewToggler.PinToPinBackgroundColorRoutine(currentPin, moveTime));
         Vector2[] points = isReturning ? path.GetPointsReversed() : path.GetPoints();
         Vector2 lookDirection = Vector2.zero;
         float arcLength = BezierManager.GetLengthFromPoints(points);
         float moveStep = (moveSpeed * 0.1f) / arcLength;
-        
-        while(t < 1f)
+
+        while(counter < moveTime)
         {
             if(isIgnoringPath)
                 yield break;
 
-            t += moveStep;
-            currentPathTime = t;
-            transform.position = BezierManager.GetPositionAtTime(points, t); 
-            lookDirection = (Vector2)BezierManager.GetPositionAtTime(points, t + moveStep)
+            counter += moveStep;
+            currentPathTime = counter;
+            transform.position = BezierManager.GetPositionAtTime(points, counter); 
+            lookDirection = (Vector2)BezierManager.GetPositionAtTime(points, counter + moveStep)
                     - (Vector2)transform.position;
             transform.rotation = Quaternion.Euler(
                     0, 0, Vector2.SignedAngle(Vector2.right, lookDirection));

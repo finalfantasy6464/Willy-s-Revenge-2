@@ -13,18 +13,4 @@ public class ColourWaypoints : MonoBehaviour
 
     public BackgroundColourController bgController;
 
-    public void OnTriggerEnter2D(Collider2D coll)
-    {
-        if(!enabled) return;
-        if (coll.CompareTag("Player"))
-        {
-            WaypointBehaviour();
-        }
-    }
-
-    public void WaypointBehaviour()
-    {
-        bgController.progressIndex = progressIndex;
-        bgController.SetVectorTransforms(checkStart, checkEnd);
-    }
 }
