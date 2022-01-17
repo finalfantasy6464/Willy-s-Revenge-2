@@ -78,7 +78,8 @@ public class OverworldViewToggler : MonoBehaviour
         {
             if(currentPin == map.levelPins[i])
             {
-                currentPinIndex = i;                
+                currentPinIndex = i;
+                Debug.Log(currentPinIndex);
             }
         }
         
@@ -95,6 +96,7 @@ public class OverworldViewToggler : MonoBehaviour
                         {
                             leftSideFound = true;
                             gradientColorStart = pairColors[k];
+                            Debug.Log(gradientColorStart);
                         }
                     }
                 }    
@@ -108,6 +110,7 @@ public class OverworldViewToggler : MonoBehaviour
                         {
                             rightSideFound = true;
                             gradientColorEnd = pairColors[k];
+                            Debug.Log(gradientColorEnd);
                         }
                     }
                 }                
