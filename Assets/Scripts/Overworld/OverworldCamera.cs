@@ -63,10 +63,11 @@ public class OverworldCamera : MonoBehaviour
         currentCheckpointB = b;
     }
 
-    public void SetFromSaved(Vector3 position, float ortographicSize)
+    public void SetFromSaved(Vector3 position, float ortographicSize, Color backgroundColor)
     {
         transform.position = new Vector3(position.x, position.y, transform.position.z);
         gameCamera.orthographicSize = ortographicSize;
+        gameCamera.backgroundColor = backgroundColor;
         viewToggler.Set(GameControl.control.progressView);
     }
 

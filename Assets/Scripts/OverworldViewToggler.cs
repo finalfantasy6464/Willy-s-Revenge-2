@@ -17,12 +17,17 @@ public class OverworldViewToggler : MonoBehaviour
     public OverworldCamera overworldCamera;
     public MapManager map;
 
+    public GatePin[] gates;
+    public LevelPin[] redirectedGates;
+
     List<Color> pairColors;
     List<int> pinIndexes;
+    Dictionary<int, Color> pinDict;
+    ActivationPair none;
+    public IEnumerator pathBackgroundColorRoutine;
 
     void Start()
     {
-
         pairColors = new List<Color>();
         for (int i = 1; i < GetAll.Length; i++)
         {
@@ -31,11 +36,19 @@ public class OverworldViewToggler : MonoBehaviour
 
         pinIndexes = new List<int>()
         {
-            0, 30, 70, 80, 90
+            0, 30, 70, 78, 80, 102
+        };
+
+        pinDict = new Dictionary<int, Color>()
+        {
+            { pinIndexes[0], pairColors[0]},
+            { pinIndexes[1], pairColors[1]},
+            { pinIndexes[2], pairColors[2]},
+            { pinIndexes[3], pairColors[3]},
+            { pinIndexes[4], pairColors[4]},
+            { pinIndexes[5], pairColors[5]}
         };
     }
-
-    ActivationPair none;
 
     public ActivationPair[] GetAll => new ActivationPair[]
     {
@@ -47,85 +60,94 @@ public class OverworldViewToggler : MonoBehaviour
         this.view = view;
         current = GetAll[(int)view];
         GetAll[(int)view]?.Trigger();
-        GetAll[(int)view]?.SetSkyBoxColour();
     }
 
-    public IEnumerator BackgroundColorRoutine(Animator playerAnimator)
+    public IEnumerator PinToPinBackgroundColorRoutine(NavigationPin currentPin, OverworldCharacter character, bool isReturning, float moveTime)
     {
-        float counter = 0f;
-        float time = 1f;
-        Color start = overworldCamera.gameCamera.backgroundColor;
-        Color end = current.skyboxColour;
-        while (counter < time)
+        // Can't go back
+        if(isReturning)
         {
-            overworldCamera.gameCamera.backgroundColor = Color.Lerp(
-                    start, end, playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime);
-            yield return null;
+            pathBackgroundColorRoutine = null;
+            yield break;
         }
-    }
+        NavigationPin current = currentPin;
 
-    public IEnumerator PinToPinBackgroundColorRoutine(NavigationPin currentPin, float moveTime)
-    {
-        Color gradientColorStart = Color.clear;
-        Color gradientColorEnd = Color.clear;
-
-        bool leftSideFound = false;
-        bool rightSideFound = false;
+        if(currentPin is GatePin)
+        {
+            for (int i = 0; i < gates.Length; i++)
+            {
+                if(currentPin == gates[i])
+                {
+                    current = redirectedGates[i];
+                    break;
+                }
+            }
+        }
 
         int currentPinIndex = 0;
 
         for (int i = 0; i < map.levelPins.Count; i++)
         {
-            if(currentPin == map.levelPins[i])
+            if(current == map.levelPins[i])
             {
                 currentPinIndex = i;
-                Debug.Log(currentPinIndex);
+                break;
             }
         }
+
+        Debug.Log(currentPinIndex);
+        int gradientStartIndex = FindNearestLeft(currentPinIndex);
+        int gradientEndIndex = Mathf.Min(102, FindNearestRight(currentPinIndex));
+        int nextIndex = Mathf.Min(currentPinIndex + 1, 102);
+
+        Color gradientStart = pinDict[gradientStartIndex];
+        Color gradientEnd = pinDict[gradientEndIndex];
+
+        Color currentColor = overworldCamera.gameCamera.backgroundColor;
+        Color nextColor = Color.Lerp(gradientStart, gradientEnd,
+                (float)(nextIndex - gradientStartIndex) / (float)(gradientEndIndex - gradientStartIndex));
         
-        for (int i = 0; i < map.levelPins.Count; i++)
-        {
-            if(i == currentPinIndex)
-            {
-                // find left side
-                for (int j = currentPinIndex; j > 0; j--)
-                {
-                    for (int k = 0; k < pinIndexes.Count; k++)
-                    {
-                        if(currentPinIndex == pinIndexes[k])
-                        {
-                            leftSideFound = true;
-                            gradientColorStart = pairColors[k];
-                            Debug.Log(gradientColorStart);
-                        }
-                    }
-                }    
-
-                // find right side
-                for (int j = currentPinIndex; j < map.levelPins.Count; j++)
-                {
-                    for (int k = 0; k < pinIndexes.Count; k++)
-                    {
-                        if(currentPinIndex == pinIndexes[k])
-                        {
-                            rightSideFound = true;
-                            gradientColorEnd = pairColors[k];
-                            Debug.Log(gradientColorEnd);
-                        }
-                    }
-                }                
-            }
-        }
-
         float counter = 0f;
-
+        
         while (counter < moveTime)
         {
             counter += Time.deltaTime;
-            overworldCamera.gameCamera.backgroundColor = Color.Lerp(
-                    gradientColorStart, gradientColorEnd, counter / moveTime);
+            
+            overworldCamera.gameCamera.backgroundColor = Color.Lerp(currentColor, nextColor, counter / moveTime);
             yield return null;
         }
+
+        pathBackgroundColorRoutine = null;
+    }
+
+    int FindNearestRight(int i)
+    {
+        while(i < pinIndexes[pinIndexes.Count - 1])
+        {
+            if(pinIndexes.Contains(i))
+                return i;
+            else
+                i++;
+        }
+        return i;
+    }
+
+    int FindNearestLeft(int i)
+    {
+        while(i > 0)
+        {
+            if(pinIndexes.Contains(i))
+                return i;
+            else
+                i--;
+        }
+        return i;
+    }
+    
+    public void PlayPathBackgroundColorRoutine(OverworldCharacter character, bool isReturning, float moveTime)
+    {
+        pathBackgroundColorRoutine = PinToPinBackgroundColorRoutine(character.currentPin, character, isReturning, moveTime);
+        StartCoroutine(pathBackgroundColorRoutine);
     }
 
     [System.Serializable]
@@ -151,12 +173,6 @@ public class OverworldViewToggler : MonoBehaviour
 
             foreach (SpriteRenderer sr in renderersToDeactivate)
                 sr.enabled = false;
-        }
-        
-        public void SetSkyBoxColour()
-        {
-            if (skyboxColour != Color.white)
-                owCamera.gameCamera.backgroundColor = skyboxColour;
         }
     }
 }

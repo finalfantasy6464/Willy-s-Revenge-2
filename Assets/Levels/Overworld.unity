@@ -101811,6 +101811,7 @@ MonoBehaviour:
   backwardToggle: {fileID: 386438554}
   waypoint: {fileID: 2103455202}
   backwardswaypoint: {fileID: 594231692}
+  viewToggler: {fileID: 2105055297}
   playerAnimator: {fileID: 1281524532}
   sproutAnimator: {fileID: 846473865}
 --- !u!1001 &1286901206
@@ -116529,7 +116530,7 @@ PrefabInstance:
     - target: {fileID: 7784827376124914411, guid: 88b6f36f7fae47242a6080d76029a92f,
         type: 3}
       propertyPath: complete
-      value: 0
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 7784827376124914411, guid: 88b6f36f7fae47242a6080d76029a92f,
         type: 3}
@@ -147547,7 +147548,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.8732921, g: 0.8962264, b: 0.7228996, a: 1}
+  m_BackGroundColor: {r: 0.8666667, g: 0.85882354, b: 0.7490196, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -147606,7 +147607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6443e687121ea9247909a433149bf5df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  view: 0
+  view: 1
   worldLeft:
     owCamera: {fileID: 2105055301}
     toActivate:
@@ -147655,7 +147656,7 @@ MonoBehaviour:
     - {fileID: 574349776}
     - {fileID: 1452484668}
     - {fileID: 184505768}
-    skyboxColour: {r: 0.7783019, g: 1, b: 0.9615213, a: 1}
+    skyboxColour: {r: 0.8679245, g: 0.8587504, b: 0.749199, a: 1}
   worldRight:
     owCamera: {fileID: 2105055301}
     toActivate:
@@ -147702,7 +147703,7 @@ MonoBehaviour:
     - {fileID: 799963450}
     - {fileID: 1452484668}
     - {fileID: 184505768}
-    skyboxColour: {r: 0, g: 0.6690002, b: 0.8113208, a: 1}
+    skyboxColour: {r: 0.26352793, g: 0.77839863, b: 0.8867924, a: 1}
   worldFull:
     owCamera: {fileID: 2105055301}
     toActivate:
@@ -147749,7 +147750,7 @@ MonoBehaviour:
     - {fileID: 184505768}
     - {fileID: 909977084}
     - {fileID: 1207537766}
-    skyboxColour: {r: 0, g: 0.5716541, b: 1, a: 1}
+    skyboxColour: {r: 0.8862745, g: 0.31997046, b: 0.2901961, a: 1}
   clouds:
     owCamera: {fileID: 2105055301}
     toActivate:
@@ -147870,15 +147871,69 @@ MonoBehaviour:
     - {fileID: 382654661}
     skyboxColour: {r: 0, g: 0, b: 0, a: 1}
   current:
-    owCamera: {fileID: 0}
-    toActivate: []
-    toDeactivate: []
-    renderersToActivate: []
-    renderersToDeactivate: []
-    skyboxColour: {r: 0, g: 0, b: 0, a: 0}
+    owCamera: {fileID: 2105055301}
+    toActivate:
+    - {fileID: 345972874}
+    - {fileID: 364054444}
+    - {fileID: 2123621901}
+    toDeactivate:
+    - {fileID: 597532263}
+    - {fileID: 58122846}
+    - {fileID: 1948483072}
+    - {fileID: 479235441}
+    - {fileID: 1890708634}
+    - {fileID: 1531511548}
+    - {fileID: 450932281}
+    - {fileID: 1085643071}
+    - {fileID: 1266002757}
+    - {fileID: 1970059236}
+    - {fileID: 1586611490}
+    - {fileID: 1522729370}
+    - {fileID: 1513826207}
+    - {fileID: 1487693109}
+    - {fileID: 744004557}
+    - {fileID: 723484413}
+    - {fileID: 58122846}
+    - {fileID: 544953192}
+    - {fileID: 352741568}
+    - {fileID: 1910386847}
+    - {fileID: 7863089614848294230}
+    - {fileID: 914239024}
+    renderersToActivate:
+    - {fileID: 1452484668}
+    - {fileID: 1710120077}
+    - {fileID: 1207537766}
+    renderersToDeactivate:
+    - {fileID: 574349776}
+    - {fileID: 633223641}
+    - {fileID: 799963450}
+    - {fileID: 909977084}
+    - {fileID: 1338115658}
+    - {fileID: 382654661}
+    skyboxColour: {r: 0, g: 0, b: 0, a: 1}
   character: {fileID: 1281524528}
   overworldCamera: {fileID: 2105055301}
   map: {fileID: 71569095}
+  gates:
+  - {fileID: 178306394}
+  - {fileID: 1486375080}
+  - {fileID: 1500028160}
+  - {fileID: 1517721316}
+  - {fileID: 2090632271}
+  - {fileID: 1725302859}
+  - {fileID: 444743683}
+  - {fileID: 996284758}
+  - {fileID: 1529769305}
+  redirectedGates:
+  - {fileID: 1417661441}
+  - {fileID: 1321645548}
+  - {fileID: 1335453878}
+  - {fileID: 728705296}
+  - {fileID: 1941401133}
+  - {fileID: 1318710345}
+  - {fileID: 1639183863}
+  - {fileID: 1830133017}
+  - {fileID: 2053880033}
 --- !u!95 &2105055298
 Animator:
   serializedVersion: 3

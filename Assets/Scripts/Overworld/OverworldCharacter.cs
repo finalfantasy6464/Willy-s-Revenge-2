@@ -140,11 +140,11 @@ public class OverworldCharacter : MonoBehaviour
         currentPin.onCharacterExit.Invoke();
         float counter = 0f;
         float moveTime = 1f;
-        StartCoroutine(viewToggler.PinToPinBackgroundColorRoutine(currentPin, moveTime));
         Vector2[] points = isReturning ? path.GetPointsReversed() : path.GetPoints();
         Vector2 lookDirection = Vector2.zero;
         float arcLength = BezierManager.GetLengthFromPoints(points);
         float moveStep = (moveSpeed * 0.1f) / arcLength;
+        viewToggler.PlayPathBackgroundColorRoutine(this, isReturning, moveTime);
 
         while(counter < moveTime)
         {

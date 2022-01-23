@@ -7,6 +7,7 @@ using UnityEngine;
 ///</Summary>
 public class RuinsToCloudsTransition : WorldTransition
 {
+    public OverworldViewToggler viewToggler;
     public Animator playerAnimator;
     public Animator sproutAnimator;
     bool maskremoved;
@@ -35,6 +36,7 @@ public class RuinsToCloudsTransition : WorldTransition
             character.transform.position = Vector3.MoveTowards(character.transform.position, target, character.moveSpeed * 0.1f);
             yield return null;
         }
+
         character.SetMovePin(character.currentPin.previousPath.start.GetComponent<NavigationPin>(), true);
         OnTransitionEnd();
     }
@@ -45,11 +47,20 @@ public class RuinsToCloudsTransition : WorldTransition
         sproutAnimator.enabled = true;
 
         playerAnimator.Play("VineForward", -1);
+        
         if(maskremoved == false)
         {
             sproutAnimator.Play("MaskRemoval", -1);
         }
+        
         yield return null;
+
+        float lengthInSeconds = playerAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
+        if(viewToggler.pathBackgroundColorRoutine != null)
+            StopCoroutine(viewToggler.pathBackgroundColorRoutine);
+        
+        viewToggler.PlayPathBackgroundColorRoutine(character, false, lengthInSeconds);
+
         while (playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
             yield return null;
 

@@ -32,7 +32,8 @@ public class GameControl : MonoBehaviour
     [Header("Camera")]
     public Vector3 savedCameraPosition;
     public float savedOrtographicSize;
-    public OverworldProgressView progressView;
+    public OverworldProgressView progressView; 
+    public Color savedCameraBackgroundColor;
 
     [Header("World")]
     public float completionPercent;
@@ -58,6 +59,7 @@ public class GameControl : MonoBehaviour
     public static UnityEvent onSingletonCheck;
     public static GameControl control;
     Scene m_Scene;
+    
 
     void Awake()
     {
@@ -173,7 +175,7 @@ public class GameControl : MonoBehaviour
         MapManager mapManager = FindObjectOfType<MapManager>();
         mapManager?.InitializeLevelState();
         OverworldCamera overworldCamera = FindObjectOfType<OverworldCamera>();
-        overworldCamera?.SetFromSaved(savedCameraPosition, savedOrtographicSize);
+        overworldCamera?.SetFromSaved(savedCameraPosition, savedOrtographicSize, savedCameraBackgroundColor);
         mapManager?.UpdateWorldGates();
     }
 
@@ -267,7 +269,7 @@ public class GameControl : MonoBehaviour
             yield break;
         }
         
-        overworldCamera.SetFromSaved(savedCameraPosition, savedOrtographicSize);
+        overworldCamera.SetFromSaved(savedCameraPosition, savedOrtographicSize, savedCameraBackgroundColor);
 
         if(savedPinPosition != null &&
                 savedPinPosition == character.currentPin.transform.position)
@@ -305,6 +307,7 @@ public class GameControl : MonoBehaviour
 
         savedCameraPosition = gameState.savedCameraPosition;
         savedOrtographicSize = gameState.savedOrtographicSize;
+        savedCameraBackgroundColor = gameState.backgroundColor;
 
         InitialGameStarted = gameState.initialGameStarted;
     }
@@ -315,6 +318,7 @@ public class GameControl : MonoBehaviour
         {
             progressView = OverworldProgressView.WorldLeft;
         }
+        savedCameraBackgroundColor = FindObjectOfType<OverworldCamera>().gameCamera.backgroundColor;
         gameState.SetFromGameControl(control);
         gameState.WriteToManual(saveSlot);
         settings.SaveToDisk();

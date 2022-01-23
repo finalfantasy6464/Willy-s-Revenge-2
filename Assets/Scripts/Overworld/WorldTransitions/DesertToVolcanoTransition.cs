@@ -68,7 +68,9 @@ public class DesertToVolcanoTransition : WorldTransition
         orbitForwardAnimator.Play("OrbitForward", -1);
         spoutForwardParticle.gameObject.SetActive(true);
         spoutForwardParticle.Play();
+        
         yield return null;
+        
         while(playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
         {
             yield return null;

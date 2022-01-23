@@ -21,6 +21,7 @@ public class ScriptableGameState : ScriptableObject
     public Vector3 savedCameraPosition;
     public float savedOrtographicSize;
     public OverworldProgressView progressView;
+    public Color backgroundColor;
 
     [Header("World")]
     public float completionPercent;
@@ -71,6 +72,11 @@ public class ScriptableGameState : ScriptableObject
             writer.Write((Int32)characterSkinIndex);
             writer.Write(savedOrtographicSize);
             writer.Write((Int32)progressView);
+
+            writer.Write(backgroundColor.r);
+            writer.Write(backgroundColor.g);
+            writer.Write(backgroundColor.b);
+
             writer.Write(completionPercent);
             
             writer.Write(savedCameraPosition.x);
@@ -122,6 +128,9 @@ public class ScriptableGameState : ScriptableObject
             characterSkinIndex = reader.ReadInt32();
             savedOrtographicSize = reader.ReadSingle();
             progressView = (OverworldProgressView)(reader.ReadInt32());
+
+            backgroundColor = new Color(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle(), 1f);
+
             completionPercent = reader.ReadSingle();
 
             savedCameraPosition = new Vector3(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
@@ -172,6 +181,7 @@ public class ScriptableGameState : ScriptableObject
         characterSkinIndex = control.currentCharacterSprite;
         savedOrtographicSize = control.savedOrtographicSize;
         progressView = control.progressView;
+        backgroundColor = control.savedCameraBackgroundColor;
         completionPercent = control.completionPercent;
 
         savedCameraPosition = control.savedCameraPosition;
