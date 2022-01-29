@@ -53,6 +53,8 @@ public class MapManager : MonoBehaviour
         {
             GameControl.control.savedPin = levelPins[GameControl.control.savedPinID - 1];
             GameControl.control.lastSceneWasLevel = false;
+            overworldCamera.gameCamera.backgroundColor = GameControl.control.savedCameraBackgroundColor;
+            overworldCamera.viewToggler.Set(GameControl.control.progressView);
 
             if(GameControl.control.savedPinID > 0 && GameControl.control.savedPinID < 31)
             {
@@ -206,6 +208,5 @@ public class MapManager : MonoBehaviour
         GameControl.control.savedPinPosition = character.currentPin.transform.position;
         GameControl.control.savedCameraPosition = overworldCamera.transform.position;
         GameControl.control.savedOrtographicSize = overworldCamera.gameCamera.orthographicSize;
-        GameControl.control.progressView = overworldCamera.viewToggler.view;
     }
 }

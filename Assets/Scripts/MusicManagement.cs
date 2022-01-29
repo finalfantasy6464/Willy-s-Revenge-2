@@ -192,7 +192,7 @@ public class MusicManagement : MonoBehaviour
 
         if (index == 100)
         {
-            return musicClips[28];
+            return musicClips[GameControl.control.bosscheckpoint ? 31 : 28];
         }
 
         if (index == 102)

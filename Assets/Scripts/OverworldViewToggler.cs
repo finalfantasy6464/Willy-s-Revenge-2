@@ -95,7 +95,6 @@ public class OverworldViewToggler : MonoBehaviour
             }
         }
 
-        Debug.Log(currentPinIndex);
         int gradientStartIndex = FindNearestLeft(currentPinIndex);
         int gradientEndIndex = Mathf.Min(102, FindNearestRight(currentPinIndex));
         int nextIndex = Mathf.Min(currentPinIndex + 1, 102);

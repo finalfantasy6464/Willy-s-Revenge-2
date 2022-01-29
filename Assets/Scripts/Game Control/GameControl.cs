@@ -172,6 +172,7 @@ public class GameControl : MonoBehaviour
 
     public void OverworldLevelStateUpdate()
     {
+        Debug.Log("adfasd");
         MapManager mapManager = FindObjectOfType<MapManager>();
         mapManager?.InitializeLevelState();
         OverworldCamera overworldCamera = FindObjectOfType<OverworldCamera>();
@@ -179,6 +180,7 @@ public class GameControl : MonoBehaviour
         mapManager?.UpdateWorldGates();
     }
 
+    
     public static void CompletedLevelCheck(int levelID, bool gotGold, bool timerExpired)
     {
         control.bosscheckpoint = false;
@@ -268,24 +270,26 @@ public class GameControl : MonoBehaviour
             Debug.LogError("Overworld never loaded ):");
             yield break;
         }
-        
+
         overworldCamera.SetFromSaved(savedCameraPosition, savedOrtographicSize, savedCameraBackgroundColor);
 
-        if(savedPinPosition != null &&
-                savedPinPosition == character.currentPin.transform.position)
+        if(AutosavePosition == character.currentPin.transform.position)
             yield break;
 
         for (int i = 0; i < map.levelPins.Count; i++)
         {
-            if(map.levelPins[i].transform.position == savedPinPosition)
+            if(map.levelPins[i].transform.position == AutosavePosition)
             {
                 character.currentPin.onCharacterExit.Invoke();
                 character.SetCurrentPin(map.levelPins[i]);
+                overworldCamera.SetFromPin(character.currentPin);
                 character.currentPin.onCharacterEnter.Invoke();
+                break;
             }
         }
 
-        OverworldLevelStateUpdate();
+        map.InitializeLevelState();
+        map.UpdateWorldGates();
     }
 
     void SetFromGameState()
@@ -295,6 +299,7 @@ public class GameControl : MonoBehaviour
         timer = gameState.timer;
 
         savedPinPosition = gameState.savedPinPosition;
+        AutosavePosition = gameState.AutosavePosition;
         completedlevels = new List<bool>(gameState.completedlevels);
         goldenpellets = new List<bool>(gameState.goldenpellets);
         timerchallenge = new List<bool>(gameState.timerchallenge);
@@ -315,9 +320,8 @@ public class GameControl : MonoBehaviour
     public void Save(int saveSlot)
     {
         if(progressView == OverworldProgressView.None)
-        {
             progressView = OverworldProgressView.WorldLeft;
-        }
+
         savedCameraBackgroundColor = FindObjectOfType<OverworldCamera>().gameCamera.backgroundColor;
         gameState.SetFromGameControl(control);
         gameState.WriteToManual(saveSlot);
@@ -327,9 +331,8 @@ public class GameControl : MonoBehaviour
     public void AutoSave()
     {
         if (progressView == OverworldProgressView.None)
-        {
             progressView = OverworldProgressView.WorldLeft;
-        }
+
         gameState.SetFromGameControl(control);
         gameState.WriteToAuto();
         settings.SaveToDisk();

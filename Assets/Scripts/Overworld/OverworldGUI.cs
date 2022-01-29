@@ -53,6 +53,8 @@ public class OverworldGUI : MonoBehaviour
             {
                 ((LevelPreviewWindow)levelPreview).UpdatePreviewData((LevelPin)character.currentPin);
                 GameControl.control.savedPin = (LevelPin)character.currentPin;
+                GameControl.control.AutosavePosition = character.transform.position;
+                GameControl.control.savedCameraBackgroundColor = Camera.main.backgroundColor;
                 levelPreview.Show();
             }
             else if (levelPreview.isShowing)
