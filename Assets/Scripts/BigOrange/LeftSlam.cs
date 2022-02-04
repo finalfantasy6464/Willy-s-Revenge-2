@@ -1,5 +1,5 @@
 using UnityEngine;
-namespace WillysRevenge2.BigOrange
+namespace WillysRevenge2.BigOrangeMoves
 {
     [CreateAssetMenu(fileName = "NewLeftSlam", menuName = "Scriptables/LeftSlam")]
     public class LeftSlam : BigOrangeMove
