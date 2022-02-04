@@ -1,5 +1,5 @@
 using UnityEngine;
-namespace WillysRevenge2.BigOrange
+namespace WillysRevenge2.BigOrangeMoves
 {
     [CreateAssetMenu(fileName = "NewJump", menuName = "Scriptables/Jump")]
     public class Jump : BigOrangeMove

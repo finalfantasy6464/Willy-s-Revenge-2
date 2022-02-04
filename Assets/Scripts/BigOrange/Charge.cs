@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace WillysRevenge2.BigOrange
+namespace WillysRevenge2.BigOrangeMoves
 {
     [CreateAssetMenu(fileName = "NewCharge", menuName = "Scriptables/Charge")]
     public class Charge : BigOrangeMove

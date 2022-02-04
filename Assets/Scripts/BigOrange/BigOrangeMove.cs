@@ -5,8 +5,8 @@ using UnityEngine;
 
 public abstract class BigOrangeMove : ScriptableObject
 {
-    public bool isDone;
-    public bool executing;
+    [HideInInspector] public bool isDone;
+    [HideInInspector] public bool executing;
     public event Action OnMoveStart;
     public event Action OnMoveEnd;
 
@@ -16,17 +16,10 @@ public abstract class BigOrangeMove : ScriptableObject
         executing = true;
     }
 
-    void Update()
-    {
-        if(executing)
-            MoveUpdate();
-    }
-
-    public virtual void MoveUpdate()
+    public virtual void EndCheck()
     {
         if(!isDone) return;
         
-        isDone = true;
         executing = false;
         OnMoveEnd.Invoke();
     }

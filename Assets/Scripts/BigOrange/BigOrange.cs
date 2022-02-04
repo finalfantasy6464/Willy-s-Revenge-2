@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 using System.Collections;
+using WillysRevenge2.BigOrangeMoves;
 
 public class BigOrange : MonoBehaviour, IPausable
 {
@@ -33,6 +34,12 @@ public class BigOrange : MonoBehaviour, IPausable
     public Transform spawn2;
     public Transform spawn3;
     public Transform spawn4;
+    public Transform leftShoulder;
+    public Transform leftArm;
+    public Transform leftHand;
+    public Transform rightShoulder;
+    public Transform rightArm;
+    public Transform rightHand;
 
     public Transform[] switches;
 
@@ -47,12 +54,10 @@ public class BigOrange : MonoBehaviour, IPausable
     public BigOrangeMove chargeMove;
     public BigOrangeMove clapMove;
     public BigOrangeMove jumpMove;
-    public BigOrangeMove leftPunchMove;
     public BigOrangeMove leftSlamMove;
-    public BigOrangeMove rightPunchMove;
+    public BigOrangeMove punchMove;
     public BigOrangeMove rightSlamMove;
     public BigOrangeMove stompMove;
-
 
     private IEnumerator RevertRoutine;
 
@@ -92,11 +97,6 @@ public class BigOrange : MonoBehaviour, IPausable
             m_animator.Play("Death");
             hpText.text = "0" + " / " + MaxHP.ToString();
         }
-
-        if(currentMove != null)
-        {
-            currentMove.Execute();
-        }
     }
 
     void rngGenerate()
@@ -109,6 +109,16 @@ public class BigOrange : MonoBehaviour, IPausable
 
     void ChooseMove()
     {
+        PlayerController2021remake player = FindObjectOfType<PlayerController2021remake>();
+        if (rng > 1 && rng <= 50)
+        {
+            ((Punch)punchMove).Execute(player, this, "Left");
+        }
+        if (rng > 50 && rng <= 99)
+        {
+            ((Punch)punchMove).Execute(player, this, "Right");
+        }
+        /*
         if (rng <= 20)
         {
             m_animator.SetBool("Jump", true);
@@ -132,11 +142,11 @@ public class BigOrange : MonoBehaviour, IPausable
         }
         if (rng > 100 && rng <= 120)
         {
-            
+            ((Punch)punchMove).Execute(FindObjectOfType<PlayerController2021remake>(), this, leftShoulder, leftArm, leftHand);
         }
         if (rng > 120 && rng <= 140)
         {
-
+            ((Punch)punchMove).Execute(FindObjectOfType<PlayerController2021remake>(), this, rightShoulder, rightArm, rightHand);
         }
         if (rng > 140 && rng <= 160)
         {
@@ -145,7 +155,7 @@ public class BigOrange : MonoBehaviour, IPausable
         if (rng > 160 && rng <= 180)
         {
 
-        }
+        }*/
     }
 
     void forceidle()
@@ -228,6 +238,14 @@ public class BigOrange : MonoBehaviour, IPausable
         CreateEnemy<EnemyMovementTwo>(Enemy6, spawn4, new Vector2(0, 0.72f));
     }
 
+    void SpawnEnemy3()
+    {
+        GameObject newenemy = Instantiate(Enemy3, spawn1.transform.position, Quaternion.identity);
+        PauseControl.TryAddPausable(newenemy.GetComponentInChildren<EnemyMovementThreeVariant>().gameObject);
+        GameObject newenemy2 = Instantiate(Enemy4, spawn2.transform.position, Quaternion.identity);
+        PauseControl.TryAddPausable(newenemy2.GetComponentInChildren<EnemyMovementThreeVariant>().gameObject);
+    }
+
     void CreateEnemy<T>(GameObject prefab, Transform spawn, Vector2 positionOffset)
     {
         GameObject newEnemy = Instantiate(prefab);
@@ -239,14 +257,6 @@ public class BigOrange : MonoBehaviour, IPausable
             moveOne.multiplier = 3;
         if(moveComponent is EnemyMovementTwo moveTwo)
             moveTwo.multiplier = 3;
-    }
-
-    void SpawnEnemy3()
-    {
-        GameObject newenemy = Instantiate(Enemy3, spawn1.transform.position, Quaternion.identity);
-        PauseControl.TryAddPausable(newenemy.GetComponentInChildren<EnemyMovementThreeVariant>().gameObject);
-        GameObject newenemy2 = Instantiate(Enemy4, spawn2.transform.position, Quaternion.identity);
-        PauseControl.TryAddPausable(newenemy2.GetComponentInChildren<EnemyMovementThreeVariant>().gameObject);
     }
 
     void SpawnBlocks()
