@@ -6,6 +6,7 @@ using WillysRevenge2.BigOrangeMoves;
 
 public class BigOrange : MonoBehaviour, IPausable
 {
+    public LineRenderer lightning;
     public Animator m_animator;
     public Text hpText;
 
@@ -73,7 +74,7 @@ public class BigOrange : MonoBehaviour, IPausable
     {
         m_animator = gameObject.GetComponent<Animator>();
         rng2 = 0;
-        IdleLoops();
+        //IdleLoops();
 
         HPpercentage = Mathf.Round(HP / MaxHP * 100) / 100;
         activator = BossActivator.GetComponent<FinalBossActivation>();
@@ -82,6 +83,16 @@ public class BigOrange : MonoBehaviour, IPausable
         {
             150, 100, 50
         };
+
+        StartCoroutine(WaitForEntranceRoutine());
+    }
+
+    private IEnumerator WaitForEntranceRoutine()
+    {
+        while(m_animator.GetCurrentAnimatorStateInfo(0).IsName("Entrance"))
+                yield return null;
+
+        rngGenerate();
     }
 
     private void Update()
