@@ -12,6 +12,8 @@ public class FinalBossActivation : MonoBehaviour
     public GameObject CurrentHPtext;
     public GameObject HPText;
 
+    public MusicManagement music;
+
     public Camera[] cameras;
 
     public PlayerController2021remake playerScript;
@@ -28,6 +30,7 @@ public class FinalBossActivation : MonoBehaviour
         orange = GameObject.FindGameObjectWithTag("Boss");
         orangescript = orange.GetComponent<BigOrange>();
         m_collider = GetComponent<Collider2D>();
+        music = GameObject.Find("SoundManager").GetComponent<MusicManagement>();
     }
 
     public void BattleEnd()
