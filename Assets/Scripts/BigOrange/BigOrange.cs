@@ -44,6 +44,16 @@ public class BigOrange : MonoBehaviour, IPausable
     public GameObject Enemy5;
     public GameObject Enemy6;
 
+    public BigOrangeMove chargeMove;
+    public BigOrangeMove clapMove;
+    public BigOrangeMove jumpMove;
+    public BigOrangeMove leftPunchMove;
+    public BigOrangeMove leftSlamMove;
+    public BigOrangeMove rightPunchMove;
+    public BigOrangeMove rightSlamMove;
+    public BigOrangeMove stompMove;
+
+
     private IEnumerator RevertRoutine;
 
     public int stompspeedindex = 0;
@@ -83,9 +93,9 @@ public class BigOrange : MonoBehaviour, IPausable
             hpText.text = "0" + " / " + MaxHP.ToString();
         }
 
-        if(currentMove != null && currentMove.MoveUpdate())
+        if(currentMove != null)
         {
-            // next move
+            currentMove.Execute();
         }
     }
 
@@ -122,7 +132,7 @@ public class BigOrange : MonoBehaviour, IPausable
         }
         if (rng > 100 && rng <= 120)
         {
-
+            
         }
         if (rng > 120 && rng <= 140)
         {
@@ -209,7 +219,6 @@ public class BigOrange : MonoBehaviour, IPausable
 
     void SpawnEnemy2()
     {
-
         CreateEnemy<EnemyMovement>(Enemy2, spawn2, Vector2.zero);
         CreateEnemy<EnemyMovement>(Enemy2, spawn2, new Vector2(-0.72f, 0));
         CreateEnemy<EnemyMovement>(Enemy2, spawn2, new Vector2(0.72f, 0));
