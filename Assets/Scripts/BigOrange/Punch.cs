@@ -25,6 +25,8 @@ namespace WillysRevenge2.BigOrangeMoves
         Transform arm;
         Transform hand;
 
+        bool isRight;
+
         Vector3 targetPosition;
         Vector3 shoulderStartPosition;
         Vector3 armStartPosition;
@@ -33,12 +35,14 @@ namespace WillysRevenge2.BigOrangeMoves
         BigOrange bigOrange;
         Animator orangeAnimator;
 
+        EdgeCollider2D edge;
+
         const string LEFT_WINDUP = "LeftPunchWindup";
         const string RIGHT_WINDUP = "RightPunchWindup";
 
         public void Execute(PlayerController2021remake player, BigOrange bigOrange, string armString)
         {
-            bool isRight = armString.Contains("Right");
+            isRight = armString.Contains("Right");
             this.bigOrange = bigOrange;
             shoulder = isRight ? bigOrange.rightShoulder : bigOrange.leftShoulder;
             arm = isRight ? bigOrange.rightArm : bigOrange.leftArm;
@@ -70,9 +74,9 @@ namespace WillysRevenge2.BigOrangeMoves
 
         public IEnumerator PunchRoutine()
         {
-            while (Vector3.Distance(hand.position, targetPosition) > 0.05f)
+            while (Vector2.Distance(hand.position, targetPosition) > 0.05f)
             {
-                Vector3 shoulderTarget = shoulderStartPosition + (targetPosition - shoulderStartPosition) / 3f;
+                Vector2 shoulderTarget = shoulderStartPosition + (targetPosition - shoulderStartPosition) / 3f;
                 shoulder.position = Vector3.MoveTowards(shoulder.position, shoulderTarget, moveSpeed * shoulderSpeedMultiplier * 0.1f);
                 hand.position = Vector3.MoveTowards(hand.position, targetPosition, moveSpeed * handSpeedMultiplier * 0.1f);
                 arm.position = MidPoint(shoulder.position, hand.position);
@@ -94,17 +98,17 @@ namespace WillysRevenge2.BigOrangeMoves
             ResetLightning();
             bigOrange.lightning.gameObject.SetActive(false);
 
-            while (Vector3.Distance(hand.position, handStartPosition) > 0.05f)
+            while (Vector2.Distance(hand.position, handStartPosition) > 0.05f)
             {
-                shoulder.position = Vector3.MoveTowards(shoulder.position, shoulderStartPosition, moveSpeed * shoulderSpeedMultiplier * 0.1f);
-                hand.position = Vector3.MoveTowards(hand.position, handStartPosition, moveSpeed * handSpeedMultiplier * 0.1f);
+                shoulder.position = Vector2.MoveTowards(shoulder.position, shoulderStartPosition, moveSpeed * shoulderSpeedMultiplier * 0.1f);
+                hand.position = Vector2.MoveTowards(hand.position, handStartPosition, moveSpeed * handSpeedMultiplier * 0.1f);
                 arm.position = MidPoint(shoulder.position, hand.position);
                 yield return null;
             }
             
             isDone = true;
             bigOrange.m_animator.enabled = true;
-            bigOrange.m_animator.Play("Idle", -1);
+            bigOrange.m_animator.Play(isRight ? "RightPunchWinddown" : "LeftPunchWinddown", -1);
             EndCheck();
         }
 
@@ -112,20 +116,37 @@ namespace WillysRevenge2.BigOrangeMoves
         {
             List<Vector3> positions = new List<Vector3>();
             for (int i = 0; i < bigOrange.lightning.positionCount; i++)
-                positions.Add(Vector3.zero);
+                positions.Add(Vector2.zero);
             bigOrange.lightning.SetPositions(positions.ToArray());
         }
 
         void RedrawLightning()
         {
+            Vector2 ShoulderArmHalf = MidPoint(shoulder.position, arm.position);
+            Vector2 ArmHandHalf = MidPoint(arm.position, hand.position);
+
             Vector3[] anchorPositions = new Vector3[]
             {
                 shoulder.position,
-                MidPoint(shoulder.position, arm.position),
+                MidPoint(shoulder.position, ShoulderArmHalf),
+                ShoulderArmHalf,
+                MidPoint(ShoulderArmHalf, arm.position),
                 arm.position,
-                MidPoint(arm.position, hand.position),
+                MidPoint(arm.position, ArmHandHalf),
+                ArmHandHalf,
+                MidPoint(ArmHandHalf, hand.position),
                 hand.position,
             };
+
+            Vector2[] colliderPositions = new Vector2[]
+            {
+                shoulder.localPosition,
+                arm.localPosition,
+                hand.localPosition,
+            };
+
+            edge = bigOrange.lightning.gameObject.GetComponent<EdgeCollider2D>();
+            edge.points = colliderPositions;
 
             List<Vector3> positions = new List<Vector3>();
             int anchorIndex = 0;
@@ -157,7 +178,7 @@ namespace WillysRevenge2.BigOrangeMoves
             bigOrange.lightning.SetPositions(positions.ToArray());
         }
 
-        Vector3 MidPoint(Vector3 a, Vector3 b)
+        Vector2 MidPoint(Vector2 a, Vector2 b)
         {
             return a + (b - a) / 2f;
         }

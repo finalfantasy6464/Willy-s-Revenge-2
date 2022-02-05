@@ -60,6 +60,8 @@ public class FinalBossActivation : MonoBehaviour
                 arenalight.gameObject.SetActive(true);
             }
 
+            globalLight.intensity = 0.05f;
+
             HPBarImage.SetActive(true);
             HPText.SetActive(true);
             CurrentHPtext.SetActive(true);
