@@ -21,6 +21,6 @@ public abstract class BigOrangeMove : ScriptableObject
         if(!isDone) return;
         
         executing = false;
-        OnMoveEnd.Invoke();
+        OnMoveEnd?.Invoke();
     }
 }
