@@ -32,14 +32,13 @@ namespace WillysRevenge2.BigOrangeMoves
 
         BigOrange bigOrange;
         Animator orangeAnimator;
-        bool isRight;
 
         const string LEFT_WINDUP = "LeftPunchWindup";
         const string RIGHT_WINDUP = "RightPunchWindup";
 
         public void Execute(PlayerController2021remake player, BigOrange bigOrange, string armString)
         {
-            isRight = armString.Contains("Right");
+            bool isRight = armString.Contains("Right");
             this.bigOrange = bigOrange;
             shoulder = isRight ? bigOrange.rightShoulder : bigOrange.leftShoulder;
             arm = isRight ? bigOrange.rightArm : bigOrange.leftArm;
@@ -83,21 +82,17 @@ namespace WillysRevenge2.BigOrangeMoves
             float sleepCounter = 0f;
             float lightningUpdateCounter = 0f;
             bigOrange.lightning.gameObject.SetActive(true);
-            bigOrange.lightningCollider.gameObject.SetActive(true);
-            UpdateCollider();
             while(sleepCounter < afterPunchSleepTime)
             {
                 sleepCounter += Time.deltaTime;
                 lightningUpdateCounter += Time.deltaTime;
                 if(lightningUpdateCounter > lightningUpdateTime)
-                    UpdateLightning();
+                    RedrawLightning();
 
                 yield return null;
             }
             ResetLightning();
-            ResetCollider();
             bigOrange.lightning.gameObject.SetActive(false);
-            bigOrange.lightningCollider.gameObject.SetActive(false);
 
             while (Vector3.Distance(hand.position, handStartPosition) > 0.05f)
             {
@@ -109,25 +104,8 @@ namespace WillysRevenge2.BigOrangeMoves
             
             isDone = true;
             bigOrange.m_animator.enabled = true;
-            bigOrange.m_animator.Play(isRight ? "RightPunchWinddown" : "LeftPunchWinddown", -1);
+            bigOrange.m_animator.Play("Idle", -1);
             EndCheck();
-        }
-
-        private void UpdateCollider()
-        {
-            Vector2[] anchorPositions = new Vector2[]
-            {
-                shoulder.localPosition,
-                arm.localPosition,
-                hand.localPosition,
-            };
-
-            bigOrange.lightningCollider.points = anchorPositions;
-        }
-
-        private void ResetCollider()
-        {
-            bigOrange.lightningCollider.points = new Vector2[] {Vector2.zero, Vector2.zero, Vector2.zero};
         }
 
         void ResetLightning()
@@ -138,22 +116,15 @@ namespace WillysRevenge2.BigOrangeMoves
             bigOrange.lightning.SetPositions(positions.ToArray());
         }
 
-        void UpdateLightning()
+        void RedrawLightning()
         {
-            Vector3 shoulderArmMid = MidPoint(shoulder.position, arm.position);
-            Vector3 armHandMid = MidPoint(arm.position, hand.position);
-
             Vector3[] anchorPositions = new Vector3[]
             {
                 shoulder.position,
-                MidPoint(shoulder.position, shoulderArmMid),
-                shoulderArmMid,
-                MidPoint(shoulderArmMid,arm.position),
+                MidPoint(shoulder.position, arm.position),
                 arm.position,
-                MidPoint(arm.position, armHandMid),
-                armHandMid,
-                MidPoint(armHandMid, hand.position),
-                hand.position
+                MidPoint(arm.position, hand.position),
+                hand.position,
             };
 
             List<Vector3> positions = new List<Vector3>();
@@ -163,6 +134,7 @@ namespace WillysRevenge2.BigOrangeMoves
 
             while(positionCounter < bigOrange.lightning.positionCount)
             {
+                Debug.Log($"{anchorIndex} out of {bigOrange.lightning.positionCount}");
                 Vector3 randomOffset = new Vector3(UnityEngine.Random.Range(-xMagnitude, xMagnitude),
                         UnityEngine.Random.Range(-yMagnitude, yMagnitude), 0f);
 
