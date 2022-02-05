@@ -68,7 +68,7 @@ public class Boulder : MonoBehaviour, IPausable
                 }
             }
 
-            orangeScript.HP -= (int)(20 * Mathf.Pow(bouldertotal, 3));
+            orangeScript.HP -= (int)(100 * Mathf.Pow(bouldertotal, 3));
 
             if (orangeScript.HP <= 0)
             {
