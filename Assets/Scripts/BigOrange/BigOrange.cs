@@ -76,7 +76,6 @@ public class BigOrange : MonoBehaviour, IPausable
     {
         m_animator = gameObject.GetComponent<Animator>();
         rng2 = 0;
-        //IdleLoops();
 
         HPpercentage = Mathf.Round(HP / MaxHP * 100) / 100;
         activator = BossActivator.GetComponent<FinalBossActivation>();
@@ -94,7 +93,7 @@ public class BigOrange : MonoBehaviour, IPausable
         while(m_animator.GetCurrentAnimatorStateInfo(0).IsName("Entrance"))
                 yield return null;
 
-        rngGenerate();
+        IdleLoops();
     }
 
     private void Update()

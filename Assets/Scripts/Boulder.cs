@@ -78,6 +78,10 @@ public class Boulder : MonoBehaviour, IPausable
                 }
             }
 
+            if (!orangeScript.m_animator.isActiveAndEnabled)
+            {
+                orangeScript.m_animator.enabled = true;
+            }
             orangeScript.m_animator.Play("Damage");
             GameSoundManagement.instance.PlayOneShot(hitting);
             Destroy(gameObject);
