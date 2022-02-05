@@ -10,6 +10,8 @@ public class BigOrange : MonoBehaviour, IPausable
     public Animator m_animator;
     public Text hpText;
 
+    public ParticleSystem[] smoke;
+
     public string previousstate;
 
     public Slider slider;
@@ -105,8 +107,26 @@ public class BigOrange : MonoBehaviour, IPausable
 
         if (HP <= 0)
         {
+            foreach(ParticleSystem smokeparticle in smoke)
+            {
+                var emission = smokeparticle.emission;
+                emission.rateOverTime = 0;
+            }
             m_animator.Play("Death");
             hpText.text = "0" + " / " + MaxHP.ToString();
+        }
+
+        if(HP/MaxHP <= 0.9f)
+        {
+            smoke[0].Play();
+        }
+        if(HP/MaxHP <= 0.7f)
+        {
+            smoke[1].Play();
+        }
+        if(HP/MaxHP <= 0.3f)
+        {
+            smoke[2].Play();
         }
     }
 

@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class FinalBossActivation : MonoBehaviour
 {
            BigOrange orangescript;
            GameObject orange;
+
+    public Light2D[] arenaLights;
+    public Light2D globalLight;
 
     public GameObject HPBarImage;
     public GameObject CurrentHPtext;
@@ -44,12 +48,17 @@ public class FinalBossActivation : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D coll)
     {
         var hit = coll.gameObject;
-        if(hit.tag == "Player")
+        if (hit.tag == "Player")
         {
-           GameControl.control.bosscheckpoint = true;
+            GameControl.control.bosscheckpoint = true;
 
             cameras[0].gameObject.SetActive(false);
             cameras[1].gameObject.SetActive(true);
+
+            foreach (Light2D arenalight in arenaLights)
+            {
+                arenalight.gameObject.SetActive(true);
+            }
 
             HPBarImage.SetActive(true);
             HPText.SetActive(true);
