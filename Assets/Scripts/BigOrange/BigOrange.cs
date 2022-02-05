@@ -7,6 +7,7 @@ using WillysRevenge2.BigOrangeMoves;
 public class BigOrange : MonoBehaviour, IPausable
 {
     public LineRenderer lightning;
+    public EdgeCollider2D lightningCollider;
     public Animator m_animator;
     public Text hpText;
 

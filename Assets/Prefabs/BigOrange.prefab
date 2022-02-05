@@ -10016,6 +10016,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightning: {fileID: 2209161078658841233}
+  lightningCollider: {fileID: 1083934526718765962}
   m_animator: {fileID: 0}
   hpText: {fileID: 0}
   previousstate: 
@@ -10767,13 +10768,14 @@ GameObject:
   m_Component:
   - component: {fileID: 7865872300638799890}
   - component: {fileID: 2209161078658841233}
+  - component: {fileID: 1083934526718765962}
   m_Layer: 0
   m_Name: ArmLightning
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7865872300638799890
 Transform:
   m_ObjectHideFlags: 0
@@ -10899,6 +10901,28 @@ LineRenderer:
     generateLightingData: 1
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!68 &1083934526718765962
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8319271354040326352}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0.15
+  m_Points:
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!1 &8676051741338741707
 GameObject:
   m_ObjectHideFlags: 0
