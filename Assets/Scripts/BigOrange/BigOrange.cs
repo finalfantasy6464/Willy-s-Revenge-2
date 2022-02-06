@@ -3,10 +3,13 @@ using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 using System.Collections;
 using WillysRevenge2.BigOrangeMoves;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class BigOrange : MonoBehaviour, IPausable
 {
     public LineRenderer lightning;
+    public Light2D forearmLight;
+    public Light2D bicepLight;
     public Animator m_animator;
     public Text hpText;
 
@@ -87,6 +90,21 @@ public class BigOrange : MonoBehaviour, IPausable
         };
 
         StartCoroutine(WaitForEntranceRoutine());
+    }
+
+    /// Reduces health and returns whether B.O. died as a result of it
+    public bool TakeDamage(int amount)
+    {
+        HP = Mathf.Max(0, HP - amount);
+        //TODO: Ask Joey which moves are cancellable
+        if(currentMove is Punch)
+        {
+            ((Punch)currentMove).ForceFinish();
+            SetBoolAnimationParameters(false);
+        }
+
+        m_animator.Play("Damage");
+        return HP == 0;
     }
 
     private IEnumerator WaitForEntranceRoutine()
@@ -189,14 +207,12 @@ public class BigOrange : MonoBehaviour, IPausable
         }*/
     }
 
-    void forceidle()
+    void SetBoolAnimationParameters(bool value)
     {
         foreach (AnimatorControllerParameter parameter in m_animator.parameters)
         {
             if (parameter.type == AnimatorControllerParameterType.Bool)
-            {
-                m_animator.SetBool(parameter.name, false);
-            }
+                m_animator.SetBool(parameter.name, value);
         }
     }
 

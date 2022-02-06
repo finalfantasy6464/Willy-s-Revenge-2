@@ -68,17 +68,13 @@ public class Boulder : MonoBehaviour, IPausable
                 }
             }
 
-            orangeScript.HP -= (int)(20 * Mathf.Pow(bouldertotal, 3));
-
-            if (orangeScript.HP <= 0)
+            if(orangeScript.TakeDamage((int)(20 * Mathf.Pow(bouldertotal, 3))))
             {
                 for (int l = 0; l < activate.Length; l++)
                 {
                     Destroy(activate[l].gameObject);
                 }
             }
-
-            orangeScript.m_animator.Play("Damage");
             GameSoundManagement.instance.PlayOneShot(hitting);
             Destroy(gameObject);
         }

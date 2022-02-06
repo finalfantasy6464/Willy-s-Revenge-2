@@ -3,6 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
+
 namespace WillysRevenge2.BigOrangeMoves
 {
     [CreateAssetMenu(fileName = "NewPunch", menuName = "Scriptables/Punch")]
@@ -34,6 +36,8 @@ namespace WillysRevenge2.BigOrangeMoves
 
         BigOrange bigOrange;
         Animator orangeAnimator;
+        IEnumerator windupWaitRoutine;
+        IEnumerator punchRoutine;
 
         EdgeCollider2D edge;
 
@@ -52,7 +56,8 @@ namespace WillysRevenge2.BigOrangeMoves
 
             base.Execute();
             bigOrange.m_animator.Play(isRight ? RIGHT_WINDUP : LEFT_WINDUP, -1);
-            bigOrange.StartCoroutine(WindupWaitRoutine());
+            windupWaitRoutine = WindupWaitRoutine();
+            bigOrange.StartCoroutine(windupWaitRoutine);
         }
 
         public IEnumerator WindupWaitRoutine()
@@ -69,7 +74,9 @@ namespace WillysRevenge2.BigOrangeMoves
             handStartPosition = hand.position;
 
             bigOrange.m_animator.enabled = false;
-            bigOrange.StartCoroutine(PunchRoutine());
+            windupWaitRoutine = null;
+            punchRoutine = PunchRoutine();
+            bigOrange.StartCoroutine(punchRoutine);
         }
 
         public IEnumerator PunchRoutine()
@@ -86,6 +93,9 @@ namespace WillysRevenge2.BigOrangeMoves
             float sleepCounter = 0f;
             float lightningUpdateCounter = 0f;
             bigOrange.lightning.gameObject.SetActive(true);
+            bigOrange.bicepLight.transform.position = MidPoint(shoulder.position, arm.position);
+            bigOrange.forearmLight.transform.position = MidPoint(arm.position, hand.position);
+            RedrawLightning();
             while(sleepCounter < afterPunchSleepTime)
             {
                 sleepCounter += Time.deltaTime;
@@ -105,10 +115,38 @@ namespace WillysRevenge2.BigOrangeMoves
                 arm.position = MidPoint(shoulder.position, hand.position);
                 yield return null;
             }
-            
+            PunchRoutineEnd();
+            EndCheck();
+        }
+
+        private void PunchRoutineEnd()
+        {
             isDone = true;
+            punchRoutine = null;
             bigOrange.m_animator.enabled = true;
             bigOrange.m_animator.Play(isRight ? "RightPunchWinddown" : "LeftPunchWinddown", -1);
+        }
+
+        public void ForceFinish()
+        {
+            if(windupWaitRoutine != null)
+            {
+                bigOrange.StopCoroutine(windupWaitRoutine);
+                windupWaitRoutine = null;
+            }
+            if(punchRoutine != null)
+            {
+                ResetLightning();
+                bigOrange.lightning.gameObject.SetActive(false);
+                bigOrange.StopCoroutine(punchRoutine);
+                punchRoutine = null;
+            }
+
+            // if Instant
+            // shoulder.position = shoulderStartPosition;
+            // hand.position = handStartPosition;
+            // arm.position = armStartPosition;
+            PunchRoutineEnd();
             EndCheck();
         }
 
@@ -118,6 +156,8 @@ namespace WillysRevenge2.BigOrangeMoves
             for (int i = 0; i < bigOrange.lightning.positionCount; i++)
                 positions.Add(Vector2.zero);
             bigOrange.lightning.SetPositions(positions.ToArray());
+            bigOrange.forearmLight.transform.localPosition = Vector3.zero;
+            bigOrange.bicepLight.transform.localPosition = Vector3.zero;
         }
 
         void RedrawLightning()
@@ -155,7 +195,6 @@ namespace WillysRevenge2.BigOrangeMoves
 
             while(positionCounter < bigOrange.lightning.positionCount)
             {
-                Debug.Log($"{anchorIndex} out of {bigOrange.lightning.positionCount}");
                 Vector3 randomOffset = new Vector3(UnityEngine.Random.Range(-xMagnitude, xMagnitude),
                         UnityEngine.Random.Range(-yMagnitude, yMagnitude), 0f);
 
