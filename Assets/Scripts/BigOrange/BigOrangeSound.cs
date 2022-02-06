@@ -10,6 +10,7 @@ public class BigOrangeSound : MonoBehaviour
     public AudioClip OrangeLanding;
     public AudioClip OrangeHurt;
     public AudioClip OrangeDeath;
+    public AudioClip OrangeElectric;
 
     public Transform Lefthand;
     public Transform Righthand;
@@ -73,5 +74,18 @@ public class BigOrangeSound : MonoBehaviour
         soundData.clip = OrangeDeath;
         localaudio.Emitter = Body;
         localaudio.SoundPlay();
+    }
+
+    public void PlayOrangeElectric()
+    {
+        soundData.clip = OrangeElectric;
+        localaudio.Emitter = Body;
+        localaudio.SoundPlay();
+    }
+
+    public void StopOrangeSound()
+    {
+        soundData.clip = null;
+        localaudio.SoundStop();
     }
 }

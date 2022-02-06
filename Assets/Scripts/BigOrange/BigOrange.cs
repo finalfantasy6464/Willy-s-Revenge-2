@@ -21,6 +21,8 @@ public class BigOrange : MonoBehaviour, IPausable
 
     public FinalBossActivation activator;
 
+    public AudioClip[] orangeSounds;
+
     int rng;
     int rng2;
     int loopcount = 0;
@@ -106,6 +108,12 @@ public class BigOrange : MonoBehaviour, IPausable
         return HP == 0;
     }
 
+    public void PlayOrangeSound(int index)
+    {
+        GameSoundManagement.instance.efxSource.loop = false;
+        GameSoundManagement.instance.efxSource.PlayOneShot(orangeSounds[index]);
+    }
+
     private IEnumerator WaitForEntranceRoutine()
     {
         while(m_animator.GetCurrentAnimatorStateInfo(0).IsName("Entrance"))
@@ -129,6 +137,7 @@ public class BigOrange : MonoBehaviour, IPausable
                 var emission = smokeparticle.emission;
                 emission.rateOverTime = 0;
             }
+            m_animator.SetFloat("Speed", 1);
             m_animator.Play("Death");
             hpText.text = "0" + " / " + MaxHP.ToString();
         }
@@ -161,10 +170,12 @@ public class BigOrange : MonoBehaviour, IPausable
         if (rng > 1 && rng <= 50)
         {
             ((Punch)punchMove).Execute(player, this, "Left");
+            currentMove = punchMove;
         }
         if (rng > 50 && rng <= 99)
         {
             ((Punch)punchMove).Execute(player, this, "Right");
+            currentMove = punchMove;
         }
         /*
         if (rng <= 20)

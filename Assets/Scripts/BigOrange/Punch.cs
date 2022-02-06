@@ -95,6 +95,7 @@ namespace WillysRevenge2.BigOrangeMoves
             bigOrange.lightning.gameObject.SetActive(true);
             bigOrange.bicepLight.transform.position = MidPoint(shoulder.position, arm.position);
             bigOrange.forearmLight.transform.position = MidPoint(arm.position, hand.position);
+            GameSoundManagement.instance.efxSource.PlayOneShot(bigOrange.orangeSounds[3]);
             RedrawLightning();
             while(sleepCounter < afterPunchSleepTime)
             {
@@ -143,10 +144,13 @@ namespace WillysRevenge2.BigOrangeMoves
             }
 
             // if Instant
-            // shoulder.position = shoulderStartPosition;
-            // hand.position = handStartPosition;
-            // arm.position = armStartPosition;
-            PunchRoutineEnd();
+            shoulder.position = shoulderStartPosition;
+            hand.position = handStartPosition;
+            arm.position = armStartPosition;
+
+            isDone = true;
+            bigOrange.m_animator.enabled = true;
+            bigOrange.currentMove = null;
             EndCheck();
         }
 
@@ -158,6 +162,7 @@ namespace WillysRevenge2.BigOrangeMoves
             bigOrange.lightning.SetPositions(positions.ToArray());
             bigOrange.forearmLight.transform.localPosition = Vector3.zero;
             bigOrange.bicepLight.transform.localPosition = Vector3.zero;
+            GameSoundManagement.instance.efxSource.Stop();
         }
 
         void RedrawLightning()
