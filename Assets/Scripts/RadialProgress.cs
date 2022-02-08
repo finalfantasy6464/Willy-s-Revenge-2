@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 
 public class RadialProgress : RadialGauge, IPausable
@@ -19,13 +20,18 @@ public class RadialProgress : RadialGauge, IPausable
         }
         set
         {
-            // If the value exceeds the max fill, invoke the completion function
-            if (value >= maxValue)
-                onProgressComplete.Invoke();
-
-            // Remove any overfill (i.e. 105% fill -> 5% fill)
-            base.CurrentValue = value % maxValue;
+            ProgressCompleteCheck(value);
         }
+    }
+
+    private void ProgressCompleteCheck(float value)
+    {
+        // If the value exceeds the max fill, invoke the completion function
+        if (value >= maxValue)
+            onProgressComplete.Invoke();
+
+        // Remove any overfill (i.e. 105% fill -> 5% fill)
+        base.CurrentValue = value % maxValue;
     }
 
     // Use this for initialization
@@ -66,5 +72,10 @@ public class RadialProgress : RadialGauge, IPausable
     public void UnPausedUpdate()
     {
         CurrentValue += 0.015f;
+    }
+
+    public void ForceInstant()
+    {
+        CurrentValue = maxValue;
     }
 }

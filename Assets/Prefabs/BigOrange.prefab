@@ -15258,7 +15258,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3276283104537894794}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -20313,7 +20313,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7586088689996927101}
   - component: {fileID: 1700907216}
-  - component: {fileID: 7585280367453067229}
   - component: {fileID: 513220030683839478}
   m_Layer: 0
   m_Name: BigOrange
@@ -20360,18 +20359,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb7293b0d42bb4447aee84841df40176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightning: {fileID: 2209161078658841233}
-  forearmLight: {fileID: 8868060749804039683}
-  bicepLight: {fileID: 7071099467272442501}
-  m_animator: {fileID: 0}
-  hpText: {fileID: 0}
-  smoke:
-  - {fileID: 97503053461587343}
-  - {fileID: 9167615351464275016}
-  - {fileID: 2350939640057834207}
-  previousstate: 
-  slider: {fileID: 0}
-  activator: {fileID: 0}
+  MaxHP: 100000
+  HP: 100000
   orangeSounds:
   - {fileID: 8300000, guid: aa315b85bc3ac004883a717f12b7a208, type: 3}
   - {fileID: 8300000, guid: 2f7ddbf452dbb994b823075bd7a99ebd, type: 3}
@@ -20380,64 +20369,33 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9217d470c35477c4e9d21bd3a905d5fb, type: 3}
   - {fileID: 8300000, guid: e5b1b3b1f9b76d544a070fa277bad3b5, type: 3}
   - {fileID: 8300000, guid: d84542b8b00e4b44597f0b0bbc18419a, type: 3}
-  MaxHP: 100000
-  HP: 100000
-  grid: {fileID: 0}
-  changetile: {fileID: 11400000, guid: 42d35f36f06f12445bb4af1a9a6e004d, type: 2}
-  defaulttile: {fileID: 11400000, guid: c4c5041d8279fd041a18a09fbd910b80, type: 2}
-  spawn1: {fileID: 0}
-  spawn2: {fileID: 0}
-  spawn3: {fileID: 0}
-  spawn4: {fileID: 0}
+  lightning: {fileID: 2209161078658841233}
+  forearmLight: {fileID: 8868060749804039683}
+  bicepLight: {fileID: 7071099467272442501}
+  smoke:
+  - {fileID: 97503053461587343}
+  - {fileID: 9167615351464275016}
+  - {fileID: 2350939640057834207}
   leftShoulder: {fileID: 8381531217263360353}
   leftArm: {fileID: 4462343894189600870}
   leftHand: {fileID: 5395788926604125113}
   rightShoulder: {fileID: 8704447565452963319}
   rightArm: {fileID: 46651769164139022}
   rightHand: {fileID: 6338589365729472079}
-  switches:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  BossActivator: {fileID: 0}
-  Enemy1: {fileID: 4697137427887649193, guid: afe2182d594747a41ad5f6e18961b90e, type: 3}
-  Enemy2: {fileID: 4697137427887649193, guid: fa056cc27d42aa0448edb4e7b3950789, type: 3}
-  Enemy3: {fileID: 732717074, guid: 8f611a48d3453c141a8a572ead38191a, type: 3}
-  Enemy4: {fileID: 732717074, guid: 1bdd77b7d44e69847936ea58326a20f9, type: 3}
-  Enemy5: {fileID: 8032808720404546672, guid: 2c0189fa8358576499b59ae40386ee4a, type: 3}
-  Enemy6: {fileID: 8032808720404546672, guid: ee688ef4ae77bd244900434d6652db23, type: 3}
+  currentMove: {fileID: 0}
+  stompspeedindex: 0
   chargeMove: {fileID: 11400000, guid: 5db1c0e58d8e3424c930bd15bfe9c9f4, type: 2}
   clapMove: {fileID: 11400000, guid: f26e8b3d8d32d174bae08e09f2e2002c, type: 2}
   jumpMove: {fileID: 11400000, guid: c2e6995a09bb64841983463144b34c69, type: 2}
-  leftSlamMove: {fileID: 11400000, guid: 79b9d6a4e15b6134791d39b55bef7399, type: 2}
   punchMove: {fileID: 11400000, guid: 138cf6dab2391ed4e82e76cc8719bcda, type: 2}
-  rightSlamMove: {fileID: 11400000, guid: 7783897879613684e92faa405a710a27, type: 2}
+  slamMove: {fileID: 0}
   stompMove: {fileID: 11400000, guid: 05fde51f3dbe9224cb92e272dc032736, type: 2}
-  stompspeedindex: 0
-  currentMove: {fileID: 0}
---- !u!114 &7585280367453067229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4360462444573003823}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47b830a0f5b5c9e4bb3d897ea499b871, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Emitter: {fileID: 7586088689996927101}
-  soundData:
-    minDistance: 0
-    maxDistance: 10
-    minVolume: 0
-    maxVolume: 1
-    minPitch: 0.85
-    maxPitch: 1.05
-    distanceProgress: 0
-    clip: {fileID: 8300000, guid: 9217d470c35477c4e9d21bd3a905d5fb, type: 3}
+  previousstate: 
+  cameraShaker: {fileID: 0}
+  m_animator: {fileID: 513220030683839478}
+  switchControl: {fileID: 0}
+  enemySpawner: {fileID: 0}
+  activator: {fileID: 0}
 --- !u!95 &513220030683839478
 Animator:
   serializedVersion: 3
@@ -20573,7 +20531,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5040452582596906799}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1

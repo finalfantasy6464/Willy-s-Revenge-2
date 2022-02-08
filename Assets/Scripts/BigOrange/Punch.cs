@@ -43,15 +43,16 @@ namespace WillysRevenge2.BigOrangeMoves
 
         const string LEFT_WINDUP = "LeftPunchWindup";
         const string RIGHT_WINDUP = "RightPunchWindup";
+        (Vector3[] positions, Quaternion[] rotations) partsStateStart;
 
         public void Execute(PlayerController2021remake player, BigOrange bigOrange, string armString)
         {
             isRight = armString.Contains("Right");
             this.bigOrange = bigOrange;
+            partsStateStart = bigOrange.GetCurrentPartsState();
             shoulder = isRight ? bigOrange.rightShoulder : bigOrange.leftShoulder;
             arm = isRight ? bigOrange.rightArm : bigOrange.leftArm;
             hand = isRight ? bigOrange.rightHand : bigOrange.leftHand;
-
             targetPosition = player.transform.position + (player.transform.position - handStartPosition).normalized * handDistanceMultiplier;
 
             base.Execute();
@@ -81,6 +82,7 @@ namespace WillysRevenge2.BigOrangeMoves
 
         public IEnumerator PunchRoutine()
         {
+            ///Extending Arm
             while (Vector2.Distance(hand.position, targetPosition) > 0.05f)
             {
                 Vector2 shoulderTarget = shoulderStartPosition + (targetPosition - shoulderStartPosition) / 3f;
@@ -90,8 +92,10 @@ namespace WillysRevenge2.BigOrangeMoves
                 yield return null;
             }
 
+            ///Lightning Phase
             float sleepCounter = 0f;
             float lightningUpdateCounter = 0f;
+            (Vector3[] positions, Quaternion[] rotations) partsStateCurrent = bigOrange.GetCurrentPartsState();
             bigOrange.lightning.gameObject.SetActive(true);
             bigOrange.bicepLight.transform.position = MidPoint(shoulder.position, arm.position);
             bigOrange.forearmLight.transform.position = MidPoint(arm.position, hand.position);
@@ -104,11 +108,26 @@ namespace WillysRevenge2.BigOrangeMoves
                 if(lightningUpdateCounter > lightningUpdateTime)
                     RedrawLightning();
 
+                if(sleepCounter / afterPunchSleepTime > 0.5f)
+                {
+                    float progress = (sleepCounter / afterPunchSleepTime) - 0.5f;
+                    for (int i = 0; i < bigOrange.transform.childCount; i++)
+                    {
+                        Transform part = bigOrange.transform.GetChild(i);
+                        if(part == shoulder || part == arm || part == hand)
+                            continue;
+                        part.position = Vector3.Lerp(partsStateCurrent.positions[i], partsStateStart.positions[i], progress);
+                        part.rotation = Quaternion.Lerp(partsStateCurrent.rotations[i], partsStateStart.rotations[i], progress);
+                    }
+                }
+
                 yield return null;
             }
             ResetLightning();
             bigOrange.lightning.gameObject.SetActive(false);
 
+
+            ///Returning to Normal
             while (Vector2.Distance(hand.position, handStartPosition) > 0.05f)
             {
                 shoulder.position = Vector2.MoveTowards(shoulder.position, shoulderStartPosition, moveSpeed * shoulderSpeedMultiplier * 0.1f);

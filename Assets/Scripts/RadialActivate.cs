@@ -5,25 +5,18 @@ using UnityEngine.UI;
 
 public class RadialActivate : MonoBehaviour, IPausable
 {
+    public bool DEBUG_activateInstantly;
     public RadialGauge radial;
-
     public Collider2D coll;
     public SpriteRenderer s_renderer;
     Sprite newsprite;
     Color newcolor;
-
-    RadialProgress progress;
-
+    public RadialProgress progress;
     public int boulderamount = 0;
-
     public bool justspawned = false;
-
     public bool isActive = true;
-
     public GameObject boulder;
-
     public Transform spawn;
-
     private float collenable;
 
     public bool isPaused { get; set; }
@@ -31,8 +24,6 @@ public class RadialActivate : MonoBehaviour, IPausable
     private void Start()
     {
         radial.CurrentValue = 0;
-        coll = GetComponent<Collider2D>();
-        s_renderer = GetComponent<SpriteRenderer>();
         newcolor = s_renderer.color;
     }
 
@@ -49,6 +40,8 @@ public class RadialActivate : MonoBehaviour, IPausable
         {
             radial.group.alpha = 1f;
             radial.isSteppedOn = true;
+            if(DEBUG_activateInstantly)
+                progress.ForceInstant();
         }
     }
 

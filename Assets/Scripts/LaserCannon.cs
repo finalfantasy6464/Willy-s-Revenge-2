@@ -32,7 +32,7 @@ public class LaserCannon : MonoBehaviour, IPausable
 
     public AudioSource source;
 
-    public Localaudioplayer audioplay;
+    public LocalAudioPlayer audioplay;
 
     Vector3 direction;
     Vector2 endpos;

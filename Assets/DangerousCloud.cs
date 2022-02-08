@@ -9,7 +9,7 @@ public class DangerousCloud : MonoBehaviour
     public AudioClip Cloud3;
     public AudioClip Cloud4;
 
-    public Localaudioplayer localaudio;
+    public LocalAudioPlayer localaudio;
 
     PositionalSoundData soundData;
 

@@ -1,47 +1,24 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Tilemaps;
 using System.Collections;
+using System.Collections.Generic;
 using WillysRevenge2.BigOrangeMoves;
 using UnityEngine.Experimental.Rendering.Universal;
 
 public class BigOrange : MonoBehaviour, IPausable
 {
+    public float MaxHP = 100000;
+    public float HP = 100000;
+    public AudioClip[] orangeSounds;
+
+    [Header("VFX")]
     public LineRenderer lightning;
     public Light2D forearmLight;
     public Light2D bicepLight;
-    public Animator m_animator;
-    public Text hpText;
-
     public ParticleSystem[] smoke;
 
-    public string previousstate;
-
-    public Slider slider;
-
-    public FinalBossActivation activator;
-
-    public AudioClip[] orangeSounds;
-
-    int rng;
-    int rng2;
-    int loopcount = 0;
-
-    public float MaxHP = 100000;
-    public float HP = 100000;
-
-    private int[] speeds;
-
-    float HPpercentage;
-
-    public Tilemap grid;
-    public Tile changetile;
-    public Tile defaulttile;
-
-    public Transform spawn1;
-    public Transform spawn2;
-    public Transform spawn3;
-    public Transform spawn4;
+    [Header("Body Parts")]
     public Transform leftShoulder;
     public Transform leftArm;
     public Transform leftHand;
@@ -49,47 +26,44 @@ public class BigOrange : MonoBehaviour, IPausable
     public Transform rightArm;
     public Transform rightHand;
 
-    public Transform[] switches;
-
-    public GameObject BossActivator;
-    public GameObject Enemy1;
-    public GameObject Enemy2;
-    public GameObject Enemy3;
-    public GameObject Enemy4;
-    public GameObject Enemy5;
-    public GameObject Enemy6;
-
+    [Header("Moves")]
+    public BigOrangeMove currentMove;
+    public int stompspeedindex = 0;
+    [Space]
     public BigOrangeMove chargeMove;
     public BigOrangeMove clapMove;
     public BigOrangeMove jumpMove;
-    public BigOrangeMove leftSlamMove;
     public BigOrangeMove punchMove;
-    public BigOrangeMove rightSlamMove;
+    public BigOrangeMove slamMove;
     public BigOrangeMove stompMove;
-
-    private IEnumerator RevertRoutine;
-
-    public int stompspeedindex = 0;
-
-    bool justlooped = false;
-
     public bool isPaused { get; set; }
+    [Space]
+    public string previousstate;
 
-    public BigOrangeMove currentMove;
+    [Header("Dependencies")]
+    public CameraShaker cameraShaker;    
+    public Animator m_animator;
+    public BigOrangeSwitchControl switchControl;
+    public BigOrangeEnemySpawner enemySpawner;
+    public FinalBossActivation activator;
+
+    public event Action OnTakeDamage;
+    bool justlooped = false;
+    int rng;
+    int rng2;
+    int loopcount = 0;
+    int[] speeds;
+    float HPpercentage;
 
     void Start()
     {
-        m_animator = gameObject.GetComponent<Animator>();
+        OnTakeDamage += () => cameraShaker.Shake();      
         rng2 = 0;
-
         HPpercentage = Mathf.Round(HP / MaxHP * 100) / 100;
-        activator = BossActivator.GetComponent<FinalBossActivation>();
-
         speeds = new int[]
         {
             150, 100, 50
         };
-
         StartCoroutine(WaitForEntranceRoutine());
     }
 
@@ -97,7 +71,10 @@ public class BigOrange : MonoBehaviour, IPausable
     public bool TakeDamage(int amount)
     {
         HP = Mathf.Max(0, HP - amount);
-        //TODO: Ask Joey which moves are cancellable
+
+        if(amount > 0)
+            OnTakeDamage?.Invoke();
+        
         if(currentMove is Punch)
         {
             ((Punch)currentMove).ForceFinish();
@@ -124,12 +101,6 @@ public class BigOrange : MonoBehaviour, IPausable
 
     private void Update()
     {
-        slider.maxValue = MaxHP;
-        slider.minValue = 0;
-        slider.value = HP;
-
-        hpText.text = HP.ToString() + " / " + MaxHP.ToString();
-
         if (HP <= 0)
         {
             foreach(ParticleSystem smokeparticle in smoke)
@@ -139,7 +110,6 @@ public class BigOrange : MonoBehaviour, IPausable
             }
             m_animator.SetFloat("Speed", 1);
             m_animator.Play("Death");
-            hpText.text = "0" + " / " + MaxHP.ToString();
         }
 
         if(HP/MaxHP <= 0.9f)
@@ -158,8 +128,8 @@ public class BigOrange : MonoBehaviour, IPausable
 
     void rngGenerate()
     {
-        rng = Random.Range(1, 100);
-        rng2 = Random.Range(1, 100);
+        rng = UnityEngine.Random.Range(1, 200);
+        rng2 = UnityEngine.Random.Range(1, 100);
 
         ChooseMove();
     }
@@ -167,11 +137,12 @@ public class BigOrange : MonoBehaviour, IPausable
     void ChooseMove()
     {
         PlayerController2021remake player = FindObjectOfType<PlayerController2021remake>();
-        if (rng > 1 && rng <= 99)
+        if (rng > 1 && rng <= 199)
         {
-            ((Charge)chargeMove).Execute(m_animator);
-            //((Punch)punchMove).Execute(player, this, "Left");
-            currentMove = chargeMove;
+            //((Slam)slamMove).Execute(this, UnityEngine.Random.Range(0f, 1f) > 0.5f ? "Right" : "Left");
+            //((Charge)chargeMove).Execute(m_animator);
+            ((Punch)punchMove).Execute(player, this, UnityEngine.Random.Range(0f, 1f) > 0.5f ? "Right" : "Left");
+            currentMove = slamMove;
         }
         /*
         if (rng <= 20)
@@ -269,117 +240,6 @@ public class BigOrange : MonoBehaviour, IPausable
         }
     }
 
-    void SpawnEnemy1()
-    {
-        CreateEnemy<EnemyMovement>(Enemy1, spawn1, Vector2.zero);
-        CreateEnemy<EnemyMovement>(Enemy1, spawn1, new Vector2(-0.72f, 0));
-        CreateEnemy<EnemyMovement>(Enemy1, spawn1, new Vector2(0.72f, 0));
-
-        CreateEnemy<EnemyMovementTwo>(Enemy5, spawn3, Vector2.zero);
-        CreateEnemy<EnemyMovementTwo>(Enemy5, spawn3, new Vector2(0, -0.72f));
-        CreateEnemy<EnemyMovementTwo>(Enemy5, spawn3, new Vector2(0, 0.72f));
-    }
-
-    void SpawnEnemy2()
-    {
-        CreateEnemy<EnemyMovement>(Enemy2, spawn2, Vector2.zero);
-        CreateEnemy<EnemyMovement>(Enemy2, spawn2, new Vector2(-0.72f, 0));
-        CreateEnemy<EnemyMovement>(Enemy2, spawn2, new Vector2(0.72f, 0));
-
-        CreateEnemy<EnemyMovementTwo>(Enemy6, spawn4, Vector2.zero);
-        CreateEnemy<EnemyMovementTwo>(Enemy6, spawn4, new Vector2(0, -0.72f));
-        CreateEnemy<EnemyMovementTwo>(Enemy6, spawn4, new Vector2(0, 0.72f));
-    }
-
-    void SpawnEnemy3()
-    {
-        GameObject newenemy = Instantiate(Enemy3, spawn1.transform.position, Quaternion.identity);
-        PauseControl.TryAddPausable(newenemy.GetComponentInChildren<EnemyMovementThreeVariant>().gameObject);
-        GameObject newenemy2 = Instantiate(Enemy4, spawn2.transform.position, Quaternion.identity);
-        PauseControl.TryAddPausable(newenemy2.GetComponentInChildren<EnemyMovementThreeVariant>().gameObject);
-    }
-
-    void CreateEnemy<T>(GameObject prefab, Transform spawn, Vector2 positionOffset)
-    {
-        GameObject newEnemy = Instantiate(prefab);
-        PauseControl.TryAddPausable(newEnemy);
-        T moveComponent = newEnemy.GetComponent<T>();
-        newEnemy.transform.position = spawn.position + (Vector3)positionOffset;
-        
-        if(moveComponent is EnemyMovement moveOne)
-            moveOne.multiplier = 3;
-        if(moveComponent is EnemyMovementTwo moveTwo)
-            moveTwo.multiplier = 3;
-    }
-
-    void SpawnBlocks()
-    {
-        for (int i = 0; i < switches.Length; i++)
-        {
-            SetAdjacentTiles(switches[i], changetile);
-        }
-
-        if (RevertRoutine != null)
-        {
-            StopCoroutine(RevertRoutine);
-        }
-        RevertRoutine = RevertTiles(switches);
-        StartCoroutine(RevertRoutine);
-    }
-
-    public void SetAdjacentTiles(Transform current, Tile targetTile)
-    {
-        float sideSize = 0.72f;
-        if(current != null)
-        {
-            Vector3 currentCellPos = current.transform.position;
-            Vector3Int[] adjacentCells = new Vector3Int[]
-            {
-                grid.WorldToCell(currentCellPos + Vector3.left * sideSize),
-                grid.WorldToCell(currentCellPos + Vector3.up * sideSize),
-                grid.WorldToCell(currentCellPos + Vector3.right * sideSize),
-                grid.WorldToCell(currentCellPos + Vector3.down * sideSize),
-            };
-            foreach (Vector3Int adjacentCell in adjacentCells)
-            {
-                grid.SetTile(adjacentCell, targetTile);
-            }
-        }
-    }
-
-    public IEnumerator RevertTiles(Transform current){
-
-        int waittimer = speeds[stompspeedindex];
-        while (waittimer >= 0)
-        {
-            yield return 0;
-            waittimer -= 1;
-        }
-
-        if(waittimer <= 0)
-        {
-            SetAdjacentTiles(current, null);
-        }
-    }
-
-    public IEnumerator RevertTiles(Transform[] current)
-    {
-        int waittimer = speeds[stompspeedindex];
-        while(waittimer >= 0)
-        {
-            yield return 0;
-            waittimer -= 1;
-        }
-
-        if(waittimer <= 0)
-        {
-            SetAdjacentTiles(current[0], null);
-            SetAdjacentTiles(current[1], null);
-            SetAdjacentTiles(current[2], null);
-            SetAdjacentTiles(current[3], null);
-        }
-    }
-
     public void BattleHasEnded()
     {
         activator.BattleEnd();
@@ -411,4 +271,28 @@ public class BigOrange : MonoBehaviour, IPausable
 
     public void UnPausedUpdate()
     { }
+
+    public (Vector3[], Quaternion[]) GetCurrentPartsState()
+    {
+        List<Vector3> positions = new List<Vector3>();
+        List<Quaternion> rotations = new List<Quaternion>();
+        
+        foreach (Transform child in transform)
+        {
+            positions.Add(child.position);
+            rotations.Add(child.rotation);
+        }
+
+        return (positions.ToArray(), rotations.ToArray());
+
+    }
+
+    public void SetCurrentPartsState(Vector3[] positions, Vector3[] eulerAngles)
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(0).position = positions[i];
+            transform.GetChild(0).eulerAngles = eulerAngles[i];
+        }
+    }
 }

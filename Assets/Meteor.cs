@@ -10,7 +10,7 @@ public class Meteor : MonoBehaviour, IPausable
     public Animator anim;
    
 
-    public Localaudioplayer localaudio;
+    public LocalAudioPlayer localaudio;
 
     PositionalSoundData soundData;
 
