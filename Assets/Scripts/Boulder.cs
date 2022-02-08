@@ -16,6 +16,8 @@ public class Boulder : MonoBehaviour, IPausable
     public AudioClip falling;
     public AudioClip hitting;
 
+    bool justhit = false;
+
     public float maxYVelocity;
     int bouldertotal;
     Rigidbody2D rb;
@@ -51,8 +53,9 @@ public class Boulder : MonoBehaviour, IPausable
     {
         var hit = coll.gameObject;
 
-        if (hit.tag == "Boss")
+        if (hit.tag == "Boss" && justhit == false)
         {
+            justhit = true;
             for (int l = 0; l < activate.Length; l++)
             {
                 bouldertotal += activate[l].boulderamount;
@@ -84,6 +87,11 @@ public class Boulder : MonoBehaviour, IPausable
 	{
 		storedForce = f;
 	}
+
+    public void LateUpdate()
+    {
+        justhit = false;
+    }
 
     public void OnPause()
     {

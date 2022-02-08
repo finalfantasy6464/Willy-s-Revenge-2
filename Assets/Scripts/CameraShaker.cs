@@ -7,12 +7,15 @@ public class CameraShaker : MonoBehaviour
     IEnumerator shakeRoutine;
     Vector3 defaultPosition;
 
+    float horizontalshake = 1;
+    float verticalshake = 1;
+
     void Start()
     {
         defaultPosition = transform.position;
     }
 
-    public void Shake()
+    public void Shake(float horizontalshake, float verticalshake)
     {
         if(shakeRoutine != null)
         {
@@ -20,14 +23,14 @@ public class CameraShaker : MonoBehaviour
             transform.position = defaultPosition;
         }
 
-        shakeRoutine = ShakeRoutine();
+        shakeRoutine = ShakeRoutine(horizontalshake, verticalshake);
         StartCoroutine(shakeRoutine);
     }
 
-    IEnumerator ShakeRoutine()
+    IEnumerator ShakeRoutine(float horizontalshake, float verticalshake)
     {
-        Vector3 shakeVector = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0f).normalized;
-        float shakeMagnitude = 1f;
+        Vector3 shakeVector = new Vector3(Random.Range(-horizontalshake, horizontalshake), Random.Range(-verticalshake, verticalshake), 0f).normalized;
+        float shakeMagnitude = 0.5f;
         const float shakeMagnitudeDecay = 0.017f;
 
         while(shakeMagnitude > 0f)
