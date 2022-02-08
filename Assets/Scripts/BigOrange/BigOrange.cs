@@ -167,15 +167,11 @@ public class BigOrange : MonoBehaviour, IPausable
     void ChooseMove()
     {
         PlayerController2021remake player = FindObjectOfType<PlayerController2021remake>();
-        if (rng > 1 && rng <= 50)
+        if (rng > 1 && rng <= 99)
         {
-            ((Punch)punchMove).Execute(player, this, "Left");
-            currentMove = punchMove;
-        }
-        if (rng > 50 && rng <= 99)
-        {
-            ((Punch)punchMove).Execute(player, this, "Right");
-            currentMove = punchMove;
+            ((Charge)chargeMove).Execute(m_animator);
+            //((Punch)punchMove).Execute(player, this, "Left");
+            currentMove = chargeMove;
         }
         /*
         if (rng <= 20)
