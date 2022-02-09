@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace WillysRevenge2.BigOrangeMoves
 {
-    [CreateAssetMenu(fileName = "NewClap", menuName = "Scriptables/Clap")]
-    public class Clap : BigOrangeMove
+    [CreateAssetMenu(fileName = "NewHop", menuName = "Scriptables/Hop")]
+    public class Hop : BigOrangeMove
     {
         public override void Execute()
         {
@@ -14,7 +14,7 @@ namespace WillysRevenge2.BigOrangeMoves
 
         public void Execute(Animator orangeAnimator)
         {
-            orangeAnimator.Play("Clap");
+            orangeAnimator.Play("QuadHop");
             base.Execute();
         }
     }

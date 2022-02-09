@@ -24,6 +24,10 @@ namespace WillysRevenge2.BigOrangeMoves
             base.Execute();
             bigOrange.m_animator.Play(isRight ? RIGHT_SLAM : LEFT_SLAM, -1);
 /*
+ * 
+ *          -- Spawn Either EnemySetLeft or EnemySetRight depending on the outcome of isRight, at the correct time of the
+ *          respective animations.
+ *          
         AnimationClip clip;
         Animator anim;
 
