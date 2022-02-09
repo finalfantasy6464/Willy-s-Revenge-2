@@ -99,7 +99,7 @@ namespace WillysRevenge2.BigOrangeMoves
             bigOrange.lightning.gameObject.SetActive(true);
             bigOrange.bicepLight.transform.position = MidPoint(shoulder.position, arm.position);
             bigOrange.forearmLight.transform.position = MidPoint(arm.position, hand.position);
-            GameSoundManagement.instance.efxSource.PlayOneShot(bigOrange.orangeSounds[3]);
+            bigOrange.sound.PlayElectric();
             RedrawLightning();
             while(sleepCounter < afterPunchSleepTime)
             {

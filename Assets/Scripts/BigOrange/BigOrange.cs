@@ -10,7 +10,6 @@ public class BigOrange : MonoBehaviour, IPausable
 {
     public float MaxHP = 100000;
     public float HP = 100000;
-    public AudioClip[] orangeSounds;
 
     [Header("VFX")]
     public LineRenderer lightning;
@@ -45,6 +44,7 @@ public class BigOrange : MonoBehaviour, IPausable
     public Animator m_animator;
     public BigOrangeSwitchControl switchControl;
     public BigOrangeEnemySpawner enemySpawner;
+    public BigOrangeSound sound;
     public FinalBossActivation activator;
 
     public event Action OnTakeDamage;
@@ -83,12 +83,6 @@ public class BigOrange : MonoBehaviour, IPausable
 
         m_animator.Play("Damage");
         return HP == 0;
-    }
-
-    public void PlayOrangeSound(int index)
-    {
-        GameSoundManagement.instance.efxSource.loop = false;
-        GameSoundManagement.instance.efxSource.PlayOneShot(orangeSounds[index]);
     }
 
     private IEnumerator WaitForEntranceRoutine()
