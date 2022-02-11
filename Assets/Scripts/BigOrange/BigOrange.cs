@@ -35,6 +35,7 @@ public class BigOrange : MonoBehaviour, IPausable
     public BigOrangeMove punchMove;
     public BigOrangeMove slamMove;
     public BigOrangeMove stompMove;
+    public BigOrangeMove hopMove;
     public bool isPaused { get; set; }
     [Space]
     public string previousstate;
@@ -46,18 +47,19 @@ public class BigOrange : MonoBehaviour, IPausable
     public BigOrangeEnemySpawner enemySpawner;
     public BigOrangeSound sound;
     public FinalBossActivation activator;
+    [HideInInspector]
+    public int[] speeds;
 
     public event Action OnTakeDamage;
     bool justlooped = false;
     int rng;
     int rng2;
     int loopcount = 0;
-    int[] speeds;
     float HPpercentage;
 
     void Start()
     {
-        OnTakeDamage += () => cameraShaker.Shake();      
+        OnTakeDamage += () => ShakeCamera(1f);      
         rng2 = 0;
         HPpercentage = Mathf.Round(HP / MaxHP * 100) / 100;
         speeds = new int[]
@@ -83,6 +85,21 @@ public class BigOrange : MonoBehaviour, IPausable
 
         m_animator.Play("Damage");
         return HP == 0;
+    }
+
+    public void ShakeCameraHorizontal(float shakeAmount)
+    {
+        cameraShaker.Shake(shakeAmount, 0f);
+    }
+
+    public void ShakeCameraVertical(float shakeAmount)
+    {
+        cameraShaker.Shake(0f, shakeAmount);
+    }
+
+    public void ShakeCamera(float shakeAmount)
+    {
+        cameraShaker.Shake(shakeAmount, shakeAmount);
     }
 
     private IEnumerator WaitForEntranceRoutine()
@@ -122,7 +139,7 @@ public class BigOrange : MonoBehaviour, IPausable
 
     void rngGenerate()
     {
-        rng = UnityEngine.Random.Range(1, 200);
+        rng = UnityEngine.Random.Range(1, 225);
         rng2 = UnityEngine.Random.Range(1, 100);
 
         ChooseMove();
@@ -131,51 +148,48 @@ public class BigOrange : MonoBehaviour, IPausable
     void ChooseMove()
     {
         PlayerController2021remake player = FindObjectOfType<PlayerController2021remake>();
-        if (rng > 1 && rng <= 199)
+        if (rng <= 35)
         {
-            //((Slam)slamMove).Execute(this, UnityEngine.Random.Range(0f, 1f) > 0.5f ? "Right" : "Left");
-            //((Charge)chargeMove).Execute(m_animator);
             ((Punch)punchMove).Execute(player, this, UnityEngine.Random.Range(0f, 1f) > 0.5f ? "Right" : "Left");
+            currentMove = punchMove;
+            stompspeedindex = 0;
+        }
+        if (rng > 35 && rng <= 60)
+        {
+            ((Jump)jumpMove).Execute(this);
+            currentMove = jumpMove;
+            stompspeedindex = 0;
+        }
+        if (rng > 60 && rng <= 140)
+        {
+            ((Slam)slamMove).Execute(this, UnityEngine.Random.Range(0f, 1f) > 0.5f ? "Right" : "Left");
             currentMove = slamMove;
-        }
-        /*
-        if (rng <= 20)
-        {
-            m_animator.SetBool("Jump", true);
             stompspeedindex = 0;
-        }
-        if (rng > 20 && rng <= 50)
-        {
-            m_animator.SetBool("LeftSlam", true);
-            stompspeedindex = 0;
-        }
-        if (rng > 50 && rng <= 80)
-        {
-            m_animator.SetBool("RightSlam", true);
-            stompspeedindex = 0;
-        }
-        if (rng > 80 && rng <= 100)
-        {
-            m_animator.SetBool("Stomp", true);
-            if(stompspeedindex < 2)
-                stompspeedindex ++;
-        }
-        if (rng > 100 && rng <= 120)
-        {
-            ((Punch)punchMove).Execute(FindObjectOfType<PlayerController2021remake>(), this, leftShoulder, leftArm, leftHand);
-        }
-        if (rng > 120 && rng <= 140)
-        {
-            ((Punch)punchMove).Execute(FindObjectOfType<PlayerController2021remake>(), this, rightShoulder, rightArm, rightHand);
         }
         if (rng > 140 && rng <= 160)
         {
-
+            currentMove = stompMove;
+            stompspeedindex = Mathf.Min(3, stompspeedindex + 1);
+            ((Stomp)stompMove).Execute(this);
         }
         if (rng > 160 && rng <= 180)
         {
-
-        }*/
+            ((Charge)chargeMove).Execute(m_animator);
+            currentMove = chargeMove;
+            stompspeedindex = 0;
+        }
+        if (rng > 180 && rng <= 200)
+        {
+            ((Clap)clapMove).Execute(m_animator);
+            currentMove = clapMove;
+            stompspeedindex = 0;
+        }
+        if(rng > 200)
+        {
+            ((Hop)hopMove).Execute(m_animator);
+            currentMove = hopMove;
+            stompspeedindex = 0;
+        }
     }
 
     void SetBoolAnimationParameters(bool value)

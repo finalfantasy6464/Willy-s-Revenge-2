@@ -1,43 +1,38 @@
+using System.Collections;
 using UnityEngine;
 namespace WillysRevenge2.BigOrangeMoves
 {
     [CreateAssetMenu(fileName = "NewJump", menuName = "Scriptables/Jump")]
     public class Jump : BigOrangeMove
     {
+        BigOrange bigOrange;
+
+        const float hitProgress = 0.8333f;
+        const string JUMP = "Jump";
+
         public override void Execute()
         {
             base.Execute();
         }
 
-        public void Execute(Animator orangeAnimator)
+        public void Execute(BigOrange bigOrange)
         {
-            orangeAnimator.Play("Jump");
+            this.bigOrange = bigOrange;
+
             base.Execute();
+            bigOrange.m_animator.Play(JUMP, -1);
+            bigOrange.StartCoroutine(WaitForJumpRoutine());
+        }
 
-            /*
-             * -- Spawn EnemyTop at correct time based on animation
-             * 
-        AnimationClip clip;
-        Animator anim;
+        IEnumerator WaitForJumpRoutine()
+        {
+            while(!bigOrange.m_animator.GetCurrentAnimatorStateInfo(0).IsName(JUMP))
+                yield return null;
+            
+            while(bigOrange.m_animator.GetCurrentAnimatorStateInfo(0).normalizedTime < hitProgress)
+                yield return null;
 
-        // new event created
-        AnimationEvent evt;
-        evt = new AnimationEvent();
-
-        // put some parameters on the AnimationEvent
-        //  - call the function called PrintEvent()
-        //  - the animation on this object lasts 2 seconds
-        //    and the new animation created here is
-        //    set up to happen 1.3s into the animation
-        evt.intParameter = 12345;
-        evt.time = 1.3f;
-        evt.functionName = "PrintEvent";
-
-        // get the animation clip and add the AnimationEvent
-        anim = GetComponent<Animator>();
-        clip = anim.runtimeAnimatorController.animationClips[0];
-        clip.AddEvent(evt);*/
-
+            bigOrange.enemySpawner.SpawnEnemiesTop();
         }
     }
 }

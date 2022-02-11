@@ -12,7 +12,7 @@ public class BigOrangeSwitchControl : MonoBehaviour
 
     IEnumerator revertRoutine;
 
-    void SpawnBlocks(int stompSpeed)
+    public void SpawnBlocks(int stompSpeed)
     {
         for (int i = 0; i < switches.Length; i++)
         {
@@ -58,7 +58,7 @@ public class BigOrangeSwitchControl : MonoBehaviour
 
         if(waittimer <= 0)
         {
-            SetAdjacentTiles(current, null);
+            SetAdjacentTiles(current, defaulttile);
         }
     }
 
@@ -73,10 +73,10 @@ public class BigOrangeSwitchControl : MonoBehaviour
 
         if(waittimer <= 0)
         {
-            SetAdjacentTiles(current[0], null);
-            SetAdjacentTiles(current[1], null);
-            SetAdjacentTiles(current[2], null);
-            SetAdjacentTiles(current[3], null);
+            SetAdjacentTiles(current[0], defaulttile);
+            SetAdjacentTiles(current[1], defaulttile);
+            SetAdjacentTiles(current[2], defaulttile);
+            SetAdjacentTiles(current[3], defaulttile);
         }
     }
 }

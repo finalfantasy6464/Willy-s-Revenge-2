@@ -16,6 +16,11 @@ public class BigOrangeSound : LocalAudioPlayer
     public void PlayFist()    { PlayFromClip(clips[4]); }
     public void PlayJump()    { PlayFromClip(clips[5]); }
     public void PlayLand()    { PlayFromClip(clips[6]); }
+    public void PlaySpringJump()  { PlayFromClip(clips[7]); }
+    public void PlayMetalHit()    { PlayFromClip(clips[8]); }
+    public void PlayWindupCharge(){ PlayFromClip(clips[9]); }
+    public void PlayWindupFist()  { PlayFromClip(clips[10]); }
+    public void PlaySonar()       { PlayFromClip(clips[11]); }
 
     void PlayFromClip(AudioClip clip)
     {
