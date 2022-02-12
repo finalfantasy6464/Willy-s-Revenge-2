@@ -73,7 +73,7 @@ public class Boulder : MonoBehaviour, IPausable
                 }
             }
 
-            if(orangeScript.TakeDamage((int)(25 * Mathf.Pow(bouldertotal, 3))))
+            if(orangeScript.TakeDamage((int)(35 * Mathf.Pow(bouldertotal, 3))))
             {
                 for (int l = 0; l < activate.Length; l++)
                 {

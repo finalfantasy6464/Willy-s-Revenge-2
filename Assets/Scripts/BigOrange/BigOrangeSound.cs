@@ -31,6 +31,8 @@ public class BigOrangeSound : LocalAudioPlayer
 
     public void PlayLaugh() { PlayFromClip(clips[18]); }
 
+    public void PlayChargeWindup() { PlayFromClip(clips[19]); }
+
 
     void PlayFromClip(AudioClip clip)
     {

@@ -31,8 +31,10 @@ public class BigOrangeEnemySpawner : MonoBehaviour
 
     public void SpawnEnemiesTop()
     {
-        CreateEnemy<EnemyMovementThreeVariant>(enemyPrefabs[2], SpawnPoint.TopLeft, SpawnOffset.none);
-        CreateEnemy<EnemyMovementThreeVariant>(enemyPrefabs[3], SpawnPoint.TopRight, SpawnOffset.none);
+        CreateEnemy<EnemyMovementThreeVariant>(enemyPrefabs[2], SpawnPoint.TLWhite, SpawnOffset.none);
+        CreateEnemy<EnemyMovementThreeVariant>(enemyPrefabs[3], SpawnPoint.BRWhite, SpawnOffset.none);
+        CreateEnemy<EnemyMovementThreeVariant>(enemyPrefabs[6], SpawnPoint.BLWhite, SpawnOffset.none);
+        CreateEnemy<EnemyMovementThreeVariant>(enemyPrefabs[7], SpawnPoint.TRWhite, SpawnOffset.none);
     }
 
     void CreateWithAdjacentHorizontal<T>(GameObject prefab, SpawnPoint point)
@@ -67,6 +69,10 @@ public class BigOrangeEnemySpawner : MonoBehaviour
         TopLeft,
         TopRight,
         BottomLeft,
-        BottomRight
+        BottomRight,
+        TLWhite,
+        BRWhite,
+        BLWhite,
+        TRWhite,
     }
 }
