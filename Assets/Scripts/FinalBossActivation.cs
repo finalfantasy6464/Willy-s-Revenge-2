@@ -12,6 +12,9 @@ public class FinalBossActivation : MonoBehaviour
     public Light2D[] arenaLights;
     public Light2D globalLight;
 
+    public GameObject Timer;
+    public Text timerText;
+
     public GameObject HPBarImage;
     public GameObject CurrentHPtext;
     public GameObject HPText;
@@ -50,6 +53,8 @@ public class FinalBossActivation : MonoBehaviour
         var hit = coll.gameObject;
         if (hit.tag == "Player")
         {
+            Timer.SetActive(true);
+            timerText.gameObject.SetActive(true);
             GameControl.control.bosscheckpoint = true;
 
             cameras[0].gameObject.SetActive(false);
@@ -68,9 +73,6 @@ public class FinalBossActivation : MonoBehaviour
 
             orangescript.m_animator.SetFloat("EntranceSpeed", 1);
             m_collider.enabled = false;
-
-       
-
         }
     }
 }

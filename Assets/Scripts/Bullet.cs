@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Bullet : MonoBehaviour, IPausable
 {
 	PlayerController2021remake playercontroller;
+	PlayerCollision playerColl;
 	GameObject Player;
 	Rigidbody2D rb;
 	Collider2D myCollider;
@@ -21,6 +22,7 @@ public class Bullet : MonoBehaviour, IPausable
 		if (Player != null)
 		{
 			playercontroller = Player.GetComponent<PlayerController2021remake>();
+			playerColl = Player.GetComponent<PlayerCollision>();
 		}
 	}
 
@@ -51,7 +53,7 @@ public class Bullet : MonoBehaviour, IPausable
 			{
 				if (hit.tag == "Player")
 				{
-					Destroy(hit);
+					playerColl.Die(playerColl.onWallCollide);
 					SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 				}
 			}

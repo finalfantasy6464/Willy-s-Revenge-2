@@ -71,7 +71,7 @@ public class RadialProgress : RadialGauge, IPausable
     
     public void UnPausedUpdate()
     {
-        CurrentValue += 0.015f;
+        CurrentValue += 0.01f;
     }
 
     public void ForceInstant()

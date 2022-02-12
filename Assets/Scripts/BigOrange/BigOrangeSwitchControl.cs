@@ -6,63 +6,52 @@ using UnityEngine.Tilemaps;
 public class BigOrangeSwitchControl : MonoBehaviour
 {
     public Transform[] switches;
-    public Tilemap grid;
-    public Tile changetile;
-    public Tile defaulttile;
+    public List<GameObject> TileWall;
+    public GameObject wall;
+
+    List<Vector2> spawnPositions;
 
     IEnumerator revertRoutine;
 
-    public void SpawnBlocks(int stompSpeed)
+    public void Start()
     {
+        spawnPositions = new List<Vector2>();
+
         for (int i = 0; i < switches.Length; i++)
         {
-            SetAdjacentTiles(switches[i], changetile);
+            spawnPositions.Add(new Vector2(switches[i].transform.position.x - 0.72f, switches[i].transform.position.y));
+            spawnPositions.Add(new Vector2(switches[i].transform.position.x + 0.72f, switches[i].transform.position.y));
+            spawnPositions.Add(new Vector2(switches[i].transform.position.x, switches[i].transform.position.y + 0.72f));
+            spawnPositions.Add(new Vector2(switches[i].transform.position.x, switches[i].transform.position.y - 0.72f));
+        }
+    }
+
+    public void SpawnBlocks(int stompSpeed)
+    {
+        TileWall.Clear();
+        for (int i = 0; i < switches.Length; i++)
+        {
+            TileWall.Add(wall);
+            TileWall.Add(wall);
+            TileWall.Add(wall);
+            TileWall.Add(wall);
+
+            for (int k = 0; k < 4; k++)
+            {
+                Instantiate(TileWall[k + (i * 4)]);
+                TileWall[k + (i * 4)].transform.position = spawnPositions[k + (i * 4)];
+            }
         }
 
         if (revertRoutine != null)
         {
             StopCoroutine(revertRoutine);
         }
-        revertRoutine = RevertTiles(switches, stompSpeed);
+        revertRoutine = RevertTiles(stompSpeed);
         StartCoroutine(revertRoutine);
     }
 
-    public void SetAdjacentTiles(Transform current, Tile targetTile)
-    {
-        float sideSize = 0.72f;
-        if(current != null)
-        {
-            Vector3 currentCellPos = current.transform.position;
-            Vector3Int[] adjacentCells = new Vector3Int[]
-            {
-                grid.WorldToCell(currentCellPos + Vector3.left * sideSize),
-                grid.WorldToCell(currentCellPos + Vector3.up * sideSize),
-                grid.WorldToCell(currentCellPos + Vector3.right * sideSize),
-                grid.WorldToCell(currentCellPos + Vector3.down * sideSize),
-            };
-            foreach (Vector3Int adjacentCell in adjacentCells)
-            {
-                grid.SetTile(adjacentCell, targetTile);
-            }
-        }
-    }
-
-    public IEnumerator RevertTiles(Transform current, int stompSpeed){
-
-        int waittimer = stompSpeed;
-        while (waittimer >= 0)
-        {
-            yield return 0;
-            waittimer -= 1;
-        }
-
-        if(waittimer <= 0)
-        {
-            SetAdjacentTiles(current, defaulttile);
-        }
-    }
-
-    public IEnumerator RevertTiles(Transform[] current, int stompSpeed)
+    public IEnumerator RevertTiles(int stompSpeed)
     {
         int waittimer = stompSpeed;
         while(waittimer >= 0)
@@ -73,10 +62,15 @@ public class BigOrangeSwitchControl : MonoBehaviour
 
         if(waittimer <= 0)
         {
-            SetAdjacentTiles(current[0], defaulttile);
-            SetAdjacentTiles(current[1], defaulttile);
-            SetAdjacentTiles(current[2], defaulttile);
-            SetAdjacentTiles(current[3], defaulttile);
-        }
+            for (int i = 0; i < TileWall.Count; i++)
+            {
+                    var walls = GameObject.FindGameObjectsWithTag("switchWall");
+
+                foreach (GameObject wall in walls)
+                    {
+                        Destroy(wall.gameObject);
+                    }
+            }
+        }         
     }
 }

@@ -73,6 +73,7 @@ public class BigOrange : MonoBehaviour, IPausable
     public bool TakeDamage(int amount)
     {
         HP = Mathf.Max(0, HP - amount);
+        GameSoundManagement.instance.efxSource.Stop();
 
         if(amount > 0)
             OnTakeDamage?.Invoke();
@@ -148,6 +149,7 @@ public class BigOrange : MonoBehaviour, IPausable
     void ChooseMove()
     {
         PlayerController2021remake player = FindObjectOfType<PlayerController2021remake>();
+
         if (rng <= 35)
         {
             ((Punch)punchMove).Execute(player, this, UnityEngine.Random.Range(0f, 1f) > 0.5f ? "Right" : "Left");

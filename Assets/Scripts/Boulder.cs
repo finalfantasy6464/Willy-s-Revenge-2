@@ -13,6 +13,8 @@ public class Boulder : MonoBehaviour, IPausable
     GameObject[] FloorSwitches;
     RadialActivate[] activate;
 
+    public Color currentColour;
+
     public AudioClip falling;
     public AudioClip hitting;
 
@@ -33,7 +35,7 @@ public class Boulder : MonoBehaviour, IPausable
         orangeScript = orange.GetComponent<BigOrange>();
         FloorSwitches = GameObject.FindGameObjectsWithTag("Switch");
         activate = new RadialActivate[FloorSwitches.Length];
-        sprite = GetComponent<SpriteRenderer>();
+        sprite = GetComponentInChildren<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         GameSoundManagement.instance.PlayOneShot(falling);
 
@@ -61,7 +63,7 @@ public class Boulder : MonoBehaviour, IPausable
                 bouldertotal += activate[l].boulderamount;
                 activated.Add(activate[l].isActive);
 
-                if (!activated.Contains(true) && activated.Count == 4)
+                if (!activated.Contains(true) && activated.Count == 5)
                 {
                     for (int k = 0; k < activate.Length; k++)
                     {
@@ -71,13 +73,14 @@ public class Boulder : MonoBehaviour, IPausable
                 }
             }
 
-            if(orangeScript.TakeDamage((int)(20 * Mathf.Pow(bouldertotal, 3))))
+            if(orangeScript.TakeDamage((int)(25 * Mathf.Pow(bouldertotal, 3))))
             {
                 for (int l = 0; l < activate.Length; l++)
                 {
                     Destroy(activate[l].gameObject);
                 }
             }
+            GameSoundManagement.instance.efxSource.pitch = 1.0f;
             GameSoundManagement.instance.PlayOneShot(hitting);
             Destroy(gameObject);
         }

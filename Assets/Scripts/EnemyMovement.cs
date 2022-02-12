@@ -12,7 +12,10 @@ public class EnemyMovement : MonoBehaviour, IPausable
     private float moveinterval = 0.1f;
 	public float multiplier = 1.0f;
 
+    bool finished = false; 
 	private Vector2 enemydir = Vector2.right;
+
+    Animator m_animator;
 
     public bool lifespan = false;
     private bool levelstart = false;
@@ -43,6 +46,8 @@ public class EnemyMovement : MonoBehaviour, IPausable
         {
             gameObject.transform.localScale = new Vector3(-1, 1, 1);
         }
+
+        m_animator = GetComponent<Animator>();
     }
 
     IEnumerator LevelStarting()
@@ -85,7 +90,10 @@ public class EnemyMovement : MonoBehaviour, IPausable
 
                 if(coll.gameObject.tag == "Void")
                 {
-                    Destroy(this.gameObject);
+                    finished = true;
+                    movespeed = 0;
+                    movestep = 0;
+                    m_animator.Play("EnemySuction");
                 }
 
                 if(coll.gameObject.tag == "Tail")
@@ -123,7 +131,10 @@ public class EnemyMovement : MonoBehaviour, IPausable
 				}
                 if (coll.gameObject.tag == "Void")
                 {
-                    Destroy(this.gameObject);
+                    finished = true;
+                    movespeed = 0;
+                    movestep = 0;
+                    m_animator.Play("EnemySuction");
                 }
             }
 			}
@@ -148,6 +159,12 @@ public class EnemyMovement : MonoBehaviour, IPausable
 
 		transform.Translate (enemydir);
 	}
+
+    void DestroySelf()
+    {
+        Destroy(this.gameObject);
+    }
+
 
     public void OnPause() { }
 
@@ -183,6 +200,8 @@ public class EnemyMovement : MonoBehaviour, IPausable
                 movespeed = movespeed - moveinterval;
             }
 
+        if (!finished)
+        {
             switch (direction)
             {
 
@@ -195,6 +214,8 @@ public class EnemyMovement : MonoBehaviour, IPausable
                     enemydir = Vector2.right / 8;
                     break;
             }
+        }
+           
         }
     public void OnDestroy()
     {
