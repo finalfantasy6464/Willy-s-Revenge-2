@@ -8,6 +8,7 @@ public class BigOrangeSwitchControl : MonoBehaviour
     public Transform[] switches;
     public List<GameObject> TileWall;
     public GameObject wall;
+    float offset = 0.72f;
 
     List<Vector2> spawnPositions;
 
@@ -19,10 +20,10 @@ public class BigOrangeSwitchControl : MonoBehaviour
 
         for (int i = 0; i < switches.Length; i++)
         {
-            spawnPositions.Add(new Vector2(switches[i].transform.position.x - 0.72f, switches[i].transform.position.y));
-            spawnPositions.Add(new Vector2(switches[i].transform.position.x + 0.72f, switches[i].transform.position.y));
-            spawnPositions.Add(new Vector2(switches[i].transform.position.x, switches[i].transform.position.y + 0.72f));
-            spawnPositions.Add(new Vector2(switches[i].transform.position.x, switches[i].transform.position.y - 0.72f));
+            spawnPositions.Add(new Vector2(switches[i].transform.position.x - offset, switches[i].transform.position.y));
+            spawnPositions.Add(new Vector2(switches[i].transform.position.x + offset, switches[i].transform.position.y));
+            spawnPositions.Add(new Vector2(switches[i].transform.position.x, switches[i].transform.position.y + offset));
+            spawnPositions.Add(new Vector2(switches[i].transform.position.x, switches[i].transform.position.y - offset));
         }
     }
 
