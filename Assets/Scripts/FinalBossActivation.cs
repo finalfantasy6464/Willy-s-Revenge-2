@@ -29,15 +29,42 @@ public class FinalBossActivation : MonoBehaviour
 
     private void Start()
     {
-        if (GameControl.control.bosscheckpoint == true)
-        {
-            playerScript.transform.position = transform.position;
-        }
-
         orange = GameObject.FindGameObjectWithTag("Boss");
         orangescript = orange.GetComponent<BigOrange>();
         m_collider = GetComponent<Collider2D>();
         music = GameObject.Find("SoundManager").GetComponent<MusicManagement>();
+
+        if (GameControl.control.bosscheckpoint == true)
+        {
+            playerScript.transform.position = transform.position;
+            orangescript.m_animator.Play("Idle");
+            m_collider.enabled = false;
+            BattleActivated();
+        }
+    }
+
+    public void BattleActivated()
+    {
+        if(GameControl.control.bosscheckpoint == false)
+        {
+            GameControl.control.bosscheckpoint = true;
+        }
+        Timer.SetActive(true);
+        timerText.gameObject.SetActive(true);
+
+        foreach (Light2D arenalight in arenaLights)
+        {
+            arenalight.gameObject.SetActive(true);
+        }
+
+        cameras[0].gameObject.SetActive(false);
+        cameras[1].gameObject.SetActive(true);
+        globalLight.intensity = 0.05f;
+
+        HPBarImage.SetActive(true);
+        HPText.SetActive(true);
+        CurrentHPtext.SetActive(true);
+        playerScript.canmove = true;
     }
 
     public void BattleEnd()
@@ -45,6 +72,14 @@ public class FinalBossActivation : MonoBehaviour
         {
             cameras[1].gameObject.SetActive(false);
             cameras[0].gameObject.SetActive(true);
+            globalLight.intensity = 0.85f;
+            foreach(Light2D arenalight in arenaLights)
+            {
+                arenalight.gameObject.SetActive(false);
+            }
+            HPBarImage.SetActive(false);
+            HPText.SetActive(false);
+            CurrentHPtext.SetActive(false);
         }
     }
 
@@ -53,26 +88,11 @@ public class FinalBossActivation : MonoBehaviour
         var hit = coll.gameObject;
         if (hit.tag == "Player")
         {
-            Timer.SetActive(true);
-            timerText.gameObject.SetActive(true);
-            GameControl.control.bosscheckpoint = true;
-
-            cameras[0].gameObject.SetActive(false);
-            cameras[1].gameObject.SetActive(true);
-
-            foreach (Light2D arenalight in arenaLights)
-            {
-                arenalight.gameObject.SetActive(true);
-            }
-
-            globalLight.intensity = 0.05f;
-
-            HPBarImage.SetActive(true);
-            HPText.SetActive(true);
-            CurrentHPtext.SetActive(true);
-
+            playerScript.canmove = false;
             orangescript.m_animator.SetFloat("EntranceSpeed", 1);
             m_collider.enabled = false;
+            cameras[0].gameObject.SetActive(false);
+            cameras[1].gameObject.SetActive(true);
         }
     }
 }

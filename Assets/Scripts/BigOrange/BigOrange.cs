@@ -108,6 +108,7 @@ public class BigOrange : MonoBehaviour, IPausable
         while(m_animator.GetCurrentAnimatorStateInfo(0).IsName("Entrance"))
                 yield return null;
 
+        activator.BattleActivated();
         IdleLoops();
     }
 
