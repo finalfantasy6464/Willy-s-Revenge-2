@@ -6,6 +6,7 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 public class FinalBossActivation : MonoBehaviour
 {
+    public BigOrangeEntrance boEntrance;
     BigOrange orangescript;
     GameObject orange;
 
@@ -25,17 +26,19 @@ public class FinalBossActivation : MonoBehaviour
 
     public PlayerController2021remake playerScript;
 
-    private Collider2D m_collider;
+    private BoxCollider2D m_collider;
 
     private void Start()
     {
         orange = GameObject.FindGameObjectWithTag("Boss");
         orangescript = orange.GetComponent<BigOrange>();
-        m_collider = GetComponent<Collider2D>();
+        m_collider = GetComponent<BoxCollider2D>();
         music = GameObject.Find("SoundManager").GetComponent<MusicManagement>();
 
         if (GameControl.control.bosscheckpoint == true)
         {
+            boEntrance.SpawnOrange();
+            boEntrance.destroySelf();
             playerScript.transform.position = transform.position;
             orangescript.m_animator.Play("Idle");
             m_collider.enabled = false;
@@ -89,7 +92,8 @@ public class FinalBossActivation : MonoBehaviour
         if (hit.tag == "Player")
         {
             playerScript.canmove = false;
-            orangescript.m_animator.SetFloat("EntranceSpeed", 1);
+            boEntrance.m_animator.enabled = true;
+            boEntrance.m_animator.Play("entranceMain");
             m_collider.enabled = false;
             cameras[0].gameObject.SetActive(false);
             cameras[1].gameObject.SetActive(true);
