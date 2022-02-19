@@ -6,8 +6,8 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 public class FinalBossActivation : MonoBehaviour
 {
-           BigOrange orangescript;
-           GameObject orange;
+    BigOrange orangescript;
+    GameObject orange;
 
     public Light2D[] arenaLights;
     public Light2D globalLight;
