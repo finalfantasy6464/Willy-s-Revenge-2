@@ -105,9 +105,16 @@ public class BigOrange : MonoBehaviour, IPausable
 
     private IEnumerator WaitForEntranceRoutine()
     {
+        
         while(m_animator.GetCurrentAnimatorStateInfo(0).IsName("Entrance"))
                 yield return null;
 
+        // Fade Out
+        
+        while(m_animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0f)
+                yield return null;
+
+        // Fade In
         activator.BattleActivated();
         IdleLoops();
     }
