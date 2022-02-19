@@ -9,7 +9,8 @@ public class MovingShooter : MonoBehaviour, IPausable
 	private float DistanceFrom;
 	public float fireprogress = 0.0f;
 	public float firerate = 0.5f;
-	private float nextfire = 0.0f;
+	public float nextfire;
+	private float shotstep = 0.02f;
 
 	public Transform Spawnpoint;
 	public Transform Spawnpoint2;
@@ -29,6 +30,7 @@ public class MovingShooter : MonoBehaviour, IPausable
 		if(Spawnpoint != null) spawnPoints.Add(Spawnpoint);
 		if(Spawnpoint2 != null) spawnPoints.Add(Spawnpoint2);
 		if(Spawnpoint3 != null) spawnPoints.Add(Spawnpoint3);
+		nextfire = firerate;
 	}
 
     void Update()
@@ -37,13 +39,12 @@ public class MovingShooter : MonoBehaviour, IPausable
 			UnPausedUpdate();
 	}
 
-	void Attacking()
+	public void Attacking()
 	{
 		fireprogress += Time.deltaTime;
 		if (fireprogress >= nextfire)
 		{
-			nextfire = firerate;
-			fireprogress -= fireprogress;
+			fireprogress = 0;
 			for (int i = 0; i < shootertype; i++)
 			{
 				GameObject newBullet = Instantiate(ammo, spawnPoints[i].position, spawnPoints[i].rotation);

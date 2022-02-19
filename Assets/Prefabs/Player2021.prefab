@@ -234,6 +234,8 @@ MonoBehaviour:
   shock: {fileID: 8300000, guid: cb11e25c89d0e2945b8f72f40e08f893, type: 3}
   shieldPickup: {fileID: 8300000, guid: ef8f29aa9f7ffd94197e02895099864b, type: 3}
   Playercontrol: {fileID: 7698881267086589584}
+  arenaControl: {fileID: 0}
+  arenaColl: {fileID: 0}
   Playercoll: {fileID: 7698881267086589589}
 --- !u!1 &7698881265685682713
 GameObject:
@@ -4181,13 +4183,13 @@ GameObject:
   m_Component:
   - component: {fileID: 7698881267086589591}
   - component: {fileID: 7698881267086589590}
-  - component: {fileID: 7698881267086589588}
   - component: {fileID: 7698881267086589589}
   - component: {fileID: 7698881267086589585}
   - component: {fileID: 4101164235330294639}
   - component: {fileID: 8405737008650615248}
   - component: {fileID: 1031547481858185581}
   - component: {fileID: 7698881267086589584}
+  - component: {fileID: 5204506593831691603}
   m_Layer: 10
   m_Name: Player2021
   m_TagString: Player
@@ -4342,32 +4344,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &7698881267086589588
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7698881267086589587}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.04, y: -0.015252329}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.4, y: 0.4}
-    newSize: {x: 0.33, y: 0.33}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.22, y: 0.22}
-  m_EdgeRadius: 0
 --- !u!114 &7698881267086589589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4382,7 +4358,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LavaWorld: 0
   canbehit: 1
-  playerCollider: {fileID: 7698881267086589588}
+  playerCollider: {fileID: 0}
   spriterenderer: {fileID: 7698881267086589590}
   onKeyCollect:
     m_PersistentCalls:
@@ -4607,6 +4583,7 @@ MonoBehaviour:
   canmove: 1
   directionreset: 0
   basespeed: 1.8
+  speedMultiplier: 1
   finalspeed: 0
   pelletno: 0
   countText: {fileID: 0}
@@ -4627,6 +4604,40 @@ MonoBehaviour:
   onCollectShield:
     m_PersistentCalls:
       m_Calls: []
+--- !u!60 &5204506593831691603
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7698881267086589587}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.4, y: 0.4}
+    newSize: {x: 0.33, y: 0.33}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.046815634, y: 0.08903122}
+      - {x: -0.10421924, y: 0.0706369}
+      - {x: -0.13173693, y: 0.026700817}
+      - {x: -0.12429005, y: -0.0603541}
+      - {x: -0.083119795, y: -0.09056656}
+      - {x: -0.00401783, y: -0.091362}
+      - {x: 0.044290178, y: -0.05950263}
+      - {x: 0.044856727, y: 0.024433441}
+      - {x: 0.011345804, y: 0.07978706}
 --- !u!1 &7698881267090523899
 GameObject:
   m_ObjectHideFlags: 0

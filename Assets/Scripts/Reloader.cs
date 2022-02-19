@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,10 +8,10 @@ public class Reloader : MonoBehaviour, IPausable
 
 	MovingShooter mover;
 	public float offset;
-	public float reloadtimer;
-	public float speed = 1.0f;
-	private float defaultfirerate;
-	private float newfirerate = 1.0f;
+    public float idletime;
+    public float ShootingTime = 1f;
+	public float reloadtimer = 0f;
+    public float ReloadingTime;
 
     public bool isPaused { get; set;}
 
@@ -18,8 +19,7 @@ public class Reloader : MonoBehaviour, IPausable
     void Start()
     {
 		mover = GetComponent<MovingShooter> ();
-		defaultfirerate = mover.firerate;
-		reloadtimer = offset;
+		idletime = offset;
     }
 
     // Update is called once per frame
@@ -36,20 +36,27 @@ public class Reloader : MonoBehaviour, IPausable
 
     public void UnPausedUpdate()
     {
-        reloadtimer += Time.deltaTime * speed;
+        idletime += Time.deltaTime;
+        if(idletime > ShootingTime)
+        {
+            idletime = -10000f;
+            reloadtimer = 0;
+            StartCoroutine(ReloadRoutine());
+        }
+    }
 
-        if (reloadtimer < 0.5f)
+    IEnumerator ReloadRoutine()
+    {
+        while (reloadtimer < ReloadingTime)
         {
-            mover.firerate = newfirerate;
+            reloadtimer += Time.deltaTime;
+            mover.fireprogress = 0;
+            yield return null;
         }
-        if (reloadtimer > 0.5f)
-        {
-            mover.firerate = defaultfirerate;
-        }
-        if (reloadtimer > 2.5f)
-        {
-            reloadtimer = 0.0f;
-        }
+
+        idletime = 0;
+        mover.fireprogress += Time.deltaTime;
+        yield break;
     }
 
     public void OnDestroy()
