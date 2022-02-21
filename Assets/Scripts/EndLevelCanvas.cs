@@ -8,6 +8,7 @@ public class EndLevelCanvas : MonoBehaviour
 {
     Scene m_Scene;
     public GameObject nextLevelButton;
+    public CanvasGroup canvasGroup;
 
     public Sprite[] emblemsprites;
     public Image completeImage;
@@ -22,6 +23,7 @@ public class EndLevelCanvas : MonoBehaviour
     private void Start()
     {
         nextLevelButton.SetActive(!(m_Scene.buildIndex % 10.0f == 0));
+        canvasGroup = this.GetComponent<CanvasGroup>();
 
         UpdateEmblemStatus();
     }

@@ -27,6 +27,8 @@ public class EnemyMovement : MonoBehaviour, IPausable
     private float age = 0;
     public float death;
 
+    SpriteRenderer m_Renderer;
+
     [HideInInspector] public UnityEvent onWallHit;
 
     public bool isPaused { get; set; }
@@ -37,14 +39,15 @@ public class EnemyMovement : MonoBehaviour, IPausable
     }
     void Start()
     {
+        m_Renderer = gameObject.GetComponent<SpriteRenderer>();
         StartCoroutine(LevelStarting());
         if(direction == 2)
         {
-            gameObject.transform.localScale = new Vector3(1,1,1);
+            m_Renderer.flipX = false;
         }
         else
         {
-            gameObject.transform.localScale = new Vector3(-1, 1, 1);
+            m_Renderer.flipX = true;
         }
 
         m_animator = GetComponent<Animator>();
@@ -72,7 +75,7 @@ public class EnemyMovement : MonoBehaviour, IPausable
                     direction = 2;
                     hitcount += 1;
                     justhit = true;
-                    gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x * -1, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
+                    m_Renderer.flipX = false;
                 }
 
                 if (coll.gameObject.tag != "Teleport" && coll.gameObject.tag != "Enemy")
@@ -80,7 +83,7 @@ public class EnemyMovement : MonoBehaviour, IPausable
 					direction = 2;
 					justhit = true;
                     onWallHit.Invoke();
-                    gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x * -1, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
+                    m_Renderer.flipX = false;
                 }
 
 				if (coll.gameObject.tag == "Teleport") {
@@ -114,7 +117,7 @@ public class EnemyMovement : MonoBehaviour, IPausable
                     direction = 1;
                     hitcount += 1;
                     justhit = true;
-                    gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x * -1, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
+                    m_Renderer.flipX = true;
                 }
 
                 if (coll.gameObject.tag != "Teleport" && coll.gameObject.tag != "Enemy") {
@@ -122,7 +125,7 @@ public class EnemyMovement : MonoBehaviour, IPausable
 					direction = 1;
 					justhit = true;
                     onWallHit.Invoke();
-                    gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x * -1, gameObject.transform.localScale.y, gameObject.transform.localScale.z);
+                    m_Renderer.flipX = true;
                 }
 
 				if (coll.gameObject.tag == "Teleport") {

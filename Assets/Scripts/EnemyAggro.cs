@@ -5,13 +5,14 @@ using UnityEngine;
 public class EnemyAggro : MonoBehaviour
 {
 	public bool active = false;
-	public Transform player;
+	Transform player;
 	public float range;
 	private EnemyProjectile projectile;
 
 
 	void Start (){
 
+		player = GameObject.FindObjectOfType<PlayerController2021remake>().transform;
 		projectile = GetComponent<EnemyProjectile> ();
 	}
 

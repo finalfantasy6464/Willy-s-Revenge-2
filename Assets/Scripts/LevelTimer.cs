@@ -17,6 +17,8 @@ public class LevelTimer : MonoBehaviour, IPausable
 
 	public bool expired = false;
 
+    LevelCanvas canvas;
+
     public bool isPaused { get; set; }
 
     #region fuckoffanddie
@@ -24,6 +26,21 @@ public class LevelTimer : MonoBehaviour, IPausable
 
     public void OnUnpause() {}
     #endregion
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+		timersec = 0.0f;
+        canvas = GameObject.FindObjectOfType<LevelCanvas>();
+        text = canvas.timerText;
+    }
+
+    void Update()
+    {
+        if (!isPaused)
+            UnPausedUpdate();
+    }
 
     public void UnPausedUpdate()
     {
@@ -37,18 +54,7 @@ public class LevelTimer : MonoBehaviour, IPausable
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-		timersec = 0.0f;
-    }
-
-    void Update()
-    {
-        if (!isPaused)
-            UnPausedUpdate();
-    }
-	public void OnDestroy()
+    public void OnDestroy()
     {
         PauseControl.TryRemovePausable(gameObject);
     }

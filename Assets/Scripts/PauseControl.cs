@@ -39,7 +39,7 @@ public class PauseControl : MonoBehaviour
 
     void LateUpdate()
     {
-        if(endCanvas == null || endCanvas.gameObject.activeInHierarchy)
+        if(endCanvas == null || endCanvas.canvasGroup.alpha == 1)
             return;
         
         if (GameInput.GetKeyDown("pause"))
