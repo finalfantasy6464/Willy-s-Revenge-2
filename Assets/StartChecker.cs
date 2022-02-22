@@ -27,5 +27,9 @@ public class StartChecker : MonoBehaviour
         {
             SceneManager.LoadScene(101);
         }
+        else
+        {
+            SceneManager.LoadScene(104);
+        }
     }
 }
