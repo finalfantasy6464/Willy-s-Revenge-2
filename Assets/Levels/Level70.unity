@@ -1591,12 +1591,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d00110acb255c445825278b94ab1368, type: 3}
---- !u!4 &180896631 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7698881267086589591, guid: 4d00110acb255c445825278b94ab1368,
-    type: 3}
-  m_PrefabInstance: {fileID: 180896630}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &180896632 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4783419675550857226, guid: 4d00110acb255c445825278b94ab1368,
@@ -2006,6 +2000,7 @@ GameObject:
   - component: {fileID: 313957741}
   - component: {fileID: 313957751}
   - component: {fileID: 313957752}
+  - component: {fileID: 313957753}
   m_Layer: 2
   m_Name: Enemy5 (14)
   m_TagString: Enemy5
@@ -2026,7 +2021,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 0
-  player: {fileID: 180896631}
+  player: {fileID: 180896632}
   range: 8
   animator: {fileID: 313957752}
 --- !u!114 &313957742
@@ -2180,7 +2175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  target: {fileID: 180896631}
+  target: {fileID: 180896632}
 --- !u!114 &313957747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2342,6 +2337,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &313957753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 313957740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ef6cfd508a34b446ba9b107c0af6281, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &332094268
 GameObject:
   m_ObjectHideFlags: 0
@@ -14590,7 +14597,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1555996634}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.98400116, y: 6.893, z: -15}
+  m_LocalPosition: {x: -11.975999, y: -2.8599997, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1142855268}

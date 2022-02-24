@@ -1197,7 +1197,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ca7f17de9dfb0e47b60965a8453dd5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flipnumber: 0
+  FollowerCount: 3
+  offsetFromLeader: 29
+  followDelay: 30
+  flipnumber: 1
   movespeed: 6
   rotatespeed: 16
   waypoints:
@@ -1208,6 +1211,10 @@ MonoBehaviour:
   - {fileID: 171976656}
   - {fileID: 1366692523}
   defaultsprite: {fileID: 21300000, guid: 958c2755290519846bca5c1395ca0c41, type: 3}
+  FollowerList:
+  - {fileID: 1517071788}
+  - {fileID: 721247020}
+  - {fileID: 974752205}
 --- !u!212 &122916415
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1463,6 +1470,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypointIndex: 0
+  FollowerCount: 0
+  offsetFromLeader: 0
+  followDelay: 0
   movespeed: 3
   waypoints:
   - {fileID: 923458850}
@@ -1470,6 +1480,7 @@ MonoBehaviour:
   stopsonRoute: 0
   stopcounter: 0
   stoptime: 0.5
+  FollowerList: []
 --- !u!114 &150838020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2005,6 +2016,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ca7f17de9dfb0e47b60965a8453dd5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FollowerCount: 2
+  offsetFromLeader: 69
+  followDelay: 70
   flipnumber: 0
   movespeed: 8
   rotatespeed: 16
@@ -2018,6 +2032,9 @@ MonoBehaviour:
   - {fileID: 720585358}
   - {fileID: 1751414511}
   defaultsprite: {fileID: 21300000, guid: 958c2755290519846bca5c1395ca0c41, type: 3}
+  FollowerList:
+  - {fileID: 1440960598}
+  - {fileID: 1036138230}
 --- !u!212 &180348185
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5328,6 +5345,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypointIndex: 0
+  FollowerCount: 0
+  offsetFromLeader: 0
+  followDelay: 0
   movespeed: 1.25
   waypoints:
   - {fileID: 470932935}
@@ -5335,6 +5355,7 @@ MonoBehaviour:
   stopsonRoute: 0
   stopcounter: 0
   stoptime: 0.5
+  FollowerList: []
 --- !u!114 &523406398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8036,9 +8057,7 @@ GameObject:
   m_Component:
   - component: {fileID: 721247025}
   - component: {fileID: 721247024}
-  - component: {fileID: 721247023}
   - component: {fileID: 721247022}
-  - component: {fileID: 721247021}
   m_Layer: 0
   m_Name: Buggo (6)
   m_TagString: Enemy3
@@ -8046,20 +8065,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &721247021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 721247020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e11c2e763bf61ab499db127e6e9e939b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite2: {fileID: 21300000, guid: a706daa62fbe262499b44e3f6ff5045f, type: 3}
-  sprite1: {fileID: 21300000, guid: 958c2755290519846bca5c1395ca0c41, type: 3}
 --- !u!61 &721247022
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8086,29 +8091,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.64, y: 0.65}
   m_EdgeRadius: 0
---- !u!114 &721247023
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 721247020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ca7f17de9dfb0e47b60965a8453dd5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flipnumber: 0
-  movespeed: 6
-  rotatespeed: 16
-  waypoints:
-  - {fileID: 171976656}
-  - {fileID: 1366692523}
-  - {fileID: 355772363}
-  - {fileID: 925365776}
-  - {fileID: 1126993320}
-  - {fileID: 326597607}
-  defaultsprite: {fileID: 21300000, guid: 958c2755290519846bca5c1395ca0c41, type: 3}
 --- !u!212 &721247024
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8318,6 +8300,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ca7f17de9dfb0e47b60965a8453dd5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FollowerCount: 0
+  offsetFromLeader: 0
+  followDelay: 0
   flipnumber: 0
   movespeed: 8
   rotatespeed: 16
@@ -8327,6 +8312,7 @@ MonoBehaviour:
   - {fileID: 1077699975}
   - {fileID: 531273702}
   defaultsprite: {fileID: 21300000, guid: 958c2755290519846bca5c1395ca0c41, type: 3}
+  FollowerList: []
 --- !u!212 &746790641
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10653,9 +10639,7 @@ GameObject:
   m_Component:
   - component: {fileID: 974752210}
   - component: {fileID: 974752209}
-  - component: {fileID: 974752208}
   - component: {fileID: 974752207}
-  - component: {fileID: 974752206}
   m_Layer: 0
   m_Name: Buggo (7)
   m_TagString: Enemy3
@@ -10663,20 +10647,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &974752206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 974752205}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e11c2e763bf61ab499db127e6e9e939b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite2: {fileID: 21300000, guid: a706daa62fbe262499b44e3f6ff5045f, type: 3}
-  sprite1: {fileID: 21300000, guid: 958c2755290519846bca5c1395ca0c41, type: 3}
 --- !u!61 &974752207
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10703,29 +10673,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.64, y: 0.65}
   m_EdgeRadius: 0
---- !u!114 &974752208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 974752205}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ca7f17de9dfb0e47b60965a8453dd5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flipnumber: 0
-  movespeed: 6
-  rotatespeed: 16
-  waypoints:
-  - {fileID: 1366692523}
-  - {fileID: 355772363}
-  - {fileID: 925365776}
-  - {fileID: 1126993320}
-  - {fileID: 326597607}
-  - {fileID: 171976656}
-  defaultsprite: {fileID: 21300000, guid: 958c2755290519846bca5c1395ca0c41, type: 3}
 --- !u!212 &974752209
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11258,9 +11205,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1036138235}
   - component: {fileID: 1036138234}
-  - component: {fileID: 1036138233}
   - component: {fileID: 1036138232}
-  - component: {fileID: 1036138231}
   m_Layer: 0
   m_Name: Buggo (4)
   m_TagString: Enemy3
@@ -11268,20 +11213,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1036138231
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1036138230}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e11c2e763bf61ab499db127e6e9e939b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite2: {fileID: 21300000, guid: a706daa62fbe262499b44e3f6ff5045f, type: 3}
-  sprite1: {fileID: 21300000, guid: 958c2755290519846bca5c1395ca0c41, type: 3}
 --- !u!61 &1036138232
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11308,31 +11239,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.64, y: 0.65}
   m_EdgeRadius: 0
---- !u!114 &1036138233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1036138230}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ca7f17de9dfb0e47b60965a8453dd5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flipnumber: 0
-  movespeed: 8
-  rotatespeed: 16
-  waypoints:
-  - {fileID: 720585358}
-  - {fileID: 1751414511}
-  - {fileID: 1016300954}
-  - {fileID: 1766861147}
-  - {fileID: 214058215}
-  - {fileID: 1869200060}
-  - {fileID: 646248936}
-  - {fileID: 1183160776}
-  defaultsprite: {fileID: 21300000, guid: 958c2755290519846bca5c1395ca0c41, type: 3}
 --- !u!212 &1036138234
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13205,6 +13111,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypointIndex: 0
+  FollowerCount: 0
+  offsetFromLeader: 0
+  followDelay: 0
   movespeed: 1
   waypoints:
   - {fileID: 1810835881}
@@ -13212,6 +13121,7 @@ MonoBehaviour:
   stopsonRoute: 0
   stopcounter: 0
   stoptime: 0.5
+  FollowerList: []
 --- !u!1 &1126993319
 GameObject:
   m_ObjectHideFlags: 0
@@ -14591,6 +14501,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypointIndex: 0
+  FollowerCount: 0
+  offsetFromLeader: 0
+  followDelay: 0
   movespeed: 0.5
   waypoints:
   - {fileID: 1303649175}
@@ -14600,6 +14513,7 @@ MonoBehaviour:
   stopsonRoute: 0
   stopcounter: 0
   stoptime: 0.5
+  FollowerList: []
 --- !u!114 &1316230031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15142,6 +15056,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypointIndex: 0
+  FollowerCount: 0
+  offsetFromLeader: 0
+  followDelay: 0
   movespeed: 2.2
   waypoints:
   - {fileID: 160821964}
@@ -15184,6 +15101,7 @@ MonoBehaviour:
   stopsonRoute: 0
   stopcounter: 0
   stoptime: 0.5
+  FollowerList: []
 --- !u!212 &1421494115
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15462,6 +15380,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypointIndex: 0
+  FollowerCount: 0
+  offsetFromLeader: 0
+  followDelay: 0
   movespeed: 2
   waypoints:
   - {fileID: 788437758}
@@ -15469,6 +15390,7 @@ MonoBehaviour:
   stopsonRoute: 0
   stopcounter: 0
   stoptime: 0.5
+  FollowerList: []
 --- !u!61 &1422244784
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -15652,9 +15574,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1440960603}
   - component: {fileID: 1440960602}
-  - component: {fileID: 1440960601}
   - component: {fileID: 1440960600}
-  - component: {fileID: 1440960599}
   m_Layer: 0
   m_Name: Buggo (3)
   m_TagString: Enemy3
@@ -15662,20 +15582,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1440960599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1440960598}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e11c2e763bf61ab499db127e6e9e939b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite2: {fileID: 21300000, guid: a706daa62fbe262499b44e3f6ff5045f, type: 3}
-  sprite1: {fileID: 21300000, guid: 958c2755290519846bca5c1395ca0c41, type: 3}
 --- !u!61 &1440960600
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -15702,31 +15608,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.64, y: 0.65}
   m_EdgeRadius: 0
---- !u!114 &1440960601
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1440960598}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ca7f17de9dfb0e47b60965a8453dd5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flipnumber: 0
-  movespeed: 8
-  rotatespeed: 16
-  waypoints:
-  - {fileID: 1869200060}
-  - {fileID: 646248936}
-  - {fileID: 1183160776}
-  - {fileID: 720585358}
-  - {fileID: 1751414511}
-  - {fileID: 1016300954}
-  - {fileID: 1766861147}
-  - {fileID: 214058215}
-  defaultsprite: {fileID: 21300000, guid: 958c2755290519846bca5c1395ca0c41, type: 3}
 --- !u!212 &1440960602
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -17125,9 +17006,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1517071793}
   - component: {fileID: 1517071792}
-  - component: {fileID: 1517071791}
   - component: {fileID: 1517071790}
-  - component: {fileID: 1517071789}
   m_Layer: 0
   m_Name: Buggo (5)
   m_TagString: Enemy3
@@ -17135,20 +17014,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1517071789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1517071788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e11c2e763bf61ab499db127e6e9e939b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite2: {fileID: 21300000, guid: a706daa62fbe262499b44e3f6ff5045f, type: 3}
-  sprite1: {fileID: 21300000, guid: 958c2755290519846bca5c1395ca0c41, type: 3}
 --- !u!61 &1517071790
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -17175,29 +17040,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.64, y: 0.65}
   m_EdgeRadius: 0
---- !u!114 &1517071791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1517071788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ca7f17de9dfb0e47b60965a8453dd5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flipnumber: 0
-  movespeed: 6
-  rotatespeed: 16
-  waypoints:
-  - {fileID: 326597607}
-  - {fileID: 171976656}
-  - {fileID: 1366692523}
-  - {fileID: 355772363}
-  - {fileID: 925365776}
-  - {fileID: 1126993320}
-  defaultsprite: {fileID: 21300000, guid: 958c2755290519846bca5c1395ca0c41, type: 3}
 --- !u!212 &1517071792
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -17775,6 +17617,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ca7f17de9dfb0e47b60965a8453dd5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FollowerCount: 0
+  offsetFromLeader: 0
+  followDelay: 0
   flipnumber: 0
   movespeed: 8
   rotatespeed: 16
@@ -17784,6 +17629,7 @@ MonoBehaviour:
   - {fileID: 380174770}
   - {fileID: 844133779}
   defaultsprite: {fileID: 21300000, guid: 958c2755290519846bca5c1395ca0c41, type: 3}
+  FollowerList: []
 --- !u!212 &1559685503
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -18426,6 +18272,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waypointIndex: 0
+  FollowerCount: 0
+  offsetFromLeader: 0
+  followDelay: 0
   movespeed: 4
   waypoints:
   - {fileID: 1252438863}
@@ -18435,6 +18284,7 @@ MonoBehaviour:
   stopsonRoute: 0
   stopcounter: 0
   stoptime: 0.5
+  FollowerList: []
 --- !u!114 &1607045965
 MonoBehaviour:
   m_ObjectHideFlags: 0

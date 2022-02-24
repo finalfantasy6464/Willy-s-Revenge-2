@@ -5671,6 +5671,7 @@ GameObject:
   - component: {fileID: 533035819}
   - component: {fileID: 533035820}
   - component: {fileID: 533035821}
+  - component: {fileID: 533035822}
   m_Layer: 2
   m_Name: Enemy5 (8)
   m_TagString: Enemy5
@@ -5829,7 +5830,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  target: {fileID: 1523915666}
+  target: {fileID: 1523915667}
 --- !u!114 &533035815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5936,7 +5937,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: -7635391604378130217, guid: 0212130042b1362469250f0cbae394b0,
     type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.49019608}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 1
   m_DrawMode: 0
@@ -5973,7 +5974,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 0
-  player: {fileID: 1523915666}
+  player: {fileID: 1523915667}
   range: 4
   animator: {fileID: 533035821}
 --- !u!114 &533035820
@@ -6007,6 +6008,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &533035822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 533035809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ef6cfd508a34b446ba9b107c0af6281, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &595337487
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12025,6 +12038,7 @@ GameObject:
   - component: {fileID: 896815796}
   - component: {fileID: 896815806}
   - component: {fileID: 896815807}
+  - component: {fileID: 896815808}
   m_Layer: 2
   m_Name: Enemy5 (10)
   m_TagString: Enemy5
@@ -12045,7 +12059,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 0
-  player: {fileID: 1523915666}
+  player: {fileID: 1523915667}
   range: 4
   animator: {fileID: 896815807}
 --- !u!114 &896815797
@@ -12199,7 +12213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  target: {fileID: 1523915666}
+  target: {fileID: 1523915667}
 --- !u!114 &896815802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12306,7 +12320,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: -7635391604378130217, guid: 0212130042b1362469250f0cbae394b0,
     type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.49019608}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 1
   m_DrawMode: 0
@@ -12361,6 +12375,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &896815808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896815795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ef6cfd508a34b446ba9b107c0af6281, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &913915095
 GameObject:
   m_ObjectHideFlags: 0
@@ -14675,12 +14701,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d00110acb255c445825278b94ab1368, type: 3}
---- !u!4 &1523915666 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7698881267086589591, guid: 4d00110acb255c445825278b94ab1368,
-    type: 3}
-  m_PrefabInstance: {fileID: 1523915665}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1523915667 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4783419675550857226, guid: 4d00110acb255c445825278b94ab1368,
@@ -19847,7 +19867,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1555996634}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.98400116, y: 6.893, z: -15}
+  m_LocalPosition: {x: -4.42, y: -9.658, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1142855268}
@@ -19906,6 +19926,7 @@ GameObject:
   - component: {fileID: 1559713942}
   - component: {fileID: 1559713943}
   - component: {fileID: 1559713944}
+  - component: {fileID: 1559713945}
   m_Layer: 2
   m_Name: Enemy5 (9)
   m_TagString: Enemy5
@@ -20064,7 +20085,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  target: {fileID: 1523915666}
+  target: {fileID: 1523915667}
 --- !u!114 &1559713938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20171,7 +20192,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: -7635391604378130217, guid: 0212130042b1362469250f0cbae394b0,
     type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.49019608}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 1
   m_DrawMode: 0
@@ -20208,7 +20229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 0
-  player: {fileID: 1523915666}
+  player: {fileID: 1523915667}
   range: 4
   animator: {fileID: 1559713944}
 --- !u!114 &1559713943
@@ -20242,6 +20263,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1559713945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559713932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ef6cfd508a34b446ba9b107c0af6281, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1567875428
 PrefabInstance:
   m_ObjectHideFlags: 0
