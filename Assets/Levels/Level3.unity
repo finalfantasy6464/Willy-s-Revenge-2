@@ -173,6 +173,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &39297020 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3662174749076212823, guid: a70d7bbf024ad1e429450a14c2a3a387,
+    type: 3}
+  m_PrefabInstance: {fileID: 558784088}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &195227317
 GameObject:
   m_ObjectHideFlags: 0
@@ -6762,6 +6774,11 @@ PrefabInstance:
       propertyPath: m_BlocksRaycasts
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3662174751169251572, guid: a70d7bbf024ad1e429450a14c2a3a387,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3662174751169251575, guid: a70d7bbf024ad1e429450a14c2a3a387,
         type: 3}
       propertyPath: m_Pivot.x
@@ -7264,6 +7281,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69b0a321fb7aa2d40953a091f3327ac9, type: 3}
+--- !u!1 &1225231188 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3662174751169251569, guid: a70d7bbf024ad1e429450a14c2a3a387,
+    type: 3}
+  m_PrefabInstance: {fileID: 558784088}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1225231194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1225231188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7546a9d87ea06104fa82daf48f0bd3e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  group: {fileID: 558784089}
+  wasShowing: 0
+  wasHiding: 0
+  firstSelected: {fileID: 39297020}
 --- !u!1 &1272028503
 GameObject:
   m_ObjectHideFlags: 0
@@ -15176,8 +15215,8 @@ MonoBehaviour:
   destroyedgates: 
   lockedgatescache: 
   destroyedgatescache: 
-  settings: {fileID: 0}
-  gameState: {fileID: 0}
+  settings: {fileID: 11400000, guid: b274f8117f4f91f43a99f5b6bd47d1a5, type: 2}
+  gameState: {fileID: 11400000, guid: 262c51d16890341419164c6185834255, type: 2}
 --- !u!4 &7784827376450426625
 Transform:
   m_ObjectHideFlags: 0
@@ -15202,6 +15241,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7784827376450426625}
   - component: {fileID: 7784827376450426624}
+  - component: {fileID: 7784827376450426628}
   m_Layer: 0
   m_Name: GameControl
   m_TagString: Untagged
@@ -15209,6 +15249,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &7784827376450426628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7784827376450426627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f71602f6edc7ce43b102d8bcc7d288e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGamePaused: 0
 --- !u!1001 &8350748003004542435
 PrefabInstance:
   m_ObjectHideFlags: 0
