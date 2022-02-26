@@ -16,19 +16,14 @@ public class abysscollision : MonoBehaviour
 
     private void Update()
     {
-        for (int i = 0; i < player.taillist.Count; i++)
+        foreach (Collider2D tail in player.transform.parent.GetComponentsInChildren<Collider2D>())
         {
-            if (player.taillist[i].activeInHierarchy)
-            {
-                lastTail = player.taillist[i];
-            }
+            if(!collidingWith.Contains(tail))
+                return;
         }
 
-        if (collidingWith.Contains(player.GetComponent<Collider2D>()) && collidingWith.Contains(lastTail.GetComponent<Collider2D>()))
-        {
-            playerColl.Die(playerColl.onFalling);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
+        playerColl.Die(playerColl.onFalling);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void OnTriggerEnter2D(Collider2D coll)

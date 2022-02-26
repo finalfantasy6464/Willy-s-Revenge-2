@@ -127,7 +127,7 @@ public class GameSoundManagement : MonoBehaviour
             }
         }
 
-            PlayerCheck();
+        PlayerCheck();
 
         source.transform.position = objectposition;
 
@@ -151,4 +151,12 @@ public class GameSoundManagement : MonoBehaviour
 		efxSource.clip = clips [randomIndex];
 		efxSource.Play ();
 	}
+
+    public static void StopAllCurrent()
+    {
+        foreach (AudioSource a in instance.sources)
+        {
+            a.Stop();
+        }
+    }
 }

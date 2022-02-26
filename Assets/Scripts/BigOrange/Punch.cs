@@ -40,6 +40,7 @@ namespace WillysRevenge2.BigOrangeMoves
         IEnumerator punchRoutine;
 
         EdgeCollider2D edge;
+        AudioSource lightningAudioSource;
 
         const string LEFT_WINDUP = "LeftPunchWindup";
         const string RIGHT_WINDUP = "RightPunchWindup";
@@ -99,7 +100,7 @@ namespace WillysRevenge2.BigOrangeMoves
             bigOrange.lightning.gameObject.SetActive(true);
             bigOrange.bicepLight.transform.position = MidPoint(shoulder.position, arm.position);
             bigOrange.forearmLight.transform.position = MidPoint(arm.position, hand.position);
-            bigOrange.sound.PlayElectric();
+            lightningAudioSource = bigOrange.sound.PlayElectric(hand.position);
             RedrawLightning();
             while(sleepCounter < afterPunchSleepTime)
             {
@@ -181,7 +182,7 @@ namespace WillysRevenge2.BigOrangeMoves
             bigOrange.lightning.SetPositions(positions.ToArray());
             bigOrange.forearmLight.transform.localPosition = Vector3.zero;
             bigOrange.bicepLight.transform.localPosition = Vector3.zero;
-            GameSoundManagement.instance.efxSource.Stop();
+            lightningAudioSource.Stop();
         }
 
         void RedrawLightning()

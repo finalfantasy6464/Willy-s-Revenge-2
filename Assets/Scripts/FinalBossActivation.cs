@@ -50,6 +50,9 @@ public class FinalBossActivation : MonoBehaviour
     {
         if(GameControl.control.bosscheckpoint == false)
         {
+            music.musicSource.clip = music.musicClips[31];
+            music.musicSource.loop = true;
+            music.musicSource.Play();
             GameControl.control.bosscheckpoint = true;
         }
         Timer.SetActive(true);

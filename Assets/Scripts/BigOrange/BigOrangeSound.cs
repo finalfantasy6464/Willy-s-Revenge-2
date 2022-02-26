@@ -7,44 +7,115 @@ using UnityEngine.Audio;
 public class BigOrangeSound : LocalAudioPlayer
 {
     [SerializeField]
-    AudioClip[] clips;
-    
-    public void PlayClap()    { PlayFromClip(clips[0]); }
-    public void PlayDamage()  { PlayFromClip(clips[1]); }
-    public void PlayDeath()   { PlayFromClip(clips[2]); }
-    public void PlayElectric(){ PlayFromClip(clips[3]); }
-    public void PlayFist()    { PlayFromClip(clips[4]); }
-    public void PlayJump()    { PlayFromClip(clips[5]); }
-    public void PlayLand()    { PlayFromClip(clips[6]); }
-    public void PlaySpringJump()  { PlayFromClip(clips[7], 1.0f); }
-    public void PlayMetalHit()    { PlayFromClip(clips[8]); }
-    public void PlayWindupCharge(){ PlayFromClip(clips[9]); }
-    public void PlayWindupFist()  { PlayFromClip(clips[10]); }
-    public void PlaySonar()       { PlayFromClip(clips[11]); }
-    public void PlayStomp() { PlayFromClip(clips[12]); }
+    BigOrange orange;
+    [SerializeField]
+    PositionalSoundData[] sounds;
+    GameSoundManagement soundManagement => GameSoundManagement.instance;
+    Vector3 midFeet => (orange.leftFoot.position + orange.rightFoot.position) / 2f;
+    Vector3 midHands => (orange.leftHand.position + orange.rightHand.position) / 2f;
 
-    public void PlayWindupFistFire() { PlayFromClip(clips[13]); }
-    public void PlaySmallLand() { PlayFromClip(clips[14], 1.0f); }
-    public void PlayClapExtend() { PlayFromClip(clips[15]); }
-    public void PlayClapRetract() { PlayFromClip(clips[16]); }
-    public void PlayCharge() { PlayFromClip(clips[17]); }
-
-    public void PlayLaugh() { PlayFromClip(clips[18]); }
-
-    public void PlayChargeWindup() { PlayFromClip(clips[19]); }
-
-
-    void PlayFromClip(AudioClip clip)
+    public AudioSource PlayElectric(Vector3 armPosition)
     {
-        GameSoundManagement.instance.efxSource.pitch = 1.0f;
-        GameSoundManagement.instance.efxSource.loop = false;
-        GameSoundManagement.instance.efxSource.PlayOneShot(clip);
+        return soundManagement.PlayPositional(sounds[3], armPosition);
     }
 
-    void PlayFromClip(AudioClip clip, float pitch)
+    public void PlayFist(int handIndex)
     {
-        GameSoundManagement.instance.efxSource.loop = false;
-        GameSoundManagement.instance.efxSource.pitch = UnityEngine.Random.Range(pitch - 0.1f, pitch + 0.1f);
-        GameSoundManagement.instance.efxSource.PlayOneShot(clip);
+        PlayFromClip(sounds[4], handIndex < 1 ? orange.leftHand.position : orange.rightHand.position );
+    }
+
+    public void PlayWindupFist(int handIndex)  
+    {
+        PlayFromClip(sounds[10], handIndex < 1 ? orange.leftHand.position : orange.rightHand.position );
+    }
+
+    public void PlayWindupFistFire(int handIndex)
+    {
+        PlayFromClip(sounds[13], handIndex < 1 ? orange.leftHand.position : orange.rightHand.position );
+    }
+
+    public void PlayStomp()
+    {
+        PlayFromClip(sounds[12], midFeet);
+    }
+    
+    public void PlayClap()    
+    {
+        PlayFromClip(sounds[0], midHands);
+    }
+
+    public void PlayDamage()  
+    {
+        PlayFromClip(sounds[1]);
+    }
+
+    public void PlayDeath()   
+    {
+        PlayFromClip(sounds[2]);
+    }
+
+    public void PlayJump()    
+    {
+        PlayFromClip(sounds[5], midFeet);
+    }
+
+    public void PlayLand()    
+    {
+        PlayFromClip(sounds[6], midFeet);
+    }
+
+    public void PlaySpringJump()  
+    {
+        PlayFromClip(sounds[7], midFeet);
+    }
+
+    public void PlayMetalHit()    
+    {
+        PlayFromClip(sounds[8]);
+    }
+
+    public void PlayWindupCharge()
+    {
+        PlayFromClip(sounds[9]);
+    }
+
+    public void PlaySonar()       
+    {
+        PlayFromClip(sounds[11]);
+    }
+
+    public void PlaySmallLand()
+    {
+        PlayFromClip(sounds[14], midFeet);
+    }
+
+    public void PlayClapExtend()
+    {
+        PlayFromClip(sounds[15], midHands);
+    }
+
+    public void PlayClapRetract()
+    {
+        PlayFromClip(sounds[16], midHands);
+    }
+
+    public void PlayCharge()
+    {
+        PlayFromClip(sounds[17]);
+    }
+
+    public void PlayLaugh()
+    {
+        PlayFromClip(sounds[18]);
+    }
+
+    void PlayFromClip(PositionalSoundData sound, Vector2 position)
+    {
+        soundManagement.PlayPositional(sound, position);
+    }
+
+    void PlayFromClip(PositionalSoundData sound)
+    {
+        soundManagement.PlayPositional(sound, orange.transform.position);
     }
 }

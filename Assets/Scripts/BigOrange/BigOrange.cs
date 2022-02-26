@@ -20,10 +20,12 @@ public class BigOrange : MonoBehaviour, IPausable
     [Header("Body Parts")]
     public Transform leftShoulder;
     public Transform leftArm;
+    public Transform leftFoot;
     public Transform leftHand;
     public Transform rightShoulder;
     public Transform rightArm;
     public Transform rightHand;
+    public Transform rightFoot;
 
     [Header("Moves")]
     public BigOrangeMove currentMove;
@@ -157,7 +159,11 @@ public class BigOrange : MonoBehaviour, IPausable
     void ChooseMove()
     {
         PlayerController2021remake player = FindObjectOfType<PlayerController2021remake>();
+        ((Punch)punchMove).Execute(player, this, UnityEngine.Random.Range(0f, 1f) > 0.5f ? "Right" : "Left");
+            currentMove = punchMove;
+            stompspeedindex = 0;
 
+            /*
         if (rng <= 35)
         {
             ((Punch)punchMove).Execute(player, this, UnityEngine.Random.Range(0f, 1f) > 0.5f ? "Right" : "Left");
@@ -199,7 +205,7 @@ public class BigOrange : MonoBehaviour, IPausable
             ((Hop)hopMove).Execute(m_animator);
             currentMove = hopMove;
             stompspeedindex = 0;
-        }
+        }*/
     }
 
     void SetBoolAnimationParameters(bool value)

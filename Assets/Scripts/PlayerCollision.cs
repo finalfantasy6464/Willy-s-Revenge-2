@@ -138,6 +138,7 @@ public class PlayerCollision : MonoBehaviour {
 			if (hostileStrings.Any(s => hit.tag.Equals(s)) && justcollided == false)
 			{
 				Die(onWallCollide);
+				GameSoundManagement.StopAllCurrent();
 				SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 			}
 
@@ -191,10 +192,10 @@ public class PlayerCollision : MonoBehaviour {
 		chosenevent.Invoke();
 	    spriterenderer.enabled = false;
 
-			foreach (GameObject segment in GetComponent<PlayerController2021remake>().taillist)
-			{
-				segment.SetActive(false);
-			}
+		foreach (GameObject segment in GetComponent<PlayerController2021remake>().taillist)
+		{
+			segment.SetActive(false);
+		}
 
 		justcollided = true;
 	}

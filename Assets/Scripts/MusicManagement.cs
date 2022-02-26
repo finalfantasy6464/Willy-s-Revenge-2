@@ -15,7 +15,8 @@ public class MusicManagement : MonoBehaviour
 
     public const string MUSIC_VOLUME = "MusicVolume";
 
-    AudioClip CurrentMusic;
+    [HideInInspector]
+    public AudioClip CurrentMusic;
 
     [HideInInspector] public UnityEvent onLevelStart;
     [HideInInspector] public UnityEvent onOverworld;
@@ -53,10 +54,13 @@ public class MusicManagement : MonoBehaviour
         if (CurrentMusic == null || CurrentMusic != GetFromBuildIndex())
         {
             SetFromBuildIndex();
-            StopMusic();
-            musicSource.clip = CurrentMusic;
-            musicSource.loop = true;
-            musicSource.Play();
+            if(CurrentMusic != null)
+            {
+                StopMusic();
+                musicSource.clip = CurrentMusic;
+                musicSource.loop = true;
+                musicSource.Play();
+            }
         }
     }
 
@@ -192,7 +196,12 @@ public class MusicManagement : MonoBehaviour
 
         if (index == 100)
         {
-            return musicClips[GameControl.control.bosscheckpoint ? 31 : 28];
+            if(GameControl.control.bosscheckpoint)
+                return null;
+            else if(!GameControl.control.bosscheckpoint && FindObjectOfType<PlayerController2021remake>().transform.position.y < -15f)
+                return musicClips[28];
+            else
+                return musicClips[31];
         }
 
         if (index == 102)
