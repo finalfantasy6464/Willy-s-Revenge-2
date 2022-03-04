@@ -7,20 +7,26 @@ using UnityEngine.SceneManagement;
 public class StartChecker : MonoBehaviour
 {
     ScriptablePlayerSettings settings;
-    void Start()
+
+    void RunGameControlCheck()
     {
-        if(!File.Exists(Application.persistentDataPath + "/config.ini"))
+        if (!File.Exists(Application.persistentDataPath + "/config.ini"))
         {
             settings.CreateNew();
         }
 
-        if(File.Exists(Application.persistentDataPath + "/Save_Auto.wr2"))
+        if (File.Exists(Application.persistentDataPath + "/Save_Auto.wr2"))
         {
-            GameControl.control.AutoLoad();
-            CheckStarted();
+            //GameControl.control.AutoLoad();
+            //CheckStarted();
+            SceneManager.LoadScene(104);
+        }
+        else
+        {
+            //CheckStarted();
+            SceneManager.LoadScene(101);
         }
     }
-
     void CheckStarted()
     {
         if(GameControl.control.InitialGameStarted == true)

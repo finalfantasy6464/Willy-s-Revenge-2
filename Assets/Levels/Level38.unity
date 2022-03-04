@@ -2353,6 +2353,7 @@ GameObject:
   m_Component:
   - component: {fileID: 297773525}
   - component: {fileID: 297773524}
+  - component: {fileID: 297773526}
   m_Layer: 0
   m_Name: GameControl
   m_TagString: Untagged
@@ -2420,6 +2421,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 40
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &297773526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297773523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f71602f6edc7ce43b102d8bcc7d288e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGamePaused: 0
 --- !u!1 &303409912
 GameObject:
   m_ObjectHideFlags: 0
@@ -3044,6 +3058,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LevelEndCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3662174751169251569, guid: a70d7bbf024ad1e429450a14c2a3a387,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3662174751169251575, guid: a70d7bbf024ad1e429450a14c2a3a387,
         type: 3}
@@ -4151,7 +4170,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 3
+  orthographic size: 4.5
   m_Depth: 2
   m_CullingMask:
     serializedVersion: 2
@@ -12053,7 +12072,7 @@ PrefabInstance:
     - target: {fileID: 6733579367477318926, guid: 1e90bbe0a0802a94b9bacfd0ab4d6fe3,
         type: 3}
       propertyPath: movespeed
-      value: 1.4
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 6733579367477318926, guid: 1e90bbe0a0802a94b9bacfd0ab4d6fe3,
         type: 3}
@@ -24566,6 +24585,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7735718723023980062, guid: 4d00110acb255c445825278b94ab1368,
+        type: 3}
+      propertyPath: LavaWorld
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d00110acb255c445825278b94ab1368, type: 3}

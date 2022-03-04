@@ -204,6 +204,11 @@ public class MusicManagement : MonoBehaviour
                 return musicClips[31];
         }
 
+        if(index == 101)
+        {
+            musicSource.Stop();
+        }
+
         if (index == 102)
         {
             return musicClips[29];

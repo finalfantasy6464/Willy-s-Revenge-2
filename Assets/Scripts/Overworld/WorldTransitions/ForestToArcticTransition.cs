@@ -34,6 +34,7 @@ public class ForestToArcticTransition : WorldTransition
         // to simulate touching node A
         secondTraversed = false;
         character.isIgnoringPath = false;
+        character.SetCurrentSkin(0);
 
         Vector3 target = character.currentPin.previousPath.start.position;
         while(Vector3.Distance(character.transform.position, target) > 0.01f)
@@ -65,6 +66,7 @@ public class ForestToArcticTransition : WorldTransition
         // to simulate touching node B
         secondTraversed = false;
         character.isIgnoringPath = false;
+        character.SetCurrentSkin(1);
 
         Vector3 target = character.currentPin.nextPath.end.position;
         while(Vector3.Distance(character.transform.position, target) > 0.01f)

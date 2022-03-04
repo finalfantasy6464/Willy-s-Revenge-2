@@ -844,7 +844,7 @@ PrefabInstance:
     - target: {fileID: 3662174751169251569, guid: a70d7bbf024ad1e429450a14c2a3a387,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3662174751169251575, guid: a70d7bbf024ad1e429450a14c2a3a387,
         type: 3}
@@ -3307,6 +3307,7 @@ GameObject:
   m_Component:
   - component: {fileID: 858731535}
   - component: {fileID: 858731534}
+  - component: {fileID: 858731536}
   m_Layer: 0
   m_Name: GameControl
   m_TagString: Untagged
@@ -3374,6 +3375,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &858731536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 858731533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f71602f6edc7ce43b102d8bcc7d288e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGamePaused: 0
 --- !u!1001 &861972331
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3825,7 +3839,7 @@ MonoBehaviour:
   pushstrengthHoriz: 0.05
   pushstrengthVert: 0
   pushVector: {x: 0, y: 0, z: 0}
-  oppositeMagnitude: 0.8
+  oppositeMagnitude: 0.7
 --- !u!114 &1176786988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3993,7 +4007,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timermin: 0
   timersec: 0
-  goaltime: 23
+  goaltime: 18
   leveltime: 0
   text: {fileID: 396844875}
   expired: 0

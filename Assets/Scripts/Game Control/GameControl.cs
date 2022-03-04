@@ -172,7 +172,6 @@ public class GameControl : MonoBehaviour
 
     public void OverworldLevelStateUpdate()
     {
-        Debug.Log("adfasd");
         MapManager mapManager = FindObjectOfType<MapManager>();
         mapManager?.InitializeLevelState();
         OverworldCamera overworldCamera = FindObjectOfType<OverworldCamera>();
@@ -297,6 +296,7 @@ public class GameControl : MonoBehaviour
         complete = gameState.complete;
         golden = gameState.golden;
         timer = gameState.timer;
+        ArenahighScore = gameState.arenaScore;
 
         savedPinPosition = gameState.savedPinPosition;
         AutosavePosition = gameState.AutosavePosition;

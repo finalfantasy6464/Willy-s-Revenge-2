@@ -8497,6 +8497,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3696c01258751c0409845f3a5e7831c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  switchhit: {fileID: 8300000, guid: 1920c9b19c2e58c47b16fd5d1800631d, type: 3}
+  activatedSprite: {fileID: 21300000, guid: 3ea6f620b1248074da3e6ccc17e5007c, type: 3}
+  deactivatedSprite: {fileID: 21300000, guid: 028cabcbe6400a54b900e64df078c313, type: 3}
 --- !u!4 &1073990314
 Transform:
   m_ObjectHideFlags: 0
@@ -8505,7 +8508,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1073990311}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.426, y: 2.158, z: -0.01}
+  m_LocalPosition: {x: 5.38, y: 2.158, z: -0.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -8551,15 +8554,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 3ea6f620b1248074da3e6ccc17e5007c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.72, y: 0.72}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1001 &1077724248
@@ -20760,6 +20763,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7784827375394746732}
   - component: {fileID: 7784827375394746733}
+  - component: {fileID: 7784827375394746735}
   m_Layer: 0
   m_Name: GameControl
   m_TagString: Untagged
@@ -20767,3 +20771,16 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &7784827375394746735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7784827375394746734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f71602f6edc7ce43b102d8bcc7d288e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGamePaused: 0
