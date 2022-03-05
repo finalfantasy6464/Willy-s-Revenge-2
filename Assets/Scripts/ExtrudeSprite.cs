@@ -11,14 +11,16 @@ public class ExtrudeSprite : MonoBehaviour
 {
   public Material targetMaterial;
   public float thickness = 0.25f;
+  public MeshFilter targetFilter;
 
   void Start()
   {
     PolygonCollider2D pol = GetComponent<PolygonCollider2D>();
     Mesh m = CreateMesh(pol.points, -thickness, thickness);
+        this.gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, thickness - 0.01f);
 
-    GetComponent<MeshFilter>().sharedMesh = m;
     GetComponent<MeshRenderer>().materials = new Material[] {targetMaterial};
+        targetFilter.mesh = m;
     //GetComponent<MeshRenderer>().material.color = Color.white;
   }
 
