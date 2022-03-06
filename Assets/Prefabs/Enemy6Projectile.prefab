@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4460563868652577260}
   - component: {fileID: 338822592184697642}
   - component: {fileID: 5149998533845339359}
+  - component: {fileID: 3844328939827166412}
   m_Layer: 0
   m_Name: Enemy6Projectile
   m_TagString: Bullet
@@ -137,6 +138,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveDirection: {x: 0, y: 0}
   storedForce: {x: 0, y: 0}
+  localaudio: {fileID: 3844328939827166412}
+  bounceoff: {fileID: 8300000, guid: fb0f6d4559b41894c93bdf86fd3896e5, type: 3}
+--- !u!114 &3844328939827166412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2724542298857389595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47b830a0f5b5c9e4bb3d897ea499b871, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emitter: {fileID: 3145394156597910343}
+  playerIsEmitter: 1
+  soundData:
+    minDistance: 0
+    maxDistance: 5
+    minVolume: 0
+    maxVolume: 0.5
+    minPitch: 1
+    maxPitch: 1
+    distanceProgress: 0
+    clip: {fileID: 8300000, guid: fb0f6d4559b41894c93bdf86fd3896e5, type: 3}
 --- !u!1 &3372948053414299752
 GameObject:
   m_ObjectHideFlags: 0

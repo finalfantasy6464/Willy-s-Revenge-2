@@ -45,6 +45,10 @@ public class Shield : MonoBehaviour, IPausable
 
     public void UnPausedUpdate()
     {
+        if (Player != null)
+        {
+            transform.position = Player.transform.position;
+        }
         source.Play();
         spinner.spinamount = spinamount;
         shieldtimer -= Time.deltaTime;

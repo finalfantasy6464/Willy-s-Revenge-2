@@ -142,7 +142,14 @@ public class GameSoundManagement : MonoBehaviour
 		efxSource.PlayOneShot (clip);
 	}
 
-	public void RandomizeSFX (params AudioClip [] clips)
+    public void PlayOneShot(AudioClip clip, float minPitch, float maxPitch)
+    {
+        efxSource.clip = clip;
+        efxSource.pitch = Random.Range(minPitch, maxPitch);
+        efxSource.PlayOneShot(clip);
+    }
+
+    public void RandomizeSFX (params AudioClip [] clips)
 	{
 		int randomIndex = Random.Range (0, clips.Length);
 		float randomPitch = Random.Range (lowPitchRange, highPitchRange);

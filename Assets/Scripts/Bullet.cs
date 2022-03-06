@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.Experimental.Rendering.Universal;
 public class Bullet : MonoBehaviour, IPausable
 {
 	PlayerController2021remake playercontroller;
@@ -11,11 +11,17 @@ public class Bullet : MonoBehaviour, IPausable
 	Rigidbody2D rb;
 	Collider2D myCollider;
 	Vector2 storedForce;
+	public AudioClip bounceoff;
 
-    public bool isPaused { get; set; }
+	public LocalAudioPlayer localaudio;
+
+	PositionalSoundData soundData;
+
+	public bool isPaused { get; set; }
 
     void Start()
 	{
+		soundData = localaudio.soundData;
 		Player = GameObject.FindGameObjectWithTag("Player");
 		rb = GetComponent<Rigidbody2D>();
 		myCollider = GetComponent<Collider2D>();
@@ -24,6 +30,17 @@ public class Bullet : MonoBehaviour, IPausable
 			playercontroller = Player.GetComponent<PlayerController2021remake>();
 			playerColl = Player.GetComponent<PlayerCollision>();
 		}
+	}
+
+	IEnumerator BulletDeflect()
+	{
+		soundData.clip = bounceoff;
+		localaudio.SoundPlay();
+		this.GetComponent<SpriteRenderer>().enabled = false;
+		this.GetComponent<Collider2D>().enabled = false;
+		this.GetComponent<Light2D>().enabled = false;
+		yield return new WaitForSeconds(2);
+		Destroy(gameObject);
 	}
 
 	void OnTriggerEnter2D(Collider2D coll)
@@ -42,9 +59,9 @@ public class Bullet : MonoBehaviour, IPausable
 			Destroy(gameObject);
 		}
 
-		if (hit.tag == "Bulletblocker")
+		if (hit.tag == "Bulletblocker" || hit.tag == "Shield")
 		{
-			Destroy(gameObject);
+			StartCoroutine(BulletDeflect());
 		}
 
 		if (playercontroller != null)
@@ -70,6 +87,7 @@ public class Bullet : MonoBehaviour, IPausable
 			}
 		}
 	}
+
 
     public void OnPause()
     {

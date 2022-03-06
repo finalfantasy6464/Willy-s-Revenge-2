@@ -8,9 +8,11 @@ public class EnemyMovement : MonoBehaviour, IPausable
 {
 
 	private float movespeed = 0.0f;
+    private float defaultmovestep;
     private float movestep = 0.02f;
     private float moveinterval = 0.1f;
 	public float multiplier = 1.0f;
+    float corruptionmod = 1.25f;
 
     bool finished = false; 
 	private Vector2 enemydir = Vector2.right;
@@ -27,6 +29,10 @@ public class EnemyMovement : MonoBehaviour, IPausable
     private float age = 0;
     public float death;
 
+    ParticleSystem particles;
+    ParticleSystem.EmissionModule emissionModule;
+
+
     SpriteRenderer m_Renderer;
 
     [HideInInspector] public UnityEvent onWallHit;
@@ -39,6 +45,9 @@ public class EnemyMovement : MonoBehaviour, IPausable
     }
     void Start()
     {
+        defaultmovestep = movestep;
+        particles = GetComponent<ParticleSystem>();
+        emissionModule = particles.emission;
         m_Renderer = gameObject.GetComponent<SpriteRenderer>();
         StartCoroutine(LevelStarting());
         if(direction == 2)
@@ -142,6 +151,27 @@ public class EnemyMovement : MonoBehaviour, IPausable
             }
 			}
 		}
+
+    void OnTriggerEnter2D(Collider2D coll)
+    {
+        var hit = coll.gameObject;
+
+        if (hit.CompareTag("Corruption"))
+        {
+            movestep = movestep * corruptionmod;
+            emissionModule.rateOverTime = 10f;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D coll)
+    {
+        var hit = coll.gameObject;
+        if (hit.CompareTag("Corruption"))
+        {
+            movestep = defaultmovestep;
+            emissionModule.rateOverTime = 0f;
+        }
+    }
 
     void Update()
     {

@@ -6,10 +6,17 @@ public class LocalAudioPlayer : MonoBehaviour
 {
     public Transform emitter;
 
+    public bool playerIsEmitter = false;
+
     public PositionalSoundData soundData;
 
     private void Start()
     {
+        if(playerIsEmitter == true)
+        {
+            emitter = GameObject.FindObjectOfType<PlayerController2021remake>().gameObject.transform;
+        }
+
         if(emitter == null)
         {
             emitter = transform;

@@ -34,6 +34,7 @@ public class EnemyProjectile : MonoBehaviour, IPausable
             UnPausedUpdate();
     }
 
+
 	void CheckIfTimeToFire()
 	{
         nextFire += Time.deltaTime;

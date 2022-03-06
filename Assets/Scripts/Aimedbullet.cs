@@ -14,6 +14,14 @@ public class Aimedbullet : MonoBehaviour, IPausable
 	public Vector2 moveDirection;
     public Vector2 storedForce;
 
+
+
+	public LocalAudioPlayer localaudio;
+
+	PositionalSoundData soundData;
+
+	public AudioClip bounceoff;
+
     public bool isPaused { get; set; }
 
     // Start is called before the first frame update
@@ -22,7 +30,8 @@ public class Aimedbullet : MonoBehaviour, IPausable
 		rb = GetComponent<Rigidbody2D> ();
 		playercontroller = GameObject.FindObjectOfType<PlayerController2021remake> ();
 		playercoll = GameObject.FindObjectOfType<PlayerCollision>();
-    }
+	    soundData = localaudio.soundData;
+	}
 
     // Update is called once per frame
 	void OnTriggerEnter2D(Collider2D coll)
@@ -47,9 +56,22 @@ public class Aimedbullet : MonoBehaviour, IPausable
 
 		if (playercontroller.shieldactive)
 		{
-			if (hit.tag == "Player")
-				Destroy (gameObject);
+			if (hit.tag == "Shield")
+            {
+				StartCoroutine(BulletDeflect());
+			}
 		}
+	}
+
+	IEnumerator BulletDeflect()
+	{
+		soundData.clip = bounceoff;
+		localaudio.SoundPlay();
+		this.GetComponent<SpriteRenderer>().enabled = false;
+		this.GetComponent<Collider2D>().enabled = false;
+		this.GetComponentInChildren<ParticleSystem>().Stop();
+		yield return new WaitForSeconds(2);
+		Destroy(gameObject);
 	}
 
 	public void SetForce(Vector2 f)

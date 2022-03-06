@@ -51,6 +51,7 @@ public class PlayerCollision : MonoBehaviour {
 			"Enemy",
 			"Enemy2",
 			"Enemy3",
+			"Corruption",
 			"Enemy5",
 			"Gate",
 			"Gate2",
