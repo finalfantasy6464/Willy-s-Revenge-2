@@ -295,7 +295,6 @@ GameObject:
   m_Component:
   - component: {fileID: 943125234382936642}
   - component: {fileID: 4630775043923370791}
-  - component: {fileID: 7214248349990684632}
   m_Layer: 0
   m_Name: SaveFileRow
   m_TagString: Untagged
@@ -341,62 +340,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d256d3f5fbb57104a8dc790edb1cbdca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toggle: {fileID: 7214248349990684632}
+  toggle: {fileID: 0}
   saveSlot: 0
+  highlightBorder: {fileID: 7274677937835353805}
+  highlightedColor: {r: 0.149, g: 0.184, b: 1, a: 1}
+  selectedColor: {r: 1, g: 0.1490196, b: 0.8286472, a: 1}
   arenaScoreLabel: {fileID: 8862347227281538435}
   completeLabel: {fileID: 1266011255452232535}
   gateLabel: {fileID: 382320994849574098}
   challengeLabel: {fileID: 6124926086776021356}
   goldenLabel: {fileID: 3179133537769801690}
   timeLabel: {fileID: 2499529094263712447}
---- !u!114 &7214248349990684632
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 943125233375527907}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 0.5019608}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 4078017637956396139}
-  toggleTransition: 0
-  graphic: {fileID: 7274677937835353805}
-  m_Group: {fileID: 0}
-  onValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_IsOn: 0
+  isHighlighted: 0
 --- !u!1 &1089837065839564641
 GameObject:
   m_ObjectHideFlags: 0
@@ -1974,7 +1929,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

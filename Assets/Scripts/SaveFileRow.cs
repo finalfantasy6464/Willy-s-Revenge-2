@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class SaveFileRow : MonoBehaviour
 {
-    public Toggle toggle;
     public int saveSlot;
+    [Header("Highlight Border")]
+    public Image highlightBorder;
+    public Color highlightedColor;
+    public Color selectedColor;
+    [Header("Labels")]
     public TextMeshProUGUI arenaScoreLabel;
     public TextMeshProUGUI completeLabel;
     public TextMeshProUGUI gateLabel;
@@ -15,6 +20,9 @@ public class SaveFileRow : MonoBehaviour
     public TextMeshProUGUI goldenLabel;
     public TextMeshProUGUI timeLabel;
     const string EMPTY_TIME = "Not Set.";
+    [Space]
+    public bool isSelected;
+    public bool isHighlighted;
     public bool isEmpty => timeLabel.text == EMPTY_TIME;
 
     public void SetEmpty()
@@ -63,5 +71,17 @@ public class SaveFileRow : MonoBehaviour
         {
             return fulfilled;
         }
+    }
+
+    public void SetHighlighted(bool value)
+    {
+        if(value && isSelected)
+            highlightBorder.color = selectedColor;
+        else if(value && !isSelected)
+            highlightBorder.color = highlightedColor;
+        else
+            highlightBorder.color = Color.clear;
+        
+        isHighlighted = value;
     }
 }
