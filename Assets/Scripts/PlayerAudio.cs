@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerAudio : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class PlayerAudio : MonoBehaviour
     public AudioClip shieldPickup;
 
     public PlayerController2021remake Playercontrol;
+    public PlayerController2021Arena arenaControl;
+    public PlayerCollisionArena arenaColl;
     public PlayerCollision Playercoll;
 
     float vollowrange = 0.8f;
@@ -26,15 +29,26 @@ public class PlayerAudio : MonoBehaviour
 
     void Start()
     { 
-        Playercontrol.onEatPellet.AddListener(() => PlayClip(pelletGet, true, true, false));
-        Playercontrol.onGoldenPellet.AddListener(() => PlayClip(goldenpelletGet, true, true, false));
-        Playercontrol.onCollectShield.AddListener(() => PlayClip(shieldPickup,true));
-        Playercoll.onKeyCollect.AddListener(() => PlayClip(keyget, true));
-        Playercoll.onWallCollide.AddListener(() => PlayDeathClip(gatehit, true));
-        Playercoll.onLavaBurn.AddListener(() => PlayClip(lavaburn, true));
-        Playercoll.onFalling.AddListener(() => PlayClip(falling, true));
-        Playercoll.onElectricHit.AddListener(() => PlayClip(shock, true));
-
+        if(SceneManager.GetActiveScene().name == "ArenaLevel" && arenaControl != null)
+        {
+            arenaControl.onEatPellet.AddListener(() => PlayClip(pelletGet, true, true, false));
+            arenaControl.onGoldenPellet.AddListener(() => PlayClip(goldenpelletGet, true, true, false));
+            arenaControl.onCollectShield.AddListener(() => PlayClip(shieldPickup, true));
+            arenaColl.onWallCollide.AddListener(() => PlayDeathClip(gatehit, true));
+            return;
+        }
+        
+        if(Playercontrol != null)
+        {
+            Playercontrol.onEatPellet.AddListener(() => PlayClip(pelletGet, true, true, false));
+            Playercontrol.onGoldenPellet.AddListener(() => PlayClip(goldenpelletGet, true, true, false));
+            Playercontrol.onCollectShield.AddListener(() => PlayClip(shieldPickup, true));
+            Playercoll.onKeyCollect.AddListener(() => PlayClip(keyget, true));
+            Playercoll.onWallCollide.AddListener(() => PlayDeathClip(gatehit, true));
+            Playercoll.onLavaBurn.AddListener(() => PlayClip(lavaburn, true));
+            Playercoll.onFalling.AddListener(() => PlayClip(falling, true));
+            Playercoll.onElectricHit.AddListener(() => PlayClip(shock, true));
+        }
     }
 
 
@@ -78,14 +92,26 @@ public class PlayerAudio : MonoBehaviour
 
     void OnDisable()
     {
-        Playercontrol.onEatPellet.RemoveListener(() => PlayClip(pelletGet, true, true, false));
-        Playercontrol.onGoldenPellet.RemoveListener(() => PlayClip(goldenpelletGet, true, true, false));
-        Playercoll.onKeyCollect.RemoveListener(() => PlayClip(keyget, true));
-        Playercoll.onWallCollide.RemoveListener(() => PlayDeathClip(gatehit, true));
-        Playercoll.onLavaBurn.RemoveListener(() => PlayClip(lavaburn, true));
-        Playercoll.onFalling.RemoveListener(() => PlayClip(falling, true));
-        Playercoll.onElectricHit.RemoveListener(() => PlayClip(shock, true));
-        Playercontrol.onCollectShield.RemoveListener(() => PlayClip(shieldPickup, true));
+        if(SceneManager.GetActiveScene().name == "ArenaLevel" && arenaControl != null)
+        {
+            arenaControl.onEatPellet.RemoveListener(() => PlayClip(pelletGet, true, true, false));
+            arenaControl.onGoldenPellet.RemoveListener(() => PlayClip(goldenpelletGet, true, true, false));
+            arenaControl.onCollectShield.RemoveListener(() => PlayClip(shieldPickup, true));
+            arenaColl.onWallCollide.RemoveListener(() => PlayDeathClip(gatehit, true));
+            return;
+        }
+
+        if(Playercontrol != null)
+        {
+            Playercontrol.onEatPellet.RemoveListener(() => PlayClip(pelletGet, true, true, false));
+            Playercontrol.onGoldenPellet.RemoveListener(() => PlayClip(goldenpelletGet, true, true, false));
+            Playercoll.onKeyCollect.RemoveListener(() => PlayClip(keyget, true));
+            Playercoll.onWallCollide.RemoveListener(() => PlayDeathClip(gatehit, true));
+            Playercoll.onLavaBurn.RemoveListener(() => PlayClip(lavaburn, true));
+            Playercoll.onFalling.RemoveListener(() => PlayClip(falling, true));
+            Playercoll.onElectricHit.RemoveListener(() => PlayClip(shock, true));
+            Playercontrol.onCollectShield.RemoveListener(() => PlayClip(shieldPickup, true));
+        }
     }
 
 

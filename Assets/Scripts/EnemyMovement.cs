@@ -4,15 +4,20 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 
-public class EnemyMovement : MonoBehaviour
+public class EnemyMovement : MonoBehaviour, IPausable
 {
 
 	private float movespeed = 0.0f;
+    private float defaultmovestep;
     private float movestep = 0.02f;
     private float moveinterval = 0.1f;
 	public float multiplier = 1.0f;
+    float corruptionmod = 1.25f;
 
+    bool finished = false; 
 	private Vector2 enemydir = Vector2.right;
+
+    Animator m_animator;
 
     public bool lifespan = false;
     private bool levelstart = false;
@@ -24,7 +29,15 @@ public class EnemyMovement : MonoBehaviour
     private float age = 0;
     public float death;
 
+    ParticleSystem particles;
+    ParticleSystem.EmissionModule emissionModule;
+
+
+    SpriteRenderer m_Renderer;
+
     [HideInInspector] public UnityEvent onWallHit;
+
+    public bool isPaused { get; set; }
 
     void Awake()
     {
@@ -32,7 +45,21 @@ public class EnemyMovement : MonoBehaviour
     }
     void Start()
     {
+        defaultmovestep = movestep;
+        particles = GetComponent<ParticleSystem>();
+        emissionModule = particles.emission;
+        m_Renderer = gameObject.GetComponent<SpriteRenderer>();
         StartCoroutine(LevelStarting());
+        if(direction == 2)
+        {
+            m_Renderer.flipX = false;
+        }
+        else
+        {
+            m_Renderer.flipX = true;
+        }
+
+        m_animator = GetComponent<Animator>();
     }
 
     IEnumerator LevelStarting()
@@ -57,6 +84,7 @@ public class EnemyMovement : MonoBehaviour
                     direction = 2;
                     hitcount += 1;
                     justhit = true;
+                    m_Renderer.flipX = false;
                 }
 
                 if (coll.gameObject.tag != "Teleport" && coll.gameObject.tag != "Enemy")
@@ -64,12 +92,26 @@ public class EnemyMovement : MonoBehaviour
 					direction = 2;
 					justhit = true;
                     onWallHit.Invoke();
-				}
+                    m_Renderer.flipX = false;
+                }
 
 				if (coll.gameObject.tag == "Teleport") {
 
 					justhit = true;
 				}
+
+                if(coll.gameObject.tag == "Void")
+                {
+                    finished = true;
+                    movespeed = 0;
+                    movestep = 0;
+                    m_animator.Play("EnemySuction");
+                }
+
+                if(coll.gameObject.tag == "Tail")
+                {
+                    coll.gameObject.SetActive(false);
+                }
 			}
 		}
 
@@ -84,6 +126,7 @@ public class EnemyMovement : MonoBehaviour
                     direction = 1;
                     hitcount += 1;
                     justhit = true;
+                    m_Renderer.flipX = true;
                 }
 
                 if (coll.gameObject.tag != "Teleport" && coll.gameObject.tag != "Enemy") {
@@ -91,57 +134,54 @@ public class EnemyMovement : MonoBehaviour
 					direction = 1;
 					justhit = true;
                     onWallHit.Invoke();
+                    m_Renderer.flipX = true;
                 }
 
 				if (coll.gameObject.tag == "Teleport") {
 
 					justhit = true;
 				}
-
-				}
+                if (coll.gameObject.tag == "Void")
+                {
+                    finished = true;
+                    movespeed = 0;
+                    movestep = 0;
+                    m_animator.Play("EnemySuction");
+                }
+            }
 			}
 		}
 
-     void Update(){
+    void OnTriggerEnter2D(Collider2D coll)
+    {
+        var hit = coll.gameObject;
 
-        if (lifespan)
+        if (hit.CompareTag("Corruption"))
         {
-            age += Time.smoothDeltaTime;
-            if(age >= death)
-            {
-                Destroy(gameObject);
-            }
+            movestep = movestep * corruptionmod;
+            emissionModule.rateOverTime = 10f;
         }
+    }
 
-
-        if (hitcount >= 10)
+    void OnTriggerExit2D(Collider2D coll)
+    {
+        var hit = coll.gameObject;
+        if (hit.CompareTag("Corruption"))
         {
-            Destroy(gameObject);
+            movestep = defaultmovestep;
+            emissionModule.rateOverTime = 0f;
         }
+    }
 
-        if (levelstart == true) {
-        this.movespeed += movestep * multiplier;
+    void Update()
+    {
+        if (!isPaused)
+        {
+            UnPausedUpdate();
         }
-		
+    }
 
-		if (this.movespeed >= moveinterval) {
-			Move ();
-            movespeed = movespeed - moveinterval;
-		}
-
-		switch (direction) {
-
-		case 2:
-			enemydir = Vector2.left / 8;
-			break;
-				
-		case 1:
-			
-			enemydir = Vector2.right / 8;
-			break;
-		}
-	}
-
+        
 	void LateUpdate(){
 		justhit = false;
 	}
@@ -152,4 +192,68 @@ public class EnemyMovement : MonoBehaviour
 
 		transform.Translate (enemydir);
 	}
+
+    void DestroySelf()
+    {
+        Destroy(this.gameObject);
+    }
+
+
+    public void OnPause() { }
+
+
+    public void OnUnpause() { }
+
+    public void UnPausedUpdate()
+    {
+            if (lifespan)
+            {
+                age += Time.smoothDeltaTime;
+                if (age >= death)
+                {
+                    Destroy(gameObject);
+                }
+            }
+
+
+            if (hitcount >= 10)
+            {
+                Destroy(gameObject);
+            }
+
+            if (levelstart == true)
+            {
+                this.movespeed += movestep * multiplier;
+            }
+
+
+            if (this.movespeed >= moveinterval)
+            {
+                Move();
+                movespeed = movespeed - moveinterval;
+            }
+
+        if (!finished)
+        {
+            switch (direction)
+            {
+
+                case 2:
+                    enemydir = Vector2.left / 8;
+                    break;
+
+                case 1:
+
+                    enemydir = Vector2.right / 8;
+                    break;
+            }
+        }
+           
+        }
+    public void OnDestroy()
+    {
+        PauseControl.TryRemovePausable(gameObject);
+    }
 }
+
+    

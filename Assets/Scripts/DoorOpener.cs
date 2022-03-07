@@ -28,8 +28,8 @@ public class DoorOpener : MonoBehaviour
 
 		var hit = coll.gameObject;
 
-		if (hit.tag == "Player"){
-
+		if (hit.tag == "Player")
+		{
 			GameObject[] Locks = GameObject.FindGameObjectsWithTag ("Gate2");
 			foreach (GameObject Lock in Locks)
 			Destroy (Lock);
@@ -44,9 +44,7 @@ public class DoorOpener : MonoBehaviour
 				aggro[k] = Enemy5[k].GetComponent<Aggroactivate>();
 				aggro[k].range = 10;
 			}
-
-
 			autodoor.Active = true;
-}
+		}
 	}
 }

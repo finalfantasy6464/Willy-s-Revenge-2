@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spinner : MonoBehaviour
+public class Spinner : MonoBehaviour, IPausable
 {
 	public bool pingpongs = false;
 	public float spinamount;
@@ -23,6 +23,8 @@ public class Spinner : MonoBehaviour
     private Quaternion rotation;
     private float startingZangle;
 
+    public bool isPaused { get; set; }
+
     // Update is called once per frame
     private void Start()
     {
@@ -31,12 +33,32 @@ public class Spinner : MonoBehaviour
     }
     void Update ()
     {
-        if(pingpongs == true)
+        if (!isPaused)
         {
-        float rZ = startingZangle + Mathf.Lerp(0, angleSize * 2, Mathf.PingPong(Time.timeSinceLevelLoad * spinamount, 1));
-        transform.rotation = Quaternion.Euler(0, 0, rZ);
+            UnPausedUpdate();
         }
-        transform.Rotate(new Vector3(0,0,spinamount));
+    }
+
+    public void OnPause()
+    { }
+    public void OnUnpause()
+    { }
+
+    public void UnPausedUpdate()
+    {
+        spintimer += Time.deltaTime;
+
+        if (pingpongs == true)
+        {
+            float rZ = startingZangle + Mathf.Lerp(0, angleSize * 2, Mathf.PingPong(spintimer * spinamount, 1));
+            transform.rotation = Quaternion.Euler(0, 0, rZ);
+        }
+        transform.Rotate(new Vector3(0, 0, spinamount));
+    }
+
+    public void OnDestroy()
+    {
+        PauseControl.TryRemovePausable(gameObject);
     }
 }
 

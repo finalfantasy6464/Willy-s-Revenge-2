@@ -45,10 +45,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 100
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -66,8 +66,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebfbbe35fe791a74f848d2a848cb8a26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentColour: {r: 1, g: 0, b: 0, a: 1}
   falling: {fileID: 8300000, guid: deeb57cf43b68654399a798aa3b7057e, type: 3}
   hitting: {fileID: 8300000, guid: c1f2bd6b1bfd6e44e8716d9afa56ef7b, type: 3}
+  maxYVelocity: -10
+  storedForce: {x: 0, y: 0}
   activated: 
 --- !u!1 &2931633804605233043
 GameObject:
@@ -82,6 +85,7 @@ GameObject:
   - component: {fileID: 2931633804605233045}
   - component: {fileID: 9161688140719575979}
   - component: {fileID: 26323513221787112}
+  - component: {fileID: 1861120330336581273}
   m_Layer: 0
   m_Name: Meteor
   m_TagString: Enemy3
@@ -167,7 +171,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.006101191, y: 1}
+  m_Offset: {x: 0.0074740425, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -178,7 +182,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.73042953, y: 0.7160263}
+  m_Size: {x: 0.14216538, y: 0.27}
   m_EdgeRadius: 0
 --- !u!198 &9161688140719575979
 ParticleSystem:
@@ -4964,3 +4968,15 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &1861120330336581273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2931633804605233043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91621cdd6fd1f4a43ab6c26539a1cfbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

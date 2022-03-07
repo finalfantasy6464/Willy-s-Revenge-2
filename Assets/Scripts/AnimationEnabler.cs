@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class AnimationEnabler : MonoBehaviour
+public class AnimationEnabler : MonoBehaviour, IPausable
 {
 	Animator m_Animator;
 
     public AudioClip clip;
 
-	void Start()
+    public bool isPaused { get; set; }
+
+    void Start()
 	{
 		//Get the Animator attached to the GameObject you are intending to animate.
 		m_Animator = gameObject.GetComponent<Animator>();
@@ -25,4 +27,23 @@ public class AnimationEnabler : MonoBehaviour
             GameSoundManagement.instance.PlayOneShot(clip);
 		}
 	}
+
+    public void OnPause()
+    {
+        m_Animator.SetFloat("Speed", 0);
+    }
+
+    public void OnUnpause()
+    {
+        m_Animator.SetFloat("Speed", 1);
+    }
+
+    public void UnPausedUpdate()
+    {
+    }
+
+    public void OnDestroy()
+    {
+        PauseControl.TryRemovePausable(gameObject);
+    }
 }

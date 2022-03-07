@@ -9,8 +9,6 @@ public class PelletCollision : MonoBehaviour
 
 		var hit = col.gameObject;
 
-		Debug.Log("In collision enter");
-
 		if(hit.tag == "Player"){
 
 			Destroy (gameObject);

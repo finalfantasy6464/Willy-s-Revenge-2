@@ -2,17 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Localaudioplayer : MonoBehaviour
+public class LocalAudioPlayer : MonoBehaviour
 {
-    public Transform Emitter;
+    public Transform emitter;
+
+    public bool playerIsEmitter = false;
 
     public PositionalSoundData soundData;
 
     private void Start()
     {
-        if(Emitter == null)
+        if(playerIsEmitter == true)
         {
-            Emitter = transform;
+            emitter = GameObject.FindObjectOfType<PlayerController2021remake>().gameObject.transform;
+        }
+
+        if(emitter == null)
+        {
+            emitter = transform;
         }
     }
 
@@ -21,7 +28,7 @@ public class Localaudioplayer : MonoBehaviour
     {
         if(this.gameObject != null)
         {
-            return GameSoundManagement.instance.PlayPositional(soundData, Emitter.position);
+            return GameSoundManagement.instance.PlayPositional(soundData, emitter.position);
         }
         return null;
     }
@@ -30,7 +37,7 @@ public class Localaudioplayer : MonoBehaviour
     {
         if (this.gameObject != null)
         {
-            return GameSoundManagement.instance.PlayPositional(soundData, Emitter.position);
+            return GameSoundManagement.instance.PlayPositional(soundData, emitter.position);
         }
         return null;
     }

@@ -5,66 +5,62 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using System;
 
 public class MusicManagement : MonoBehaviour
 {
     public AudioSource musicSource;
-    public AudioClip OverworldMusic;
-    public AudioClip MenuMusic;
-    public AudioClip CreditsMusic;
     public AudioMixer audioMixer;
     public Slider slider;
 
-    float sliderValue;
-    float logvolume;
-
     public const string MUSIC_VOLUME = "MusicVolume";
 
-    AudioClip CurrentMusic;
+    [HideInInspector]
+    public AudioClip CurrentMusic;
 
     [HideInInspector] public UnityEvent onLevelStart;
     [HideInInspector] public UnityEvent onOverworld;
     [HideInInspector] public UnityEvent onMainMenu;
     [HideInInspector] public UnityEvent onCredits;
+    [HideInInspector] public UnityEvent onArena;
 
     public List<AudioClip> musicClips = new List<AudioClip>();
 
     private void Awake()
     {
         onLevelStart = new UnityEvent();
-        onLevelStart.AddListener(MusicCheck);
-        onOverworld.AddListener(PlayOverworldMusic);
-        onMainMenu.AddListener(PlayMenuMusic);
-        onCredits.AddListener(PlayCreditsMusic);
     }
 
     public void Start()
     {
-        if(slider != null)
+        onLevelStart.AddListener(MusicCheck);
+        if(SceneManager.GetActiveScene().name == "Overworld")
         {
-            slider.value = PlayerPrefs.GetFloat(MUSIC_VOLUME);
-            audioMixer.SetFloat(MUSIC_VOLUME, Mathf.Log10(slider.value) * 20);
+            slider = GameObject.FindGameObjectWithTag("musicSlider").GetComponent<Slider>();
+        }
+        else
+        {
+            MusicCheck();
         }
     }
 
-    public void SetLevel()
-    {
-        logvolume = Mathf.Log10(slider.value) * 20;
-        sliderValue = slider.value;
-        audioMixer.SetFloat(MUSIC_VOLUME, logvolume);
-        PlayerPrefs.SetFloat(MUSIC_VOLUME, sliderValue);
-    }
-
-
     private void MusicCheck()
     {
+        if(musicSource == null)
+        {
+            musicSource = GetComponents<AudioSource>()[1]; // 0 is SFX
+        }
+
         if (CurrentMusic == null || CurrentMusic != GetFromBuildIndex())
         {
             SetFromBuildIndex();
-            StopMusic();
-            musicSource.clip = CurrentMusic;
-            musicSource.loop = true;
-            musicSource.Play();
+            if(CurrentMusic != null)
+            {
+                StopMusic();
+                musicSource.clip = CurrentMusic;
+                musicSource.loop = true;
+                musicSource.Play();
+            }
         }
     }
 
@@ -77,6 +73,10 @@ public class MusicManagement : MonoBehaviour
     {
         int index = SceneManager.GetActiveScene().buildIndex;
 
+       if(index == 0)
+        {
+            return musicClips[37];
+        }
        if(index == 1 || index == 2)
         {
             return musicClips[0];
@@ -196,31 +196,30 @@ public class MusicManagement : MonoBehaviour
 
         if (index == 100)
         {
-            return musicClips[28];
+            if(GameControl.control.bosscheckpoint)
+                return null;
+            else if(!GameControl.control.bosscheckpoint && FindObjectOfType<PlayerController2021remake>().transform.position.y < -15f)
+                return musicClips[28];
+            else
+                return musicClips[31];
+        }
+
+        if(index == 101)
+        {
+            musicSource.Stop();
+        }
+
+        if (index == 102)
+        {
+            return musicClips[29];
+        }
+
+        if (index == 103)
+        {
+            return musicClips[30];
         }
 
         return null;
-    }
-
-    public void PlayOverworldMusic()
-    {
-        musicSource.clip = OverworldMusic;
-        musicSource.loop = true;
-        musicSource.Play();
-    }
-
-    public void PlayMenuMusic()
-    {
-        musicSource.clip = MenuMusic;
-        musicSource.loop = true;
-        musicSource.Play();
-    }
-
-    public void PlayCreditsMusic()
-    {
-        musicSource.clip = CreditsMusic;
-        musicSource.loop = true;
-        musicSource.Play();
     }
 
     public void StopMusic()
@@ -231,7 +230,5 @@ public class MusicManagement : MonoBehaviour
     public void OnDisable()
     {
         onLevelStart.RemoveListener(MusicCheck);
-        onOverworld.RemoveListener(PlayOverworldMusic);
-        onMainMenu.RemoveListener(PlayMenuMusic);
     }
 }

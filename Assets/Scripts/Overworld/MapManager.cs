@@ -1,160 +1,212 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System;
 
 public class MapManager : MonoBehaviour
 {
-	public Character character;
+	public OverworldCharacter character;
+    public OverworldCamera overworldCamera;
+    public OverworldGUI overworldGUI;
 
-	public Pin StartPin;
-	public Pin TargetPin;
-    public Pin PreviousPin;
-
-	public Text SelectedLevelText;
-    public Text SelectedLevelParTime;
-    public Image SelectedLevelPreviewImage;
-
-    public bool Checklocked = false;
-
-	private GameObject[] allObjects;
-	private GameObject pinObject;
-
-    public CanvasGroup menuCanvas;
-    public GameObject SaveCanvas;
-    public GameObject LoadCanvas;
-    public GameObject LevelCanvas;
+	public LevelPin startPin;
+	public LevelPin targetPin;
+    public LevelPin previousPin;
 
     public Button backButton;
     public Button playButton;
 
+    public Slider musicSlider;
+    public Slider soundSlider;
+
     public AudioClip backsound;
     public AudioClip playsound;
 
-    private GameSoundManagement sound;
+    public GameSoundManagement soundManagement;
+    public MusicManagement musicManagement;
 
-    public List<GatePin> worldgates = new List<GatePin>();
+    public GamepadBackEnabler[] ButtonsEnabler;
+    public List<LevelPin> levelPins;
+    public List<GatePin> worldGates;
 
-    /// <summary>
-    /// Use this for initialization
-    /// </summary>
+    public MonoBehaviour[] waypoints;
+    public ObjectToggle[] toggle;
+
+    public ScriptablePlayerSettings settings;
+
+    public ResolutionOptions resolution;
+
     private void Start ()
 	{
-        character = GameObject.Find("Character").GetComponent<Character>();
+        character = FindObjectOfType<OverworldCharacter>();
+        soundManagement = FindObjectOfType<GameSoundManagement>();
+        musicManagement = FindObjectOfType<MusicManagement>();
 
-        if(sound == null)
+        soundManagement.slider = soundSlider;
+        musicManagement.slider = musicSlider;
+
+        SetSlidersFromSettings();
+        SetResolutionFromSettings();
+
+        if (GameControl.control.lastSceneWasLevel)
         {
-            sound = GameObject.Find("SoundManager").GetComponent<GameSoundManagement>();
+            GameControl.control.savedPin = levelPins[GameControl.control.savedPinID - 1];
+            GameControl.control.lastSceneWasLevel = false;
+            overworldCamera.gameCamera.backgroundColor = GameControl.control.savedCameraBackgroundColor;
+            overworldCamera.viewToggler.Set(GameControl.control.progressView);
+
+            if(GameControl.control.savedPinID > 0 && GameControl.control.savedPinID < 31)
+            {
+                toggle[0].ToggleBehaviour();
+            }
+            if (GameControl.control.savedPinID >= 31 && GameControl.control.savedPinID <= 70)
+            {
+                toggle[1].ToggleBehaviour();
+            }
+            if (GameControl.control.savedPinID >= 71 && GameControl.control.savedPinID <= 80)
+            {
+                toggle[2].ToggleBehaviour();
+            }
+            if (GameControl.control.savedPinID >= 81 && GameControl.control.savedPinID <= 90)
+            {
+                toggle[3].ToggleBehaviour();
+            }
+            if (GameControl.control.savedPinID > 90)
+            {
+                toggle[4].ToggleBehaviour();
+            }
         }
 
-		if (GameControl.control.levelID != 0) {
-			pinObject = GameObject.Find ("LP" + GameControl.control.levelID.ToString ());
-			StartPin = pinObject.GetComponent<Pin> ();
-            character.transform.position = StartPin.transform.position;
-        }
-
-        sound.GetComponent<MusicManagement>().onOverworld.Invoke();
-
-        backButton.onClick.AddListener(()=> sound.PlaySingle(backsound));
-        playButton.onClick.AddListener(()=> sound.PlaySingle(playsound));
-
-
-        // Pass a ref and default the player Starting Pin
-        character.Initialise (this, StartPin);
-
-
-        for (int i = 0; i < worldgates.Count; i++)
+        if (GameControl.control.savedPin != null)
         {
-            GameControl.control.lockedgates.Add(true);
-            GameControl.control.destroyedgates.Add(false);
+            startPin = GameControl.control.savedPin;
         }
+
+        musicManagement.onLevelStart.Invoke();
+        character.Initialize(startPin);
+        overworldGUI.Initialize(this, character);
+        
+        backButton.onClick.AddListener(()=> soundManagement.PlaySingle(backsound));
+        playButton.onClick.AddListener(()=> soundManagement.PlaySingle(playsound));
+        InitializeWorldGates();
+        InitializeLevelState();
     }
 
-	/// <summary>
-	/// This runs once a frame
-	/// </summary>
-	private void Update()
-	{
-        // Only check input when character is stopped
-        if (character.IsMoving) return;
-
-        // First thing to do is try get the player input
-        if (!Checklocked)
-        {
-            CheckForInput();
-        }
-	}
-
-    public void CheckUnlocker()
+    private void SetResolutionFromSettings()
     {
-        Checklocked = false;
+        resolution.SetResolution(settings.resolutionWidth, settings.resolutionHeight);
     }
 
-	/// <summary>
-	/// Check if the player has pressed a button
-	/// </summary>
-	private void CheckForInput()
-	{
-        if (Input.GetKeyUp(KeyCode.UpArrow))
-        {
-            character.TrySetDirection(Direction.Up);
-        }
-        else if (Input.GetKeyUp(KeyCode.DownArrow))
-        {
-            character.TrySetDirection(Direction.Down);
-        }
-        else if (Input.GetKeyUp(KeyCode.LeftArrow))
-        {
-            character.TrySetDirection(Direction.Left);
-        }
-        else if (Input.GetKeyUp(KeyCode.RightArrow))
-        {
-            character.TrySetDirection(Direction.Right);
-        }
-        else if (Input.GetKeyUp(KeyCode.Escape))
-        {
-            menuCanvas.alpha = 1;
-            menuCanvas.interactable = true;
+    private void SetSlidersFromSettings()
+    {
+        musicSlider.value = settings.bgmVolume;
+        soundSlider.value = settings.sfxVolume;
+    }
 
-            if(SaveCanvas.gameObject.activeSelf == true)
+    public void UnlockAndDestroyGate(GatePin gate)
+    {
+        for(int i = 0; i < worldGates.Count; i++)
+        {
+           if(worldGates[i] == gate)
             {
-                SaveCanvas.gameObject.SetActive(false);
-            }
-
-            if(LoadCanvas.gameObject.activeSelf == true)
-            {
-                LoadCanvas.gameObject.SetActive(false);
-            }
-
-            if(LevelCanvas.gameObject.activeSelf == true)
-            {
-                LevelCanvas.gameObject.SetActive(false);
+                GameControl.control.lockedgates[i] = false;
+                GameControl.control.destroyedgates[i] = true;
             }
         }
-	}
+    }
+
+    void InitializeWorldGates()
+    {
+        GatePin gate;
+
+        for (int i = 0; i < worldGates.Count; i++)
+        {
+            gate = worldGates[i];
+
+            gate.locked = GameControl.control.lockedgates[i];
+            gate.destroyed = GameControl.control.destroyedgates[i];
+
+            gate.map = this;
+            gate.SetOrbState(gate.locked, gate.destroyed);
+        }
+    }
+
+    public void InitializeLevelState()
+    {
+        for (int i = 1; i < GameControl.control.completedlevels.Count - 1; i++)
+        {
+            bool isComplete = GameControl.control.completedlevels[i];
+            bool isGolden = GameControl.control.goldenpellets[i];
+            bool isTimer = GameControl.control.timerchallenge[i];
+
+            if (isComplete)
+            {
+                levelPins[i - 1].complete = true;
+            }
+
+            if (isGolden)
+            {
+                levelPins[i - 1].goldChallenge = true;
+            }
+
+            if (isTimer)
+            {
+                levelPins[i - 1].timeChallenge = true;
+            }
+
+            levelPins[i - 1].SetState();
+        }
+    }
+
+    public void UpdateWorldGates()
+    {
+        for (int j = 0; j < worldGates.Count; j++)
+        {
+            if (GameControl.control.destroyedgates[j] == true)
+            {
+                worldGates[j].DestroyActivate();
+            }
+        }
+    }
 
     public void SetWorldGateData(List<bool> lockedgates, List<bool> destroyedgates)
     {
-        for (int i = 0; i < worldgates.Count; i++)
+        //for (int i = 0; i < worldGates.Count; i++)
+        //{
+        //    worldGates[i].locked = lockedgates[i];
+        //    worldGates[i].destroyed = destroyedgates[i];
+        //    worldGates[i].OnLevelLoaded.Invoke();
+        //}
+    }
+    
+    public void OnDisable()
+    {
+        backButton.onClick.RemoveListener(() => soundManagement.PlaySingle(backsound));
+        playButton.onClick.RemoveListener(() => soundManagement.PlaySingle(playsound));
+    }
+    
+    public void LoadLevelFromCurrentPin()
+    {
+        for (int i = 0; i < levelPins.Count; i++)
         {
-            worldgates[i].locked = lockedgates[i];
-            worldgates[i].destroyed = destroyedgates[i];
-            worldgates[i].OnLevelLoaded.Invoke();
+            if(levelPins[i] == character.currentPin)
+            {
+                SceneManager.LoadScene($"Level{i + 1}");
+                break;
+            }
         }
     }
 
-    /// <summary>
-    /// Update the GUI text
-    /// </summary>
-    public void UpdateGui()
-	{
-        SelectedLevelText.text = string.Format("{0}", character.CurrentPin.SceneToLoad);
-        SelectedLevelParTime.text = string.Format("{0}", character.CurrentPin.ParTime);
-        SelectedLevelPreviewImage.sprite = character.CurrentPin.previewimage;
+    public void LoadLevelFromSceneIndex(int index)
+    {
+        SceneManager.LoadScene(index);
     }
 
-    public void OnDisable()
+    public void SetAutoSavePinPosition()
     {
-        backButton.onClick.RemoveListener(() => sound.PlaySingle(backsound));
-        playButton.onClick.RemoveListener(() => sound.PlaySingle(playsound));
+        GameControl.control.savedPinPosition = character.currentPin.transform.position;
+        GameControl.control.savedCameraPosition = overworldCamera.transform.position;
+        GameControl.control.savedOrtographicSize = overworldCamera.gameCamera.orthographicSize;
     }
 }

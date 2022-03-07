@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LevelTimer : MonoBehaviour
+public class LevelTimer : MonoBehaviour, IPausable
 {
 
 	public float timermin;
@@ -11,26 +11,52 @@ public class LevelTimer : MonoBehaviour
 
 	public float goaltime;
 
+    public float leveltime;
+
 	public Text text;
 
 	public bool expired = false;
+
+    LevelCanvas canvas;
+
+    public bool isPaused { get; set; }
+
+    #region fuckoffanddie
+    public void OnPause() {}
+
+    public void OnUnpause() {}
+    #endregion
+
 
     // Start is called before the first frame update
     void Start()
     {
 		timersec = 0.0f;
+        canvas = GameObject.FindObjectOfType<LevelCanvas>();
+        text = canvas.timerText;
     }
 
-    // Update is called once per frame
     void Update()
-	{
-		text.text = Mathf.Floor(Time.timeSinceLevelLoad / 60).ToString ("00") + ":" + ((int)Time.timeSinceLevelLoad % 60).ToString("00");
+    {
+        if (!isPaused)
+            UnPausedUpdate();
+    }
 
-		if (Time.timeSinceLevelLoad >= goaltime) {
-			expired = true;
-			text.color = new Color (0.4f, 0.4f, 0.4f);
+    public void UnPausedUpdate()
+    {
+        leveltime += Time.deltaTime;
+        text.text = Mathf.Floor(leveltime / 60).ToString("00") + ":" + ((int)leveltime % 60).ToString("00");
 
-		}
+        if (leveltime >= goaltime)
+        {
+            expired = true;
+            text.color = new Color(0.4f, 0.4f, 0.4f);
+        }
+    }
+
+    public void OnDestroy()
+    {
+        PauseControl.TryRemovePausable(gameObject);
     }
 }
 

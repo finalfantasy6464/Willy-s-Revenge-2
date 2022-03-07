@@ -9,19 +9,16 @@ public class EmblemTracker : MonoBehaviour
 	public Sprite changesprite;
  
 
-	void Start(){
-
-	switch(type){
-	case 3:
-		break;
-	case 2:
-		break;
-	case 1:
-		break;
-
+	void Start()
+	{
+		switch(type)
+		{
+			case 3:
+				break;
+			case 2:
+				break;
+			case 1:
+				break;
+		}
 	}
-
-
-	}
-
 }

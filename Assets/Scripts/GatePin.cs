@@ -4,17 +4,16 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Audio;
 
-public class GatePin : MonoBehaviour
+public class GatePin : NavigationPin
 {
-    Animator m_Animator;
-    private Pin pin;
+    [Header("Gate")]
     public int completerequired;
 
     public Sprite greensprite;
     public Sprite destroyedsprite;
 
-    public AudioSource source;
-    public AudioClip clip;
+    public AudioClip shatter;
+    public AudioClip bounce;
 
     public bool locked;
     public bool destroyed;
@@ -23,34 +22,21 @@ public class GatePin : MonoBehaviour
     public GameObject Completeorb;
     public GameObject Barrier;
 
-    public MapManager mapmanager;
+     public MapManager map;
+    [HideInInspector] public UnityEvent OnLevelLoaded = new UnityEvent();
+    Animator m_Animator;
 
-    [HideInInspector]
-    public UnityEvent OnLevelLoaded = new UnityEvent();
-
-    private void Awake()
+    protected override void Awake()
     {
-        OnLevelLoaded.AddListener(DestroyCheck);
+        base.Awake();
+        OnLevelLoaded.AddListener(DestroyActivate);
     }
-    // Start is called before the first frame update
+
     void Start()
     {
         m_Animator = this.GetComponent<Animator>();
-        pin = this.GetComponent<Pin>();
-
-        for (int i = 0; i < mapmanager.worldgates.Count; i++)
-        {
-            if (mapmanager.worldgates[i] == this)
-            {
-                locked = GameControl.control.lockedgates[i];
-                destroyed = GameControl.control.destroyedgates[i];
-            }
-        }
-
-        SetOrbState(locked, destroyed);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(GameControl.control.complete >= completerequired)
@@ -61,33 +47,30 @@ public class GatePin : MonoBehaviour
     }
 
     //This checks the state of the world orbs when the level is loaded.
-
-    void DestroyCheck()
+    public void DestroyActivate()
     {
-        if (!locked)
-        {
             Barrier.SetActive(false);
             Crackedorb.SetActive(true);
-        }
+            Completeorb.SetActive(false);
+            destroyed = true;
+            locked = false;
     }
 
     //This checks the state of the world orbs when the player attempts to pass through it
 
     public bool LockCheck()
     {
-        
         if (GameControl.control.complete >= completerequired)
         {
             locked = false;
+            if (!destroyed)
+                PlaySound(shatter);
+
             destroyed = true;
-            for(int i = 0; i < mapmanager.worldgates.Count; i++)
-            {
-               if(mapmanager.worldgates[i] == this)
-                {
-                    GameControl.control.lockedgates[i] = false;
-                    GameControl.control.destroyedgates[i] = true;
-                }
-            }
+            map.UnlockAndDestroyGate(this);
+        } else
+        {
+            PlaySound(bounce);
         }
         Barrier.SetActive(locked);
         Completeorb.SetActive(locked);
@@ -97,10 +80,13 @@ public class GatePin : MonoBehaviour
 
     public void SetOrbState(bool locked, bool destroyed)
     {
-        if (!locked && destroyed)
-        {
-            Completeorb.SetActive(false);
-            Crackedorb.SetActive(true);
-        }
+        Completeorb.SetActive(locked && !destroyed);
+        Crackedorb.SetActive(!locked && destroyed);
+        Barrier.SetActive(locked);
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        GameSoundManagement.instance.PlayOneShot(clip);
     }
 }

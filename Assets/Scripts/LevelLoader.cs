@@ -28,18 +28,21 @@ public class LevelLoader : MonoBehaviour
     private int completerequired;
 
     public CanvasGroup canvas;
-    public GameObject SaveCanvas;
-    public GameObject LoadCanvas;
+    public CanvasGroup SaveCanvas;
+    public CanvasGroup LoadCanvas;
 
     public AudioClip LevelSelect;
 
     public MapManager mapmanager;
+
+    public GamepadBackEnabler[] ButtonsEnabler;
 
 	void Start(){
 
 		m_Animator = this.GetComponent<Animator> ();
         pin = this.GetComponent<Pin>();
         completerequired = pin.completerequired;
+        //GameControl.onSingletonCheck.AddListener(PinVisualUpdate);
     }
 
     [HideInInspector]public IEnumerator InputTimer()
@@ -52,50 +55,29 @@ public class LevelLoader : MonoBehaviour
     }
     void Update()
     {
-        if (GameControl.control.completedlevels[ID] == false)
-        {
-            m_Animator.SetBool("Red", true);
-        }
+        PinVisualUpdate();
 
-        if (GameControl.control.completedlevels[ID] == true)
+        if (GameInput.GetKeyDown("select") && active == true && caninput == true)
         {
-            this.GetComponent<SpriteRenderer>().sprite = greensprite;
-            m_Animator.SetBool("Green", true);
-            m_Animator.SetBool("Red", false);
-        }
-
-        if (GameControl.control.goldenpellets[ID] == true)
-        {
-            this.GetComponent<SpriteRenderer>().sprite = goldsprite;
-            m_Animator.SetBool("Gold", true);
-            m_Animator.SetBool("Green", false);
-            m_Animator.SetBool("Red", false);
-        }
-
-        if (GameControl.control.completedlevels[ID] == true && GameControl.control.timerchallenge[ID] == true && GameControl.control.goldenpellets[ID] == true)
-        {
-            this.GetComponent<SpriteRenderer>().sprite = completesprite;
-            m_Animator.SetBool("Rainbow", true);
-            m_Animator.SetBool("Gold", false);
-            m_Animator.SetBool("Green", false);
-            m_Animator.SetBool("Red", false);
-        }
-
-            if (Input.GetKey(KeyCode.Space) & active == true & caninput == true) {
             canvas.alpha = 255;
             canvas.interactable = true;
+            canvas.blocksRaycasts = true;
             GameControl.control.levelID = ID;
             GameSoundManagement.instance.PlaySingle(LevelSelect);
-            mapmanager.Checklocked = true;
+            //mapmanager.checkLocked = true;
 
-            if (SaveCanvas.gameObject.activeSelf == true)
+            if (SaveCanvas.alpha == 1)
             {
-                SaveCanvas.gameObject.SetActive(false);
+                SaveCanvas.alpha = 0;
+                SaveCanvas.interactable = false;
+                SaveCanvas.blocksRaycasts = false;
             }
 
-            if (LoadCanvas.gameObject.activeSelf == true)
+            if (LoadCanvas.alpha == 1)
             {
-                LoadCanvas.gameObject.SetActive(false);
+                LoadCanvas.alpha = 0;
+                LoadCanvas.interactable = false;
+                SaveCanvas.blocksRaycasts = false;
             }
         }
 
@@ -103,6 +85,51 @@ public class LevelLoader : MonoBehaviour
         {
             caninput = false;
         }
+    }
+
+    void PinVisualUpdate()
+    {
+
+        if(ID > 100)
+        {
+            return;
+        }
+
+        bool complete = GameControl.control.completedlevels[ID];
+        bool golden = GameControl.control.goldenpellets[ID];
+        bool timer = GameControl.control.timerchallenge[ID];
+
+        if (complete && timer && golden)
+        {
+            this.GetComponent<SpriteRenderer>().sprite = completesprite;
+            m_Animator.SetBool("Rainbow", true);
+            m_Animator.SetBool("Gold", false);
+            m_Animator.SetBool("Green", false);
+            m_Animator.SetBool("Red", false);
+            return;
+        }
+
+        if (!complete)
+        {
+            m_Animator.SetBool("Red", true);
+        }
+        else
+        {
+            this.GetComponent<SpriteRenderer>().sprite = greensprite;
+            m_Animator.SetBool("Green", true);
+            m_Animator.SetBool("Red", false);
+        }
+
+
+        if (golden)
+        {
+            this.GetComponent<SpriteRenderer>().sprite = goldsprite;
+            m_Animator.SetBool("Gold", true);
+            m_Animator.SetBool("Green", false);
+            m_Animator.SetBool("Red", false);
+        }
+
+ 
     }
 
 	void OnTriggerEnter2D(Collider2D coll){
@@ -146,12 +173,36 @@ public class LevelLoader : MonoBehaviour
 			active = false;
             canvas.alpha = 0;
             canvas.interactable = false;
+            canvas.blocksRaycasts = false;
         }
 	}
 
     void CanvasEnable()
     {
         canvas.alpha = 255;
+        canvas.blocksRaycasts = true;
+    }
+
+    private void LateUpdate()
+    {
+        if(canvas.alpha == 1)
+        {
+            foreach (GamepadBackEnabler button in ButtonsEnabler)
+            {
+                button.selectionLock = false;
+            }
+        }
+        else
+        {
+            foreach (GamepadBackEnabler button in ButtonsEnabler)
+            {
+                button.selectionLock = true;
+            }
+        }
+    }
+    private void OnDisable()
+    {
+        GameControl.onSingletonCheck.RemoveListener(PinVisualUpdate);
     }
 }
 

@@ -51,6 +51,8 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -62,6 +64,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -97,10 +100,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2121ed6a1386844e972dfa8f8c37b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fireprogress: 0
   firerate: 1
+  nextfire: 0
   Spawnpoint: {fileID: 2117243431}
   Spawnpoint2: {fileID: 899170503}
   Spawnpoint3: {fileID: 782287981}
+  spawnPoints: []
   ammo: {fileID: 6935339146627899903, guid: 01c95adc494089c408efe85ad531521f, type: 3}
   shootertype: 3
   shotspeed: 100
@@ -116,8 +122,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00fe6922cdb265047a8563e69d3bdbf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waypointIndex: 0
+  FollowerCount: 0
+  offsetFromLeader: 0
+  followDelay: 0
+  usesParticles: 0
   movespeed: 2
   waypoints: []
+  emissionrate: 500
+  stopsonRoute: 0
+  stopcounter: 0
+  stoptime: 0.5
+  FollowerList: []
 --- !u!61 &687986405
 BoxCollider2D:
   m_ObjectHideFlags: 0

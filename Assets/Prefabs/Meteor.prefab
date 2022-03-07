@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2931633803983345453}
   - component: {fileID: 6002341338926067598}
-  - component: {fileID: 3994432620710491018}
   - component: {fileID: 3431115969662636544}
   - component: {fileID: 1625723935046968851}
+  - component: {fileID: 156071997131800920}
   m_Layer: 0
   m_Name: Meteor
   m_TagString: Untagged
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2931633803983345450}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.17, y: 2.56, z: -0.1}
+  m_LocalPosition: {x: -3.17, y: 2.56, z: -1}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children:
   - {fileID: 2931633804605233042}
@@ -56,19 +56,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &3994432620710491018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2931633803983345450}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48ac400eb442ace458cb72c535e16814, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  delay: 0
 --- !u!114 &3431115969662636544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,6 +70,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Meteor1: {fileID: 8300000, guid: deeb57cf43b68654399a798aa3b7057e, type: 3}
   Meteor2: {fileID: 8300000, guid: c1f2bd6b1bfd6e44e8716d9afa56ef7b, type: 3}
+  anim: {fileID: 6002341338926067598}
   localaudio: {fileID: 1625723935046968851}
 --- !u!114 &1625723935046968851
 MonoBehaviour:
@@ -96,7 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47b830a0f5b5c9e4bb3d897ea499b871, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Emitter: {fileID: 64715773824794784}
+  emitter: {fileID: 0}
   soundData:
     minDistance: 0
     maxDistance: 10
@@ -106,6 +94,21 @@ MonoBehaviour:
     maxPitch: 1
     distanceProgress: 0
     clip: {fileID: 8300000, guid: deeb57cf43b68654399a798aa3b7057e, type: 3}
+--- !u!114 &156071997131800920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2931633803983345450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8523454fad3014148b0441b98c788271, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NewOffset: 0
+  NewSpeed: 1
+  AnimIndex: 0
 --- !u!1 &2931633804605233043
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,6 +120,7 @@ GameObject:
   - component: {fileID: 2931633804605233042}
   - component: {fileID: 2931633804605233047}
   - component: {fileID: 2931633804605233045}
+  - component: {fileID: 1079717771742732793}
   m_Layer: 0
   m_Name: Meteor
   m_TagString: Enemy3
@@ -132,7 +136,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2931633804605233043}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.1}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 2931633803983345453}
@@ -154,7 +158,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
@@ -177,7 +181,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: cf82343e694dd2740b90b3fd145c7af7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -215,6 +219,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.73042953, y: 0.7160263}
   m_EdgeRadius: 0
+--- !u!50 &1079717771742732793
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2931633804605233043}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &4504377240411257227
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,7 +347,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7602178104314108342}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2931633803983345453}

@@ -17,6 +17,8 @@ public class ResolutionOptions : MonoBehaviour
     const string RESOLUTION_OPTION = "ResolutionOption";
     const string FULLSCREEN_OPTION = "FullscreenOption";
 
+    public ScriptablePlayerSettings settings;
+
 
     void Awake()
     {
@@ -48,21 +50,18 @@ public class ResolutionOptions : MonoBehaviour
         for (int i = 0; i < options.Count; i++)
         {
             size = new Vector2(options[i].width, options[i].height);
-            if (size.x == Screen.currentResolution.width
-                    && size.y == Screen.currentResolution.height)
+            if (size.x == settings.resolutionWidth
+                    && size.y == settings.resolutionHeight)
             {
                 currentResolutionIndex = i;
             }
         }
 
         resolutionDropdown.AddOptions(optionlabels);
-        currentResolutionIndex = PlayerPrefs.GetInt(RESOLUTION_OPTION);
-        currentFullscreenIndex = PlayerPrefs.GetInt(FULLSCREEN_OPTION);
-        SetFullscreen(currentFullscreenIndex);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
-
-
+        SetFullscreen(settings.displayModeIndex);
+        SetResolution(currentResolutionIndex);
     }
 
     public void SetResolution(int index)
@@ -70,31 +69,60 @@ public class ResolutionOptions : MonoBehaviour
         currentResolutionIndex = index;
         resolutionDropdown.value = index;
         Resolution res = options[index];
+
+        if (settings.resolutionWidth != res.width)
+        {
+            settings.resolutionWidth = res.width;
+            settings.resolutionHeight = res.height;
+        }
+
         Screen.SetResolution(res.width, res.height, Screen.fullScreenMode);
-        PlayerPrefs.SetInt(RESOLUTION_OPTION, currentResolutionIndex);
     }
 
     public void SetResolution(int width, int height)
     {
-        Screen.SetResolution(width, height, Screen.fullScreenMode);
+        if(width == settings.resolutionWidth || height == settings.resolutionHeight)
+        {
+            return;
+        }
+
+        Screen.SetResolution(width, height, (FullScreenMode)settings.displayModeIndex);
+        settings.resolutionHeight = height;
+        settings.resolutionWidth = width;
+
         for (int i = 0; i < options.Count; i++)
         {
             if (options[i].width == width
                     && options[i].height == height)
             {
                 currentResolutionIndex = i;
-                PlayerPrefs.SetInt(RESOLUTION_OPTION, currentResolutionIndex);
                 return;
             }
         }
         currentResolutionIndex = 0;
-        PlayerPrefs.SetInt(RESOLUTION_OPTION, currentResolutionIndex);
+    }
+
+    public void SetResolutionFromSettings()
+    {
+        for (int i = 0; i < options.Count; i++)
+        {
+            if (options[i].width == settings.resolutionWidth
+                    && options[i].height == settings.resolutionHeight)
+            {
+                currentResolutionIndex = i;
+                resolutionDropdown.value = currentResolutionIndex;
+                resolutionDropdown.RefreshShownValue();
+                return;
+            }
+        }
     }
 
     public void SetFullscreen(int index)
     {
         currentFullscreenIndex = index;
         fullscreenDropdown.value = index;
+        settings.displayModeIndex = index;
+
         if (index == 0)
             Screen.fullScreenMode = FullScreenMode.Windowed;
         else if (index == 1)
@@ -103,6 +131,5 @@ public class ResolutionOptions : MonoBehaviour
             Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
         else if (index == 3)
             Screen.fullScreenMode = FullScreenMode.MaximizedWindow;
-        PlayerPrefs.SetInt(FULLSCREEN_OPTION, currentFullscreenIndex);
     }
 }

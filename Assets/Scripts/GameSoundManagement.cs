@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -29,37 +29,40 @@ public class GameSoundManagement : MonoBehaviour
     public float lowPitchRange = 0.85f;
     public float highPitchRange = 1.15f;
 
-    private Transform player;
-
+    public Transform player;
 
     const string SOUND_VOLUME = "SFXVolume";
 
     void Awake()
     {
-
-        if (instance == null)
-            instance = this;
-
-        else if (instance != this)
+        if (instance != null && instance != this)
+        {
             Destroy(gameObject);
-
-        DontDestroyOnLoad(gameObject);
+                return;
+        }   
 
         foreach (AudioSource source in sources)
         {
             soundDataList.Add(null);
         }
+        
+        DontDestroyOnLoad(gameObject);
+        instance = this;
     }
 
-    public void Start()
+    private void Start()
     {
-        if(slider != null)
+        if (SceneManager.GetActiveScene().name == "Overworld")
         {
-            slider.value = PlayerPrefs.GetFloat(SOUND_VOLUME);
-            audioMixer.SetFloat(SOUND_VOLUME, Mathf.Log10(slider.value) * 20);
+            slider = GameObject.FindGameObjectWithTag("soundSlider").GetComponent<Slider>();
+            SetAudioInformation();
         }
+    }
 
-        if (SceneManager.GetActiveScene().name != "Overworld" && SceneManager.GetActiveScene().name != "MainMenu" && SceneManager.GetActiveScene().name != "Credits")
+    public void SetAudioInformation()
+    {
+        if (SceneManager.GetActiveScene().name != "MainMenu"
+            && SceneManager.GetActiveScene().name != "Credits")
         {
             player = GameObject.FindGameObjectWithTag("Player").transform;
         }
@@ -84,22 +87,23 @@ public class GameSoundManagement : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "Overworld" && SceneManager.GetActiveScene().isLoaded)
         {
-            player = GameObject.FindGameObjectWithTag("Character").GetComponent<Character>().transform;
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<OverworldCharacter>().transform;
         }
-
+        else if (SceneManager.GetActiveScene().name == "ArenaLevel" && SceneManager.GetActiveScene().isLoaded)
+        {
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2021Arena>().transform;
+        }
         else
         {
-                player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().transform;
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2021remake>().transform;
         }
     }
-
 
     public void SetLevel()
     {
         logvolume = Mathf.Log10(slider.value) * 20;
         sliderValue = slider.value;
         audioMixer.SetFloat(SOUND_VOLUME, logvolume);
-        PlayerPrefs.SetFloat(SOUND_VOLUME, sliderValue);
     }
 
     public void PlaySingle(AudioClip clip)
@@ -123,7 +127,7 @@ public class GameSoundManagement : MonoBehaviour
             }
         }
 
-            PlayerCheck();
+        PlayerCheck();
 
         source.transform.position = objectposition;
 
@@ -138,7 +142,14 @@ public class GameSoundManagement : MonoBehaviour
 		efxSource.PlayOneShot (clip);
 	}
 
-	public void RandomizeSFX (params AudioClip [] clips)
+    public void PlayOneShot(AudioClip clip, float minPitch, float maxPitch)
+    {
+        efxSource.clip = clip;
+        efxSource.pitch = Random.Range(minPitch, maxPitch);
+        efxSource.PlayOneShot(clip);
+    }
+
+    public void RandomizeSFX (params AudioClip [] clips)
 	{
 		int randomIndex = Random.Range (0, clips.Length);
 		float randomPitch = Random.Range (lowPitchRange, highPitchRange);
@@ -147,4 +158,12 @@ public class GameSoundManagement : MonoBehaviour
 		efxSource.clip = clips [randomIndex];
 		efxSource.Play ();
 	}
+
+    public static void StopAllCurrent()
+    {
+        foreach (AudioSource a in instance.sources)
+        {
+            a.Stop();
+        }
+    }
 }
