@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 6694383238134874048}
   - component: {fileID: 4043634002760552415}
   - component: {fileID: 999433993575303637}
+  - component: {fileID: 983384370774076602}
   - component: {fileID: 5086552990061273049}
-  - component: {fileID: 2300099931854654167}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Bullet
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bounceoff: {fileID: 8300000, guid: fb0f6d4559b41894c93bdf86fd3896e5, type: 3}
-  localaudio: {fileID: 2300099931854654167}
+  localaudio: {fileID: 983384370774076602}
 --- !u!61 &6694383238134874048
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -272,6 +272,29 @@ MonoBehaviour:
   currentDistance: 6.9050612
   horizontalDistance: 2.4419746
   distanceProgress: 0.01375924
+--- !u!114 &983384370774076602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6935339146627899903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47b830a0f5b5c9e4bb3d897ea499b871, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emitter: {fileID: 381093890401989924}
+  playerIsEmitter: 1
+  soundData:
+    minDistance: 0
+    maxDistance: 2
+    minVolume: 0
+    maxVolume: 1
+    minPitch: 1
+    maxPitch: 1
+    distanceProgress: 0
+    clip: {fileID: 8300000, guid: fb0f6d4559b41894c93bdf86fd3896e5, type: 3}
 --- !u!114 &5086552990061273049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,13 +312,13 @@ MonoBehaviour:
   m_FalloffIntensity: 0.755
   m_Color: {r: 1, g: 0.4992268, b: 0, a: 1}
   m_Intensity: 1
-  m_LightVolumeOpacity: 0
+  m_LightVolumeOpacity: 0.25
   m_ApplyToSortingLayers: 00000000b1a05e184dd699ce
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 0
   m_LightOrder: 0
   m_AlphaBlendOnOverlap: 0
-  m_ShadowIntensity: 0
+  m_ShadowIntensity: 0.25
   m_ShadowVolumeIntensity: 0
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
@@ -313,26 +336,3 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
---- !u!114 &2300099931854654167
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6935339146627899903}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47b830a0f5b5c9e4bb3d897ea499b871, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  emitter: {fileID: 381093890401989924}
-  playerIsEmitter: 1
-  soundData:
-    minDistance: 0
-    maxDistance: 1
-    minVolume: 0
-    maxVolume: 0.5
-    minPitch: 1
-    maxPitch: 1
-    distanceProgress: 0
-    clip: {fileID: 8300000, guid: fb0f6d4559b41894c93bdf86fd3896e5, type: 3}

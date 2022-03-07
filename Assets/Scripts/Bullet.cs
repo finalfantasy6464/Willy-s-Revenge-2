@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Experimental.Rendering.Universal;
+
 public class Bullet : MonoBehaviour, IPausable
 {
 	PlayerController2021remake playercontroller;
