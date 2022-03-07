@@ -3,16 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using TMPro;
 
 public class SaveLoadPanel : GUIWindow
 {
-    [Space]
     public SaveFileRow[] saveFileRows;
-    public SaveFileRow highlightedSaveRow;
-    public SaveFileRow selectedSaveRow;
-    [Space]
+    public SaveFileRow selected;
     public Button saveCurrentButton;
     public Button loadCurrentButton;
     public Button deleteCurrentButton;
@@ -24,55 +20,9 @@ public class SaveLoadPanel : GUIWindow
     string confirmationString;
     bool initialized;
 
-    void Awake()
-    {
-        OnShow += HighlightFirst;
-   }
-
-    void Start()
+    public void Start()
     {
         StartCoroutine(DelayedStart());
-    }
-
-    void Update()
-    {
-        if(!isShowing) return;
-
-        if(GameInput.GetKeyDown("select"))
-            ToggleSelection();
-
-        if(GameInput.GetKeyDown("up"))
-            MoveHighlightUp();
-        else if(GameInput.GetKeyDown("down"))
-            MoveHighlightDown();
-    }
-
-    void MoveHighlightDown()
-    {
-        Debug.Log("down");
-        for (int i = 0; i < saveFileRows.Length; i++)
-        {
-            if(saveFileRows[i].isHighlighted)
-            {
-                saveFileRows[i].SetHighlighted(false);
-                saveFileRows[i == saveFileRows.Length - 1 ? 0 : i + 1].SetHighlighted(true);
-                break;
-            }
-        }
-    }
-
-    void MoveHighlightUp()
-    {
-        Debug.Log("up");
-        for (int i = 0; i < saveFileRows.Length; i++)
-        {
-            if(saveFileRows[i].isHighlighted)
-            {
-                saveFileRows[i].SetHighlighted(false);
-                saveFileRows[saveFileRows.Length == 0 ? saveFileRows.Length - 1 : i - 1].SetHighlighted(true);
-                break;
-            }
-        }
     }
 
     IEnumerator DelayedStart()
@@ -88,47 +38,35 @@ public class SaveLoadPanel : GUIWindow
         }
     }
 
-    void HighlightFirst()
+    public void UpdateSelection()
     {
-        saveFileRows[0].SetHighlighted(true);
-        highlightedSaveRow = saveFileRows[0];
-    }
-
-    void ToggleSelection()
-    {
-        selectedSaveRow = null;
+        selected = null;
         foreach (SaveFileRow row in saveFileRows)
         {
-            if(row.isSelected)
-                row.isSelected = false;
-
-            if(row.isHighlighted)
-            {
-                row.isHighlighted = false;
-                row.isSelected = true;    
-            }
+            if(row.toggle.isOn)
+                selected = row;
         }
         
-        SetButtons(selectedSaveRow != null,
-                selectedSaveRow != null && !selectedSaveRow.isEmpty,
-                selectedSaveRow != null && !selectedSaveRow.isEmpty);
+        SetButtons(selected != null,
+                selected != null && !selected.isEmpty,
+                selected != null && !selected.isEmpty);
     }
 
     void SaveCurrent()
     {
-        GameControl.control.Save(selectedSaveRow.saveSlot);
-        selectedSaveRow.SetFromControl(GameControl.control);
+        GameControl.control.Save(selected.saveSlot);
+        selected.SetFromControl(GameControl.control);
     }
 
     void LoadCurrent()
     {
-        GameControl.control.Load(selectedSaveRow.saveSlot);
+        GameControl.control.Load(selected.saveSlot);
     }
 
     void DeleteCurrent()
     {
-        GameControl.control.Delete(selectedSaveRow.saveSlot);
-        selectedSaveRow.SetEmpty();
+        GameControl.control.Delete(selected.saveSlot);
+        selected.SetEmpty();
     }
 
     public void SetButtons(bool value)

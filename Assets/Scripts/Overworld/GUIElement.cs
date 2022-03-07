@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,11 +7,8 @@ public class GUIElement : MonoBehaviour
     [SerializeField] private CanvasGroup group;
     [HideInInspector] public bool isShowing => group.alpha != 0f;
     IEnumerator fadingRoutine;
-    public bool wasShowing;
-    public bool wasHiding;
-
-    public event Action OnShow;
-    public event Action OnHide;
+    [HideInInspector] public bool wasShowing;
+    [HideInInspector] public bool wasHiding;
 
     public void LateUpdate()
     {
@@ -24,7 +20,6 @@ public class GUIElement : MonoBehaviour
         group.alpha = 0f;
         group.interactable = false;
         group.blocksRaycasts = false;
-        OnHide?.Invoke();
     }
 
     public void Hide(float time)
@@ -41,7 +36,6 @@ public class GUIElement : MonoBehaviour
         group.alpha = 1f;
         group.interactable = true;
         group.blocksRaycasts = true;
-        OnShow?.Invoke();
     }
 
     public virtual void Show(float time)

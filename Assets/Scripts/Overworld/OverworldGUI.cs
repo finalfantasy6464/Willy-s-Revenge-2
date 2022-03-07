@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,23 +28,24 @@ public class OverworldGUI : MonoBehaviour
     [HideInInspector] public OverworldCharacter character;
     [HideInInspector] public MapManager map;
 
-    public GUIWindow[] allWindows => new GUIWindow[]
-    {
-        menuPrompt, savePrompt, loadPrompt, levelPreview, optionsPanel,
-        saveLoadPanel, saveLoadConfirmationPanel, tutorial_1, tutorial_2, tutorial_3
-    };
+    bool isAnyShowing => menuPrompt.isShowing || savePrompt.isShowing
+            || loadPrompt.isShowing || levelPreview.isShowing || optionsPanel.isShowing
+            || saveLoadPanel.isShowing || saveLoadConfirmationPanel.isShowing;
 
-    bool isAnyShowing => allWindows.Any(window => window.isShowing);
-    bool wasAnyShowing => allWindows.Any(window => window.wasShowing);
-    bool isLevelPreviewValid => allWindows.Any(window => window.isShowing || window == levelPreview);   
+    bool isLevelPreviewValid => !(menuPrompt.isShowing || savePrompt.isShowing
+            || loadPrompt.isShowing || optionsPanel.isShowing);
+
+    bool wasAnyShowing => menuPrompt.wasShowing || savePrompt.wasShowing
+            || loadPrompt.wasShowing || levelPreview.wasShowing || optionsPanel.wasShowing
+            || saveLoadPanel.wasShowing || saveLoadConfirmationPanel.wasShowing;
+
     bool isTutorialShowing => tutorial_1.isShowing || tutorial_2.isShowing || tutorial_3.isShowing;
     bool wasTutorialShowing => tutorial_1.wasShowing || tutorial_2.wasShowing || tutorial_3.wasShowing;
 
     void Update()
     {
         character.canMove = !isAnyShowing;
-        if(character.currentPin is GatePin)
-            return;
+        if(character.currentPin is GatePin) return;
 
         if(GameInput.GetKeyDown("select") && isLevelPreviewValid && !isTutorialShowing)
         {

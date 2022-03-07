@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GUIWindow : GUIElement
 {
-    [SerializeField] protected Selectable firstSelected; //Insert into in-between GUIWindow class if requirements increase.
+    [SerializeField] private Button firstSelected; //Insert into in-between GUIWindow class if requirements increase.
 
     public override void Show()
     {
