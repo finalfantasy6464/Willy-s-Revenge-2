@@ -4,36 +4,35 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
+using System;
 
-public class PlayerCollision : MonoBehaviour {
-
-	private int platformcounter = 0;
-
-	private float safetytimer = 0.0f;
-
-	private bool Safe = true;
-	private bool isPlatform = false;
-
-	private bool justcollided = false;
-
+public class PlayerCollision : MonoBehaviour
+{
     public bool LavaWorld = false;
-
 	public bool canbehit = true;
-
 	public delegate void MyDelegate();
-	public event MyDelegate onDeath;
-
+	public PlayerController2021remake playerController;
+	public SpriteRenderer spriteRenderer;
 	public Collider2D playerCollider;
-	public SpriteRenderer spriterenderer;
-	private Animator playeranim;
-
+	public Animator playerAnimator;
+	public GameObject corruptionObject;
+	public Color corruptionColor;
+	public event MyDelegate onDeath;
+	
+	int platformcounter = 0;
+	float safetytimer = 0.0f;
+	bool Safe = true;
+	bool isPlatform = false;
+	bool justcollided = false;
 	string[] hostileStrings;
+	IEnumerator corruptionRoutine;
 
     [HideInInspector] public UnityEvent onKeyCollect;
     [HideInInspector] public UnityEvent onWallCollide;
     [HideInInspector] public UnityEvent onLavaBurn;
     [HideInInspector] public UnityEvent onFalling;
     [HideInInspector] public UnityEvent onElectricHit;
+    [HideInInspector] public UnityEvent onCorruptionHit;
 	
     void Awake()
     {
@@ -42,6 +41,7 @@ public class PlayerCollision : MonoBehaviour {
         onLavaBurn = new UnityEvent();
         onFalling = new UnityEvent();
         onElectricHit = new UnityEvent();
+		onCorruptionHit = new UnityEvent();
 
 		hostileStrings = new string[]
 		{
@@ -51,7 +51,6 @@ public class PlayerCollision : MonoBehaviour {
 			"Enemy",
 			"Enemy2",
 			"Enemy3",
-			"Corruption",
 			"Enemy5",
 			"Gate",
 			"Gate2",
@@ -60,33 +59,26 @@ public class PlayerCollision : MonoBehaviour {
 		};
     }
 
-    private void Start()
-    {
-		playeranim = GetComponent<Animator>();
-
-
-    }
-
     void Update(){
 
 		safetytimer += Time.deltaTime;
 
 		if (platformcounter == 0 & isPlatform == true && LavaWorld == false) {
-			spriterenderer.enabled = false;
+			spriteRenderer.enabled = false;
 			Die(onFalling);
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
 		}
 
         if (platformcounter == 0 & isPlatform == true && LavaWorld == true)
         {
-			spriterenderer.enabled = false;
+			spriteRenderer.enabled = false;
 			Die(onLavaBurn);
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 
-	void OnCollisionEnter2D(Collision2D col){
-
+	void OnCollisionEnter2D(Collision2D col)
+	{
 		var hit = col.gameObject;
 
 		if(canbehit == true)
@@ -99,7 +91,6 @@ public class PlayerCollision : MonoBehaviour {
 
 			if (hit.tag == "Key")
 			{
-
 				GameObject[] gos = GameObject.FindGameObjectsWithTag("Gate");
 				foreach (GameObject go in gos)
 					Destroy(go);
@@ -109,7 +100,6 @@ public class PlayerCollision : MonoBehaviour {
 
 			if (hit.tag == "Key2")
 			{
-
 				GameObject[] gos = GameObject.FindGameObjectsWithTag("Gate2");
 				foreach (GameObject go in gos)
 					Destroy(go);
@@ -126,13 +116,14 @@ public class PlayerCollision : MonoBehaviour {
 			if (hit.tag == "Exit")
 			{
 				canbehit = false;
-				playeranim.SetBool("Exited", true);
+				playerAnimator.SetBool("Exited", true);
 			}
 		}
 		
 	}
-	void OnTriggerEnter2D(Collider2D trig){
 
+    void OnTriggerEnter2D(Collider2D trig)
+	{
 		var hit = trig.gameObject;
 		if (canbehit == true)
         {
@@ -141,6 +132,12 @@ public class PlayerCollision : MonoBehaviour {
 				Die(onWallCollide);
 				GameSoundManagement.StopAllCurrent();
 				SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+			}
+
+			if(hit.tag == "Corruption" && corruptionRoutine == null)
+			{
+				corruptionRoutine = CorruptionDeathRoutine();
+				StartCoroutine(corruptionRoutine);
 			}
 
 			if (hit.tag == "Safety")
@@ -182,7 +179,7 @@ public class PlayerCollision : MonoBehaviour {
 		if (hit.tag == "Danger" & Safe == false & safetytimer >= 0.1f)
 		{
 			safetytimer = 0.0f;
-			spriterenderer.enabled = false;
+			spriteRenderer.enabled = false;
 			onLavaBurn.Invoke();
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		}
@@ -191,7 +188,7 @@ public class PlayerCollision : MonoBehaviour {
 	public void Die(UnityEvent chosenevent)
     {
 		chosenevent.Invoke();
-	    spriterenderer.enabled = false;
+	    spriteRenderer.enabled = false;
 
 		foreach (GameObject segment in GetComponent<PlayerController2021remake>().taillist)
 		{
@@ -200,6 +197,42 @@ public class PlayerCollision : MonoBehaviour {
 
 		justcollided = true;
 	}
+
+	IEnumerator CorruptionDeathRoutine()
+    {
+        onCorruptionHit.Invoke();
+		float counter = 0f;
+		float time = 1.5f;
+		List<GameObject> segments = playerController.taillist;
+		List<SpriteRenderer> segmentRenderers = playerController.tailListRenderers;
+		Vector3 deathPosition = transform.position;
+		Vector3 direction = playerController.direction;
+		Vector3 scale = playerCollider.transform.localScale;
+		playerController.enabled = false;
+		playerCollider.enabled = false;
+		corruptionObject.SetActive(true);
+
+		while (counter < time)
+		{
+			counter += Time.deltaTime;
+			transform.position = Vector3.Lerp(deathPosition, deathPosition + direction, (counter * 0.5f) / time);
+			transform.localScale = Vector3.Lerp(scale, Vector3.one * 0.1f, counter / time);
+			spriteRenderer.color = Color.Lerp(Color.white, corruptionColor, counter / time);
+
+            for (int i = 0; i < segments.Count; i++)
+			{
+				Debug.Log(segmentRenderers[i]);
+                segments[i].transform.localScale = Vector3.Lerp(scale, Vector3.one * 0.1f, counter / time);
+                segmentRenderers[i].color = Color.Lerp(Color.white, corruptionColor, (counter * 2f) / time);
+			}
+
+			yield return null;
+		}
+
+		spriteRenderer.enabled = false;
+		yield return new WaitForSeconds(1f);
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
 	void Death()
 	{
