@@ -15,6 +15,9 @@ public class PlayerCollision : MonoBehaviour
 	public SpriteRenderer spriteRenderer;
 	public Collider2D playerCollider;
 	public Animator playerAnimator;
+	[Header("Corruption")]
+	public float corruptionDeathTime;
+	public float afterDeathSleepTime;
 	public GameObject corruptionObject;
 	public Color corruptionColor;
 	public event MyDelegate onDeath;
@@ -202,7 +205,7 @@ public class PlayerCollision : MonoBehaviour
     {
         onCorruptionHit.Invoke();
 		float counter = 0f;
-		float time = 1.5f;
+		float time = corruptionDeathTime;
 		List<GameObject> segments = playerController.taillist;
 		List<SpriteRenderer> segmentRenderers = playerController.tailListRenderers;
 		Vector3 deathPosition = transform.position;
@@ -211,11 +214,12 @@ public class PlayerCollision : MonoBehaviour
 		playerController.enabled = false;
 		playerCollider.enabled = false;
 		corruptionObject.SetActive(true);
+		canbehit = false;
 
 		while (counter < time)
 		{
 			counter += Time.deltaTime;
-			transform.position = Vector3.Lerp(deathPosition, deathPosition + direction, (counter * 0.5f) / time);
+			transform.position = Vector3.Lerp(deathPosition, deathPosition + (direction * 0.5f), counter / time);
 			transform.localScale = Vector3.Lerp(scale, Vector3.one * 0.1f, counter / time);
 			spriteRenderer.color = Color.Lerp(Color.white, corruptionColor, counter / time);
 
@@ -230,7 +234,7 @@ public class PlayerCollision : MonoBehaviour
 		}
 
 		spriteRenderer.enabled = false;
-		yield return new WaitForSeconds(1f);
+		yield return new WaitForSeconds(afterDeathSleepTime);
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.U2D;
@@ -10,7 +8,7 @@ public class ConvertCorruptionShapes : Editor
 {
     const string PREFAB_PATH = "ResourcePrefabs/CorruptionSpriteShape";
 
-    [MenuItem("GameObject/Convert CorruptionShape into CorruptionSpriteShape")]
+    [MenuItem("GameObject/CorruptionShape/Convert to CorruptionSpriteShape")]
     static void ConvertShapes()
     {
         Scene currentScene = SceneManager.GetActiveScene();
