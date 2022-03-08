@@ -22,7 +22,7 @@ public class PlayerCollision : MonoBehaviour
 	public Color corruptionColor;
 	public event MyDelegate onDeath;
 	
-	int platformcounter = 0;
+	public int platformcounter = 0;
 	float safetytimer = 0.0f;
 	bool Safe = true;
 	bool isPlatform = false;
@@ -62,7 +62,7 @@ public class PlayerCollision : MonoBehaviour
 		};
     }
 
-    void Update(){
+    void LateUpdate(){
 
 		safetytimer += Time.deltaTime;
 
