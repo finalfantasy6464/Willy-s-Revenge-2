@@ -67,10 +67,14 @@ public class BridgeSwitch : MonoBehaviour
         if (hit.CompareTag("Player") || hit.CompareTag("Tail"))
         {
             collidingWith.Remove(coll);
-            if (collidingWith.Count < 1)
+            foreach (BridgeSwitch sw in BridgeSwitches)
             {
-               isEnabled = false;
+                if (collidingWith.Count > 0)
+                {
+                    return;
+                }
             }
+            isEnabled = false;
         }
     }
 }

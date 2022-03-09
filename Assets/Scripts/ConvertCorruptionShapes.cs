@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class ConvertCorruptionShapes : Editor
 {
-    const string PREFAB_PATH = "ResourcePrefabs/CorruptionSpriteShape";
+    const string PREFAB_PATH = "CorruptionShape/CorruptionSpriteShape";
 
     [MenuItem("GameObject/CorruptionShape/Convert to CorruptionSpriteShape")]
     static void ConvertShapes()

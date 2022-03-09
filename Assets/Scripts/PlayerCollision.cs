@@ -27,6 +27,7 @@ public class PlayerCollision : MonoBehaviour
 	bool Safe = true;
 	bool isPlatform = false;
 	bool justcollided = false;
+	bool dyingByCorruption = false;
 	string[] hostileStrings;
 	IEnumerator corruptionRoutine;
 
@@ -62,17 +63,20 @@ public class PlayerCollision : MonoBehaviour
 		};
     }
 
-    void LateUpdate(){
-
+    void LateUpdate()
+	{
+		if(dyingByCorruption)
+			return;
+			
 		safetytimer += Time.deltaTime;
 
-		if (platformcounter == 0 & isPlatform == true && LavaWorld == false) {
+		if (platformcounter == 0 && isPlatform == true && playerCollider.enabled && LavaWorld == false) {
 			spriteRenderer.enabled = false;
 			Die(onFalling);
-			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
+			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		}
 
-        if (platformcounter == 0 & isPlatform == true && LavaWorld == true)
+        if (platformcounter == 0 && isPlatform == true && playerCollider.enabled && LavaWorld == true)
         {
 			spriteRenderer.enabled = false;
 			Die(onLavaBurn);
@@ -204,6 +208,7 @@ public class PlayerCollision : MonoBehaviour
 	IEnumerator CorruptionDeathRoutine()
     {
         onCorruptionHit.Invoke();
+		dyingByCorruption = true;
 		float counter = 0f;
 		float time = corruptionDeathTime;
 		List<GameObject> segments = playerController.taillist;
