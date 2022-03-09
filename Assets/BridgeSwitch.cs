@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class BridgeSwitch : MonoBehaviour
 {
@@ -21,28 +22,22 @@ public class BridgeSwitch : MonoBehaviour
     public Sprite activeSprite;
     private Sprite defaultSprite;
 
-    bool isEnabled = false;
+    public bool isEnabled = false;
 
     private void Start()
     {
         defaultSprite = spriteRenderer.sprite;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        foreach(BridgeSwitch sw in BridgeSwitches)
         {
-            if (sw.isEnabled)
+            if(BridgeSwitches.All(sw => !sw.isEnabled))
             {
-                sw.gameObject.GetComponent<SpriteRenderer>().sprite = activeSprite;
-                Bridge.GetComponent<BoxCollider2D>().enabled = true;
-                Bridge.GetComponent<Animator>().SetBool("Extended", true);
-                return;
-            }
-            else
-            {
-                sw.gameObject.GetComponent<SpriteRenderer>().sprite = defaultSprite;
-                Bridge.GetComponent<BoxCollider2D>().enabled = false;
+                foreach(BridgeSwitch sw in BridgeSwitches)
+                {
+                    sw.spriteRenderer.sprite = sw.defaultSprite;
+                }
                 Bridge.GetComponent<Animator>().SetBool("Extended", false);
             }
         }
@@ -54,9 +49,15 @@ public class BridgeSwitch : MonoBehaviour
         if(hit.CompareTag("Player") || hit.CompareTag("Tail"))
         {
             collidingWith.Add(coll);
+            Bridge.GetComponent<Animator>().SetBool("Extended", true);
+            Bridge.GetComponent<Collider2D>().enabled = true;
             if (collidingWith.Count > 0)
             {
                 isEnabled = true;
+                foreach (BridgeSwitch sw in BridgeSwitches)
+                {
+                    sw.spriteRenderer.sprite = sw.activeSprite;
+                }
             }
         }
     }
@@ -67,14 +68,10 @@ public class BridgeSwitch : MonoBehaviour
         if (hit.CompareTag("Player") || hit.CompareTag("Tail"))
         {
             collidingWith.Remove(coll);
-            foreach (BridgeSwitch sw in BridgeSwitches)
+            if(collidingWith.Count == 0)
             {
-                if (collidingWith.Count > 0)
-                {
-                    return;
-                }
+                isEnabled = false;
             }
-            isEnabled = false;
         }
     }
 }
