@@ -26,6 +26,11 @@ public class BigOrange : MonoBehaviour, IPausable
     public Transform rightArm;
     public Transform rightHand;
     public Transform rightFoot;
+    public Transform [] partTransforms => new Transform[]
+    {
+        leftShoulder, leftArm, leftFoot, leftHand,
+        rightShoulder, rightArm, rightHand, rightFoot
+    };
 
     [Header("Moves")]
     public BigOrangeMove currentMove;
