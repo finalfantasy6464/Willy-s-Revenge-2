@@ -19,6 +19,8 @@ public class PlayerCollision : MonoBehaviour
 	public float corruptionDeathTime;
 	public float afterDeathSleepTime;
 	public float skullFloatTime;
+	public GameObject playerHead;
+	public GameObject playerSkull;
 	public GameObject corruptionObject;
 	public Color corruptionColor;
 	public event MyDelegate onDeath;
@@ -217,10 +219,11 @@ public class PlayerCollision : MonoBehaviour
 		List<SpriteRenderer> segmentRenderers = playerController.tailListRenderers;
 		Vector3 deathPosition = transform.position;
 		Vector3 direction = playerController.direction;
-		Vector3 startScale = playerCollider.transform.localScale;
+		Vector3 startScale = playerHead.transform.localScale;
 		playerController.corruptionDirectionCache = direction;
 		playerCollider.enabled = false;
 		corruptionObject.SetActive(true);
+		playerAnimator.enabled = false;
 		canbehit = false;
 
         for (int i = 0; i < playerController.taillist.Count; i++)
@@ -233,21 +236,20 @@ public class PlayerCollision : MonoBehaviour
 		{
 			counter += Time.deltaTime;
 			transform.position = Vector3.Lerp(deathPosition, deathPosition + (direction * 0.3f), counter / time);
-			transform.localScale = Vector3.Lerp(startScale, Vector3.one * 0.25f, counter / time);
+			playerHead.transform.localScale = Vector3.Lerp(startScale, Vector3.one * 0.25f, counter / time);
 			spriteRenderer.color = Color.Lerp(Color.white, corruptionColor, counter / time);
 			playerController.FinalMovementVector = playerController.FinalMovementVector.normalized;
 			yield return null;
 		}
 
-		spriteRenderer.enabled = false;
+		playerHead.SetActive(false);
+		playerSkull.SetActive(true);
 		yield return new WaitForSeconds(afterDeathSleepTime);
-		transform.localScale = startScale;
+		playerAnimator.enabled = true;
 		playerAnimator.SetTrigger("OnSkullFloat");
 		yield return null;
 		while(playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
 			yield return null;
-		
-		playerAnimator.enabled = false;
 
 		float floatCounter = 0f;
 
