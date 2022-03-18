@@ -33,7 +33,8 @@ public class OverworldGUI : MonoBehaviour
             || saveLoadPanel.isShowing || saveLoadConfirmationPanel.isShowing;
 
     bool isLevelPreviewValid => !(menuPrompt.isShowing || savePrompt.isShowing
-            || loadPrompt.isShowing || optionsPanel.isShowing);
+            || loadPrompt.isShowing || optionsPanel.isShowing
+            || saveLoadPanel.isShowing || saveLoadConfirmationPanel.isShowing);
 
     bool wasAnyShowing => menuPrompt.wasShowing || savePrompt.wasShowing
             || loadPrompt.wasShowing || levelPreview.wasShowing || optionsPanel.wasShowing

@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class EndLevelCanvas : MonoBehaviour
 {
     Scene m_Scene;
+    public Button retryButton;
     public GameObject nextLevelButton;
     public CanvasGroup canvasGroup;
 
@@ -46,10 +48,11 @@ public class EndLevelCanvas : MonoBehaviour
         completeImage.sprite = GameControl.control.completedlevels[GameControl.control.levelID] ? emblemsprites[1] : emblemsprites[0];
         goldenImage.sprite = GameControl.control.goldenpellets[GameControl.control.levelID] ? emblemsprites[2] : emblemsprites[0];
         timerImage.sprite = GameControl.control.timerchallenge[GameControl.control.levelID] ? emblemsprites[3] : emblemsprites[0];
+    }
 
-        /* 
-         * If x{A = 1} else {A = 2}
-         * A = x ? 1:2
-         */
+    public void FocusRetryButton()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(retryButton.gameObject);
     }
 }

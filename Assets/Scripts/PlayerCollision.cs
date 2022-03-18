@@ -18,6 +18,7 @@ public class PlayerCollision : MonoBehaviour
 	[Header("Corruption")]
 	public float corruptionDeathTime;
 	public float afterDeathSleepTime;
+	public float skullFloatTime;
 	public GameObject corruptionObject;
 	public Color corruptionColor;
 	public event MyDelegate onDeath;
@@ -27,7 +28,8 @@ public class PlayerCollision : MonoBehaviour
 	bool Safe = true;
 	bool isPlatform = false;
 	bool justcollided = false;
-	bool dyingByCorruption = false;
+	[HideInInspector]
+	public bool dyingByCorruption = false;
 	string[] hostileStrings;
 	IEnumerator corruptionRoutine;
 
@@ -67,7 +69,7 @@ public class PlayerCollision : MonoBehaviour
 	{
 		if(dyingByCorruption)
 			return;
-			
+
 		safetytimer += Time.deltaTime;
 
 		if (platformcounter == 0 && isPlatform == true && playerCollider.enabled && LavaWorld == false) {
@@ -215,32 +217,62 @@ public class PlayerCollision : MonoBehaviour
 		List<SpriteRenderer> segmentRenderers = playerController.tailListRenderers;
 		Vector3 deathPosition = transform.position;
 		Vector3 direction = playerController.direction;
-		Vector3 scale = playerCollider.transform.localScale;
-		playerController.enabled = false;
+		Vector3 startScale = playerCollider.transform.localScale;
+		playerController.corruptionDirectionCache = direction;
 		playerCollider.enabled = false;
 		corruptionObject.SetActive(true);
 		canbehit = false;
 
+        for (int i = 0; i < playerController.taillist.Count; i++)
+		{
+			playerController.tailListColliders[i].isTrigger = false;
+			segments[i].GetComponent<Animator>().enabled = false;
+		}
+
 		while (counter < time)
 		{
 			counter += Time.deltaTime;
-			transform.position = Vector3.Lerp(deathPosition, deathPosition + (direction * 0.5f), counter / time);
-			transform.localScale = Vector3.Lerp(scale, Vector3.one * 0.1f, counter / time);
+			transform.position = Vector3.Lerp(deathPosition, deathPosition + (direction * 0.3f), counter / time);
+			transform.localScale = Vector3.Lerp(startScale, Vector3.one * 0.25f, counter / time);
 			spriteRenderer.color = Color.Lerp(Color.white, corruptionColor, counter / time);
-
-            for (int i = 0; i < segments.Count; i++)
-			{
-				Debug.Log(segmentRenderers[i]);
-                segments[i].transform.localScale = Vector3.Lerp(scale, Vector3.one * 0.1f, counter / time);
-                segmentRenderers[i].color = Color.Lerp(Color.white, corruptionColor, (counter * 2f) / time);
-			}
-
+			playerController.FinalMovementVector = playerController.FinalMovementVector.normalized;
 			yield return null;
 		}
 
 		spriteRenderer.enabled = false;
 		yield return new WaitForSeconds(afterDeathSleepTime);
+		transform.localScale = startScale;
+		playerAnimator.SetTrigger("OnSkullFloat");
+		yield return null;
+		while(playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+			yield return null;
+		
+		playerAnimator.enabled = false;
+
+		float floatCounter = 0f;
+
+		while(floatCounter < skullFloatTime)
+		{
+			floatCounter += Time.deltaTime;
+			yield return null;
+		}
+
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+	public IEnumerator CorruptionDeathRoutine(SpriteRenderer segmentRenderer)
+    {
+        float counter = 0f;
+        Vector3 startScale = segmentRenderer.transform.localScale;
+		Color segmentColorEnd = corruptionColor;
+		segmentColorEnd.a = 0f;
+        while(counter < corruptionDeathTime)
+        {
+            counter += Time.deltaTime;
+            segmentRenderer.transform.localScale = Vector3.Lerp(startScale, startScale * 0.66f, counter / corruptionDeathTime);
+            segmentRenderer.color = Color.Lerp(Color.white, segmentColorEnd, (counter * 2f) / corruptionDeathTime);
+            yield return null;
+        }
     }
 
 	void Death()

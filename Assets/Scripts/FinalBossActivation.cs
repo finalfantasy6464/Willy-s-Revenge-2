@@ -38,7 +38,7 @@ public class FinalBossActivation : MonoBehaviour
         if (GameControl.control.bosscheckpoint == true)
         {
             boEntrance.SpawnOrange();
-            boEntrance.destroySelf();
+            boEntrance.DestroySelf();
             playerScript.transform.position = transform.position;
             orangescript.m_animator.Play("Idle");
             m_collider.enabled = false;

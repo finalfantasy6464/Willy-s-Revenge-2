@@ -119,7 +119,11 @@ public class BigOrange : MonoBehaviour, IPausable
         // Fade Out
         
         while(m_animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0f)
-                yield return null;
+        {
+            if(m_animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+                break;
+            yield return null;
+        }
 
         // Fade In
         activator.BattleActivated();

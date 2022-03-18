@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using TMPro;
 
 public class SaveLoadPanel : GUIWindow
 {
     public SaveFileRow[] saveFileRows;
     public SaveFileRow selected;
+    public Button backButton;
     public Button saveCurrentButton;
     public Button loadCurrentButton;
     public Button deleteCurrentButton;
@@ -50,6 +52,13 @@ public class SaveLoadPanel : GUIWindow
         SetButtons(selected != null,
                 selected != null && !selected.isEmpty,
                 selected != null && !selected.isEmpty);
+        
+
+        backButton.interactable = false;
+        foreach (SaveFileRow row in saveFileRows)
+            row.toggle.interactable = false;
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(loadCurrentButton.gameObject);
     }
 
     void SaveCurrent()
@@ -86,6 +95,9 @@ public class SaveLoadPanel : GUIWindow
         confirmationWindow.Show();
         confirmationLabel.SetText($"Are you sure you want to {verb} the selected file?");
         confirmationString = verb;
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(confirmationWindow.firstSelected.gameObject);
     }
 
     public void ConfirmationYesAction()
