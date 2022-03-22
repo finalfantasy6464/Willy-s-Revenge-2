@@ -238,7 +238,7 @@ public class PlayerCollision : MonoBehaviour
 			transform.position = Vector3.Lerp(deathPosition, deathPosition + (direction * 0.3f), counter / time);
 			playerHead.transform.localScale = Vector3.Lerp(startScale, Vector3.one * 0.25f, counter / time);
 			spriteRenderer.color = Color.Lerp(Color.white, corruptionColor, counter / time);
-			playerController.FinalMovementVector = playerController.FinalMovementVector.normalized;
+			playerController.finalMovementVector = playerController.finalMovementVector.normalized;
 			yield return null;
 		}
 

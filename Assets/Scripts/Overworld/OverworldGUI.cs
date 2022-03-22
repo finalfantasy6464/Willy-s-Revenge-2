@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,13 +11,14 @@ using UnityEngine.UI;
 ///</Summary>
 public class OverworldGUI : MonoBehaviour
 {
+    public GUIWindow focusedWindow;
     [Header("Live Data")]
     public LevelPin selectedLevel;
 
     [Header("GUI Elements")]
-    public GUIWindow menuPrompt;
-    public GUIWindow savePrompt;
-    public GUIWindow loadPrompt;
+    public GUIWindow pauseMenu;
+    public GUIPrompt savePrompt;
+    public GUIPrompt loadPrompt;
     public GUIWindow levelPreview;
     public GUIWindow optionsPanel;
     public GUIWindow saveLoadPanel;
@@ -24,22 +26,21 @@ public class OverworldGUI : MonoBehaviour
     public GUIWindow tutorial_1;
     public GUIWindow tutorial_2;
     public GUIWindow tutorial_3;
+
+    public GUIWindow[] All => new GUIWindow[]
+    {
+        pauseMenu, savePrompt, loadPrompt, levelPreview, optionsPanel, saveLoadPanel,
+        saveLoadConfirmationPanel, tutorial_1, tutorial_2, tutorial_3
+    };
     
-    [HideInInspector] public OverworldCharacter character;
-    [HideInInspector] public MapManager map;
+    [HideInInspector]
+    public OverworldCharacter character;
+    [HideInInspector]
+    public MapManager map;
 
-    bool isAnyShowing => menuPrompt.isShowing || savePrompt.isShowing
-            || loadPrompt.isShowing || levelPreview.isShowing || optionsPanel.isShowing
-            || saveLoadPanel.isShowing || saveLoadConfirmationPanel.isShowing;
-
-    bool isLevelPreviewValid => !(menuPrompt.isShowing || savePrompt.isShowing
-            || loadPrompt.isShowing || optionsPanel.isShowing
-            || saveLoadPanel.isShowing || saveLoadConfirmationPanel.isShowing);
-
-    bool wasAnyShowing => menuPrompt.wasShowing || savePrompt.wasShowing
-            || loadPrompt.wasShowing || levelPreview.wasShowing || optionsPanel.wasShowing
-            || saveLoadPanel.wasShowing || saveLoadConfirmationPanel.wasShowing;
-
+    bool isAnyShowing => All.Any(w => w.isShowing);
+    bool wasAnyShowing => All.Any(w => w.wasShowing);
+    
     bool isTutorialShowing => tutorial_1.isShowing || tutorial_2.isShowing || tutorial_3.isShowing;
     bool wasTutorialShowing => tutorial_1.wasShowing || tutorial_2.wasShowing || tutorial_3.wasShowing;
 
@@ -48,7 +49,7 @@ public class OverworldGUI : MonoBehaviour
         character.canMove = !isAnyShowing;
         if(character.currentPin is GatePin) return;
 
-        if(GameInput.GetKeyDown("select") && isLevelPreviewValid && !isTutorialShowing)
+        if(GameInput.GetKeyDown("select") && !isAnyShowing)
         {
             if (!wasAnyShowing && !character.isMoving)
             {
@@ -64,49 +65,49 @@ public class OverworldGUI : MonoBehaviour
         
         if(GameInput.GetKeyDown("pause"))
         {
-            if(optionsPanel.isShowing)
+            if(GetShowing(out GUIWindow[] showing) > 0)
             {
-                optionsPanel.Hide();
-                return;
+                foreach (GUIWindow window in showing)
+                {
+                    if(window == saveLoadPanel)
+                        ((SaveLoadPanel)window).ProcessCloseAll();
+                    window.Close();
+                }
             }
-
-            if(loadPrompt.isShowing)
-            {
-                loadPrompt.Hide();
-                return;
-            }
-
-            if(savePrompt.isShowing)
-            {
-                savePrompt.Hide();
-                return;
-            }
-
-            if(saveLoadPanel.isShowing)
-            {
-                saveLoadPanel.Hide();
-                return;
-            }
-
-            if(saveLoadConfirmationPanel.isShowing)
-            {
-                saveLoadConfirmationPanel.Hide();
-                return;
-            }
-
-            if(isTutorialShowing)
-            {
-                tutorial_1.Hide();
-                tutorial_2.Hide();
-                tutorial_3.Hide();
-                return;
-            }
-
-            if(!levelPreview.isShowing)
-                menuPrompt.Toggle();
             else
-                levelPreview.Hide();
+                pauseMenu.Open();
+            return;
         }
+
+        if(GameInput.GetKeyDown("cancel"))
+        {
+            if(GetShowing(out GUIWindow[] showing) > 0)
+            {
+                foreach (GUIWindow window in showing)
+                {
+                    if(window == saveLoadPanel)
+                    {
+                        ((SaveLoadPanel)window).ProcessCancelInput();
+                        return;
+                    }
+                    else if(window is GUIPrompt prompt)
+                        prompt.navigationParent.Open();
+                    window.Close();
+                }
+            }
+        }
+    }
+
+    int GetShowing(out GUIWindow[] showing)
+    {
+        List<GUIWindow> showingCache = new List<GUIWindow>();
+        foreach (GUIWindow window in All)
+        {
+            if(window.isShowing)
+                showingCache.Add(window);
+        }
+        showing = showingCache.ToArray();
+        return showing.Length;
     }
 
     public void Initialize(MapManager map, OverworldCharacter character)

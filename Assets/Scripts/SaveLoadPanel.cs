@@ -8,13 +8,15 @@ using TMPro;
 
 public class SaveLoadPanel : GUIWindow
 {
+    public WindowState windowState;
     public SaveFileRow[] saveFileRows;
-    public SaveFileRow selected;
+    public SaveFileRow selectedSaveRow;
+    public Selectable UISelected;
     public Button backButton;
     public Button saveCurrentButton;
     public Button loadCurrentButton;
     public Button deleteCurrentButton;
-
+    [Space]
     public GUIWindow confirmationWindow;
     public TextMeshProUGUI confirmationLabel;
     public ScriptableGameState gameState;
@@ -24,6 +26,7 @@ public class SaveLoadPanel : GUIWindow
 
     public void Start()
     {
+        SetWindowState(WindowState.Selection);
         StartCoroutine(DelayedStart());
     }
 
@@ -40,42 +43,46 @@ public class SaveLoadPanel : GUIWindow
         }
     }
 
-    public void UpdateSelection()
+    public void UpdateSelection(bool value)
     {
-        selected = null;
         foreach (SaveFileRow row in saveFileRows)
         {
             if(row.toggle.isOn)
-                selected = row;
+                selectedSaveRow = row;
         }
         
-        SetButtons(selected != null,
-                selected != null && !selected.isEmpty,
-                selected != null && !selected.isEmpty);
-        
+        SetButtons(selectedSaveRow != null,
+                selectedSaveRow != null && !selectedSaveRow.isEmpty,
+                selectedSaveRow != null && !selectedSaveRow.isEmpty);
 
-        backButton.interactable = false;
-        foreach (SaveFileRow row in saveFileRows)
-            row.toggle.interactable = false;
+        if(!value) return;
+
+        SetUISelected(selectedSaveRow.isEmpty ? saveCurrentButton : loadCurrentButton);
+        SetWindowState(WindowState.Operation);
+    }
+
+    void SetUISelected(Selectable selectable)
+    {
         EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(loadCurrentButton.gameObject);
+        EventSystem.current.SetSelectedGameObject(selectable.gameObject);
+        UISelected = selectable;
     }
 
     void SaveCurrent()
     {
-        GameControl.control.Save(selected.saveSlot);
-        selected.SetFromControl(GameControl.control);
+        GameControl.control.Save(selectedSaveRow.saveSlot);
+        selectedSaveRow.SetFromControl(GameControl.control);
     }
 
     void LoadCurrent()
     {
-        GameControl.control.Load(selected.saveSlot);
+        GameControl.control.Load(selectedSaveRow.saveSlot);
     }
 
     void DeleteCurrent()
     {
-        GameControl.control.Delete(selected.saveSlot);
-        selected.SetEmpty();
+        GameControl.control.Delete(selectedSaveRow.saveSlot);
+        selectedSaveRow.SetEmpty();
     }
 
     public void SetButtons(bool value)
@@ -90,14 +97,19 @@ public class SaveLoadPanel : GUIWindow
         deleteCurrentButton.interactable = delete;
     }
 
+    public void ProcessCloseAll()
+    {
+        SetWindowState(WindowState.Selection);
+        SetUISelected(saveFileRows[0].toggle);
+    }
+
     public void ShowConfirmation(string verb)
     {
         confirmationWindow.Show();
         confirmationLabel.SetText($"Are you sure you want to {verb} the selected file?");
         confirmationString = verb;
 
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(confirmationWindow.firstSelected.gameObject);
+        SetUISelected(confirmationWindow.firstSelected);
     }
 
     public void ConfirmationYesAction()
@@ -111,5 +123,68 @@ public class SaveLoadPanel : GUIWindow
         }
         else if (confirmationString == "delete")
             DeleteCurrent();
+    }
+
+    public void ProcessCancelInput()
+    {
+        if(windowState == WindowState.Operation)
+        {
+            SetWindowState(WindowState.Selection);
+            SetUISelected(selectedSaveRow.toggle);
+        } else
+            Close();
+    }
+
+    public void SetWindowState(WindowState state)
+    {
+        windowState = state;
+        Navigation backNavigation = backButton.navigation;
+        
+        if(state == WindowState.Selection)
+        {
+            backNavigation.selectOnLeft = null;
+            backNavigation.selectOnUp = saveFileRows[2].toggle;
+            backNavigation.selectOnRight = null;
+            backNavigation.selectOnDown = saveFileRows[0].toggle;
+
+            foreach (SaveFileRow row in saveFileRows)
+                row.toggle.interactable = true;
+            
+            if(selectedSaveRow != null)
+                selectedSaveRow.toggle.isOn = false;
+        }
+        else if(state == WindowState.Operation)
+        {
+            foreach (SaveFileRow row in saveFileRows)
+                row.toggle.interactable = false;
+
+            backNavigation.selectOnLeft = deleteCurrentButton;
+            backNavigation.selectOnUp = null;
+            backNavigation.selectOnRight = loadCurrentButton;
+            backNavigation.selectOnDown = null;
+
+            Navigation saveNavigation = saveCurrentButton.navigation;
+            if(loadCurrentButton.interactable)
+            {
+                saveNavigation.selectOnLeft = loadCurrentButton;
+                saveNavigation.selectOnRight = deleteCurrentButton;
+            }
+            else
+            {
+                saveNavigation.selectOnLeft = backButton;
+                saveNavigation.selectOnRight = backButton;
+                backNavigation.selectOnLeft = saveCurrentButton;
+                backNavigation.selectOnRight = saveCurrentButton;
+            }
+            saveCurrentButton.navigation = saveNavigation;
+        }
+
+        backButton.navigation = backNavigation;
+    }
+
+    public enum WindowState
+    {
+        Selection,
+        Operation
     }
 }

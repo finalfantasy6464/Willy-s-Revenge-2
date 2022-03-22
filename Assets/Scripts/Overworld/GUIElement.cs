@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,9 +7,12 @@ public class GUIElement : MonoBehaviour
 {
     [SerializeField] private CanvasGroup group;
     [HideInInspector] public bool isShowing => group.alpha != 0f;
-    IEnumerator fadingRoutine;
     [HideInInspector] public bool wasShowing;
     [HideInInspector] public bool wasHiding;
+    public event Action<GUIElement> OnShow;
+    public event Action<GUIElement> OnHide;
+    IEnumerator fadingRoutine;
+
 
     public void LateUpdate()
     {
@@ -29,6 +33,7 @@ public class GUIElement : MonoBehaviour
         
         fadingRoutine = FadeRoutine(1f, 0f, time); 
         StartCoroutine(fadingRoutine);
+        OnHide?.Invoke(this);
     }
 
     public virtual void Show()
@@ -36,6 +41,7 @@ public class GUIElement : MonoBehaviour
         group.alpha = 1f;
         group.interactable = true;
         group.blocksRaycasts = true;
+        OnShow?.Invoke(this);
     }
 
     public virtual void Show(float time)

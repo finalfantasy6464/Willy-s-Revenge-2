@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,9 @@ using UnityEngine.UI;
 
 public class GUIWindow : GUIElement
 {
-    public Selectable firstSelected; //Insert into in-between GUIWindow class if requirements increase.
+    public Selectable firstSelected;
+    public event Action<GUIWindow> OnOpen;
+    public event Action<GUIWindow> OnClose;
 
     public override void Show()
     {
@@ -17,5 +20,17 @@ public class GUIWindow : GUIElement
     {
         firstSelected?.Select();
         base.Show(time);
+    }
+
+    public virtual void Open()
+    {
+        Show();
+        OnOpen?.Invoke(this);
+    }
+
+    public virtual void Close()
+    {
+        Hide();
+        OnClose?.Invoke(this);
     }
 }
