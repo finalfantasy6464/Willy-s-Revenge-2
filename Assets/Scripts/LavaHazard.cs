@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D;
 using UnityEngine.SceneManagement;
 
 public class LavaHazard : MonoBehaviour, IPausable
@@ -16,16 +17,27 @@ public class LavaHazard : MonoBehaviour, IPausable
     public float maxSleepTime;
     public float heatUpTime;
     public float coolDownTime;
-    public Material lavaMaterial;
+    public SpriteShapeRenderer shapeRenderer;
+    public Material lavaMaterialBase;
+    public Material materialInstance;
     
     public bool isPaused { get; set; }
 
     float counter;
     float sleepCounter;
     bool isHeatingUp;
+    
+    void OnDisable()
+    {
+        if(materialInstance != null)    
+            Destroy(materialInstance);
+    }
 
     void Start()
     {
+        materialInstance = Instantiate<Material>(lavaMaterialBase);
+        materialInstance.name = "_DynamicLavaMaterial";
+        shapeRenderer.materials = new Material[] { materialInstance, shapeRenderer.materials[1] };
         isHeatingUp = true;
     }
 
@@ -43,7 +55,7 @@ public class LavaHazard : MonoBehaviour, IPausable
             if (currentTemperature < maxTemperature)
             {
                 currentTemperature = Mathf.Lerp(minTemperature, maxTemperature, counter / heatUpTime);
-                lavaMaterial.SetFloat("_Kelvin", currentTemperature);
+                materialInstance.SetFloat("_Kelvin", currentTemperature);
             }
             else if(sleepCounter < maxSleepTime)
                 sleepCounter += Time.deltaTime;
@@ -60,7 +72,7 @@ public class LavaHazard : MonoBehaviour, IPausable
             if (currentTemperature > minTemperature)
             {
                 currentTemperature = Mathf.Lerp(maxTemperature, minTemperature, counter / coolDownTime);
-                lavaMaterial.SetFloat("_Kelvin", currentTemperature);
+                materialInstance.SetFloat("_Kelvin", currentTemperature);
             }
             else if(sleepCounter < minSleepTime)
                 sleepCounter += Time.deltaTime;
