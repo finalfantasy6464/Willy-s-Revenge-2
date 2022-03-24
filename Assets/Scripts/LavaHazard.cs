@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.U2D;
 using UnityEngine.SceneManagement;
+using System;
 
 public class LavaHazard : MonoBehaviour, IPausable
 {
@@ -23,9 +24,12 @@ public class LavaHazard : MonoBehaviour, IPausable
     
     public bool isPaused { get; set; }
 
+    bool isHeatingUp;
+    float temperatureCache;
     float counter;
     float sleepCounter;
-    bool isHeatingUp;
+
+    List<GameObject> hazardIndicators;
     
     void OnDisable()
     {
@@ -35,10 +39,24 @@ public class LavaHazard : MonoBehaviour, IPausable
 
     void Start()
     {
+        InitializeHazardIndicators();
         materialInstance = Instantiate<Material>(lavaMaterialBase);
         materialInstance.name = "_DynamicLavaMaterial";
         shapeRenderer.materials = new Material[] { materialInstance, shapeRenderer.materials[1] };
         isHeatingUp = true;
+    }
+
+    private void InitializeHazardIndicators()
+    {
+        hazardIndicators = new List<GameObject>();
+        foreach (Transform child in transform)
+        {
+            if (child.GetComponent<SpriteShapeRenderer>())
+            {
+                hazardIndicators.Add(child.gameObject);
+                child.gameObject.SetActive(false);
+            }
+        }
     }
 
     void Update()
@@ -49,6 +67,34 @@ public class LavaHazard : MonoBehaviour, IPausable
 
     public void UnPausedUpdate()
     {
+        TemperatureUpdate();
+        HazardIndicatorUpdate();
+    }
+
+    void HazardIndicatorUpdate()
+    {
+        if(hazardIndicators.Count == 0)
+            return;
+
+        if(!hazardIndicators[0].activeInHierarchy
+                && temperatureCache < currentTemperature
+                && currentTemperature >= killThreshold)
+        {
+            foreach (GameObject indicator in hazardIndicators)
+                indicator.SetActive(true);
+        }
+        else if(hazardIndicators[0].activeInHierarchy
+                && temperatureCache > currentTemperature
+                && currentTemperature < killThreshold)
+        {
+            foreach (GameObject indicator in hazardIndicators)
+                indicator.SetActive(false);
+        }
+    }
+
+    void TemperatureUpdate()
+    {
+        temperatureCache = currentTemperature;
         if(isHeatingUp)
         {
             counter += Time.deltaTime;
