@@ -17,8 +17,6 @@ public class OverworldGUI : MonoBehaviour
 
     [Header("GUI Elements")]
     public GUIWindow pauseMenu;
-    public GUIPrompt savePrompt;
-    public GUIPrompt loadPrompt;
     public GUIWindow levelPreview;
     public GUIWindow optionsPanel;
     public GUIWindow saveLoadPanel;
@@ -27,9 +25,12 @@ public class OverworldGUI : MonoBehaviour
     public GUIWindow tutorial_2;
     public GUIWindow tutorial_3;
 
+    private float levelpreviewcounter;
+    private float levelpreviewtime = 0.1f;
+
     public GUIWindow[] All => new GUIWindow[]
     {
-        pauseMenu, savePrompt, loadPrompt, levelPreview, optionsPanel, saveLoadPanel,
+        pauseMenu, levelPreview, optionsPanel, saveLoadPanel,
         saveLoadConfirmationPanel, tutorial_1, tutorial_2, tutorial_3
     };
     
@@ -49,15 +50,14 @@ public class OverworldGUI : MonoBehaviour
         character.canMove = !isAnyShowing;
         if(character.currentPin is GatePin) return;
 
+        if(levelpreviewcounter < levelpreviewtime)
+            levelpreviewcounter += Time.deltaTime;
+
         if(GameInput.GetKeyDown("select") && !isAnyShowing)
         {
             if (!wasAnyShowing && !character.isMoving)
             {
-                ((LevelPreviewWindow)levelPreview).UpdatePreviewData((LevelPin)character.currentPin);
-                GameControl.control.savedPin = (LevelPin)character.currentPin;
-                GameControl.control.AutosavePosition = character.transform.position;
-                GameControl.control.savedCameraBackgroundColor = Camera.main.backgroundColor;
-                levelPreview.Show();
+                LevelPreviewCheck();
             }
             else if (levelPreview.isShowing)
                  map.LoadLevelFromCurrentPin();
@@ -90,12 +90,34 @@ public class OverworldGUI : MonoBehaviour
                         ((SaveLoadPanel)window).ProcessCancelInput();
                         return;
                     }
+                    else if (window == optionsPanel)
+                    {
+                        ((OptionsPanel)window).ProcessCancelInput();
+                        return;
+                    }
                     else if(window is GUIPrompt prompt)
                         prompt.navigationParent.Open();
                     window.Close();
                 }
             }
         }
+    }
+
+    private void LevelPreviewCheck()
+    {
+        if(levelpreviewcounter < levelpreviewtime)
+            return;
+
+        ((LevelPreviewWindow)levelPreview).UpdatePreviewData((LevelPin)character.currentPin);
+        GameControl.control.savedPin = (LevelPin)character.currentPin;
+        GameControl.control.AutosavePosition = character.transform.position;
+        GameControl.control.savedCameraBackgroundColor = Camera.main.backgroundColor;
+        levelPreview.Show();
+    }
+
+    public void LevelCounterReset()
+    {
+        levelpreviewcounter = 0f;
     }
 
     int GetShowing(out GUIWindow[] showing)
