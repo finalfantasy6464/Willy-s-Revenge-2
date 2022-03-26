@@ -60,7 +60,12 @@ public class Bullet : MonoBehaviour, IPausable
 			Destroy(gameObject);
 		}
 
-		if (hit.tag == "Bulletblocker" || hit.tag == "Shield")
+		if (hit.tag == "Bulletblocker")
+		{
+			Destroy(gameObject);
+		}
+
+		if (hit.tag == "Shield")
 		{
 			StartCoroutine(BulletDeflect());
 		}
