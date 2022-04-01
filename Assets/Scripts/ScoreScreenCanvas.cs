@@ -1,16 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class ScoreScreenCanvas : MonoBehaviour
 {
     Scene m_Scene;
-
-    public Text TitleText;
-    public Text scoreText;
-    public Text bestScoreText;
+    public Selectable selectedOnPopup;
+    public TextMeshProUGUI TitleText;
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI bestScoreText;
 
     public float currentScore;
 
@@ -21,10 +23,21 @@ public class ScoreScreenCanvas : MonoBehaviour
         m_Scene = SceneManager.GetActiveScene();
     }
 
+    void Start()
+    {
+        InitializeUISelection();
+    }
+
+    void InitializeUISelection()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(selectedOnPopup.gameObject);
+    }
+
     public void ScoreDisplay()
     {
-        scoreText.text = "Your Score: " + currentScore.ToString();
-        bestScoreText.text = "Best Score: " + GameControl.control.ArenahighScore.ToString();
+        scoreText.SetText("Your Score: " + currentScore.ToString());
+        bestScoreText.SetText("Best Score: " + GameControl.control.ArenahighScore.ToString());
     }
 
     public void ScoreCheck()

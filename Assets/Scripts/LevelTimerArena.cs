@@ -57,7 +57,7 @@ public class LevelTimerArena : MonoBehaviour, IPausable
             if (currentLevelTime <= 0)
             {
                 currentLevelTime = 0;
-                score.TitleText.text = "Time Up!";
+                score.TitleText.SetText("Time Up!");
                 arenacoll.Die(arenacoll.onWallCollide);
             }
         }
