@@ -54,7 +54,8 @@ public class OverworldCamera : MonoBehaviour
 
     void Update()
     {
-        SetFromPin(character.currentPin);
+        if(character.isMoving)
+            SetFromPin(character.currentPin);
     }
 
     public void SetCheckpoints(Checkpoint a, Checkpoint b)
@@ -90,11 +91,12 @@ public class OverworldCamera : MonoBehaviour
             if(checkpointSteps[i] == pin.transform)
             {
                 pinIndex = i;
-                int j = i;
+                int j;
+
+                j = i + 1;
                 while(j < checkpointSteps.Length)
                 {
-                    if(IsCheckpointAnchor(checkpointSteps[j],
-                            out Checkpoint nextCheckpoint))
+                    if(IsCheckpointAnchor(checkpointSteps[j], out Checkpoint nextCheckpoint))
                     {
                         b = nextCheckpoint;
                         bIndex = j;
@@ -113,12 +115,16 @@ public class OverworldCamera : MonoBehaviour
         }
             
         SetCheckpoints(a, b);
+        
         float currentProgress = Mathf.InverseLerp(aIndex, bIndex, GetStepIndex(character.currentPin.transform));
-        float targetProgress = character.targetPin == null ? currentProgress :
-                Mathf.InverseLerp(aIndex, bIndex, GetStepIndex(character.targetPin.transform));
+        float targetProgress;
+        if(character.targetPin == null)
+            targetProgress = currentProgress;
+        else
+            targetProgress =  Mathf.InverseLerp(aIndex, bIndex, GetStepIndex(character.targetPin.transform));
+        
         SetProgress(Mathf.Lerp(currentProgress, targetProgress, character.currentPathTime));
         UpdateCamera();
-        return;
     }
 
     public int GetStepIndex(Transform t)
@@ -130,7 +136,6 @@ public class OverworldCamera : MonoBehaviour
         }
         return -1;
     }
-
 
     bool IsCheckpointAnchor(Transform t, out Checkpoint result)
     {

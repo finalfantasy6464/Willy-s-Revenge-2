@@ -18,6 +18,8 @@ public class OverworldCharacter : MonoBehaviour
     public NavigationPin currentPin;
     public NavigationPin targetPin;
     public bool isIgnoringPath;
+    public bool isReturning;
+
     [HideInInspector] public UnityEvent onMove;
     [HideInInspector] public float currentPathTime;
     IEnumerator moveRoutine;
@@ -105,7 +107,7 @@ public class OverworldCharacter : MonoBehaviour
     {
         Transform start = path.start;
         Transform end = path.end;
-        bool isReturning = false;
+        isReturning = false;
 
         // Swap start and end if going back
         if(path.end == currentPin.transform)
