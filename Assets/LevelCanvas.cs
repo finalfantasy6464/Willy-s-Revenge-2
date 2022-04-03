@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class LevelCanvas : MonoBehaviour
 {
-    public Text countText;
+    public TextMeshProUGUI countText;
     public Image goldenImage;
-    public Text speedText;
-    public Text timerText;
+    public TextMeshProUGUI speedText;
+    public TextMeshProUGUI timerText;
 }

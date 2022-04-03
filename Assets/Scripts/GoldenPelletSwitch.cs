@@ -5,7 +5,7 @@ using UnityEngine;
 public class GoldenPelletSwitch : MonoBehaviour
 {
     BigOrange orangeScript;
-    GameObject orange;
+    public GameObject orange;
 
 	public Transform spawnPos;
 
@@ -20,7 +20,6 @@ public class GoldenPelletSwitch : MonoBehaviour
 
     private void Start()
     {
-        orange = GameObject.FindGameObjectWithTag("Boss");
         orangeScript = orange.GetComponent<BigOrange>();
         s_renderer = gameObject.GetComponent<SpriteRenderer>();
         newcolor = s_renderer.color;

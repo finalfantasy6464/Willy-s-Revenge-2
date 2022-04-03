@@ -9,6 +9,7 @@ public class CavernsToRuinsTransition : WorldTransition
 {
     public Animator playerAnimator;
     public ParticleSystem cannonParticle;
+    public ParticleSystem[] FireworkParticles;
     public Transform cannon;
 
     protected override IEnumerator BackwardRoutine()
@@ -45,6 +46,10 @@ public class CavernsToRuinsTransition : WorldTransition
 
         playerAnimator.Play("Cannon", -1);
         cannonParticle.Play();
+        foreach (ParticleSystem ps in FireworkParticles)
+        {
+            ps.Play();
+        }
         yield return null;
         while (playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
             yield return null;

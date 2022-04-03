@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +14,7 @@ public class LevelTimer : MonoBehaviour, IPausable
 
     public float leveltime;
 
-	public Text text;
+	public TextMeshProUGUI text;
 
 	public bool expired = false;
 
@@ -50,7 +51,7 @@ public class LevelTimer : MonoBehaviour, IPausable
         if (leveltime >= goaltime)
         {
             expired = true;
-            text.color = new Color(0.4f, 0.4f, 0.4f);
+            text.color = new Color(0.9f, 0.2f, 0.2f);
         }
     }
 

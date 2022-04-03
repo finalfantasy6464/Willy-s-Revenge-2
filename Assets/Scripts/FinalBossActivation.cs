@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Experimental.Rendering.Universal;
+using TMPro;
 
 public class FinalBossActivation : MonoBehaviour
 {
     public BigOrangeEntrance boEntrance;
     BigOrange orangescript;
-    GameObject orange;
+    public GameObject orange;
 
     public Light2D[] arenaLights;
     public Light2D globalLight;
 
     public GameObject Timer;
-    public Text timerText;
+    public TextMeshProUGUI timerText;
 
     public GameObject HPBarImage;
     public GameObject CurrentHPtext;
@@ -30,7 +31,6 @@ public class FinalBossActivation : MonoBehaviour
 
     private void Start()
     {
-        orange = GameObject.FindGameObjectWithTag("Boss");
         orangescript = orange.GetComponent<BigOrange>();
         m_collider = GetComponent<BoxCollider2D>();
         music = GameObject.Find("SoundManager").GetComponent<MusicManagement>();
