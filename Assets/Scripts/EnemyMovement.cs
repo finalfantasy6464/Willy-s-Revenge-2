@@ -12,6 +12,7 @@ public class EnemyMovement : MonoBehaviour, IPausable
     private float movestep = 0.02f;
     private float moveinterval = 0.1f;
 	public float multiplier = 1.0f;
+    public float movemagnitude = 1.0f;
     float corruptionmod = 1.25f;
 
     bool finished = false; 
@@ -239,12 +240,12 @@ public class EnemyMovement : MonoBehaviour, IPausable
             {
 
                 case 2:
-                    enemydir = Vector2.left / 8;
+                    enemydir = (Vector2.left / 8) *  movemagnitude;
                     break;
 
                 case 1:
 
-                    enemydir = Vector2.right / 8;
+                    enemydir = (Vector2.right / 8) * movemagnitude;
                     break;
             }
         }
