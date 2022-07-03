@@ -20,6 +20,9 @@ public class LevelTimer : MonoBehaviour, IPausable
 
     LevelCanvas canvas;
 
+    [HideInInspector]
+    public bool isCounting = true;
+
     public bool isPaused { get; set; }
 
     #region fuckoffanddie
@@ -45,7 +48,10 @@ public class LevelTimer : MonoBehaviour, IPausable
 
     public void UnPausedUpdate()
     {
-        leveltime += Time.deltaTime;
+        if (isCounting)
+        {
+            leveltime += Time.deltaTime;
+        }
         text.text = Mathf.Floor(leveltime / 60).ToString("00") + ":" + ((int)leveltime % 60).ToString("00");
 
         if (leveltime >= goaltime)
