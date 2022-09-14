@@ -168,24 +168,23 @@ public class BigOrange : MonoBehaviour, IPausable
     void ChooseMove()
     {
         PlayerController2021remake player = FindObjectOfType<PlayerController2021remake>();
-        ((Punch)punchMove).Execute(player, this, UnityEngine.Random.Range(0f, 1f) > 0.5f ? "Right" : "Left");
-            currentMove = punchMove;
-            stompspeedindex = 0;
-
-            /*
+        //((Punch)punchMove).Execute(player, this, UnityEngine.Random.Range(0f, 1f) > 0.5f ? "Right" : "Left");
+        //    currentMove = punchMove;
+        //    stompspeedindex = 0;
+   
         if (rng <= 35)
         {
             ((Punch)punchMove).Execute(player, this, UnityEngine.Random.Range(0f, 1f) > 0.5f ? "Right" : "Left");
             currentMove = punchMove;
             stompspeedindex = 0;
         }
-        if (rng > 35 && rng <= 60)
+        if (rng > 35 && rng <= 40)
         {
             ((Jump)jumpMove).Execute(this);
             currentMove = jumpMove;
             stompspeedindex = 0;
         }
-        if (rng > 60 && rng <= 140)
+        if (rng > 40 && rng <= 140)
         {
             ((Slam)slamMove).Execute(this, UnityEngine.Random.Range(0f, 1f) > 0.5f ? "Right" : "Left");
             currentMove = slamMove;
@@ -214,7 +213,7 @@ public class BigOrange : MonoBehaviour, IPausable
             ((Hop)hopMove).Execute(m_animator);
             currentMove = hopMove;
             stompspeedindex = 0;
-        }*/
+        }
     }
 
     void SetBoolAnimationParameters(bool value)

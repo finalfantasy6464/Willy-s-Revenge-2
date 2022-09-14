@@ -10,7 +10,7 @@ public class RadialGauge : MonoBehaviour
     public bool isSteppedOn;
 
     // Trackers for min/max values
-    protected float maxValue = 2f, minValue = 0f;
+    protected float maxValue = 1.5f, minValue = 0f;
 
     // Create a property to handle the slider's value
     private float currentValue = 0f;
