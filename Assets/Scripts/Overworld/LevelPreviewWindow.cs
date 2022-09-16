@@ -7,6 +7,8 @@ using TMPro;
 
 public class LevelPreviewWindow : GUIWindow
 {
+    public Sprite[] backgroundImageSprites;
+    public Image currentBackgroundImage;
     public TextMeshProUGUI levelNameLabel;
     public TextMeshProUGUI levelParLabel;
     public Image snapshot;
@@ -20,6 +22,7 @@ public class LevelPreviewWindow : GUIWindow
     ///</Summary>
     public void UpdatePreviewData(LevelPin pin)
     {
+        currentBackgroundImage.sprite = backgroundImageSprites[GameControl.control.currentCharacterSprite];
         levelNameLabel.text = $"{pin.levelDisplayName}";
         parSpan = TimeSpan.FromSeconds(pin.parTime);
         levelParLabel.text = "Par Time: " + parSpan.ToString(@"mm\:ss");
