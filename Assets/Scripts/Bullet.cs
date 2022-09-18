@@ -65,7 +65,7 @@ public class Bullet : MonoBehaviour, IPausable
 			Destroy(gameObject);
 		}
 
-		if (hit.tag == "Shield")
+		if (hit.tag == "ActiveShield")
 		{
 			StartCoroutine(BulletDeflect());
 		}

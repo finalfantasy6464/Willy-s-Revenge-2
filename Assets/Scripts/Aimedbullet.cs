@@ -56,7 +56,7 @@ public class Aimedbullet : MonoBehaviour, IPausable
 
 		if (playercontroller.shieldactive)
 		{
-			if (hit.tag == "Shield")
+			if (hit.tag == "ActiveShield")
             {
 				StartCoroutine(BulletDeflect());
 			}
