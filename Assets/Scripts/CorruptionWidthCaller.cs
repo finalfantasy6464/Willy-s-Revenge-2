@@ -16,4 +16,5 @@ public class CorruptionWidthCaller : MonoBehaviour
         shape.UpdateSpriteShapeParameters();
         Destroy(this);
     }
+
 }

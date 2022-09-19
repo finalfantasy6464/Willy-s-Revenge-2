@@ -9,6 +9,9 @@ public class Teleporter : MonoBehaviour{
     public PositionalSFX sfx;
     public PositionalSFX sfx2;
 
+    public ParticleSystem teleParticleIn;
+    public ParticleSystem teleParticleOut;
+
     // Update is called once per frame
    
 void OnTriggerEnter2D(Collider2D tele){
@@ -19,7 +22,8 @@ void OnTriggerEnter2D(Collider2D tele){
 			hit.transform.position = target.position;
             sfx.PlayPositionalSound();
             sfx2.PlayPositionalSound();
-
+            teleParticleIn.Play();
+            teleParticleOut.Play();
     }
 
 
@@ -27,6 +31,8 @@ void OnTriggerEnter2D(Collider2D tele){
 			hit.transform.position = target.position;
             sfx.PlayPositionalSound();
             sfx2.PlayPositionalSound();
+            teleParticleIn.Play();
+            teleParticleOut.Play();
         }
 			
 	}

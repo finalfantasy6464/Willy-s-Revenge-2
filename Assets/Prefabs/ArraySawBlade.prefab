@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5849383403562506218}
   - component: {fileID: 5849383403562506219}
-  - component: {fileID: 5849383403562506213}
   - component: {fileID: 132355347481125007}
   - component: {fileID: 6648544057707216807}
+  - component: {fileID: 7703529599988638281}
   m_Layer: 0
   m_Name: ArraySawBlade
   m_TagString: Enemy3
@@ -85,57 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &5849383403562506213
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5849383403562506216}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.24, y: 1.24}
-    newSize: {x: 1.24, y: 1.24}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.62, y: 0.14}
-      - {x: 0.59999996, y: 0.26}
-      - {x: 0.48, y: 0.45}
-      - {x: 0.26999998, y: 0.62}
-      - {x: 0.24, y: 0.62}
-      - {x: 0.11, y: 0.56}
-      - {x: 0.049999997, y: 0.62}
-      - {x: -0.14, y: 0.62}
-      - {x: -0.26, y: 0.59999996}
-      - {x: -0.45, y: 0.48}
-      - {x: -0.62, y: 0.19999999}
-      - {x: -0.57, y: 0.11}
-      - {x: -0.62, y: 0.04}
-      - {x: -0.62, y: -0.19}
-      - {x: -0.59999996, y: -0.26}
-      - {x: -0.48, y: -0.45}
-      - {x: -0.29999998, y: -0.56}
-      - {x: -0.19999999, y: -0.62}
-      - {x: 0.28, y: -0.62}
-      - {x: 0.45, y: -0.48}
-      - {x: 0.56, y: -0.29999998}
-      - {x: 0.62, y: -0.19999999}
-    - - {x: -0.24, y: 0.089999996}
-      - {x: -0.089999996, y: 0.24}
-      - {x: 0.24, y: 0.089999996}
-      - {x: 0.089999996, y: -0.24}
 --- !u!82 &132355347481125007
 AudioSource:
   m_ObjectHideFlags: 0
@@ -258,3 +207,19 @@ MonoBehaviour:
   currentDistance: 0
   horizontalDistance: 0
   distanceProgress: 0
+--- !u!58 &7703529599988638281
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5849383403562506216}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.6

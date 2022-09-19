@@ -14,22 +14,11 @@ public class CameraProgressPreview : MonoBehaviour
     OverworldCamera.Checkpoint preview;
     OverworldCamera.Checkpoint a;
     OverworldCamera.Checkpoint b;
-    
-    #if UNITY_EDITOR
-    void OnDrawGizmos()
-    {
-        if(preview == null) return;
-        Handles.Label(preview.bottomLeft, $"Preview (t = {progress})");
-        Handles.DrawDottedLine(preview.xCenterLeft, preview.xCenterRight, 0.5f);
-        Handles.DrawDottedLine(preview.yCenterBottom, preview.yCenterTop, 0.5f);
-        Gizmos.DrawWireCube(preview.rect.center, preview.rect.size);
-    }
 
     void OnValidate()
     {
         TryUpdatePreview();
     }
-    #endif
 
     public void TryUpdatePreview()
     {

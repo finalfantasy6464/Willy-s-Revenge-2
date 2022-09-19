@@ -59,10 +59,10 @@ public static class GameInput
             return true;
         else if(Array.Exists(directionalKeys, n => n.Equals(keyName)))
         {
-            return (keyName == "up"    && (Input.GetAxisRaw("Vertical") > 0   || Input.GetAxisRaw("DpadY") > 0))
-                || (keyName == "left"  && (Input.GetAxisRaw("Horizontal") < 0 || Input.GetAxisRaw("DpadX") < 0))
-                || (keyName == "right" && (Input.GetAxisRaw("Horizontal") > 0 || Input.GetAxisRaw("DpadX") > 0))
-                || (keyName == "down"  && (Input.GetAxisRaw("Vertical") < 0   || Input.GetAxisRaw("DpadY") < 0));
+            return (keyName == "up"    && (Vertical > 0))
+                || (keyName == "left"  && (Horizontal < 0))
+                || (keyName == "right" && (Horizontal > 0))
+                || (keyName == "down"  && (Vertical < 0));
         }
         return false;
     }

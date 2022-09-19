@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Experimental.Rendering.Universal;
+using System;
 
 public class Bullet : MonoBehaviour, IPausable
 {
@@ -13,6 +14,10 @@ public class Bullet : MonoBehaviour, IPausable
 	Collider2D myCollider;
 	Vector2 storedForce;
 	public AudioClip bounceoff;
+
+	SpriteRenderer m_SpriteRenderer;
+
+	public Animator m_Animator;
 
 	public LocalAudioPlayer localaudio;
 
@@ -26,6 +31,7 @@ public class Bullet : MonoBehaviour, IPausable
 		Player = GameObject.FindGameObjectWithTag("Player");
 		rb = GetComponent<Rigidbody2D>();
 		myCollider = GetComponent<Collider2D>();
+		m_SpriteRenderer = GetComponent<SpriteRenderer>();
 		if (Player != null)
 		{
 			playercontroller = Player.GetComponent<PlayerController2021remake>();
@@ -52,22 +58,22 @@ public class Bullet : MonoBehaviour, IPausable
 
 		if (hit.tag == "Arena")
 		{
-			Destroy(gameObject);
+			ActivateDeath();
 		}
 
 		if (hit.tag == "Bullet")
 		{
-			Destroy(gameObject);
+			ActivateDeath();
 		}
 
 		if (hit.tag == "Bulletblocker")
 		{
-			Destroy(gameObject);
+			ActivateDeath();
 		}
 
 		if (hit.tag == "ActiveShield")
 		{
-			StartCoroutine(BulletDeflect());
+			ActivateDeath();
 		}
 
 		if (playercontroller != null)
@@ -85,7 +91,7 @@ public class Bullet : MonoBehaviour, IPausable
 			{
 				if (hit.tag == "Player")
 				{
-					Destroy(gameObject);
+					ActivateDeath();
 				}
 			}
 			else
@@ -93,6 +99,20 @@ public class Bullet : MonoBehaviour, IPausable
 			}
 		}
 	}
+
+    private void ActivateDeath()
+    {
+		myCollider.enabled = false;
+		m_SpriteRenderer.sprite = null;
+		storedForce = Vector2.zero;
+		rb.constraints = RigidbodyConstraints2D.FreezeAll;
+		m_Animator.SetTrigger("Destroy");
+	}
+
+    public void DestroySelf()
+    {
+		Destroy(gameObject);
+    }
 
 
     public void OnPause()

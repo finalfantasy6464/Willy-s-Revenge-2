@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class redAnimationSkip : StateMachineBehaviour
 {
-    bool changed;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        changed = false;
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

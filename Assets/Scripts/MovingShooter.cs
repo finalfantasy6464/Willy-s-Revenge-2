@@ -10,7 +10,6 @@ public class MovingShooter : MonoBehaviour, IPausable
 	public float fireprogress = 0.0f;
 	public float firerate = 0.5f;
 	public float nextfire;
-	private float shotstep = 0.02f;
 
 	public Transform Spawnpoint;
 	public Transform Spawnpoint2;

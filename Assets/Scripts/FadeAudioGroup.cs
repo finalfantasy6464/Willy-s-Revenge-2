@@ -6,6 +6,7 @@ using UnityEngine;
 public static class FadeAudioGroup
 {
     public static float volumecache;
+
     public static IEnumerator StartFade(AudioMixer audioMixer, string exposedParam, float duration, float targetVolume)
     {
         float currentTime = 0;
@@ -30,14 +31,13 @@ public static class FadeAudioGroup
     {
         float currentTime = 0;
         float currentVol;
+
         audioMixer.GetFloat(exposedParam, out currentVol);
-        currentVol = Mathf.Pow(10, currentVol / 20);
-        float targetValue = volumecache;
 
         while (currentTime < duration)
         {
             currentTime += Time.deltaTime;
-            float newVol = Mathf.Lerp(-80.0f, targetValue, currentTime / duration);
+            float newVol = Mathf.Lerp(currentVol, volumecache, currentTime / duration);
             audioMixer.SetFloat(exposedParam, newVol);
             yield return null;
         }

@@ -28,34 +28,21 @@ public class OverworldCamera : MonoBehaviour
         CustomSteps
     }
 
-    #if UNITY_EDITOR
-    void OnDrawGizmos()
+    private void Start()
     {
-        if(debugStyle == null)
-            debugStyle = new GUIStyle();
-            
-        if(checkpoints == null || checkpoints.Length == 0) return;
-
-        foreach (Checkpoint checkpoint in checkpoints)
-        {
-            if(checkpoint.hideDebug)
-                continue;
-
-            debugStyle.normal.textColor = checkpoint.color;
-            Handles.color = checkpoint.color;
-            Handles.Label(checkpoint.bottomLeft, checkpoint.anchor?.name, debugStyle);
-            Handles.DrawDottedLine(checkpoint.xCenterLeft, checkpoint.xCenterRight, 0.5f);
-            Handles.DrawDottedLine(checkpoint.yCenterBottom, checkpoint.yCenterTop, 0.5f);
-            Gizmos.color = checkpoint.color;
-            Gizmos.DrawWireCube(checkpoint.rect.center, checkpoint.rect.size);
-        }
+        if(character.currentPin != null)
+        SetFromPin(character.currentPin);
     }
-    #endif
 
     void Update()
     {
         if(character.isMoving)
             SetFromPin(character.currentPin);
+    }
+
+    public void CameraReset()
+    {
+        SetFromPin(character.currentPin);
     }
 
     public void SetCheckpoints(Checkpoint a, Checkpoint b)

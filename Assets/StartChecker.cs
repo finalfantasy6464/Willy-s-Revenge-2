@@ -6,15 +6,23 @@ using UnityEngine.SceneManagement;
 
 public class StartChecker : MonoBehaviour
 {
-    ScriptablePlayerSettings settings;
+    public ScriptablePlayerSettings settings;
 
     void RunGameControlCheck()
     {
         if (!File.Exists(Application.persistentDataPath + "/config.ini"))
         {
             settings.CreateNew();
+            SceneManager.LoadScene(104);
+        }
+        else
+        {
+            settings.TryLoadFromDisk();
+            SceneManager.LoadScene(104);
         }
 
+
+        /*
         if (File.Exists(Application.persistentDataPath + "/Save_Auto.wr2"))
         {
             //GameControl.control.AutoLoad();
@@ -26,9 +34,12 @@ public class StartChecker : MonoBehaviour
             //CheckStarted();
             SceneManager.LoadScene(101);
         }
+        */
+
     }
     void CheckStarted()
     {
+        /*
         if(GameControl.control.InitialGameStarted == true)
         {
             SceneManager.LoadScene(101);
@@ -37,5 +48,6 @@ public class StartChecker : MonoBehaviour
         {
             SceneManager.LoadScene(104);
         }
+        */
     }
 }

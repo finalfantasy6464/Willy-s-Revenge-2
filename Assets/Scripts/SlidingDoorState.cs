@@ -11,8 +11,6 @@ public class SlidingDoorState : MonoBehaviour
     public Transform targetposition;
 
     private Vector3 SlideVector;
-    bool SlideUp = false;
-    bool complete = false;
 
 
     public AudioClip SlidingClose;

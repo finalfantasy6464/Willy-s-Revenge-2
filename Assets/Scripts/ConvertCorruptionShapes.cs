@@ -3,12 +3,13 @@ using UnityEngine;
 using UnityEngine.U2D;
 using UnityEditor;
 using UnityEngine.SceneManagement;
-
+/*
 public class ConvertCorruptionShapes : Editor
 {
     const string PREFAB_PATH = "CorruptionShape/CorruptionSpriteShape";
 
     [MenuItem("GameObject/CorruptionShape/Convert to CorruptionSpriteShape")]
+
     static void ConvertShapes()
     {
         Scene currentScene = SceneManager.GetActiveScene();
@@ -72,4 +73,4 @@ public class ConvertCorruptionShapes : Editor
 
         shapeController.RefreshSpriteShape();
     }
-}
+}*/

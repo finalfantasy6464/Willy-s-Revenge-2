@@ -29,8 +29,6 @@ public class OverworldCharacter : MonoBehaviour
 
     public Animator myAnimator;
 
-    public event Action<float> OnMovePinRoutine;
-
     void Awake()
     {
         onMove = new UnityEvent();

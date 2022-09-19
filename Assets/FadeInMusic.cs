@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class FadeInMusic : MonoBehaviour
 {
@@ -22,10 +23,12 @@ public class FadeInMusic : MonoBehaviour
     // Update is called once per frame
     void FadeIn()
     {
-        if (GameControl.control.faded)
+        float currentVol;
+        music.audioMixer.GetFloat(musicVolume, out currentVol);
+
+        if (FadeAudioGroup.volumecache != currentVol)
         {
             StartCoroutine(FadeAudioGroup.EndFade(music.audioMixer, musicVolume, 0.5f));
-            GameControl.control.faded = false;
         }
     }
 }

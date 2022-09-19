@@ -9,29 +9,6 @@ public class BezierNode : MonoBehaviour
     public Transform leftHandle;
     public Transform rightHandle;
     
-    #if UNITY_EDITOR
-    void OnDrawGizmos()
-    {
-        if(start == null || end == null || leftHandle == null || rightHandle == null)
-            return;
-
-        BezierManager.DrawSplineFromPoints(GetPoints());
-    }
-
-    void OnDrawGizmosSelected()
-    {
-        if(start == null || end == null || leftHandle == null || rightHandle == null)
-            return;
-
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(start.position, leftHandle.position);
-        Gizmos.DrawLine(end.position, rightHandle.position);
-        Gizmos.DrawIcon(transform.position, "Tex_ts", true);
-        Gizmos.DrawIcon(leftHandle.position, "Tex_tn", true);
-        Gizmos.DrawIcon(rightHandle.position, "Tex_tn", true);
-    }
-    #endif
-
     public Vector2[] GetPoints() => new Vector2[] {
             start.position, leftHandle.position, rightHandle.position, end.position};
 

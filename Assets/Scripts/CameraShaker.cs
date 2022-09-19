@@ -7,9 +7,6 @@ public class CameraShaker : MonoBehaviour
     IEnumerator shakeRoutine;
     Vector3 defaultPosition;
 
-    float horizontalshake = 1;
-    float verticalshake = 1;
-
     void Start()
     {
         defaultPosition = transform.position;

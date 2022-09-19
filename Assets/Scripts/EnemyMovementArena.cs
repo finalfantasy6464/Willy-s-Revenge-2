@@ -16,7 +16,6 @@ public class EnemyMovementArena : MonoBehaviour, IPausable
 
     public bool lifespan = false;
     private bool levelstart = false;
-	private bool justhit = false;
 
     private int hitcount;
 	public int direction = 1;
@@ -68,7 +67,6 @@ public class EnemyMovementArena : MonoBehaviour, IPausable
 
         
 	void LateUpdate(){
-		justhit = false;
 	}
 
 	void Move() {

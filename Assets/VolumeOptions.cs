@@ -19,6 +19,7 @@ public class VolumeOptions : MonoBehaviour
         bgmValue = bgmSlider.value;
         settings.bgmVolume = bgmValue;
         settings.mixer.SetFloat(MUSIC_VOLUME, Mathf.Log10(bgmValue) * 20);
+        FadeAudioGroup.volumecache = Mathf.Log10(bgmValue) * 20;
     }
 
     public void SetSFX(Slider sfxSlider)

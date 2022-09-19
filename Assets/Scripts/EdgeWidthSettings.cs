@@ -13,7 +13,8 @@ public class EdgeWidthSettings : MonoBehaviour
     const string MATERIAL_PATH = "CorruptionShape/CorruptionEdgeMaterial";
     const string MATERIAL_INVERTED_PATH = "CorruptionShape/CorruptionEdgeMaterialInverted";
     
-    [MenuItem("GameObject/CorruptionShape/Preview Edge Width")]
+    /*[MenuItem("GameObject/CorruptionShape/Preview Edge Width")]*/
+
     public static void ApplyEdgeWidth()
     {
         Scene currentScene = SceneManager.GetActiveScene();
@@ -25,7 +26,8 @@ public class EdgeWidthSettings : MonoBehaviour
             SetSceneShapesWidth(s);
     }
 
-    [MenuItem("GameObject/CorruptionShape/Update Edge Direction")]
+    /*[MenuItem("GameObject/CorruptionShape/Update Edge Direction")]*/
+
     static void UpdateEdgeDirection()
     {
         SpriteShapeController[] shapes = GetShapeControllers();
