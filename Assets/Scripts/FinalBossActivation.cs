@@ -11,6 +11,8 @@ public class FinalBossActivation : MonoBehaviour
     BigOrange orangescript;
     public GameObject orange;
 
+    public bool battleended;
+
     public Light2D[] arenaLights;
     public Light2D globalLight;
 
@@ -46,6 +48,14 @@ public class FinalBossActivation : MonoBehaviour
         }
     }
 
+    public void Update()
+    {
+      if(battleended && globalLight.intensity < 0.85f)
+        {
+            globalLight.intensity = Mathf.Lerp(globalLight.intensity, 0.85f, Time.deltaTime);
+        }  
+    }
+
     public void BattleActivated()
     {
         if(GameControl.control.bosscheckpoint == false)
@@ -78,7 +88,8 @@ public class FinalBossActivation : MonoBehaviour
         {
             cameras[1].gameObject.SetActive(false);
             cameras[0].gameObject.SetActive(true);
-            globalLight.intensity = 0.85f;
+            battleended = true;
+
             foreach(Light2D arenalight in arenaLights)
             {
                 arenalight.gameObject.SetActive(false);

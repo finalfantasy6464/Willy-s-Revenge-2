@@ -55,6 +55,11 @@ public class Boulder : MonoBehaviour, IPausable
     {
         var hit = coll.gameObject;
 
+        if(hit.tag == "Enemy3")
+        {
+            Destroy(gameObject);
+        }
+
         if (hit.tag == "Boss" && justhit == false)
         {
             justhit = true;

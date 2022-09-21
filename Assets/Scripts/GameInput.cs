@@ -14,7 +14,7 @@ public static class GameInput
     static Dictionary<string, KeyCode[]> keyCodeMap = new Dictionary<string, KeyCode[]>
     {
         { "left",   new KeyCode[] {KeyCode.LeftArrow, KeyCode.A} },
-        { "up",     new KeyCode[] {KeyCode.UpArrow, KeyCode.W} },
+        { "up",     new KeyCode[] {KeyCode.UpArrow, KeyCode.W,} },
         { "right",  new KeyCode[] {KeyCode.RightArrow, KeyCode.D} },
         { "down",   new KeyCode[] {KeyCode.DownArrow, KeyCode.S} },
         { "select", new KeyCode[] {KeyCode.JoystickButton0, KeyCode.Space, KeyCode.Return, KeyCode.KeypadEnter} },
@@ -74,6 +74,7 @@ public static class GameInput
 
         if(AnyInState(keyCodeMap[keyName], Input.GetKeyDown))
             return true;
+
         else if(Array.Exists(directionalKeys, n => n.Equals(keyName)))
         {
             return (keyName == "up"    && (Vertical > 0 && VerticalCache <= 0))

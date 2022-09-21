@@ -145,14 +145,17 @@ public class BigOrange : MonoBehaviour, IPausable
 
         if(HP/MaxHP <= 0.9f)
         {
+            smoke[0].gameObject.SetActive(true);
             smoke[0].Play();
         }
         if(HP/MaxHP <= 0.7f)
         {
+            smoke[1].gameObject.SetActive(true);
             smoke[1].Play();
         }
         if(HP/MaxHP <= 0.3f)
         {
+            smoke[2].gameObject.SetActive(true);
             smoke[2].Play();
         }
     }
