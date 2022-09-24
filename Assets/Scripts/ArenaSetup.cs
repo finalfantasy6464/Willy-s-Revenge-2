@@ -37,14 +37,14 @@ public class ArenaSetup : GUIWindow
     void Update()
     {
         currentSelected = EventSystem.current.currentSelectedGameObject;
-        if(GameInput.GetKeyDown("left") && currentSelectedCache == currentSelected)
+        if(GameInput.InputMapPressedDown["left"]() && currentSelectedCache == currentSelected)
         {
             if(currentSelected == skinButtonLeft.gameObject)
                 SetSkinPrevious();
             else if(currentSelected == backgroundButtonLeft.gameObject)
                 SetLevelPrevious();
         }
-        else if(GameInput.GetKeyDown("right") && currentSelectedCache == currentSelected)
+        else if(GameInput.InputMapPressedDown["right"]() && currentSelectedCache == currentSelected)
         {
             if(currentSelected == skinButtonRight.gameObject)
                 SetSkinNext();

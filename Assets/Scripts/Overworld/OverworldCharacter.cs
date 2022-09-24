@@ -82,10 +82,10 @@ public class OverworldCharacter : MonoBehaviour
     {
         PathDirection direction = PathDirection.None;
 
-        if(GameInput.GetKeyDown("left") || Gamepad.current != null && Gamepad.current.dpad.left.wasPressedThisFrame || Gamepad.current != null && Gamepad.current.leftStick.left.wasPressedThisFrame)           direction = PathDirection.Left;
-        else if(GameInput.GetKeyDown("up") || Gamepad.current != null && Gamepad.current.dpad.up.wasPressedThisFrame || Gamepad.current != null && Gamepad.current.leftStick.up.wasPressedThisFrame)          direction = PathDirection.Up;
-        else if(GameInput.GetKeyDown("right") || Gamepad.current != null && Gamepad.current.dpad.right.wasPressedThisFrame || Gamepad.current != null && Gamepad.current.leftStick.right.wasPressedThisFrame)    direction = PathDirection.Right;
-        else if(GameInput.GetKeyDown("down") || Gamepad.current != null && Gamepad.current.dpad.down.wasPressedThisFrame || Gamepad.current != null && Gamepad.current.leftStick.down.wasPressedThisFrame)      direction = PathDirection.Down;
+        if(GameInput.InputMapPressedDown["left"]())          direction = PathDirection.Left;
+        else if(GameInput.InputMapPressedDown["up"]())       direction = PathDirection.Up;
+        else if(GameInput.InputMapPressedDown["right"]())    direction = PathDirection.Right;
+        else if(GameInput.InputMapPressedDown["down"]())     direction = PathDirection.Down;
 
         TryFollowPath(direction);
     }

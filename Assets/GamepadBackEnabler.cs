@@ -28,7 +28,7 @@ public class GamepadBackEnabler : MonoBehaviour
         {
             if (buttontype == 0)
             {
-                if (GameInput.GetKeyDown("cancel") && selectionLock == false)
+                if (GameInput.InputMapPressedDown["cancel"]() && selectionLock == false)
                 {
                     foreach (GamepadBackEnabler enabler in localenablers)
                     {
@@ -39,7 +39,7 @@ public class GamepadBackEnabler : MonoBehaviour
             }
             else if (buttontype == 1)
             {
-                if (GameInput.GetKeyDown("select") && selectionLock == false)
+                if (GameInput.InputMapPressedDown["select"]() && selectionLock == false)
                 {
                     foreach (GamepadBackEnabler enabler in localenablers)
                     {

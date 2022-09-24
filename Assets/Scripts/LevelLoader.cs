@@ -57,7 +57,7 @@ public class LevelLoader : MonoBehaviour
     {
         PinVisualUpdate();
 
-        if (GameInput.GetKeyDown("select") && active == true && caninput == true)
+        if (GameInput.InputMapPressedDown["select"]() && active == true && caninput == true)
         {
             canvas.alpha = 255;
             canvas.interactable = true;

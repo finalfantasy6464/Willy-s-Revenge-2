@@ -53,7 +53,7 @@ public class OverworldGUI : MonoBehaviour
         if(levelpreviewcounter < levelpreviewtime)
             levelpreviewcounter += Time.deltaTime;
 
-        if(GameInput.GetKeyDown("select") && !isAnyShowing)
+        if(GameInput.InputMapPressedDown["select"]() && !isAnyShowing)
         {
             if (!wasAnyShowing && !character.isMoving)
             {
@@ -63,7 +63,7 @@ public class OverworldGUI : MonoBehaviour
                  map.LoadLevelFromCurrentPin();
         }
         
-        if(GameInput.GetKeyDown("pause"))
+        if(GameInput.InputMapPressedDown["pause"]())
         {
             if(GetShowing(out GUIWindow[] showing) > 0)
             {
@@ -79,7 +79,7 @@ public class OverworldGUI : MonoBehaviour
             return;
         }
 
-        if(GameInput.GetKeyDown("cancel"))
+        if(GameInput.InputMapPressedDown["cancel"]())
         {
             if(GetShowing(out GUIWindow[] showing) > 0)
             {

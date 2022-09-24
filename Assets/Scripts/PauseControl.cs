@@ -52,10 +52,10 @@ public class PauseControl : MonoBehaviour
             return;
         }
         
-        if (GameInput.GetKeyDown("pause"))
+        if (GameInput.InputMapPressedDown["pause"]())
             SetPause(!isGamePaused);
 
-        if(GameInput.GetKeyDown("cancel") && isGamePaused)
+        if(GameInput.InputMapPressedDown["cancel"]() && isGamePaused)
         {
             SetPause(!isGamePaused);
         }
