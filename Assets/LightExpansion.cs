@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
+
 
 public class LightExpansion : MonoBehaviour
 {
@@ -12,11 +12,11 @@ public class LightExpansion : MonoBehaviour
 
     public bool descending;
 
-    Light2D lightsource;
+    UnityEngine.Rendering.Universal.Light2D lightsource;
 
     private void Start()
     {
-        lightsource = GetComponent<Light2D>();
+        lightsource = GetComponent<UnityEngine.Rendering.Universal.Light2D>();
         if(initialStartSize != 0)
         {
             lightsource.pointLightOuterRadius = initialStartSize;

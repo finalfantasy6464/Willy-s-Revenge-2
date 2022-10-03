@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Experimental.Rendering.Universal;
+
 using System;
 
 public class Bullet : MonoBehaviour, IPausable
@@ -45,7 +45,7 @@ public class Bullet : MonoBehaviour, IPausable
 		localaudio.SoundPlay();
 		this.GetComponent<SpriteRenderer>().enabled = false;
 		this.GetComponent<Collider2D>().enabled = false;
-		this.GetComponent<Light2D>().enabled = false;
+		this.GetComponent<UnityEngine.Rendering.Universal.Light2D>().enabled = false;
 		yield return new WaitForSeconds(2);
 		Destroy(gameObject);
 	}

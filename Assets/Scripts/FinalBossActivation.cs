@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Experimental.Rendering.Universal;
+
 using TMPro;
 
 public class FinalBossActivation : MonoBehaviour
@@ -13,8 +13,8 @@ public class FinalBossActivation : MonoBehaviour
 
     public bool battleended;
 
-    public Light2D[] arenaLights;
-    public Light2D globalLight;
+    public UnityEngine.Rendering.Universal.Light2D[] arenaLights;
+    public UnityEngine.Rendering.Universal.Light2D globalLight;
 
     public GameObject Timer;
     public TextMeshProUGUI timerText;
@@ -68,7 +68,7 @@ public class FinalBossActivation : MonoBehaviour
         Timer.SetActive(true);
         timerText.gameObject.SetActive(true);
 
-        foreach (Light2D arenalight in arenaLights)
+        foreach (UnityEngine.Rendering.Universal.Light2D arenalight in arenaLights)
         {
             arenalight.gameObject.SetActive(true);
         }
@@ -90,7 +90,7 @@ public class FinalBossActivation : MonoBehaviour
             cameras[0].gameObject.SetActive(true);
             battleended = true;
 
-            foreach(Light2D arenalight in arenaLights)
+            foreach(UnityEngine.Rendering.Universal.Light2D arenalight in arenaLights)
             {
                 arenalight.gameObject.SetActive(false);
             }

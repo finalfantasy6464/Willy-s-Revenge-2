@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
+
 
 public class DoorSwitcher : MonoBehaviour
 {
 
-    public Light2D switchlight;
+    public UnityEngine.Rendering.Universal.Light2D switchlight;
 
 	public int type = 1;
 

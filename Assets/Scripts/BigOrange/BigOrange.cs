@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using WillysRevenge2.BigOrangeMoves;
-using UnityEngine.Experimental.Rendering.Universal;
+
 
 public class BigOrange : MonoBehaviour, IPausable
 {
@@ -13,8 +13,8 @@ public class BigOrange : MonoBehaviour, IPausable
 
     [Header("VFX")]
     public LineRenderer lightning;
-    public Light2D forearmLight;
-    public Light2D bicepLight;
+    public UnityEngine.Rendering.Universal.Light2D forearmLight;
+    public UnityEngine.Rendering.Universal.Light2D bicepLight;
     public ParticleSystem[] smoke;
 
     [Header("Body Parts")]
