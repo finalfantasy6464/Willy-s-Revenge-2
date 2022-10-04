@@ -22,7 +22,7 @@ public class GoldenPellet : MonoBehaviour
 		pickuptotal = totalpickups.Length;
 
 		if (pickuptotal == 0 & goldspawned == false) {
-			GameObject Goldenpel = Instantiate (Golden, spawnPos);
+			Golden.SetActive(true);
 			goldspawned = true;
 		}
     }

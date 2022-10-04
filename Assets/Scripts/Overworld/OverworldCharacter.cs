@@ -22,6 +22,8 @@ public class OverworldCharacter : MonoBehaviour
     public bool isIgnoringPath;
     public bool isReturning;
 
+    public Vector2 moveValue = Vector2.zero;
+
     [HideInInspector] public UnityEvent onMove;
     [HideInInspector] public float currentPathTime;
     IEnumerator moveRoutine;
@@ -72,20 +74,38 @@ public class OverworldCharacter : MonoBehaviour
         owMusic.overworldmusicCheck();
     }
 
-    void Update()
+    void OnUp()
     {
         if(canMove && !isMoving)
-            MoveCheck();
+        MoveCheck(0);
     }
 
-    private void MoveCheck()
+    void OnRight()
+    {
+        if (canMove && !isMoving)
+            MoveCheck(1);
+    }
+
+    void OnDown()
+    {
+        if (canMove && !isMoving)
+            MoveCheck(2);
+    }
+
+    void OnLeft()
+    {
+        if (canMove && !isMoving)
+            MoveCheck(3);
+    }
+
+    private void MoveCheck(int Index)
     {
         PathDirection direction = PathDirection.None;
 
-        if(GameInput.InputMapPressedDown["left"]())          direction = PathDirection.Left;
-        else if(GameInput.InputMapPressedDown["up"]())       direction = PathDirection.Up;
-        else if(GameInput.InputMapPressedDown["right"]())    direction = PathDirection.Right;
-        else if(GameInput.InputMapPressedDown["down"]())     direction = PathDirection.Down;
+        if(Index == 3)          direction = PathDirection.Left;
+        else if(Index == 0)       direction = PathDirection.Up;
+        else if(Index == 1)    direction = PathDirection.Right;
+        else if(Index == 2)     direction = PathDirection.Down;
 
         TryFollowPath(direction);
     }

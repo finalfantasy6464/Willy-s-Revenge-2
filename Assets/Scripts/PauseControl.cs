@@ -51,14 +51,11 @@ public class PauseControl : MonoBehaviour
         {
             return;
         }
-        
-        if (GameInput.InputMapPressedDown["pause"]())
-            SetPause(!isGamePaused);
+    }
 
-        if(GameInput.InputMapPressedDown["cancel"]() && isGamePaused)
-        {
-            SetPause(!isGamePaused);
-        }
+    public void ChangePauseState()
+    {
+        SetPause(!isGamePaused);
     }
 
     public static bool TryAddPausable(GameObject pausableObject)

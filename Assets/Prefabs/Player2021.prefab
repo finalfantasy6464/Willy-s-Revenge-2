@@ -2210,6 +2210,7 @@ GameObject:
   - component: {fileID: 5250505581995577135}
   - component: {fileID: 95863907301796213}
   - component: {fileID: 8937756647751925973}
+  - component: {fileID: 2398265466780124442}
   m_Layer: 10
   m_Name: PlayerObject
   m_TagString: Player
@@ -2384,6 +2385,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ae1d47700a2c8444ba7ddffd7a76e81a, type: 3}
   - {fileID: 21300000, guid: c7b86e85ad82fe64bbc77816557b7daf, type: 3}
   enabledSegmentAmount: 0
+  playerInput: {fileID: 2398265466780124442}
   taillist:
   - {fileID: 5626480549850111217}
   - {fileID: 7698881265702379404}
@@ -2772,6 +2774,97 @@ PolygonCollider2D:
       - {x: 0.044856727, y: 0.024433441}
       - {x: 0.011345804, y: 0.07978706}
   m_UseDelaunayMesh: 0
+--- !u!114 &2398265466780124442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4315898294626859770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 05722015c20cc5e4290905665fb86fd6,
+    type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: cb13255a-6a47-489e-8961-4cbbc5226ea3
+    m_ActionName: Overworld/Selection[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2e1621bb-68d1-488c-ae7b-59e52afbfd00
+    m_ActionName: Overworld/Cancellation[/Keyboard/backspace]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8f83e7d5-ceab-4b04-b561-8074ea9a0f25
+    m_ActionName: Overworld/Menu[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0b80a500-9562-4f24-bbbe-8f9f13e4c55f
+    m_ActionName: Overworld/Navigation(Up)[/Keyboard/upArrow,/Keyboard/w]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3f85bba1-30b1-447f-8731-30379a5173a6
+    m_ActionName: Overworld/Navigation(Down)[/Keyboard/downArrow,/Keyboard/s]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c91fbcdf-cff9-4e8c-92d8-feb97930ea7f
+    m_ActionName: Overworld/Navigation(Left)[/Keyboard/leftArrow,/Keyboard/a]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a2d4aa93-bbaa-43b6-871c-da1121a23959
+    m_ActionName: Overworld/Navigation(Right)[/Keyboard/rightArrow,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e8382c88-3ea2-41ce-aea8-0a4570c8e7a3
+    m_ActionName: In Level/Selection[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 18119822-e8b0-4292-a2e7-9baeb0828a5a
+    m_ActionName: In Level/Cancellation[/Keyboard/backspace]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a443198d-acd9-4aad-a879-c382c33443bb
+    m_ActionName: In Level/Menu[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2b807198-f9c5-42a7-85ec-ddfa6cc1fb91
+    m_ActionName: In Level/Navigation(Up)[/Keyboard/upArrow,/Keyboard/w]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 48d9f28f-2044-4f25-801c-273810d923b9
+    m_ActionName: In Level/Navigation(Down)[/Keyboard/downArrow,/Keyboard/s]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4371ed42-e53a-44d1-a0eb-4c866169998f
+    m_ActionName: In Level/Navigation(Left)[/Keyboard/leftArrow,/Keyboard/a]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0d64ccd1-1d02-4f98-b351-4398642bbec3
+    m_ActionName: In Level/Navigation(Right)[/Keyboard/rightArrow,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e89b5a0b-6329-4d72-acc4-4a075407b544
+    m_ActionName: In Level/Reset[/Keyboard/r]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: In Level
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &4572619454117013697
 GameObject:
   m_ObjectHideFlags: 0
