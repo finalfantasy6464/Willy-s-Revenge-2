@@ -594,7 +594,7 @@ public partial class @WillysRevenge2Controls : IInputActionCollection2, IDisposa
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""Down"",
@@ -603,7 +603,7 @@ public partial class @WillysRevenge2Controls : IInputActionCollection2, IDisposa
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""Left"",
@@ -612,7 +612,7 @@ public partial class @WillysRevenge2Controls : IInputActionCollection2, IDisposa
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""Right"",
@@ -621,7 +621,7 @@ public partial class @WillysRevenge2Controls : IInputActionCollection2, IDisposa
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""Reset"",
@@ -635,7 +635,7 @@ public partial class @WillysRevenge2Controls : IInputActionCollection2, IDisposa
                 {
                     ""name"": ""Move"",
                     ""type"": ""Value"",
-                    ""id"": ""ad269afe-2445-4745-965a-29478fb7b4fd"",
+                    ""id"": ""2269e4f4-9ddc-488a-8736-231f943e3959"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -908,8 +908,8 @@ public partial class @WillysRevenge2Controls : IInputActionCollection2, IDisposa
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""2D Vector KB"",
-                    ""id"": ""766b9f5d-d503-4a10-b22b-73e694d11633"",
+                    ""name"": ""2D Vector Keyboard"",
+                    ""id"": ""978c29dd-8fe4-4987-94c1-7495dc9a4831"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -920,7 +920,7 @@ public partial class @WillysRevenge2Controls : IInputActionCollection2, IDisposa
                 },
                 {
                     ""name"": ""up"",
-                    ""id"": ""d9cc071e-c13b-4dbb-97f6-d5f8b013f8ca"",
+                    ""id"": ""20626862-e04f-4600-ae79-866eb1844b1d"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -931,7 +931,7 @@ public partial class @WillysRevenge2Controls : IInputActionCollection2, IDisposa
                 },
                 {
                     ""name"": ""up"",
-                    ""id"": ""644da499-ebf0-4608-9cde-cfa168426877"",
+                    ""id"": ""efe89b49-cbc3-48a3-9a12-c0d92d39c26b"",
                     ""path"": ""<Keyboard>/upArrow"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -942,7 +942,7 @@ public partial class @WillysRevenge2Controls : IInputActionCollection2, IDisposa
                 },
                 {
                     ""name"": ""down"",
-                    ""id"": ""598eb0a0-5fb9-459c-852e-e14bd6e18938"",
+                    ""id"": ""832f6e46-8c66-44cd-9a9b-1a0869da1818"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -953,7 +953,7 @@ public partial class @WillysRevenge2Controls : IInputActionCollection2, IDisposa
                 },
                 {
                     ""name"": ""down"",
-                    ""id"": ""32bb70ab-7e3b-4a96-a7ee-56b11df11ad4"",
+                    ""id"": ""b2abe6ef-665b-402a-8ce3-f38de1047ecd"",
                     ""path"": ""<Keyboard>/downArrow"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -964,7 +964,7 @@ public partial class @WillysRevenge2Controls : IInputActionCollection2, IDisposa
                 },
                 {
                     ""name"": ""left"",
-                    ""id"": ""70fe8c24-a545-4be8-8321-793ec272a508"",
+                    ""id"": ""3d9bb2af-5123-46b3-aef1-20c9f299ae6d"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -975,7 +975,7 @@ public partial class @WillysRevenge2Controls : IInputActionCollection2, IDisposa
                 },
                 {
                     ""name"": ""left"",
-                    ""id"": ""5596d997-ff96-4f99-b3e0-dea785a04341"",
+                    ""id"": ""9f6bfecb-34e8-4466-8d2e-ec3fb88e3939"",
                     ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -986,7 +986,7 @@ public partial class @WillysRevenge2Controls : IInputActionCollection2, IDisposa
                 },
                 {
                     ""name"": ""right"",
-                    ""id"": ""bbc526bc-926b-49b4-92d1-c212ad77b58f"",
+                    ""id"": ""294f1ede-2751-4c70-8406-a7b4f1b0561a"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -997,7 +997,7 @@ public partial class @WillysRevenge2Controls : IInputActionCollection2, IDisposa
                 },
                 {
                     ""name"": ""right"",
-                    ""id"": ""4f719928-29e7-4f75-b7cb-170bf783b893"",
+                    ""id"": ""556b3e52-a0ac-469c-b35c-0c31a6328e0e"",
                     ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -1007,9 +1007,9 @@ public partial class @WillysRevenge2Controls : IInputActionCollection2, IDisposa
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""2D Vector Pad"",
-                    ""id"": ""c4fbd419-7ca6-4d05-9a15-db080303ea09"",
-                    ""path"": ""2DVector(mode=2)"",
+                    ""name"": ""2D Vector Gamepad"",
+                    ""id"": ""a0239948-4fed-47a2-8bcc-796f5591d072"",
+                    ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -1019,7 +1019,7 @@ public partial class @WillysRevenge2Controls : IInputActionCollection2, IDisposa
                 },
                 {
                     ""name"": ""up"",
-                    ""id"": ""3cb8c034-9f17-4355-b35e-dfdb5cdcbf16"",
+                    ""id"": ""37669259-4eeb-488a-be44-de2374aab3ee"",
                     ""path"": ""<Gamepad>/leftStick/up"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -1030,7 +1030,7 @@ public partial class @WillysRevenge2Controls : IInputActionCollection2, IDisposa
                 },
                 {
                     ""name"": ""up"",
-                    ""id"": ""cd33dd70-01a5-4307-a7df-a7aec38d1f45"",
+                    ""id"": ""16d7bbe4-9c30-4870-8f1a-9e790786e2b4"",
                     ""path"": ""<Gamepad>/dpad/up"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -1041,7 +1041,7 @@ public partial class @WillysRevenge2Controls : IInputActionCollection2, IDisposa
                 },
                 {
                     ""name"": ""down"",
-                    ""id"": ""eb4fb327-b47f-4df6-a43b-e4460a9b0fff"",
+                    ""id"": ""907c1417-67d0-41a9-b18b-cf4ae8382ef1"",
                     ""path"": ""<Gamepad>/leftStick/down"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -1052,7 +1052,7 @@ public partial class @WillysRevenge2Controls : IInputActionCollection2, IDisposa
                 },
                 {
                     ""name"": ""down"",
-                    ""id"": ""61e39549-8f39-4d07-a7fc-47af222fc628"",
+                    ""id"": ""46984213-cad3-4fae-9602-e9691280fa68"",
                     ""path"": ""<Gamepad>/dpad/down"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -1063,7 +1063,7 @@ public partial class @WillysRevenge2Controls : IInputActionCollection2, IDisposa
                 },
                 {
                     ""name"": ""left"",
-                    ""id"": ""e3069523-7bf9-4fea-a87c-6b46ab09016b"",
+                    ""id"": ""010ca46d-0d50-45bf-a160-f278911eb38b"",
                     ""path"": ""<Gamepad>/leftStick/left"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -1074,7 +1074,7 @@ public partial class @WillysRevenge2Controls : IInputActionCollection2, IDisposa
                 },
                 {
                     ""name"": ""left"",
-                    ""id"": ""60cbbf3a-8b19-46a3-aaa9-67e06d4aca92"",
+                    ""id"": ""d64c1497-13ee-4ab4-8c69-3b280806fda3"",
                     ""path"": ""<Gamepad>/dpad/left"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -1085,7 +1085,7 @@ public partial class @WillysRevenge2Controls : IInputActionCollection2, IDisposa
                 },
                 {
                     ""name"": ""right"",
-                    ""id"": ""09a334fb-ade0-4e52-a468-4772226e7e55"",
+                    ""id"": ""2ca6d260-5ad0-4cd4-8479-37e2947d2be3"",
                     ""path"": ""<Gamepad>/leftStick/right"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -1096,7 +1096,7 @@ public partial class @WillysRevenge2Controls : IInputActionCollection2, IDisposa
                 },
                 {
                     ""name"": ""right"",
-                    ""id"": ""cabb8812-ae25-4570-a878-11961b3836b6"",
+                    ""id"": ""2a8c8e3f-8534-4a02-88c3-dab908e8c142"",
                     ""path"": ""<Gamepad>/dpad/right"",
                     ""interactions"": """",
                     ""processors"": """",
