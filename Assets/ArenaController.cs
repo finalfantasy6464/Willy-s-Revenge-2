@@ -98,6 +98,7 @@ public class ArenaController : MonoBehaviour
 
         arenaSetup.gridLayouts[arenaSetup.levelIndex].SetActive(true);
         arenaSetup.backgrounds[arenaSetup.levelIndex].SetActive(true);
+        arenaSetup.CanvasIsVisible = false;
     }
     void ItemSpawnCheck()
     {

@@ -26,7 +26,6 @@ public class MapManager : MonoBehaviour
     public GameSoundManagement soundManagement;
     public MusicManagement musicManagement;
 
-    public GamepadBackEnabler[] ButtonsEnabler;
     public List<LevelPin> levelPins;
     public List<GatePin> worldGates;
 

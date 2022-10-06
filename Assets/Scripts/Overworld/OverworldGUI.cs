@@ -26,6 +26,8 @@ public class OverworldGUI : MonoBehaviour
     public GUIWindow tutorial_2;
     public GUIWindow tutorial_3;
 
+    public InputActionMap OverworldControlScheme;
+
     private float levelpreviewcounter;
     private float levelpreviewtime = 0.1f;
 
@@ -46,6 +48,11 @@ public class OverworldGUI : MonoBehaviour
     bool isTutorialShowing => tutorial_1.isShowing || tutorial_2.isShowing || tutorial_3.isShowing;
     bool wasTutorialShowing => tutorial_1.wasShowing || tutorial_2.wasShowing || tutorial_3.wasShowing;
 
+    private void OnEnable()
+    {
+        OverworldControlScheme.Enable();
+    }
+
     void Update()
     {
         character.canMove = !isAnyShowing;
@@ -54,52 +61,70 @@ public class OverworldGUI : MonoBehaviour
         if(levelpreviewcounter < levelpreviewtime)
             levelpreviewcounter += Time.deltaTime;
 
-        if(GameInput.InputMapPressedDown["select"]() && !isAnyShowing)
+        if (OverworldControlScheme["Selection"].WasPressedThisFrame())
+        {
+            OnSelection();
+        }
+
+        if (OverworldControlScheme["Menu"].WasPressedThisFrame())
+        {
+            OnMenu();
+        }
+
+        if (OverworldControlScheme["Cancellation"].WasPressedThisFrame())
+        {
+            OnCancellation();
+        }
+    }
+
+    void OnSelection()
+    {
+        if (!isAnyShowing)
         {
             if (!wasAnyShowing && !character.isMoving)
             {
                 LevelPreviewCheck();
             }
             else if (levelPreview.isShowing)
-                 map.LoadLevelFromCurrentPin();
+                map.LoadLevelFromCurrentPin();
         }
-        
-        if(GameInput.InputMapPressedDown["pause"]())
-        {
-            if(GetShowing(out GUIWindow[] showing) > 0)
-            {
-                foreach (GUIWindow window in showing)
-                {
-                    if(window == saveLoadPanel)
-                        ((SaveLoadPanel)window).ProcessCloseAll();
-                    window.Close();
-                }
-            }
-            else
-                pauseMenu.Open();
-            return;
-        }
+    }
 
-        if(GameInput.InputMapPressedDown["cancel"]())
+    void OnMenu()
+    {
+        if (GetShowing(out GUIWindow[] showing) > 0)
         {
-            if(GetShowing(out GUIWindow[] showing) > 0)
+            foreach (GUIWindow window in showing)
             {
-                foreach (GUIWindow window in showing)
+                if (window == saveLoadPanel)
+                    ((SaveLoadPanel)window).ProcessCloseAll();
+                window.Close();
+            }
+        }
+        else
+            pauseMenu.Open();
+        return;
+    }
+
+    void OnCancellation()
+    {
+        if (GetShowing(out GUIWindow[] showing) > 0)
+        {
+            foreach (GUIWindow window in showing)
+            {
+                if (window == saveLoadPanel)
                 {
-                    if(window == saveLoadPanel)
-                    {
-                        ((SaveLoadPanel)window).ProcessCancelInput();
-                        return;
-                    }
-                    else if (window == optionsPanel)
-                    {
-                        ((OptionsPanel)window).ProcessCancelInput();
-                        return;
-                    }
-                    else if(window is GUIPrompt prompt)
-                        prompt.navigationParent.Open();
-                    window.Close();
+                    ((SaveLoadPanel)window).ProcessCancelInput();
+                    return;
                 }
+                else if (window == optionsPanel)
+                {
+                    ((OptionsPanel)window).ProcessCancelInput();
+                    return;
+                }
+                else if (window is GUIPrompt prompt)
+                    prompt.navigationParent.Open();
+                window.Close();
             }
         }
     }
@@ -144,5 +169,10 @@ public class OverworldGUI : MonoBehaviour
         ((LevelPreviewWindow)levelPreview).UpdatePreviewData(level);
         levelPreview.Toggle();
         selectedLevel = level;
+    }
+
+    private void OnDisable()
+    {
+        OverworldControlScheme.Disable();
     }
 }

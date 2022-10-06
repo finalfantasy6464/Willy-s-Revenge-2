@@ -138,11 +138,6 @@ public class GameControl : MonoBehaviour
         Application.targetFrameRate = 60;
     }
 
-    private void Update()
-    {
-        GameInput.Update();
-    }
-
     public void LevelListGeneration()
     {
         completedlevels.Clear();

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -22,36 +23,49 @@ public class ArenaSetup : GUIWindow
     public GameObject currentSelected;
     public GameObject currentSelectedCache;
 
+    public bool CanvasIsVisible;
+
     [Space]
     public Selectable skinButtonLeft;
     public Selectable skinButtonRight;
     public Selectable backgroundButtonLeft;
     public Selectable backgroundButtonRight;
-   
+
+    public InputActionMap ArenaControlScheme;
+
+
+    private void OnEnable()
+    {
+        ArenaControlScheme.Enable();
+    }
 
     void Start()
     {
         InitializeUISelection();
+        CanvasIsVisible = true;
     }
 
     void Update()
     {
         currentSelected = EventSystem.current.currentSelectedGameObject;
-        if(GameInput.InputMapPressedDown["left"]() && currentSelectedCache == currentSelected)
+        if (CanvasIsVisible)
         {
-            if(currentSelected == skinButtonLeft.gameObject)
-                SetSkinPrevious();
-            else if(currentSelected == backgroundButtonLeft.gameObject)
-                SetLevelPrevious();
+            if (ArenaControlScheme["Left"].WasPressedThisFrame() && currentSelectedCache == currentSelected)
+            {
+                if (currentSelected == skinButtonLeft.gameObject)
+                    SetSkinPrevious();
+                else if (currentSelected == backgroundButtonLeft.gameObject)
+                    SetLevelPrevious();
+            }
+            else if (ArenaControlScheme["Right"].WasPressedThisFrame() && currentSelectedCache == currentSelected)
+            {
+                if (currentSelected == skinButtonRight.gameObject)
+                    SetSkinNext();
+                else if (currentSelected == backgroundButtonRight.gameObject)
+                    SetLevelNext();
+            }
+            currentSelectedCache = currentSelected;
         }
-        else if(GameInput.InputMapPressedDown["right"]() && currentSelectedCache == currentSelected)
-        {
-            if(currentSelected == skinButtonRight.gameObject)
-                SetSkinNext();
-            else if(currentSelected == backgroundButtonRight.gameObject)
-                SetLevelNext();
-        }
-        currentSelectedCache = currentSelected;
     }
 
     void InitializeUISelection()
@@ -83,5 +97,10 @@ public class ArenaSetup : GUIWindow
     {
         levelIndex = levelIndex == 0 ? levelIconSprites.Length - 1 : levelIndex - 1;
         levelIcon.sprite = levelIconSprites[levelIndex];
+    }
+
+    private void OnDisable()
+    {
+        ArenaControlScheme.Disable();
     }
 }

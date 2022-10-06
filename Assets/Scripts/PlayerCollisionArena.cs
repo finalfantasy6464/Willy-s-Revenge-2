@@ -56,7 +56,7 @@ public class PlayerCollisionArena : MonoBehaviour {
 		};
     }
 
-	void OnCollisionEnter2D(Collision2D col)
+    void OnCollisionEnter2D(Collision2D col)
 	{
 
 		var hit = col.gameObject;
@@ -122,6 +122,7 @@ public class PlayerCollisionArena : MonoBehaviour {
 		arena.scoreLock = false;
 		arena.Score = 0;
 		arena.pelletno = 0;
+		playerCollider.enabled = true;
     }
 	void Death()
 	{
