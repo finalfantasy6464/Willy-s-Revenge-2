@@ -1009,7 +1009,7 @@ public partial class @WillysRevenge2Controls : IInputActionCollection2, IDisposa
                 {
                     ""name"": ""2D Vector Gamepad"",
                     ""id"": ""a0239948-4fed-47a2-8bcc-796f5591d072"",
-                    ""path"": ""2DVector"",
+                    ""path"": ""2DVector(mode=2)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
