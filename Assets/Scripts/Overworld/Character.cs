@@ -5,10 +5,10 @@ public class Character : MonoBehaviour
     public float Speed = 3f;
     public bool IsMoving { get; private set; }
 
-    public LevelPin PreviousPin { get; private set; }
-    public LevelPin CurrentPin { get; private set; }
-    private LevelPin _targetPin;
-    private LevelPin _LastPin;
+    public OverworldLevelPin PreviousPin { get; private set; }
+    public OverworldLevelPin CurrentPin { get; private set; }
+    private OverworldLevelPin _targetPin;
+    private OverworldLevelPin _LastPin;
     private MapManager _mapManager;
 
     public CanvasGroup canvas;
@@ -34,7 +34,7 @@ public class Character : MonoBehaviour
     {
         transform.position = GameControl.control.savedPinPosition;
 
-        foreach (LevelPin pin in _mapManager.levelPins)
+        foreach (OverworldLevelPin pin in _mapManager.levelPins)
         {
             if (pin.transform.position == GameControl.control.savedPinPosition)
                 SetCurrentPin(pin);
@@ -44,7 +44,7 @@ public class Character : MonoBehaviour
     /// Move to a new pin
     /// </summary>
     /// <param name="pin"></param>
-    private void MoveToPin(LevelPin pin)
+    private void MoveToPin(OverworldLevelPin pin)
     {
         _targetPin = pin;
         IsMoving = true;
@@ -54,7 +54,7 @@ public class Character : MonoBehaviour
     /// Set the current pin
     /// </summary>
     /// <param name="pin"></param>
-    public void SetCurrentPin(LevelPin pin)
+    public void SetCurrentPin(OverworldLevelPin pin)
     {
         CurrentPin = pin;
         _targetPin = null;

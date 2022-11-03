@@ -41,7 +41,7 @@ public class GameControl : MonoBehaviour
     public string sceneName;
     public Vector3 savedPinPosition;
     public Vector3 AutosavePosition;
-    public LevelPin savedPin;
+    public OverworldLevelPin savedPin;
 
     public List<bool> completedlevels = new List<bool>();
     public List<bool> goldenpellets = new List<bool>();
@@ -165,15 +165,6 @@ public class GameControl : MonoBehaviour
       }
     }
 
-    public void OverworldLevelStateUpdate()
-    {
-        MapManager mapManager = FindObjectOfType<MapManager>();
-        mapManager?.InitializeLevelState();
-        OverworldCamera overworldCamera = FindObjectOfType<OverworldCamera>();
-        overworldCamera?.SetFromSaved(savedCameraPosition, savedOrtographicSize, savedCameraBackgroundColor);
-        mapManager?.UpdateWorldGates();
-    }
-
     
     public static void CompletedLevelCheck(int levelID, bool gotGold, bool timerExpired)
     {
@@ -196,94 +187,6 @@ public class GameControl : MonoBehaviour
             control.timerchallenge[levelID] = true;
             control.timer++;
         }
-    }
-
-    public IEnumerator SetWorldGates()
-    {
-        yield return 3;
-        MapManager map = FindObjectOfType<MapManager>();
-        if(map != null)
-        {
-            map.SetWorldGateData(lockedgatescache, destroyedgatescache);
-            for (int i = 0; i < map.worldGates.Count; i++)
-            {
-                map.worldGates[i].SetOrbState(lockedgatescache[i], destroyedgatescache[i]);
-            }
-        }  
-    }
-
-    public IEnumerator ChangeCharacterPin()
-    {
-        OverworldCharacter character = FindObjectOfType<OverworldCharacter>();
-        MapManager map = FindObjectOfType<MapManager>();
-
-        if(character == null || map == null)
-            yield break;
-
-        if(savedPinPosition == character.currentPin.transform.position && savedPinPosition != null)
-            yield break;
-
-        for (int i = 0; i < map.levelPins.Count; i++)
-        {
-            if(map.levelPins[i].transform.position == savedPinPosition)
-            {
-                character.currentPin.onCharacterExit.Invoke();
-                character.SetCurrentPin(map.levelPins[i]);
-                character.currentPin.onCharacterEnter.Invoke();
-            }
-        }
-    }
-
-    public IEnumerator DelayedChangeCharacterPin()
-    {
-        float timeoutTime = 3f;
-        float timeoutCounter = 0f;
-        bool timedOut = true;
-        OverworldCharacter character = null;
-        MapManager map = null;
-        OverworldCamera overworldCamera = null;
-
-        while(timeoutCounter < timeoutTime)
-        {
-            timeoutCounter += Time.deltaTime;
-            character = FindObjectOfType<OverworldCharacter>();
-            map = FindObjectOfType<MapManager>();
-            overworldCamera = FindObjectOfType<OverworldCamera>();
-
-            if(character == null || map == null || overworldCamera == null)
-                yield return null;
-            else
-            {
-                timedOut = false;
-                break;
-            }
-        }
-
-        if(timedOut)
-        {
-            Debug.LogError("Overworld never loaded ):");
-            yield break;
-        }
-
-        overworldCamera.SetFromSaved(savedCameraPosition, savedOrtographicSize, savedCameraBackgroundColor);
-
-        if(AutosavePosition == character.currentPin.transform.position)
-            yield break;
-
-        for (int i = 0; i < map.levelPins.Count; i++)
-        {
-            if(map.levelPins[i].transform.position == AutosavePosition)
-            {
-                character.currentPin.onCharacterExit.Invoke();
-                character.SetCurrentPin(map.levelPins[i]);
-                overworldCamera.SetFromPin(character.currentPin);
-                character.currentPin.onCharacterEnter.Invoke();
-                break;
-            }
-        }
-
-        map.InitializeLevelState();
-        map.UpdateWorldGates();
     }
 
     void SetFromGameState()
@@ -317,7 +220,6 @@ public class GameControl : MonoBehaviour
         if(progressView == OverworldProgressView.None)
             progressView = OverworldProgressView.WorldLeft;
 
-        savedCameraBackgroundColor = FindObjectOfType<OverworldCamera>().gameCamera.backgroundColor;
         gameState.SetFromGameControl(control);
         gameState.WriteToManual(saveSlot);
         settings.SaveToDisk();
@@ -347,10 +249,7 @@ public class GameControl : MonoBehaviour
             OverworldMusicSelector music = GameObject.Find("OverworldMusic").GetComponent<OverworldMusicSelector>();
             music.overworldmusicCheck();
             Res.SetResolution(settings.resolutionWidth, settings.resolutionHeight);
-            StartCoroutine(ChangeCharacterPin());
-            OverworldLevelStateUpdate();
-            OverworldCharacter Player = GameObject.FindGameObjectWithTag("Player").GetComponent<OverworldCharacter>();
-            Player.GetComponent<SpriteRenderer>().sprite = Player.skinSprites[currentCharacterSprite];
+            OverworldPlayer Player = GameObject.FindGameObjectWithTag("Player").GetComponent<OverworldPlayer>();
         }
     }
 
@@ -360,11 +259,6 @@ public class GameControl : MonoBehaviour
         {
             SetFromGameState();
             settings.TryLoadFromDisk();
-        }
-
-        if(m_Scene.name == "MainMenu")
-        {
-            StartCoroutine(DelayedChangeCharacterPin());
         }
     }
 

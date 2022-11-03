@@ -39,7 +39,7 @@ public class LevelLoader : MonoBehaviour
 
     public GamepadBackEnabler[] ButtonsEnabler;
 
-    public OverworldCharacter character;
+    public OverworldPlayer character;
 
 	void Start(){
 
@@ -47,7 +47,7 @@ public class LevelLoader : MonoBehaviour
         pin = this.GetComponent<Pin>();
         completerequired = pin.completerequired;
         //GameControl.onSingletonCheck.AddListener(PinVisualUpdate);
-        character.onSelection.AddListener(DoThing);
+        character.OnSelect += DoThing;
     }
 
     private void DoThing()
@@ -211,6 +211,6 @@ public class LevelLoader : MonoBehaviour
     private void OnDisable()
     {
         GameControl.onSingletonCheck.RemoveListener(PinVisualUpdate);
-        character.onSelection.RemoveListener(DoThing);
+        character.OnSelect -= DoThing;
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Audio;
 
-public class GatePin : NavigationPin
+public class GatePin : MonoBehaviour
 {
     [Header("Gate")]
     public int completerequired;
@@ -26,9 +26,8 @@ public class GatePin : NavigationPin
     [HideInInspector] public UnityEvent OnLevelLoaded = new UnityEvent();
     Animator m_Animator;
 
-    protected override void Awake()
+    void Awake()
     {
-        base.Awake();
         OnLevelLoaded.AddListener(DestroyActivate);
     }
 

@@ -87,7 +87,7 @@ public class GameSoundManagement : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "Overworld" && SceneManager.GetActiveScene().isLoaded)
         {
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<OverworldCharacter>().transform;
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<OverworldPlayer>().transform;
         }
         else if (SceneManager.GetActiveScene().name == "ArenaLevel" && SceneManager.GetActiveScene().isLoaded)
         {

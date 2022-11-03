@@ -39,7 +39,7 @@ public class OverworldGUI : MonoBehaviour
     };
     
     [HideInInspector]
-    public OverworldCharacter character;
+    public OverworldPlayer character;
     [HideInInspector]
     public MapManager map;
 
@@ -58,9 +58,6 @@ public class OverworldGUI : MonoBehaviour
     {
         if(SceneManager.GetActiveScene().name.Contains("2021"))
             return;
-            
-        character.canMove = !isAnyShowing;
-        if(character.currentPin is GatePin) return;
 
         if(levelpreviewcounter < levelpreviewtime)
             levelpreviewcounter += Time.deltaTime;
@@ -83,15 +80,7 @@ public class OverworldGUI : MonoBehaviour
 
     void OnSelection()
     {
-        if (!isAnyShowing)
-        {
-            if (!wasAnyShowing && !character.isMoving)
-            {
-                LevelPreviewCheck();
-            }
-            else if (levelPreview.isShowing)
-                map.LoadLevelFromCurrentPin();
-        }
+
     }
 
     void OnMenu()
@@ -137,9 +126,6 @@ public class OverworldGUI : MonoBehaviour
     {
         if(levelpreviewcounter < levelpreviewtime)
             return;
-
-        ((LevelPreviewWindow)levelPreview).UpdatePreviewData((LevelPin)character.currentPin);
-        GameControl.control.savedPin = (LevelPin)character.currentPin;
         GameControl.control.AutosavePosition = character.transform.position;
         GameControl.control.savedCameraBackgroundColor = Camera.main.backgroundColor;
         levelPreview.Show();
@@ -162,7 +148,7 @@ public class OverworldGUI : MonoBehaviour
         return showing.Length;
     }
 
-    public void Initialize(MapManager map, OverworldCharacter character)
+    public void Initialize(MapManager map, OverworldPlayer character)
     {
         this.map = map;
         this.character = character;
