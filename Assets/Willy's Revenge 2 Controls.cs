@@ -62,6 +62,24 @@ public partial class @WillysRevenge2Controls : IInputActionCollection2, IDisposa
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""b11c8e32-93d6-48a1-bea9-305c95faa332"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Selection"",
+                    ""type"": ""Button"",
+                    ""id"": ""23fe283a-3d18-44cc-a832-e1232a03994b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -238,6 +256,226 @@ public partial class @WillysRevenge2Controls : IInputActionCollection2, IDisposa
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector Keyboard"",
+                    ""id"": ""7689a06c-1579-4602-9a48-0d38ddfc3284"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""83b81b3c-31e4-41c9-b1cb-0bf0cc77647f"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""dfa23cf4-c7ec-4e24-80a2-02147c7b51d8"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""3b44a28b-1d34-4e1c-a02b-cb8c369cf61f"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""df179c0c-ccf9-411a-b2cd-65ff6c9ad6f7"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""439024ce-4960-44a9-b9e4-eeba774ae956"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""4593e692-d42a-4da2-855a-e9df25298b00"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""4a1422a7-6edc-42f7-9836-e13a255263b2"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""a60b6540-c4c9-4df3-be2c-a15b30d68aba"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""2D Vector Gamepad"",
+                    ""id"": ""9168d9c2-f48b-4df3-b185-19b1cb7370c3"",
+                    ""path"": ""2DVector(mode=2)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""505e76d4-afd7-46ce-9d13-5a442ebae109"",
+                    ""path"": ""<Gamepad>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""77bd2334-178c-4f83-a02e-d7a2cd54e65f"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""fc8ffc9d-7a44-4cc3-9bf7-8acaf175df7c"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""3c9350bf-d52b-4a95-b56b-a6f6c655b323"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""2df04fe5-37c5-48df-a55d-47ee0118a59d"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""6cef4037-6a59-47ec-81b3-f4b90ba74485"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""8c5976b2-3723-410b-9a89-a61af381cfc5"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""c5a36efb-73ea-4c1a-95a4-da542d284dea"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9cf04287-2ec7-484d-8bfe-b8bb3608f5cc"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Selection"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1da03b2c-45db-496f-ba61-9dba42f394ee"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Selection"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1139,6 +1377,8 @@ public partial class @WillysRevenge2Controls : IInputActionCollection2, IDisposa
         m_OverworldCharacter_Left = m_OverworldCharacter.FindAction("Left", throwIfNotFound: true);
         m_OverworldCharacter_Right = m_OverworldCharacter.FindAction("Right", throwIfNotFound: true);
         m_OverworldCharacter_Down = m_OverworldCharacter.FindAction("Down", throwIfNotFound: true);
+        m_OverworldCharacter_Move = m_OverworldCharacter.FindAction("Move", throwIfNotFound: true);
+        m_OverworldCharacter_Selection = m_OverworldCharacter.FindAction("Selection", throwIfNotFound: true);
         // OverworldGUI
         m_OverworldGUI = asset.FindActionMap("OverworldGUI", throwIfNotFound: true);
         m_OverworldGUI_Selection = m_OverworldGUI.FindAction("Selection", throwIfNotFound: true);
@@ -1222,6 +1462,8 @@ public partial class @WillysRevenge2Controls : IInputActionCollection2, IDisposa
     private readonly InputAction m_OverworldCharacter_Left;
     private readonly InputAction m_OverworldCharacter_Right;
     private readonly InputAction m_OverworldCharacter_Down;
+    private readonly InputAction m_OverworldCharacter_Move;
+    private readonly InputAction m_OverworldCharacter_Selection;
     public struct OverworldCharacterActions
     {
         private @WillysRevenge2Controls m_Wrapper;
@@ -1230,6 +1472,8 @@ public partial class @WillysRevenge2Controls : IInputActionCollection2, IDisposa
         public InputAction @Left => m_Wrapper.m_OverworldCharacter_Left;
         public InputAction @Right => m_Wrapper.m_OverworldCharacter_Right;
         public InputAction @Down => m_Wrapper.m_OverworldCharacter_Down;
+        public InputAction @Move => m_Wrapper.m_OverworldCharacter_Move;
+        public InputAction @Selection => m_Wrapper.m_OverworldCharacter_Selection;
         public InputActionMap Get() { return m_Wrapper.m_OverworldCharacter; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1251,6 +1495,12 @@ public partial class @WillysRevenge2Controls : IInputActionCollection2, IDisposa
                 @Down.started -= m_Wrapper.m_OverworldCharacterActionsCallbackInterface.OnDown;
                 @Down.performed -= m_Wrapper.m_OverworldCharacterActionsCallbackInterface.OnDown;
                 @Down.canceled -= m_Wrapper.m_OverworldCharacterActionsCallbackInterface.OnDown;
+                @Move.started -= m_Wrapper.m_OverworldCharacterActionsCallbackInterface.OnMove;
+                @Move.performed -= m_Wrapper.m_OverworldCharacterActionsCallbackInterface.OnMove;
+                @Move.canceled -= m_Wrapper.m_OverworldCharacterActionsCallbackInterface.OnMove;
+                @Selection.started -= m_Wrapper.m_OverworldCharacterActionsCallbackInterface.OnSelection;
+                @Selection.performed -= m_Wrapper.m_OverworldCharacterActionsCallbackInterface.OnSelection;
+                @Selection.canceled -= m_Wrapper.m_OverworldCharacterActionsCallbackInterface.OnSelection;
             }
             m_Wrapper.m_OverworldCharacterActionsCallbackInterface = instance;
             if (instance != null)
@@ -1267,6 +1517,12 @@ public partial class @WillysRevenge2Controls : IInputActionCollection2, IDisposa
                 @Down.started += instance.OnDown;
                 @Down.performed += instance.OnDown;
                 @Down.canceled += instance.OnDown;
+                @Move.started += instance.OnMove;
+                @Move.performed += instance.OnMove;
+                @Move.canceled += instance.OnMove;
+                @Selection.started += instance.OnSelection;
+                @Selection.performed += instance.OnSelection;
+                @Selection.canceled += instance.OnSelection;
             }
         }
     }
@@ -1473,6 +1729,8 @@ public partial class @WillysRevenge2Controls : IInputActionCollection2, IDisposa
         void OnLeft(InputAction.CallbackContext context);
         void OnRight(InputAction.CallbackContext context);
         void OnDown(InputAction.CallbackContext context);
+        void OnMove(InputAction.CallbackContext context);
+        void OnSelection(InputAction.CallbackContext context);
     }
     public interface IOverworldGUIActions
     {

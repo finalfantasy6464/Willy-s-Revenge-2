@@ -31,7 +31,7 @@ public class OverworldCamera : MonoBehaviour
     private void Start()
     {
         if(character.currentPin != null)
-        SetFromPin(character.currentPin);
+            SetFromPin(character.currentPin);
     }
 
     void Update()

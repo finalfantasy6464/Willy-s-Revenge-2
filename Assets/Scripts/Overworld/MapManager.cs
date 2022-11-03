@@ -83,11 +83,9 @@ public class MapManager : MonoBehaviour
         }
 
         musicManagement.onLevelStart.Invoke();
-        character.Initialize(startPin);
+        character?.Initialize(startPin);
         overworldGUI.Initialize(this, character);
         
-        backButton.onClick.AddListener(()=> soundManagement.PlaySingle(backsound));
-        playButton.onClick.AddListener(()=> soundManagement.PlaySingle(playsound));
         InitializeWorldGates();
         InitializeLevelState();
     }
@@ -179,12 +177,6 @@ public class MapManager : MonoBehaviour
         //}
     }
     
-    public void OnDisable()
-    {
-        backButton.onClick.RemoveListener(() => soundManagement.PlaySingle(backsound));
-        playButton.onClick.RemoveListener(() => soundManagement.PlaySingle(playsound));
-    }
-    
     public void LoadLevelFromCurrentPin()
     {
         for (int i = 0; i < levelPins.Count; i++)
@@ -197,6 +189,11 @@ public class MapManager : MonoBehaviour
         }
     }
 
+    public void LoadLevel(int levelNumber)
+    {
+        SceneManager.LoadScene($"Level{levelNumber + 1}");
+    }
+
     public void LoadLevelFromSceneIndex(int index)
     {
         SceneManager.LoadScene(index);
@@ -207,5 +204,12 @@ public class MapManager : MonoBehaviour
         GameControl.control.savedPinPosition = character.currentPin.transform.position;
         GameControl.control.savedCameraPosition = overworldCamera.transform.position;
         GameControl.control.savedOrtographicSize = overworldCamera.gameCamera.orthographicSize;
+    }
+
+    public void SetAutoSavePinPosition(OverworldPlayer character)
+    {
+        GameControl.control.savedPinPosition = character.currentPin.transform.position;
+        //GameControl.control.savedCameraPosition = overworldCamera.transform.position;
+        //GameControl.control.savedOrtographicSize = overworldCamera.gameCamera.orthographicSize;
     }
 }

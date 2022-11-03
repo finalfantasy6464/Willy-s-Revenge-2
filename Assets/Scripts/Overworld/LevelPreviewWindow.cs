@@ -34,4 +34,19 @@ public class LevelPreviewWindow : GUIWindow
 
         timeEmblem.sprite = pin.timeChallenge ? emblemSprites[3] : emblemSprites[0];
     }
+
+    public void UpdatePreviewData(OverworldLevelPin pin)
+    {
+        currentBackgroundImage.sprite = backgroundImageSprites[GameControl.control.currentCharacterSprite];
+        levelNameLabel.text = $"{pin.levelDisplayName}";
+        parSpan = TimeSpan.FromSeconds(pin.parTime);
+        levelParLabel.text = "Par Time: " + parSpan.ToString(@"mm\:ss");
+        snapshot.sprite = pin.levelPreviewSprite;
+        
+        if(pin.goldChallenge) completeEmblem.sprite = emblemSprites[2];
+        else if(pin.complete) completeEmblem.sprite = emblemSprites[1];
+        else completeEmblem.sprite = emblemSprites[0];
+
+        timeEmblem.sprite = pin.timeChallenge ? emblemSprites[3] : emblemSprites[0];
+    }
 }

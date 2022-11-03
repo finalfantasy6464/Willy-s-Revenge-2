@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-
+using UnityEngine.SceneManagement;
 
 public class OverworldCharacter : MonoBehaviour
 {
@@ -25,6 +25,7 @@ public class OverworldCharacter : MonoBehaviour
     public Vector2 moveValue = Vector2.zero;
 
     [HideInInspector] public UnityEvent onMove;
+    [HideInInspector] public UnityEvent onSelection;
     [HideInInspector] public float currentPathTime;
     IEnumerator moveRoutine;
 
@@ -36,6 +37,7 @@ public class OverworldCharacter : MonoBehaviour
     void Awake()
     {
         onMove = new UnityEvent();
+        onSelection = new UnityEvent();
         map = FindObjectOfType<MapManager>();
     }
 
@@ -48,7 +50,8 @@ public class OverworldCharacter : MonoBehaviour
     {
         SetCurrentPin((LevelPin) startPin);
         currentPin.onCharacterEnter.Invoke();
-        map.SetAutoSavePinPosition();
+        if(!SceneManager.GetActiveScene().name.Contains("2021"))
+            map.SetAutoSavePinPosition();
     }
 
     public void SetCurrentPin(LevelPin pin)

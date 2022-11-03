@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 ///<Summary>
 /// The GUI does not communicate with GameControl or serialized data,
@@ -55,6 +56,9 @@ public class OverworldGUI : MonoBehaviour
 
     void Update()
     {
+        if(SceneManager.GetActiveScene().name.Contains("2021"))
+            return;
+            
         character.canMove = !isAnyShowing;
         if(character.currentPin is GatePin) return;
 
@@ -176,3 +180,6 @@ public class OverworldGUI : MonoBehaviour
         OverworldControlScheme.Disable();
     }
 }
+
+
+
