@@ -40,6 +40,12 @@ public class OverworldFollowCamera : MonoBehaviour
         levelBoundsZoom = GetOrthographicSizeFromBounds(levelBounds);
     }
 
+    private void Start()
+    {
+        if(GameControl.control.savedCameraPosition != null)
+        transform.position = GameControl.control.savedCameraPosition;
+    }
+
     private float GetOrthographicSizeFromBounds(Rect levelBounds)
     {
         float screenRatio = (float)Screen.width / (float)Screen.height;
@@ -112,14 +118,20 @@ public class OverworldFollowCamera : MonoBehaviour
 
     public void SetCameraMode(CameraMode mode)
     {
-        if(mode == CameraMode.FreeRoam)
+        if (mode == CameraMode.FreeRoam)
         {
             targetPositionOffset = Vector2.zero;
             targetZoom = defaultZoom;
-        }else if(mode == CameraMode.LevelPreview)
+        }
+        else if (mode == CameraMode.LevelPreview)
         {
             targetPositionOffset = Vector2.up * 2.5f;
             targetZoom = defaultZoom * 1.2f;
+        }
+        else if (mode == CameraMode.gatepinPreview)
+        {
+            targetPositionOffset = Vector2.up * 2.5f;
+            targetZoom = defaultZoom * 1.5f;
         }
     }
 
@@ -131,6 +143,7 @@ public class OverworldFollowCamera : MonoBehaviour
     public enum CameraMode
     {
         FreeRoam,
-        LevelPreview
+        LevelPreview,
+        gatepinPreview
     }
 }

@@ -8,6 +8,7 @@ public class GatePin : MonoBehaviour
 {
     [Header("Gate")]
     public int completerequired;
+    public int gatepinIndex;
 
     public Sprite greensprite;
     public Sprite destroyedsprite;
@@ -25,6 +26,8 @@ public class GatePin : MonoBehaviour
      public MapManager map;
     [HideInInspector] public UnityEvent OnLevelLoaded = new UnityEvent();
     Animator m_Animator;
+
+    public OverworldFollowCamera overworldCamera;
 
     void Awake()
     {
@@ -57,7 +60,7 @@ public class GatePin : MonoBehaviour
 
     //This checks the state of the world orbs when the player attempts to pass through it
 
-    public bool LockCheck()
+    public void LockCheck()
     {
         if (GameControl.control.complete >= completerequired)
         {
@@ -69,12 +72,33 @@ public class GatePin : MonoBehaviour
             map.UnlockAndDestroyGate(this);
         } else
         {
+            locked = true;
             PlaySound(bounce);
         }
         Barrier.SetActive(locked);
         Completeorb.SetActive(locked);
         Crackedorb.SetActive(!locked);
-        return locked;
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent(out OverworldPlayer player))
+        {
+            overworldCamera.SetCameraMode(OverworldFollowCamera.CameraMode.gatepinPreview);
+            overworldCamera.SetTarget(transform);
+            GatepinPreviewWindow previewWindow = map.overworldGUI.gatepinPreview as GatepinPreviewWindow;
+            previewWindow.UpdatePreviewData(this);
+            previewWindow.Show();
+        }
+    }
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.TryGetComponent(out OverworldPlayer player))
+        {
+            overworldCamera.SetCameraMode(OverworldFollowCamera.CameraMode.FreeRoam);
+            overworldCamera.SetTarget(player.transform);
+            map.overworldGUI.gatepinPreview.Hide();
+        }
     }
 
     public void SetOrbState(bool locked, bool destroyed)

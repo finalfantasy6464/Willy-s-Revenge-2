@@ -11,6 +11,8 @@ public class OverworldLevelPin : MonoBehaviour
 	[Header("Preview Data & Flags")]
 	public int levelNumber;
 	public int parTime;
+	private Vector3 playerOffset = new Vector3(0, 0.5f,0f);
+	private Vector3 cameraOffset = new Vector3(0, 0.5f, -10f);
 	public string levelDisplayName;
 	public Sprite levelPreviewSprite;
 	public Sprite[] spriteState;
@@ -73,6 +75,8 @@ public class OverworldLevelPin : MonoBehaviour
 			player.currentPin = this;
 			player.OnSelect += SelectLevel;
 			overworldCamera.SetCameraMode(OverworldFollowCamera.CameraMode.LevelPreview);
+			GameControl.control.savedPinPosition = transform.position + playerOffset;
+			GameControl.control.savedCameraPosition = transform.position + cameraOffset;
 			overworldCamera.SetTarget(transform);
 			mapManager.SetAutoSavePinPosition(player);
 			LevelPreviewWindow previewWindow = mapManager.overworldGUI.levelPreview as LevelPreviewWindow;

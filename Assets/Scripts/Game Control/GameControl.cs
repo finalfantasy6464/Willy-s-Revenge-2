@@ -30,7 +30,7 @@ public class GameControl : MonoBehaviour
     public int savedPinID;
 
     [Header("Camera")]
-    public Vector3 savedCameraPosition;
+    public Vector3 savedCameraPosition = new Vector3(-33,-10.25f,-10f);
     public float savedOrtographicSize;
     public OverworldProgressView progressView; 
     public Color savedCameraBackgroundColor;
@@ -39,7 +39,7 @@ public class GameControl : MonoBehaviour
     public float completionPercent;
     public string currentlevel;
     public string sceneName;
-    public Vector3 savedPinPosition;
+    public Vector3 savedPinPosition = new Vector3(-33, -10.25f, 0);
     public Vector3 AutosavePosition;
     public OverworldLevelPin savedPin;
 
@@ -250,6 +250,8 @@ public class GameControl : MonoBehaviour
             music.overworldmusicCheck();
             Res.SetResolution(settings.resolutionWidth, settings.resolutionHeight);
             OverworldPlayer Player = GameObject.FindGameObjectWithTag("Player").GetComponent<OverworldPlayer>();
+            MapManager map = GameObject.FindObjectOfType<MapManager>();
+            map.UpdatePlayerPosition();
         }
     }
 

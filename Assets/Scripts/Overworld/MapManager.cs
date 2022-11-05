@@ -12,6 +12,9 @@ public class MapManager : MonoBehaviour
 	public OverworldLevelPin targetPin;
     public OverworldLevelPin previousPin;
 
+    public OverworldPlayer player;
+    public OverworldFollowCamera followCamera;
+
     public Button backButton;
     public Button playButton;
 
@@ -61,6 +64,7 @@ public class MapManager : MonoBehaviour
         InitializeLevelState();
     }
 
+
     private void SetResolutionFromSettings()
     {
         resolution.SetResolution(settings.resolutionWidth, settings.resolutionHeight);
@@ -108,6 +112,12 @@ public class MapManager : MonoBehaviour
             bool isGolden = GameControl.control.goldenpellets[i];
             bool isTimer = GameControl.control.timerchallenge[i];
         }
+    }
+
+    public void UpdatePlayerPosition()
+    {
+        player.gameObject.transform.position = GameControl.control.savedPinPosition;
+        followCamera.gameObject.transform.position = GameControl.control.savedCameraPosition;
     }
 
     public void UpdateWorldGates()

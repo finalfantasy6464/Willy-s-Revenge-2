@@ -20,25 +20,24 @@ public class OverworldGUI : MonoBehaviour
     [Header("GUI Elements")]
     public GUIWindow pauseMenu;
     public GUIWindow levelPreview;
+    public GUIWindow gatepinPreview;
     public GUIWindow optionsPanel;
     public GUIWindow saveLoadPanel;
     public GUIWindow saveLoadConfirmationPanel;
+    public GUIWindow quitPanel;
     public GUIWindow tutorial_1;
     public GUIWindow tutorial_2;
     public GUIWindow tutorial_3;
-
-    public InputActionMap OverworldControlScheme;
 
     private float levelpreviewcounter;
     private float levelpreviewtime = 0.1f;
 
     public GUIWindow[] All => new GUIWindow[]
     {
-        pauseMenu, levelPreview, optionsPanel, saveLoadPanel,
-        saveLoadConfirmationPanel, tutorial_1, tutorial_2, tutorial_3
+        pauseMenu, levelPreview, gatepinPreview, optionsPanel, saveLoadPanel,
+        saveLoadConfirmationPanel, quitPanel, tutorial_1, tutorial_2, tutorial_3
     };
     
-    [HideInInspector]
     public OverworldPlayer character;
     [HideInInspector]
     public MapManager map;
@@ -49,9 +48,11 @@ public class OverworldGUI : MonoBehaviour
     bool isTutorialShowing => tutorial_1.isShowing || tutorial_2.isShowing || tutorial_3.isShowing;
     bool wasTutorialShowing => tutorial_1.wasShowing || tutorial_2.wasShowing || tutorial_3.wasShowing;
 
-    private void OnEnable()
+
+    void Start()
     {
-        OverworldControlScheme.Enable();
+        character.OpenMenu += OpenMenu;
+        character.CloseMenu += CancelMenu;
     }
 
     void Update()
@@ -61,63 +62,56 @@ public class OverworldGUI : MonoBehaviour
 
         if(levelpreviewcounter < levelpreviewtime)
             levelpreviewcounter += Time.deltaTime;
-
-        if (OverworldControlScheme["Selection"].WasPressedThisFrame())
-        {
-            OnSelection();
-        }
-
-        if (OverworldControlScheme["Menu"].WasPressedThisFrame())
-        {
-            OnMenu();
-        }
-
-        if (OverworldControlScheme["Cancellation"].WasPressedThisFrame())
-        {
-            OnCancellation();
-        }
     }
 
-    void OnSelection()
-    {
-
-    }
-
-    void OnMenu()
+    void OpenMenu()
     {
         if (GetShowing(out GUIWindow[] showing) > 0)
         {
             foreach (GUIWindow window in showing)
             {
+                if (window == levelPreview || window == gatepinPreview)
+                    return;
                 if (window == saveLoadPanel)
                     ((SaveLoadPanel)window).ProcessCloseAll();
                 window.Close();
+                character.canMove = true;
             }
+            return;
         }
         else
+        {
+            character.canMove = false;
             pauseMenu.Open();
-        return;
+            return;
+        }
     }
 
-    void OnCancellation()
+    void CancelMenu()
     {
         if (GetShowing(out GUIWindow[] showing) > 0)
         {
             foreach (GUIWindow window in showing)
             {
-                if (window == saveLoadPanel)
+                if (window == levelPreview || window == gatepinPreview)
+                    return;
+
+                else if (window == saveLoadPanel)
                 {
                     ((SaveLoadPanel)window).ProcessCancelInput();
+                    character.canMove = true;
                     return;
                 }
                 else if (window == optionsPanel)
                 {
                     ((OptionsPanel)window).ProcessCancelInput();
+                    character.canMove = true;
                     return;
                 }
                 else if (window is GUIPrompt prompt)
                     prompt.navigationParent.Open();
                 window.Close();
+                character.canMove = true;
             }
         }
     }
@@ -159,11 +153,6 @@ public class OverworldGUI : MonoBehaviour
         ((LevelPreviewWindow)levelPreview).UpdatePreviewData(level);
         levelPreview.Toggle();
         selectedLevel = level;
-    }
-
-    private void OnDisable()
-    {
-        OverworldControlScheme.Disable();
     }
 }
 

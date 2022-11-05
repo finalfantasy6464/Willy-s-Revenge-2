@@ -147,6 +147,7 @@ public class PlayerCollision : MonoBehaviour
 
 			if(hit.tag == "Corruption" && corruptionRoutine == null)
 			{
+				playerController.canPause = false;
 				corruptionRoutine = CorruptionDeathRoutine();
 				StartCoroutine(corruptionRoutine);
 			}

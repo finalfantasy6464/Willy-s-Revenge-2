@@ -14,25 +14,42 @@ public class OverworldPlayer : MonoBehaviour
     public Vector2 moveVector;
     public Quaternion lastLookRotation;
 
+    public MapManager map;
+
     public event Action OnSelect;
+    public event Action OpenMenu;
+    public event Action CloseMenu;
 
     public Rigidbody myRigidbody;
     Vector3 rotateVector;
     Vector2 moveValue;
 
+    public bool canMove = true;
+
     void Start()
     {
         rotateVector.z = rotateSpeed;
+        
+        if(GameControl.control.savedPinPosition != null)
+        transform.position = GameControl.control.savedPinPosition;
     }
-    
+
     void OnMove(InputValue value)
     {
-        moveValue = value.Get<Vector2>();
-        moveVector = new Vector2(moveValue.x, moveValue.y);
-        if(moveVector != Vector2.zero)
-            lastLookRotation = Quaternion.LookRotation(moveVector);
+        if (canMove)
+        {
+            moveValue = value.Get<Vector2>();
+            moveVector = new Vector2(moveValue.x, moveValue.y);
+            if (moveVector != Vector2.zero)
+                lastLookRotation = Quaternion.Euler(0,0, -Mathf.Atan2(moveValue.x, moveValue.y) * Mathf.Rad2Deg);
 
-        rotateVector = new Vector3(0f, 0f, moveValue.x);
+            rotateVector = new Vector3(0f, 0f, moveValue.x);
+        }
+    }
+
+    public void SetMovementState(bool value) 
+    {
+        canMove = value;
     }
 
     void OnSelection(InputValue value)
@@ -40,12 +57,29 @@ public class OverworldPlayer : MonoBehaviour
         OnSelect?.Invoke();
     }
 
+    void OnMenu(InputValue value)
+    {
+        OpenMenu?.Invoke();
+    }
+
+    void OnCancellation(InputValue value)
+    {
+        CloseMenu?.Invoke();
+    }
+
     void FixedUpdate()
     {
         Quaternion deltaRotation = Quaternion.Euler(rotateVector * rotateSpeed * Time.fixedDeltaTime);
-        
-        myRigidbody.MovePosition((Vector2)myRigidbody.position + moveVector * moveSpeed * Time.fixedDeltaTime);
-        myRigidbody.MoveRotation(myRigidbody.rotation * deltaRotation);
-        transform.rotation = Quaternion.Slerp (transform.rotation, lastLookRotation, Time.deltaTime * 20f);
+
+        if (canMove)
+        {
+            myRigidbody.MovePosition((Vector2)myRigidbody.position + moveVector * moveSpeed * Time.fixedDeltaTime);
+            myRigidbody.MoveRotation(myRigidbody.rotation * deltaRotation);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lastLookRotation, Time.deltaTime * 20f);
+        }
+        else
+        {
+            moveVector = Vector2.zero;
+        }
     }
 }
