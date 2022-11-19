@@ -20,7 +20,6 @@ public class OverworldGUI : MonoBehaviour
     [Header("GUI Elements")]
     public GUIWindow pauseMenu;
     public GUIWindow levelPreview;
-    public GUIWindow gatepinPreview;
     public GUIWindow optionsPanel;
     public GUIWindow saveLoadPanel;
     public GUIWindow saveLoadConfirmationPanel;
@@ -34,7 +33,7 @@ public class OverworldGUI : MonoBehaviour
 
     public GUIWindow[] All => new GUIWindow[]
     {
-        pauseMenu, levelPreview, gatepinPreview, optionsPanel, saveLoadPanel,
+        pauseMenu, levelPreview, optionsPanel, saveLoadPanel,
         saveLoadConfirmationPanel, quitPanel, tutorial_1, tutorial_2, tutorial_3
     };
     
@@ -70,7 +69,7 @@ public class OverworldGUI : MonoBehaviour
         {
             foreach (GUIWindow window in showing)
             {
-                if (window == levelPreview || window == gatepinPreview)
+                if (window == levelPreview)
                     return;
                 if (window == saveLoadPanel)
                     ((SaveLoadPanel)window).ProcessCloseAll();
@@ -93,7 +92,7 @@ public class OverworldGUI : MonoBehaviour
         {
             foreach (GUIWindow window in showing)
             {
-                if (window == levelPreview || window == gatepinPreview)
+                if (window == levelPreview)
                     return;
 
                 else if (window == saveLoadPanel)

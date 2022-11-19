@@ -23,7 +23,7 @@ public class GatePin : MonoBehaviour
     public GameObject Completeorb;
     public GameObject Barrier;
 
-     public MapManager map;
+    public MapManager map;
     [HideInInspector] public UnityEvent OnLevelLoaded = new UnityEvent();
     Animator m_Animator;
 
@@ -86,9 +86,6 @@ public class GatePin : MonoBehaviour
         {
             overworldCamera.SetCameraMode(OverworldFollowCamera.CameraMode.gatepinPreview);
             overworldCamera.SetTarget(transform);
-            GatepinPreviewWindow previewWindow = map.overworldGUI.gatepinPreview as GatepinPreviewWindow;
-            previewWindow.UpdatePreviewData(this);
-            previewWindow.Show();
         }
     }
     public void OnTriggerExit(Collider other)
@@ -97,7 +94,6 @@ public class GatePin : MonoBehaviour
         {
             overworldCamera.SetCameraMode(OverworldFollowCamera.CameraMode.FreeRoam);
             overworldCamera.SetTarget(player.transform);
-            map.overworldGUI.gatepinPreview.Hide();
         }
     }
 
