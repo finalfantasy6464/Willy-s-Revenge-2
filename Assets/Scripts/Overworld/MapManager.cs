@@ -28,13 +28,14 @@ public class MapManager : MonoBehaviour
     public MusicManagement musicManagement;
 
     public List<OverworldLevelPin> levelPins;
-    public List<GatePin> worldGates;
 
     public MonoBehaviour[] waypoints;
 
     public ScriptablePlayerSettings settings;
 
     public ResolutionOptions resolution;
+
+    public List<OverworldGate> overworldGates;
 
     private void Start ()
 	{
@@ -59,8 +60,7 @@ public class MapManager : MonoBehaviour
         }
 
         musicManagement.onLevelStart.Invoke();
-        
-        InitializeWorldGates();
+
         InitializeLevelState();
     }
 
@@ -76,34 +76,6 @@ public class MapManager : MonoBehaviour
         soundSlider.value = settings.sfxVolume;
     }
 
-    public void UnlockAndDestroyGate(GatePin gate)
-    {
-        for(int i = 0; i < worldGates.Count; i++)
-        {
-           if(worldGates[i] == gate)
-            {
-                GameControl.control.lockedgates[i] = false;
-                GameControl.control.destroyedgates[i] = true;
-            }
-        }
-    }
-
-    void InitializeWorldGates()
-    {
-        GatePin gate;
-
-        for (int i = 0; i < worldGates.Count; i++)
-        {
-            gate = worldGates[i];
-
-            gate.locked = GameControl.control.lockedgates[i];
-            gate.destroyed = GameControl.control.destroyedgates[i];
-
-            gate.map = this;
-            gate.SetOrbState(gate.locked, gate.destroyed);
-        }
-    }
-
     public void InitializeLevelState()
     {
         for (int i = 1; i < GameControl.control.completedlevels.Count - 1; i++)
@@ -116,21 +88,18 @@ public class MapManager : MonoBehaviour
 
     public void UpdatePlayerPosition()
     {
-        player.gameObject.transform.position = GameControl.control.savedPinPosition;
-        followCamera.gameObject.transform.position = GameControl.control.savedCameraPosition;
+        player.gameObject.transform.position = GameControl.control.savedPinPosition + new Vector3(0,-1.25f,0);
+        followCamera.gameObject.transform.position = GameControl.control.savedCameraPosition + new Vector3(0, -1.25f, 0);
     }
 
     public void UpdateWorldGates()
     {
-        for (int j = 0; j < worldGates.Count; j++)
+        foreach (OverworldGate gate in overworldGates)
         {
-            if (GameControl.control.destroyedgates[j] == true)
-            {
-                worldGates[j].DestroyActivate();
-            }
+            gate.SetPlateState(false);
+            gate.SetGateState();
         }
     }
-
     public void SetWorldGateData(List<bool> lockedgates, List<bool> destroyedgates)
     {
         //for (int i = 0; i < worldGates.Count; i++)

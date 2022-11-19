@@ -46,10 +46,7 @@ public class GameControl : MonoBehaviour
     public List<bool> completedlevels = new List<bool>();
     public List<bool> goldenpellets = new List<bool>();
     public List<bool> timerchallenge = new List<bool>();
-    public List<bool> lockedgates = new List<bool>();
     public List<bool> destroyedgates = new List<bool>();
-    public List<bool> lockedgatescache = new List<bool>();
-    public List<bool> destroyedgatescache = new List<bool>();
 
     [Header("Save / Load")]
     public ScriptablePlayerSettings settings;
@@ -201,10 +198,7 @@ public class GameControl : MonoBehaviour
         completedlevels = new List<bool>(gameState.completedlevels);
         goldenpellets = new List<bool>(gameState.goldenpellets);
         timerchallenge = new List<bool>(gameState.timerchallenge);
-        lockedgates = new List<bool>(gameState.lockedgates);
         destroyedgates = new List<bool>(gameState.destroyedgates);
-        lockedgatescache = new List<bool>(gameState.lockedgatescache);
-        destroyedgatescache = new List<bool>(gameState.destroyedgatescache);
         progressView = gameState.progressView;
         currentCharacterSprite = gameState.characterSkinIndex;
 
@@ -243,15 +237,17 @@ public class GameControl : MonoBehaviour
             settings.TryLoadFromDisk();
         }
 
-       if(m_Scene.name == "Overworld")
+       if(m_Scene.name == "Overworld_2021")
         {
             ResolutionOptions Res = GameObject.Find("OptionsPanel").GetComponent<ResolutionOptions>();
             OverworldMusicSelector music = GameObject.Find("OverworldMusic").GetComponent<OverworldMusicSelector>();
             music.overworldmusicCheck();
             Res.SetResolution(settings.resolutionWidth, settings.resolutionHeight);
             OverworldPlayer Player = GameObject.FindGameObjectWithTag("Player").GetComponent<OverworldPlayer>();
+            Player.canMove = true;
             MapManager map = GameObject.FindObjectOfType<MapManager>();
             map.UpdatePlayerPosition();
+            map.UpdateWorldGates();
         }
     }
 

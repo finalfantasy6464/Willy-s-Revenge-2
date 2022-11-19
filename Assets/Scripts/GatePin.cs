@@ -29,11 +29,6 @@ public class GatePin : MonoBehaviour
 
     public OverworldFollowCamera overworldCamera;
 
-    void Awake()
-    {
-        OnLevelLoaded.AddListener(DestroyActivate);
-    }
-
     void Start()
     {
         m_Animator = this.GetComponent<Animator>();
@@ -46,38 +41,6 @@ public class GatePin : MonoBehaviour
             Barrier.SetActive(false);
             m_Animator.SetTrigger("Green");
         }
-    }
-
-    //This checks the state of the world orbs when the level is loaded.
-    public void DestroyActivate()
-    {
-            Barrier.SetActive(false);
-            Crackedorb.SetActive(true);
-            Completeorb.SetActive(false);
-            destroyed = true;
-            locked = false;
-    }
-
-    //This checks the state of the world orbs when the player attempts to pass through it
-
-    public void LockCheck()
-    {
-        if (GameControl.control.complete >= completerequired)
-        {
-            locked = false;
-            if (!destroyed)
-                PlaySound(shatter);
-
-            destroyed = true;
-            map.UnlockAndDestroyGate(this);
-        } else
-        {
-            locked = true;
-            PlaySound(bounce);
-        }
-        Barrier.SetActive(locked);
-        Completeorb.SetActive(locked);
-        Crackedorb.SetActive(!locked);
     }
 
     public void OnTriggerEnter(Collider other)

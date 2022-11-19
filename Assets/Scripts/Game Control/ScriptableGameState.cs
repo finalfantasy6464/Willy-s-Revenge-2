@@ -31,10 +31,7 @@ public class ScriptableGameState : ScriptableObject
     public List<bool> completedlevels = new List<bool>();
     public List<bool> goldenpellets = new List<bool>();
     public List<bool> timerchallenge = new List<bool>();
-    public List<bool> lockedgates = new List<bool>();
     public List<bool> destroyedgates = new List<bool>();
-    public List<bool> lockedgatescache = new List<bool>();
-    public List<bool> destroyedgatescache = new List<bool>();
 
     public bool initialGameStarted;
 
@@ -64,10 +61,7 @@ public class ScriptableGameState : ScriptableObject
             WriteBoolList(writer, completedlevels);
             WriteBoolList(writer, goldenpellets);
             WriteBoolList(writer, timerchallenge);
-            WriteBoolList(writer, lockedgates);
             WriteBoolList(writer, destroyedgates);
-            WriteBoolList(writer, lockedgatescache);
-            WriteBoolList(writer, destroyedgatescache);
 
             writer.Write((Int32)characterSkinIndex);
             writer.Write(savedOrtographicSize);
@@ -120,10 +114,8 @@ public class ScriptableGameState : ScriptableObject
             completedlevels = ReadBoolList(reader, completedlevels.Count);
             goldenpellets   = ReadBoolList(reader, goldenpellets.Count);
             timerchallenge  = ReadBoolList(reader, timerchallenge.Count);
-            lockedgates     = ReadBoolList(reader, lockedgates.Count);
             destroyedgates  = ReadBoolList(reader, destroyedgates.Count);
-            lockedgatescache = ReadBoolList(reader, lockedgatescache.Count);
-            destroyedgatescache = ReadBoolList(reader, destroyedgatescache.Count);
+
 
             characterSkinIndex = reader.ReadInt32();
             savedOrtographicSize = reader.ReadSingle();
@@ -173,10 +165,7 @@ public class ScriptableGameState : ScriptableObject
         completedlevels =  new List<bool>(control.completedlevels);
         goldenpellets   =  new List<bool>(control.goldenpellets);
         timerchallenge  =  new List<bool>(control.timerchallenge);
-        lockedgates     =  new List<bool>(control.lockedgates);
         destroyedgates  =  new List<bool>(control.destroyedgates);
-        lockedgatescache = new List<bool>(control.lockedgatescache);
-        destroyedgatescache =   new List<bool>(control.destroyedgatescache);
 
         characterSkinIndex = control.currentCharacterSprite;
         savedOrtographicSize = control.savedOrtographicSize;

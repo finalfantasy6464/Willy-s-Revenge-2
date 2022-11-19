@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using TMPro;
 using System;
 
@@ -17,6 +18,9 @@ public class OverworldGate : MonoBehaviour
     public OverworldPlayer player;
     public Animator myAnimator;
 
+    public bool locked;
+    public bool destroyed;
+
     [Space]
     public AudioClip failSound;
     public AudioClip unlockSound;
@@ -25,28 +29,39 @@ public class OverworldGate : MonoBehaviour
     IEnumerator Start()
     {
         yield return null;
-        SetValue(Mathf.Max(0, requiredAmount - GameControl.control.complete));
-        if(GameControl.control.complete >= requiredAmount)
-        {
-            if(!GameControl.control.destroyedgates[gateIndex])
-                myAnimator.SetTrigger("OnUnlockReady");
-            else
-                myAnimator.SetTrigger("OnUnlockedFromStart");
-        }
-
         player.OnSelect += GatePlateCheck;
+        player.OpenMenu += () => SetPlateState(false);
         gatePlate.OnStepIn += () => SetPlateState(true);
         gatePlate.OnStepOut += () => SetPlateState(false);
+        SetGateState();
+    }
+
+    public void SetGateState()
+    {
+        SetValue(Mathf.Max(0, requiredAmount - GameControl.control.complete));
+        if (GameControl.control.complete >= requiredAmount)
+        {
+            if (!GameControl.control.destroyedgates[gateIndex])
+                myAnimator.SetTrigger("OnUnlockReady");
+            else
+                myAnimator.SetTrigger("OnUnlockFromStart");
+        }
+        else
+        {
+            if(gameObject.activeInHierarchy == true)
+            myAnimator.SetTrigger("OnLock");
+        }
     }
 
     void OnDisable()
     {
         player.OnSelect -= GatePlateCheck;
+        player.OpenMenu -= () => SetPlateState(false);
         gatePlate.OnStepIn -= () => SetPlateState(true);
         gatePlate.OnStepOut -= () => SetPlateState(false);
     }
 
-    void SetPlateState(bool value)
+    public void SetPlateState(bool value)
     {
         focused = value;
         promptButton.gameObject.SetActive(value);
@@ -59,10 +74,12 @@ public class OverworldGate : MonoBehaviour
             myAnimator.SetTrigger("OnUnlockFail");
             GameSoundManagement.instance.PlayOneShot(failSound);
         }
-        else if (GameControl.control.complete >= requiredAmount)
+        else if (focused && GameControl.control.complete >= requiredAmount)
         {
             myAnimator.SetTrigger("OnUnlock");
+            SetPlateState(false);
             GameSoundManagement.instance.PlayOneShot(unlockSound);
+            GameControl.control.destroyedgates[gateIndex] = true;
         }
     }
 

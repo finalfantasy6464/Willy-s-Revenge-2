@@ -98,18 +98,35 @@ public class OverworldGUI : MonoBehaviour
                 else if (window == saveLoadPanel)
                 {
                     ((SaveLoadPanel)window).ProcessCancelInput();
-                    character.canMove = true;
+                    CheckCharacterMovement();
                     return;
                 }
                 else if (window == optionsPanel)
                 {
                     ((OptionsPanel)window).ProcessCancelInput();
-                    character.canMove = true;
+                    CheckCharacterMovement();
                     return;
                 }
                 else if (window is GUIPrompt prompt)
                     prompt.navigationParent.Open();
+
                 window.Close();
+                CheckCharacterMovement();
+            }
+        }
+    }
+
+    void CheckCharacterMovement()
+    {
+        for (int i = 0; i < All.Length; i++)
+        {
+            if (All[i].isShowing)
+            {
+                character.canMove = false;
+                return;
+            }
+            else
+            {
                 character.canMove = true;
             }
         }
