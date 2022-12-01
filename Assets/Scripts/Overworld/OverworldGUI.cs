@@ -41,8 +41,8 @@ public class OverworldGUI : MonoBehaviour
     [HideInInspector]
     public MapManager map;
 
-    bool isAnyShowing => All.Any(w => w.isShowing);
-    bool wasAnyShowing => All.Any(w => w.wasShowing);
+    public bool isAnyShowing => All.Any(w => w.isShowing);
+    public bool wasAnyShowing => All.Any(w => w.wasShowing);
     
     bool isTutorialShowing => tutorial_1.isShowing || tutorial_2.isShowing || tutorial_3.isShowing;
     bool wasTutorialShowing => tutorial_1.wasShowing || tutorial_2.wasShowing || tutorial_3.wasShowing;
