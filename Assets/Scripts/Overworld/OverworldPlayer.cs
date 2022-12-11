@@ -31,7 +31,7 @@ public class OverworldPlayer : MonoBehaviour
         rotateVector.z = rotateSpeed;
         
         if(GameControl.control.savedPinPosition != null)
-        transform.position = GameControl.control.savedPinPosition;
+            transform.position = GameControl.control.savedPinPosition;
     }
 
     void OnMove(InputValue value)
@@ -74,12 +74,21 @@ public class OverworldPlayer : MonoBehaviour
         if (canMove)
         {
             myRigidbody.MovePosition((Vector2)myRigidbody.position + moveVector * moveSpeed * Time.fixedDeltaTime);
-            myRigidbody.MoveRotation(myRigidbody.rotation * deltaRotation);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lastLookRotation, Time.deltaTime * 20f);
+            
+            if(!RotationAproxEquals(transform.rotation, lastLookRotation))
+            {
+                myRigidbody.MoveRotation(myRigidbody.rotation * deltaRotation);
+                transform.rotation = Quaternion.Slerp(transform.rotation, lastLookRotation, Time.fixedDeltaTime * 20f);
+            }
         }
         else
         {
             moveVector = Vector2.zero;
         }
+    }
+
+    bool RotationAproxEquals(Quaternion a, Quaternion b, float tolerance = 0.0001f)
+    {
+        return (1f - Mathf.Abs(Quaternion.Dot(a, b))) < tolerance;
     }
 }

@@ -47,7 +47,7 @@ public class GatePin : MonoBehaviour
     {
         if (other.TryGetComponent(out OverworldPlayer player))
         {
-            overworldCamera.SetCameraMode(OverworldFollowCamera.CameraMode.gatepinPreview);
+            overworldCamera.SetCameraMode(OverworldFollowCamera.CameraMode.GatePreview);
             overworldCamera.SetTarget(transform);
         }
     }

@@ -7,12 +7,13 @@ using UnityEngine.InputSystem;
 public class OverworldLevelPin : MonoBehaviour
 {
 	public MapManager mapManager;
+	public OverworldLevelPinView view;
 	public OverworldFollowCamera overworldCamera;
 	[Header("Preview Data & Flags")]
 	public int levelNumber;
 	public int parTime;
-	private Vector3 playerOffset = new Vector3(0, 0.5f,0f);
-	private Vector3 cameraOffset = new Vector3(0, 0.5f, -10f);
+	private Vector3 playerOffset = new Vector3(0, -2f,0f);
+	private Vector3 cameraOffset = new Vector3(0, -2f, -10f);
 	public string levelDisplayName;
 	public Sprite levelPreviewSprite;
 	public Sprite[] spriteState;
@@ -25,7 +26,7 @@ public class OverworldLevelPin : MonoBehaviour
 
     void Start()
     {
-		SetState();
+		//SetState();
     }
 
 	public void SetState()

@@ -8,14 +8,21 @@ public class OverworldFollowCamera : MonoBehaviour
     public CameraMode mode;
     public Camera overworldCamera;
     public Transform target;
+    public Vector3 goalPosition;
     public Vector3 targetPosition;
     public Vector2 targetPositionOffset;
-    public Vector3 goalPosition;
     public float targetZoom;
     public float levelBoundsZoom;
     public float followSpeed;
     public float zoomSpeed;
     public bool isZoomedOut;
+    [Space]
+    public Vector2 freeRoamPositionOffset;
+    public float freeRoamTargetZoom;
+    public Vector2 levelPreviewPositionOffset;
+    public float levelPreviewTargetZoom;
+    public Vector2 gatePreviewPositionOffset;
+    public float gatePreviewTargetZoom;
 
     private Rect levelBounds;
     private Vector3 levelCenter;
@@ -60,7 +67,7 @@ public class OverworldFollowCamera : MonoBehaviour
         }
     }
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
         ZoomUpdate();
         MoveUpdate();
@@ -96,6 +103,30 @@ public class OverworldFollowCamera : MonoBehaviour
         isZoomedOut = !isZoomedOut;
     }
 
+    public void SetCameraMode(CameraMode mode)
+    {
+        if (mode == CameraMode.FreeRoam)
+        {
+            targetPositionOffset = freeRoamPositionOffset;
+            targetZoom = freeRoamTargetZoom;
+        }
+        else if (mode == CameraMode.LevelPreview)
+        {
+            targetPositionOffset = levelPreviewPositionOffset;
+            targetZoom = levelPreviewTargetZoom;
+        }
+        else if (mode == CameraMode.GatePreview)
+        {
+            targetPositionOffset = gatePreviewPositionOffset;
+            targetZoom = gatePreviewTargetZoom;
+        }
+    }
+
+    public void SetTarget(Transform target)
+    {
+        this.target = target;
+    }
+
     private Rect GetLevelBounds()
     {
         Vector3 min = Vector3.zero;
@@ -116,34 +147,10 @@ public class OverworldFollowCamera : MonoBehaviour
         return Rect.MinMaxRect(min.x - tolerance, min.y - tolerance, max.x + tolerance, max.y + tolerance);
     }
 
-    public void SetCameraMode(CameraMode mode)
-    {
-        if (mode == CameraMode.FreeRoam)
-        {
-            targetPositionOffset = Vector2.zero;
-            targetZoom = defaultZoom;
-        }
-        else if (mode == CameraMode.LevelPreview)
-        {
-            targetPositionOffset = Vector2.up * 2.5f;
-            targetZoom = defaultZoom * 1.2f;
-        }
-        else if (mode == CameraMode.gatepinPreview)
-        {
-            targetPositionOffset = Vector2.up * 2.5f;
-            targetZoom = defaultZoom * 1.5f;
-        }
-    }
-
-    public void SetTarget(Transform target)
-    {
-        this.target = target;
-    }
-
     public enum CameraMode
     {
         FreeRoam,
         LevelPreview,
-        gatepinPreview
+        GatePreview
     }
 }

@@ -62,6 +62,7 @@ public class MapManager : MonoBehaviour
         musicManagement.onLevelStart.Invoke();
 
         InitializeLevelState();
+        UpdatePlayerPosition();
     }
 
 
@@ -127,8 +128,16 @@ public class MapManager : MonoBehaviour
 
     public void SetAutoSavePinPosition(OverworldPlayer character)
     {
-        GameControl.control.savedPinPosition = character.currentPin.transform.position;
+        GameControl.control.savedPinPosition = character.currentPin.transform.position + Vector3.down * 2f;
         //GameControl.control.savedCameraPosition = overworldCamera.transform.position;
         //GameControl.control.savedOrtographicSize = overworldCamera.gameCamera.orthographicSize;
+    }
+
+    public void UpdateLevelPinProgress()
+    {
+        foreach (OverworldLevelPin pin in levelPins)
+        {
+            pin.view.ViewProgressCheck();
+        }
     }
 }

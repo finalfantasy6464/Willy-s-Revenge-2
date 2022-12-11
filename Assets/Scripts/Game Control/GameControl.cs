@@ -237,7 +237,7 @@ public class GameControl : MonoBehaviour
             settings.TryLoadFromDisk();
         }
 
-       if(m_Scene.name == "Overworld_2021")
+       if(m_Scene.name == "Overworld")
         {
             ResolutionOptions Res = GameObject.Find("OptionsPanel").GetComponent<ResolutionOptions>();
             OverworldMusicSelector music = GameObject.Find("OverworldMusic").GetComponent<OverworldMusicSelector>();
@@ -248,6 +248,7 @@ public class GameControl : MonoBehaviour
             MapManager map = GameObject.FindObjectOfType<MapManager>();
             map.UpdatePlayerPosition();
             map.UpdateWorldGates();
+            map.UpdateLevelPinProgress();
         }
     }
 
