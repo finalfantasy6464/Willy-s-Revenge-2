@@ -76,10 +76,10 @@ public class OverworldLevelPin : MonoBehaviour
 			player.currentPin = this;
 			player.OnSelect += SelectLevel;
 			overworldCamera.SetCameraMode(OverworldFollowCamera.CameraMode.LevelPreview);
-			GameControl.control.savedPinPosition = transform.position + playerOffset;
+			GameControl.control.savedOverworldPlayerPosition = transform.position + playerOffset;
 			GameControl.control.savedCameraPosition = transform.position + cameraOffset;
 			overworldCamera.SetTarget(transform);
-			mapManager.SetAutoSavePinPosition(player);
+			mapManager.SetSavedOverworldPlayerPosition(player);
 			LevelPreviewWindow previewWindow = mapManager.overworldGUI.levelPreview as LevelPreviewWindow;
 			previewWindow.UpdatePreviewData(this);
 			previewWindow.Show();

@@ -30,16 +30,14 @@ public class GameControl : MonoBehaviour
     public int savedPinID;
 
     [Header("Camera")]
-    public Vector3 savedCameraPosition = new Vector3(-33,-10.25f,-10f);
+    public Vector3 savedCameraPosition;
     public float savedOrtographicSize;
-    public OverworldProgressView progressView; 
-    public Color savedCameraBackgroundColor;
 
     [Header("World")]
     public float completionPercent;
     public string currentlevel;
     public string sceneName;
-    public Vector3 savedPinPosition = new Vector3(-33, -10.25f, 0);
+    public Vector3 savedOverworldPlayerPosition;
     public Vector3 AutosavePosition;
     public OverworldLevelPin savedPin;
 
@@ -56,7 +54,6 @@ public class GameControl : MonoBehaviour
     public static UnityEvent onSingletonCheck;
     public static GameControl control;
     Scene m_Scene;
-    
 
     void Awake()
     {
@@ -86,6 +83,18 @@ public class GameControl : MonoBehaviour
         control = this;
         onSingletonCheck.Invoke();
         LevelListGeneration();
+    }
+
+    private void Start()
+    {
+        Application.targetFrameRate = 60;
+        if(m_Scene.name == "Main Menu")
+            AutoLoadCheck();
+
+        if(InitialGameStarted)
+        {
+            SceneManager.LoadScene("Overworld");
+        }
     }
 
     void PauseControlCheck()
@@ -128,11 +137,6 @@ public class GameControl : MonoBehaviour
         {
             completionPercent = 100f;
         }
-    }
-
-    private void Start()
-    {
-        Application.targetFrameRate = 60;
     }
 
     public void LevelListGeneration()
@@ -193,27 +197,22 @@ public class GameControl : MonoBehaviour
         timer = gameState.timer;
         ArenahighScore = gameState.arenaScore;
 
-        savedPinPosition = gameState.savedPinPosition;
+        savedOverworldPlayerPosition = gameState.savedOverworldPlayerPosition;
         AutosavePosition = gameState.AutosavePosition;
         completedlevels = new List<bool>(gameState.completedlevels);
         goldenpellets = new List<bool>(gameState.goldenpellets);
         timerchallenge = new List<bool>(gameState.timerchallenge);
         destroyedgates = new List<bool>(gameState.destroyedgates);
-        progressView = gameState.progressView;
         currentCharacterSprite = gameState.characterSkinIndex;
 
         savedCameraPosition = gameState.savedCameraPosition;
         savedOrtographicSize = gameState.savedOrtographicSize;
-        savedCameraBackgroundColor = gameState.backgroundColor;
 
         InitialGameStarted = gameState.initialGameStarted;
     }
 
     public void Save(int saveSlot)
     {
-        if(progressView == OverworldProgressView.None)
-            progressView = OverworldProgressView.WorldLeft;
-
         gameState.SetFromGameControl(control);
         gameState.WriteToManual(saveSlot);
         settings.SaveToDisk();
@@ -221,9 +220,6 @@ public class GameControl : MonoBehaviour
 
     public void AutoSave()
     {
-        if (progressView == OverworldProgressView.None)
-            progressView = OverworldProgressView.WorldLeft;
-
         gameState.SetFromGameControl(control);
         gameState.WriteToAuto();
         settings.SaveToDisk();
@@ -249,12 +245,13 @@ public class GameControl : MonoBehaviour
             map.UpdatePlayerPosition();
             map.UpdateWorldGates();
             map.UpdateLevelPinProgress();
+
         }
     }
 
-    public void AutoLoad()
+    public void AutoLoadCheck()
     {
-        if(gameState.SetFromAuto())
+        if(gameState.autoLoadInOverworld && gameState.SetFromAuto())
         {
             SetFromGameState();
             settings.TryLoadFromDisk();

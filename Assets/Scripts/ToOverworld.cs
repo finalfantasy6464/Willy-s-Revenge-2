@@ -15,6 +15,6 @@ public class ToOverworld : MonoBehaviour
     void toOverworld()
     {
         SceneManager.LoadScene("Overworld");
-        GameControl.control.AutoLoad();
+        GameControl.control.AutoLoadCheck();
     }
 }

@@ -72,6 +72,11 @@ public class WorldTransitionPressurePlate : MonoBehaviour
         worldAnimator.enabled = false;
     }
 
+    public void Something()
+    {
+        
+    }
+
     public void OnTriggerEnter(Collider other)
     {
         if(other.TryGetComponent(out OverworldPlayer player))

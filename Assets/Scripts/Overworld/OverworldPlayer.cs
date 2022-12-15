@@ -23,15 +23,20 @@ public class OverworldPlayer : MonoBehaviour
     public Rigidbody myRigidbody;
     Vector3 rotateVector;
     Vector2 moveValue;
+    float baseMoveSpeed;
 
     public bool canMove = true;
 
     void Start()
     {
+        baseMoveSpeed = moveSpeed;
         rotateVector.z = rotateSpeed;
+
+        lastLookRotation = Quaternion.Euler(0f, 0f, 0f);
+        transform.rotation = lastLookRotation;
         
-        if(GameControl.control.savedPinPosition != null)
-            transform.position = GameControl.control.savedPinPosition;
+        if(GameControl.control.savedOverworldPlayerPosition != null)
+            transform.position = GameControl.control.savedOverworldPlayerPosition;
     }
 
     void OnMove(InputValue value)
@@ -45,6 +50,11 @@ public class OverworldPlayer : MonoBehaviour
 
             rotateVector = new Vector3(0f, 0f, moveValue.x);
         }
+    }
+
+    void OnModifier(InputValue value)
+    {
+        moveSpeed = baseMoveSpeed * (value.Get<float>() > 0f ? 1.5f : 1f);
     }
 
     public void SetMovementState(bool value) 
@@ -90,5 +100,10 @@ public class OverworldPlayer : MonoBehaviour
     bool RotationAproxEquals(Quaternion a, Quaternion b, float tolerance = 0.0001f)
     {
         return (1f - Mathf.Abs(Quaternion.Dot(a, b))) < tolerance;
+    }
+
+    public void OnDisable()
+    {
+        GetComponent<PlayerInput>().actions = null;
     }
 }

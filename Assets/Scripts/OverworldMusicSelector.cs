@@ -19,7 +19,6 @@ public class OverworldMusicSelector : MonoBehaviour
 
     public void overworldmusicCheck()
     {
-        currentProgress = (int)GameControl.control.progressView;
         foreach (AudioSource source in sources)
         {
             StartCoroutine(musicFadeOut(source));

@@ -62,7 +62,7 @@ public class OverworldLevelPinView : MonoBehaviour
         {
             myAnimator.SetBool("IsCompleteDone", true);
             myAnimator.SetTrigger("OnMakeGolden");
-            ChangeStateRoutine(goldOverride);
+            StartCoroutine(ChangeStateRoutine(goldOverride));
         }
         else if(GameControl.control.completedlevels[pin.levelNumber])
         {
@@ -80,7 +80,7 @@ public class OverworldLevelPinView : MonoBehaviour
         yield return null;
         while(myAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
             yield return null;
-
         myAnimator.runtimeAnimatorController = animationOverride;
+        myAnimator.Play("Idle", -1);
     }
 }

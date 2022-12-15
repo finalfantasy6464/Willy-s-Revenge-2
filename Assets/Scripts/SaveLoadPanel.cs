@@ -152,6 +152,8 @@ public class SaveLoadPanel : GUIWindow
             
             if(selectedSaveRow != null)
                 selectedSaveRow.toggle.isOn = false;
+            
+            SetButtons(false, false, false);
         }
         else if(state == WindowState.Operation)
         {
@@ -162,7 +164,7 @@ public class SaveLoadPanel : GUIWindow
             backNavigation.selectOnUp = null;
             backNavigation.selectOnRight = loadCurrentButton;
             backNavigation.selectOnDown = null;
-
+            
             Navigation saveNavigation = saveCurrentButton.navigation;
             if(loadCurrentButton.interactable)
             {

@@ -98,6 +98,15 @@ public partial class @WillysRevenge2NewControls : IInputActionCollection2, IDisp
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Modifier"",
+                    ""type"": ""Button"",
+                    ""id"": ""11eb6003-6b65-42be-b1a7-292f7447190c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -477,6 +486,17 @@ public partial class @WillysRevenge2NewControls : IInputActionCollection2, IDisp
                 },
                 {
                     ""name"": """",
+                    ""id"": ""dd9235ab-21d2-49cc-8543-ba27ff197c8e"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Cancellation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""41d40489-57a5-4dbb-834c-d4a8d87f6bc1"",
                     ""path"": ""<Gamepad>/start"",
                     ""interactions"": """",
@@ -538,6 +558,28 @@ public partial class @WillysRevenge2NewControls : IInputActionCollection2, IDisp
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""83d0fafd-7cf7-4cef-97ff-152bde0825df"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Modifier"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7ae25c8b-7d5e-45df-b9a1-37691790078a"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Modifier"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1115,6 +1157,11 @@ public partial class @WillysRevenge2NewControls : IInputActionCollection2, IDisp
                     ""devicePath"": ""<Keyboard>"",
                     ""isOptional"": false,
                     ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Mouse>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
                 }
             ]
         }
@@ -1130,6 +1177,7 @@ public partial class @WillysRevenge2NewControls : IInputActionCollection2, IDisp
         m_Overworld_Left = m_Overworld.FindAction("Left", throwIfNotFound: true);
         m_Overworld_Right = m_Overworld.FindAction("Right", throwIfNotFound: true);
         m_Overworld_Move = m_Overworld.FindAction("Move", throwIfNotFound: true);
+        m_Overworld_Modifier = m_Overworld.FindAction("Modifier", throwIfNotFound: true);
         // In Level
         m_InLevel = asset.FindActionMap("In Level", throwIfNotFound: true);
         m_InLevel_Selection = m_InLevel.FindAction("Selection", throwIfNotFound: true);
@@ -1208,6 +1256,7 @@ public partial class @WillysRevenge2NewControls : IInputActionCollection2, IDisp
     private readonly InputAction m_Overworld_Left;
     private readonly InputAction m_Overworld_Right;
     private readonly InputAction m_Overworld_Move;
+    private readonly InputAction m_Overworld_Modifier;
     public struct OverworldActions
     {
         private @WillysRevenge2NewControls m_Wrapper;
@@ -1220,6 +1269,7 @@ public partial class @WillysRevenge2NewControls : IInputActionCollection2, IDisp
         public InputAction @Left => m_Wrapper.m_Overworld_Left;
         public InputAction @Right => m_Wrapper.m_Overworld_Right;
         public InputAction @Move => m_Wrapper.m_Overworld_Move;
+        public InputAction @Modifier => m_Wrapper.m_Overworld_Modifier;
         public InputActionMap Get() { return m_Wrapper.m_Overworld; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1253,6 +1303,9 @@ public partial class @WillysRevenge2NewControls : IInputActionCollection2, IDisp
                 @Move.started -= m_Wrapper.m_OverworldActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_OverworldActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_OverworldActionsCallbackInterface.OnMove;
+                @Modifier.started -= m_Wrapper.m_OverworldActionsCallbackInterface.OnModifier;
+                @Modifier.performed -= m_Wrapper.m_OverworldActionsCallbackInterface.OnModifier;
+                @Modifier.canceled -= m_Wrapper.m_OverworldActionsCallbackInterface.OnModifier;
             }
             m_Wrapper.m_OverworldActionsCallbackInterface = instance;
             if (instance != null)
@@ -1281,6 +1334,9 @@ public partial class @WillysRevenge2NewControls : IInputActionCollection2, IDisp
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
+                @Modifier.started += instance.OnModifier;
+                @Modifier.performed += instance.OnModifier;
+                @Modifier.canceled += instance.OnModifier;
             }
         }
     }
@@ -1410,6 +1466,7 @@ public partial class @WillysRevenge2NewControls : IInputActionCollection2, IDisp
         void OnLeft(InputAction.CallbackContext context);
         void OnRight(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
+        void OnModifier(InputAction.CallbackContext context);
     }
     public interface IInLevelActions
     {

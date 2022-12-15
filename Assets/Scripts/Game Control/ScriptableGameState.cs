@@ -20,12 +20,10 @@ public class ScriptableGameState : ScriptableObject
     [Header("Camera")]
     public Vector3 savedCameraPosition;
     public float savedOrtographicSize;
-    public OverworldProgressView progressView;
-    public Color backgroundColor;
 
     [Header("World")]
     public float completionPercent;
-    public Vector3 savedPinPosition;
+    public Vector3 savedOverworldPlayerPosition;
     public Vector3 AutosavePosition;
 
     public List<bool> completedlevels = new List<bool>();
@@ -34,6 +32,7 @@ public class ScriptableGameState : ScriptableObject
     public List<bool> destroyedgates = new List<bool>();
 
     public bool initialGameStarted;
+    public bool autoLoadInOverworld;
 
     void OnEnable()
     {
@@ -65,21 +64,15 @@ public class ScriptableGameState : ScriptableObject
 
             writer.Write((Int32)characterSkinIndex);
             writer.Write(savedOrtographicSize);
-            writer.Write((Int32)progressView);
-
-            writer.Write(backgroundColor.r);
-            writer.Write(backgroundColor.g);
-            writer.Write(backgroundColor.b);
-
             writer.Write(completionPercent);
             
             writer.Write(savedCameraPosition.x);
             writer.Write(savedCameraPosition.y);
             writer.Write(savedCameraPosition.z);
             
-            writer.Write(savedPinPosition.x);
-            writer.Write(savedPinPosition.y);
-            writer.Write(savedPinPosition.z);
+            writer.Write(savedOverworldPlayerPosition.x);
+            writer.Write(savedOverworldPlayerPosition.y);
+            writer.Write(savedOverworldPlayerPosition.z);
             
             writer.Write(AutosavePosition.x);
             writer.Write(AutosavePosition.y);
@@ -116,17 +109,12 @@ public class ScriptableGameState : ScriptableObject
             timerchallenge  = ReadBoolList(reader, timerchallenge.Count);
             destroyedgates  = ReadBoolList(reader, destroyedgates.Count);
 
-
             characterSkinIndex = reader.ReadInt32();
             savedOrtographicSize = reader.ReadSingle();
-            progressView = (OverworldProgressView)(reader.ReadInt32());
-
-            backgroundColor = new Color(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle(), 1f);
-
             completionPercent = reader.ReadSingle();
 
             savedCameraPosition = new Vector3(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
-            savedPinPosition    = new Vector3(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
+            savedOverworldPlayerPosition = new Vector3(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
             AutosavePosition    = new Vector3(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
 
             initialGameStarted = reader.ReadBoolean();
@@ -168,13 +156,10 @@ public class ScriptableGameState : ScriptableObject
         destroyedgates  =  new List<bool>(control.destroyedgates);
 
         characterSkinIndex = control.currentCharacterSprite;
-        savedOrtographicSize = control.savedOrtographicSize;
-        progressView = control.progressView;
-        backgroundColor = control.savedCameraBackgroundColor;
         completionPercent = control.completionPercent;
 
         savedCameraPosition = control.savedCameraPosition;
-        savedPinPosition = control.savedPinPosition;
+        savedOverworldPlayerPosition = control.savedOverworldPlayerPosition;
         AutosavePosition = control.AutosavePosition;
 
         initialGameStarted = control.InitialGameStarted;

@@ -32,11 +32,11 @@ public class Character : MonoBehaviour
 
     public void SetPinPosition()
     {
-        transform.position = GameControl.control.savedPinPosition;
+        transform.position = GameControl.control.savedOverworldPlayerPosition;
 
         foreach (OverworldLevelPin pin in _mapManager.levelPins)
         {
-            if (pin.transform.position == GameControl.control.savedPinPosition)
+            if (pin.transform.position == GameControl.control.savedOverworldPlayerPosition)
                 SetCurrentPin(pin);
         }
     }

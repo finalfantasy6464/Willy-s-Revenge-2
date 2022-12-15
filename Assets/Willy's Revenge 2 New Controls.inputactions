@@ -1,5 +1,5 @@
 {
-    "name": "Willy's Revenge 2 Controls",
+    "name": "Willy's Revenge 2 New Controls",
     "maps": [
         {
             "name": "Overworld",
@@ -76,6 +76,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Modifier",
+                    "type": "Button",
+                    "id": "11eb6003-6b65-42be-b1a7-292f7447190c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -455,6 +464,17 @@
                 },
                 {
                     "name": "",
+                    "id": "dd9235ab-21d2-49cc-8543-ba27ff197c8e",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Cancellation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "41d40489-57a5-4dbb-834c-d4a8d87f6bc1",
                     "path": "<Gamepad>/start",
                     "interactions": "",
@@ -516,6 +536,28 @@
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "Down",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "83d0fafd-7cf7-4cef-97ff-152bde0825df",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Modifier",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7ae25c8b-7d5e-45df-b9a1-37691790078a",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Modifier",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -1091,6 +1133,11 @@
             "devices": [
                 {
                     "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
                     "isOptional": false,
                     "isOR": false
                 }

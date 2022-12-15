@@ -137,7 +137,6 @@ public class OverworldGUI : MonoBehaviour
         if(levelpreviewcounter < levelpreviewtime)
             return;
         GameControl.control.AutosavePosition = character.transform.position;
-        GameControl.control.savedCameraBackgroundColor = Camera.main.backgroundColor;
         levelPreview.Show();
     }
 

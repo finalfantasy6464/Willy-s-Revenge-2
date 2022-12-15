@@ -39,6 +39,8 @@ public class MapManager : MonoBehaviour
 
     private void Start ()
 	{
+        GameControl.control.AutoLoadCheck();
+
         soundManagement = FindObjectOfType<GameSoundManagement>();
         musicManagement = FindObjectOfType<MusicManagement>();
 
@@ -89,7 +91,7 @@ public class MapManager : MonoBehaviour
 
     public void UpdatePlayerPosition()
     {
-        player.gameObject.transform.position = GameControl.control.savedPinPosition + new Vector3(0,-1.25f,0);
+        player.gameObject.transform.position = GameControl.control.savedOverworldPlayerPosition + new Vector3(0,-1.25f,0);
         followCamera.gameObject.transform.position = GameControl.control.savedCameraPosition + new Vector3(0, -1.25f, 0);
     }
 
@@ -120,15 +122,10 @@ public class MapManager : MonoBehaviour
     {
         SceneManager.LoadScene(index);
     }
-
-    public void SetAutoSavePinPosition()
+    
+    public void SetSavedOverworldPlayerPosition(OverworldPlayer character)
     {
-
-    }
-
-    public void SetAutoSavePinPosition(OverworldPlayer character)
-    {
-        GameControl.control.savedPinPosition = character.currentPin.transform.position + Vector3.down * 2f;
+        GameControl.control.savedOverworldPlayerPosition = character.currentPin.transform.position + Vector3.down * 2f;
         //GameControl.control.savedCameraPosition = overworldCamera.transform.position;
         //GameControl.control.savedOrtographicSize = overworldCamera.gameCamera.orthographicSize;
     }

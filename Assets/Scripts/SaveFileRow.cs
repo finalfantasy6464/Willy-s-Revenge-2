@@ -29,7 +29,6 @@ public class SaveFileRow : MonoBehaviour
 
     public void SetFromStatePreview(GameStatePreview preview)
     {
-        Debug.Log("setting from state");
         arenaScoreLabel.SetText($"{preview.arenaScore}");
         completeLabel.SetText($"{Mathf.FloorToInt(preview.completedPercent * 100)}%");
         gateLabel.SetText($"{Mathf.FloorToInt(preview.destroyedPercent * 100)}%");

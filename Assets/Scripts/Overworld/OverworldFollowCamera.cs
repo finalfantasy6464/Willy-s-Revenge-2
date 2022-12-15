@@ -147,6 +147,16 @@ public class OverworldFollowCamera : MonoBehaviour
         return Rect.MinMaxRect(min.x - tolerance, min.y - tolerance, max.x + tolerance, max.y + tolerance);
     }
 
+    public void SetCameraInstant(Vector3 position, Vector3 goalPosition, float zoom = -1f)
+    {
+        if(targetZoom != -1)
+            targetZoom = zoom;
+
+        overworldCamera.orthographicSize = zoom;
+        transform.position = position;
+        this.goalPosition = goalPosition;
+    }
+
     public enum CameraMode
     {
         FreeRoam,
