@@ -34,7 +34,16 @@ public class OverworldLevelPinView : MonoBehaviour
     void UpdateRenderers()
     {
         for (int i = 0; i < orderableRenderers.Length; i++)
-            orderableRenderers[i].sortingOrder = player.transform.position.y >= drawThresholdY ? 999 + i : 0 + i;
+        {
+            if(player.transform.position.y >= drawThresholdY)
+            {
+                orderableRenderers[0].sortingOrder = 999;
+            }
+            else
+            {
+                orderableRenderers[i].sortingOrder = 3 - i;
+            }
+        }
     }
 
     public void OnTriggerEnter(Collider other)
@@ -60,18 +69,17 @@ public class OverworldLevelPinView : MonoBehaviour
     {
         if(GameControl.control.goldenpellets[pin.levelNumber])
         {
-            myAnimator.SetBool("IsCompleteDone", true);
             myAnimator.SetTrigger("OnMakeGolden");
             StartCoroutine(ChangeStateRoutine(goldOverride));
         }
-        else if(GameControl.control.completedlevels[pin.levelNumber])
-        {
-            myAnimator.SetTrigger("OnAddCompleteRim");
-        }
 
-        if(GameControl.control.timerchallenge[pin.levelNumber])
+        if (GameControl.control.timerchallenge[pin.levelNumber])
         {
             myAnimator.SetTrigger("OnAddChallengeRim");
+        }
+        else if (GameControl.control.completedlevels[pin.levelNumber] && !GameControl.control.timerchallenge[pin.levelNumber])
+        {
+            myAnimator.SetTrigger("OnAddCompleteRim");
         }
     }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,17 +12,28 @@ public class GoldenPellet : MonoBehaviour
 
 	public GameObject Golden;
 
-	private int pickuptotal;
+	public int pickupTotal = 5;
 
 	private bool goldspawned = false;
+
+    private void Start()
+    {
+		StartCoroutine(FindPickups());
+	}
+
+    IEnumerator FindPickups()
+    {
+		yield return null;
+		GameObject[] totalpickups = GameObject.FindGameObjectsWithTag("Pickup");
+		pickupTotal = totalpickups.Length;
+		yield break;
+	}
 
     // Update is called once per frame
     void Update()
     {
-		GameObject[] totalpickups = GameObject.FindGameObjectsWithTag("Pickup");
-		pickuptotal = totalpickups.Length;
-
-		if (pickuptotal == 0 & goldspawned == false) {
+		if (pickupTotal == 0 & goldspawned == false) {
+			Golden.transform.position = spawnPos.position;
 			Golden.SetActive(true);
 			goldspawned = true;
 		}

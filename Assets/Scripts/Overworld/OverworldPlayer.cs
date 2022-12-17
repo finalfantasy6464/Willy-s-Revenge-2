@@ -13,8 +13,11 @@ public class OverworldPlayer : MonoBehaviour
     public float rotateSpeed;
     public Vector2 moveVector;
     public Quaternion lastLookRotation;
+    public SpriteRenderer spriteRenderer;
 
     public MapManager map;
+
+    public Sprite[] overworldSprites;
 
     public event Action OnSelect;
     public event Action OpenMenu;
@@ -37,6 +40,13 @@ public class OverworldPlayer : MonoBehaviour
         
         if(GameControl.control.savedOverworldPlayerPosition != null)
             transform.position = GameControl.control.savedOverworldPlayerPosition;
+
+        UpdateCharacterSprite();
+    }
+
+    public void UpdateCharacterSprite()
+    {
+        spriteRenderer.sprite = overworldSprites[GameControl.control.currentCharacterSprite];
     }
 
     void OnMove(InputValue value)

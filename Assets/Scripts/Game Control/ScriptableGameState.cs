@@ -31,7 +31,7 @@ public class ScriptableGameState : ScriptableObject
     public List<bool> timerchallenge = new List<bool>();
     public List<bool> destroyedgates = new List<bool>();
 
-    public bool initialGameStarted;
+    public bool autoloadSuccessful;
     public bool autoLoadInOverworld;
 
     void OnEnable()
@@ -78,7 +78,7 @@ public class ScriptableGameState : ScriptableObject
             writer.Write(AutosavePosition.y);
             writer.Write(AutosavePosition.z);
 
-            writer.Write(initialGameStarted);
+            writer.Write(autoloadSuccessful);
         }
     }
 
@@ -92,7 +92,6 @@ public class ScriptableGameState : ScriptableObject
     {
         if(!File.Exists(path))
         {
-            Debug.LogWarning("Load path did not exist. Aborting");
             return false;
         }
 
@@ -117,7 +116,7 @@ public class ScriptableGameState : ScriptableObject
             savedOverworldPlayerPosition = new Vector3(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
             AutosavePosition    = new Vector3(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
 
-            initialGameStarted = reader.ReadBoolean();
+            autoloadSuccessful = reader.ReadBoolean();
         }
 
         return true;
@@ -162,7 +161,7 @@ public class ScriptableGameState : ScriptableObject
         savedOverworldPlayerPosition = control.savedOverworldPlayerPosition;
         AutosavePosition = control.AutosavePosition;
 
-        initialGameStarted = control.InitialGameStarted;
+        autoloadSuccessful = control.autoloadSuccessful;
     }
 
     public void WriteToAuto()

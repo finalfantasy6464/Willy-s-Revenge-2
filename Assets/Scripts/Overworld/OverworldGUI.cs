@@ -15,7 +15,7 @@ public class OverworldGUI : MonoBehaviour
 {
     public GUIWindow focusedWindow;
     [Header("Live Data")]
-    public LevelPin selectedLevel;
+    public OverworldLevelPin selectedLevel;
 
     [Header("GUI Elements")]
     public GUIWindow pauseMenu;
@@ -163,7 +163,7 @@ public class OverworldGUI : MonoBehaviour
         this.character = character;
     }
 
-    public void ToggleLevelPreview(LevelPin level)
+    public void ToggleLevelPreview(OverworldLevelPin level)
     {
         ((LevelPreviewWindow)levelPreview).UpdatePreviewData(level);
         levelPreview.Toggle();

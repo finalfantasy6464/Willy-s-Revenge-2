@@ -21,7 +21,7 @@ public class GameControl : MonoBehaviour
     public bool returntoselect = false;
     public bool bosscheckpoint = false;
     public bool faded = false;
-    public bool InitialGameStarted = false;
+    public bool autoloadSuccessful = false;
     public bool justloaded = false;
 
     public int totallevels;
@@ -85,16 +85,9 @@ public class GameControl : MonoBehaviour
         LevelListGeneration();
     }
 
-    private void Start()
+    public void LoadIntoOverworld()
     {
-        Application.targetFrameRate = 60;
-        if(m_Scene.name == "Main Menu")
-            AutoLoadCheck();
-
-        if(InitialGameStarted)
-        {
-            SceneManager.LoadScene("Overworld");
-        }
+        SceneManager.LoadScene("Overworld");
     }
 
     void PauseControlCheck()
@@ -208,7 +201,7 @@ public class GameControl : MonoBehaviour
         savedCameraPosition = gameState.savedCameraPosition;
         savedOrtographicSize = gameState.savedOrtographicSize;
 
-        InitialGameStarted = gameState.initialGameStarted;
+        autoloadSuccessful = gameState.autoloadSuccessful;
     }
 
     public void Save(int saveSlot)
@@ -251,11 +244,14 @@ public class GameControl : MonoBehaviour
 
     public void AutoLoadCheck()
     {
-        if(gameState.autoLoadInOverworld && gameState.SetFromAuto())
+        if(gameState.SetFromAuto())
         {
             SetFromGameState();
             settings.TryLoadFromDisk();
+            autoloadSuccessful = true;
         }
+        else
+            autoloadSuccessful = false;
     }
 
     public void Delete(int saveSlot)

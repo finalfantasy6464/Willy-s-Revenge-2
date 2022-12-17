@@ -52,7 +52,7 @@ public class MapManager : MonoBehaviour
 
         if (GameControl.control.lastSceneWasLevel)
         {
-            GameControl.control.savedPin = levelPins[GameControl.control.savedPinID - 1];
+            GameControl.control.savedOverworldPlayerPosition = levelPins[GameControl.control.savedPinID - 1].transform.position + new Vector3(0, -2f, 0);
             GameControl.control.lastSceneWasLevel = false;
         }
 
@@ -91,8 +91,8 @@ public class MapManager : MonoBehaviour
 
     public void UpdatePlayerPosition()
     {
-        player.gameObject.transform.position = GameControl.control.savedOverworldPlayerPosition + new Vector3(0,-1.25f,0);
-        followCamera.gameObject.transform.position = GameControl.control.savedCameraPosition + new Vector3(0, -1.25f, 0);
+        player.gameObject.transform.position = GameControl.control.savedOverworldPlayerPosition + new Vector3(0, -2f, 0);
+        followCamera.gameObject.transform.position = GameControl.control.savedCameraPosition + new Vector3(0, -2f, 0);
     }
 
     public void UpdateWorldGates()

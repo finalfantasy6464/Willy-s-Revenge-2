@@ -12,58 +12,12 @@ public class OverworldLevelPin : MonoBehaviour
 	[Header("Preview Data & Flags")]
 	public int levelNumber;
 	public int parTime;
+	public int worldIndex;
 	private Vector3 playerOffset = new Vector3(0, -2f,0f);
 	private Vector3 cameraOffset = new Vector3(0, -2f, -10f);
 	public string levelDisplayName;
 	public Sprite levelPreviewSprite;
-	public Sprite[] spriteState;
-	public bool complete;
-	public bool timeChallenge;
-	public bool goldChallenge;
-	public Animator animator;
-	public bool allcleared => complete && timeChallenge && goldChallenge;
 
-
-    void Start()
-    {
-		//SetState();
-    }
-
-	public void SetState()
-    {
-		if(gameObject.activeInHierarchy)
-        {
-			if (allcleared)
-			{
-				gameObject.GetComponent<SpriteRenderer>().sprite = spriteState[3];
-				animator.Play("RainbowGlow");
-				return;
-			}
-
-
-			if (goldChallenge)
-			{
-				gameObject.GetComponent<SpriteRenderer>().sprite = spriteState[2];
-				animator.Play("GoldenGlow");
-				return;
-			}
-
-			if (complete)
-			{
-				gameObject.GetComponent<SpriteRenderer>().sprite = spriteState[1];
-				animator.Play("BeatenGlow");
-				return;
-			}
-
-			else
-			{
-				animator.Play("UnbeatenGlow");
-				return;
-			}
-
-		}
-	}
-	
 	private void SelectLevel()
     {
         mapManager.LoadLevelFromSceneIndex(levelNumber);

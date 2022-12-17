@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class EdgeWidthSettings : MonoBehaviour
 {
-    public static float edgeWidth = 0.6f;
+    public static float edgeWidth = 0.2f;
     const string SHAPE_NAME = "CorruptionSpriteShape";
     const string MATERIAL_PATH = "CorruptionShape/CorruptionEdgeMaterial";
     const string MATERIAL_INVERTED_PATH = "CorruptionShape/CorruptionEdgeMaterialInverted";

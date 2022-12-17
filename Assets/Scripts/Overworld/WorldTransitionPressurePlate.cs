@@ -40,6 +40,7 @@ public class WorldTransitionPressurePlate : MonoBehaviour
         if(!active || overworldGUI.isAnyShowing)
             return;
 
+        player.input.DeactivateInput();
         StartCoroutine(TransitionRoutine());
     }
 
@@ -60,21 +61,15 @@ public class WorldTransitionPressurePlate : MonoBehaviour
         cinematicCameraAnimator.Play(AnimationTriggerName, -1, 0f);
         cinematicCamera.depth = 2;
         followCamera.depth = 1;
-        player.input.enabled = false;
 
         yield return null;
         while(cinematicCameraAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
             yield return null;
-        
-        player.input.enabled = true;
+
+        player.input.ActivateInput();
         cinematicCamera.depth = 1;
         followCamera.depth = 2;
         worldAnimator.enabled = false;
-    }
-
-    public void Something()
-    {
-        
     }
 
     public void OnTriggerEnter(Collider other)

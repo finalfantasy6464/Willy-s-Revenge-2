@@ -8,6 +8,7 @@ public class CinematicCameraTransitionHelper : MonoBehaviour
     public WorldTransitionPressurePlate activePlate;
     public OverworldFollowCamera followCamera;
     public Camera cinematicCamera;
+    public OverworldPlayer player;
 
     public void SetStateName(string name)
     {
@@ -26,5 +27,16 @@ public class CinematicCameraTransitionHelper : MonoBehaviour
     {
         followCamera.SetCameraInstant(cinematicCamera.transform.position,
                 cinematicCamera.transform.position, cinematicCamera.orthographicSize);
+    }
+
+    public void UpdateCharacterSkin(int skinIndex)
+    {
+        GameControl.control.currentCharacterSprite = skinIndex;
+        player.UpdateCharacterSprite();
+    }
+
+    public void UpdateCharacterRotation(float z)
+    {
+        player.lastLookRotation = Quaternion.Euler(0,0,z);
     }
 }

@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 1560780052}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 0.35, y: 0.35, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4783419675550857226}
   m_RootOrder: 1
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 5000
   m_SortingLayer: 3
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: dc2ed020209024342be051314dd1e24e, type: 3}
+  m_Sprite: {fileID: 56248618, guid: 57fead7e3fc8ad64583fe533d6dba8a4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2362,20 +2362,21 @@ MonoBehaviour:
   PlayerSprite: {fileID: 1560780052}
   m_Animator: {fileID: 5250505581995577135}
   MoveCounter: 0
+  goldenPellet: {fileID: 0}
   dirlock: 0
   gotgold: 0
   delaylock: 0
   isHeadJumping: 0
   skinSprites:
-  - {fileID: 21300000, guid: 22874de24f19533448324301b1715921, type: 3}
-  - {fileID: 21300000, guid: 0b48687ea3cb34b40956e7e800d162a5, type: 3}
-  - {fileID: 21300000, guid: cddeaf9e4ab372742a094dee5b31be48, type: 3}
-  - {fileID: 21300000, guid: 87593ef79fe7d2e40b680471c79dfc96, type: 3}
-  - {fileID: 21300000, guid: ec70412a0237d3144880c79cd5d4993b, type: 3}
-  - {fileID: 21300000, guid: 6689979006099fd4193a8e773894f64c, type: 3}
-  - {fileID: 21300000, guid: 7c4475dd0fd66074a969ff69cd52c1d0, type: 3}
-  - {fileID: 21300000, guid: 5e1826c17d4ebe5449d03a68b8f8cd82, type: 3}
-  - {fileID: 21300000, guid: 86d2f65104b34534289c4b369a0ef7fd, type: 3}
+  - {fileID: 18887433, guid: 57fead7e3fc8ad64583fe533d6dba8a4, type: 3}
+  - {fileID: 1121684779, guid: 57fead7e3fc8ad64583fe533d6dba8a4, type: 3}
+  - {fileID: -731785660, guid: 57fead7e3fc8ad64583fe533d6dba8a4, type: 3}
+  - {fileID: 1107746071, guid: 57fead7e3fc8ad64583fe533d6dba8a4, type: 3}
+  - {fileID: -1729077198, guid: 57fead7e3fc8ad64583fe533d6dba8a4, type: 3}
+  - {fileID: 779948233, guid: 57fead7e3fc8ad64583fe533d6dba8a4, type: 3}
+  - {fileID: -250470375, guid: 57fead7e3fc8ad64583fe533d6dba8a4, type: 3}
+  - {fileID: 781809909, guid: 57fead7e3fc8ad64583fe533d6dba8a4, type: 3}
+  - {fileID: 1415863967, guid: 57fead7e3fc8ad64583fe533d6dba8a4, type: 3}
   tailSprites:
   - {fileID: 21300000, guid: 916c84ce8576eeb4b96cd38011521a35, type: 3}
   - {fileID: 21300000, guid: 5418d0117cd29c5469b883f44a9f8882, type: 3}
@@ -2747,6 +2748,7 @@ MonoBehaviour:
   onCollectShield:
     m_PersistentCalls:
       m_Calls: []
+  canPause: 0
 --- !u!60 &8937756647751925973
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -2772,15 +2774,17 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.046815634, y: 0.08903122}
-      - {x: -0.10421924, y: 0.0706369}
-      - {x: -0.13173693, y: 0.026700817}
-      - {x: -0.12429005, y: -0.0603541}
-      - {x: -0.083119795, y: -0.09056656}
-      - {x: -0.00401783, y: -0.091362}
-      - {x: 0.044290178, y: -0.05950263}
-      - {x: 0.044856727, y: 0.024433441}
-      - {x: 0.011345804, y: 0.07978706}
+    - - {x: -0.07243499, y: 0.120343685}
+      - {x: -0.08998625, y: 0.056403786}
+      - {x: -0.11750397, y: -0.021691479}
+      - {x: -0.09867069, y: -0.08312689}
+      - {x: -0.05465384, y: -0.11618607}
+      - {x: -0.0012599528, y: -0.13853312}
+      - {x: 0.050067514, y: -0.12552166}
+      - {x: 0.10976186, y: -0.07942918}
+      - {x: 0.12001121, y: -0.007028103}
+      - {x: 0.070476115, y: 0.1155246}
+      - {x: 0.0056526363, y: 0.14525871}
   m_UseDelaunayMesh: 0
 --- !u!114 &2398265466780124442
 MonoBehaviour:

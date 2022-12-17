@@ -11,7 +11,7 @@ public class SlideFadeOut : MonoBehaviour
 
     void Start()
     {
-        fadeCounter = -0.1f;
+        fadeCounter = -0.5f;
     }
 
     void Update()
