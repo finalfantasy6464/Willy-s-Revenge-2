@@ -37,6 +37,10 @@ public class GameControl : MonoBehaviour
     public float completionPercent;
     public string currentlevel;
     public string sceneName;
+    public int overworldMusicProgress;
+    public int currentWorldView;
+    public Color backgroundColor;
+
     public Vector3 savedOverworldPlayerPosition;
     public Vector3 AutosavePosition;
     public OverworldLevelPin savedPin;
@@ -189,6 +193,9 @@ public class GameControl : MonoBehaviour
         golden = gameState.golden;
         timer = gameState.timer;
         ArenahighScore = gameState.arenaScore;
+        overworldMusicProgress = gameState.overworldMusicProgress;
+        currentWorldView = gameState.currentWorldView;
+        backgroundColor = gameState.backgroundColor;
 
         savedOverworldPlayerPosition = gameState.savedOverworldPlayerPosition;
         AutosavePosition = gameState.AutosavePosition;
@@ -229,16 +236,15 @@ public class GameControl : MonoBehaviour
        if(m_Scene.name == "Overworld")
         {
             ResolutionOptions Res = GameObject.Find("OptionsPanel").GetComponent<ResolutionOptions>();
-            OverworldMusicSelector music = GameObject.Find("OverworldMusic").GetComponent<OverworldMusicSelector>();
-            music.overworldmusicCheck();
             Res.SetResolution(settings.resolutionWidth, settings.resolutionHeight);
             OverworldPlayer Player = GameObject.FindGameObjectWithTag("Player").GetComponent<OverworldPlayer>();
             Player.canMove = true;
             MapManager map = GameObject.FindObjectOfType<MapManager>();
+            map.UpdateWorldView(currentWorldView);
             map.UpdatePlayerPosition();
             map.UpdateWorldGates();
             map.UpdateLevelPinProgress();
-
+            map.UpdateOverworldMusic(overworldMusicProgress);
         }
     }
 

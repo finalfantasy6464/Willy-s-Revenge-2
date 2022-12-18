@@ -39,4 +39,28 @@ public class CinematicCameraTransitionHelper : MonoBehaviour
     {
         player.lastLookRotation = Quaternion.Euler(0,0,z);
     }
+
+    public void UpdateBackgroundColor(int index)
+    {
+        Color NewColor = new Color();
+        if(index == 0)
+        {
+            NewColor = new Color(0.8745098f, 0.8823529f, 0.9803922f, 1);
+        }
+        else if(index == 1)
+        {
+            NewColor = new Color(1f, 0.806803f, 0.4292453f, 1);
+        }
+        else if(index == 2)
+        {
+            NewColor = new Color(0.1843137f, 0.2f, 0.3294118f, 1);
+        }
+        else if(index == 3)
+        {
+            NewColor = new Color(0f,0f,0f,1f);
+        }
+        cinematicCamera.backgroundColor = NewColor;
+        followCamera.overworldCamera.backgroundColor = NewColor;
+        GameControl.control.backgroundColor = NewColor;
+    }
 }

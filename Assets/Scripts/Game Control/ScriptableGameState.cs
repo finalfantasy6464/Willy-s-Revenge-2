@@ -25,6 +25,9 @@ public class ScriptableGameState : ScriptableObject
     public float completionPercent;
     public Vector3 savedOverworldPlayerPosition;
     public Vector3 AutosavePosition;
+    public int overworldMusicProgress;
+    public int currentWorldView;
+    public Color backgroundColor;
 
     public List<bool> completedlevels = new List<bool>();
     public List<bool> goldenpellets = new List<bool>();
@@ -56,6 +59,13 @@ public class ScriptableGameState : ScriptableObject
             writer.Write((Int32)golden);
             writer.Write((Int32)timer);
             writer.Write((Int32)arenaScore);
+            writer.Write((Int32)overworldMusicProgress);
+            writer.Write((Int32)currentWorldView);
+
+            writer.Write(backgroundColor.r);
+            writer.Write(backgroundColor.g);
+            writer.Write(backgroundColor.b);
+            writer.Write(backgroundColor.a);
 
             WriteBoolList(writer, completedlevels);
             WriteBoolList(writer, goldenpellets);
@@ -102,6 +112,9 @@ public class ScriptableGameState : ScriptableObject
             golden   = reader.ReadInt32();
             timer    = reader.ReadInt32();
             arenaScore = reader.ReadInt32();
+            overworldMusicProgress = reader.ReadInt32();
+            currentWorldView = reader.ReadInt32();
+            backgroundColor = new Color(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
 
             completedlevels = ReadBoolList(reader, completedlevels.Count);
             goldenpellets   = ReadBoolList(reader, goldenpellets.Count);
@@ -149,6 +162,10 @@ public class ScriptableGameState : ScriptableObject
         timer    = control.timer;
 
         arenaScore = (int)control.ArenahighScore;
+        overworldMusicProgress = control.overworldMusicProgress;
+        currentWorldView = control.currentWorldView;
+        backgroundColor = control.backgroundColor;
+
         completedlevels =  new List<bool>(control.completedlevels);
         goldenpellets   =  new List<bool>(control.goldenpellets);
         timerchallenge  =  new List<bool>(control.timerchallenge);

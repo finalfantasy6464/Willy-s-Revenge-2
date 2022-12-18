@@ -7,35 +7,33 @@ using System;
 public class MapManager : MonoBehaviour
 {
     public OverworldGUI overworldGUI;
+    public WorldViewManager worldView;
 
+    //Pin Information//
 	public OverworldLevelPin startPin;
 	public OverworldLevelPin targetPin;
     public OverworldLevelPin previousPin;
+    public List<OverworldLevelPin> levelPins;
+    public List<OverworldGate> overworldGates;
 
+    //Player Information//
     public OverworldPlayer player;
     public OverworldFollowCamera followCamera;
+    public ScriptablePlayerSettings settings;
+    public ResolutionOptions resolution;
 
+    //UI Information//
     public Button backButton;
     public Button playButton;
-
     public Slider musicSlider;
     public Slider soundSlider;
 
+    //Sound Information//
     public AudioClip backsound;
     public AudioClip playsound;
-
     public GameSoundManagement soundManagement;
     public MusicManagement musicManagement;
-
-    public List<OverworldLevelPin> levelPins;
-
-    public MonoBehaviour[] waypoints;
-
-    public ScriptablePlayerSettings settings;
-
-    public ResolutionOptions resolution;
-
-    public List<OverworldGate> overworldGates;
+    public OverworldMusicSelector overworldMusic;
 
     private void Start ()
 	{
@@ -64,9 +62,22 @@ public class MapManager : MonoBehaviour
         musicManagement.onLevelStart.Invoke();
 
         InitializeLevelState();
+        UpdateOverworldMusic(GameControl.control.overworldMusicProgress);
+        UpdateWorldView(GameControl.control.currentWorldView);
         UpdatePlayerPosition();
     }
 
+    public void UpdateOverworldMusic(int index)
+    {
+        overworldMusic.currentProgress = index;
+        overworldMusic.overworldmusicCheck();
+    }
+
+    public void UpdateWorldView(int index)
+    {
+        worldView.UpdateDrawnObjects(index);
+        followCamera.overworldCamera.backgroundColor = GameControl.control.backgroundColor;
+    }
 
     private void SetResolutionFromSettings()
     {

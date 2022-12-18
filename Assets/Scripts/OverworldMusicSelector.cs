@@ -12,24 +12,19 @@ public class OverworldMusicSelector : MonoBehaviour
 
     public int currentProgress;
 
-    public void Start()
-    {
-        overworldmusicCheck();
-    }
-
     public void overworldmusicCheck()
     {
         foreach (AudioSource source in sources)
         {
             StartCoroutine(musicFadeOut(source));
         }
-        if (currentProgress == 0 || currentProgress == 1)
+        if (currentProgress == 0)
             SetOverworldMusic(sources[0]);
-        else if (currentProgress == 2 || currentProgress == 3)
+        else if (currentProgress == 1)
             SetOverworldMusic(sources[1]);
-        else if (currentProgress == 4)
+        else if (currentProgress == 2)
             SetOverworldMusic(sources[2]);
-        else if (currentProgress == 5)
+        else if (currentProgress == 3)
             SetOverworldMusic(sources[3]);
         else
         {
