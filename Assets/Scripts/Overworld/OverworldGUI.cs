@@ -65,8 +65,8 @@ public class OverworldGUI : MonoBehaviour
 
     void OpenMenu()
     {
-        GameControl.control.savedOverworldPlayerPosition = character.transform.position + new Vector3(0,2,0);
-        GameControl.control.savedCameraPosition = character.transform.position + new Vector3(0,2,-100);
+        GameControl.control.savedOverworldPlayerPosition = character.transform.position;
+        GameControl.control.savedCameraPosition = character.transform.position + new Vector3(0, 0, -100f);
 
         if (GetShowing(out GUIWindow[] showing) > 0)
         {

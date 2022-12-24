@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,6 +28,7 @@ public class CinematicCameraTransitionHelper : MonoBehaviour
     {
         followCamera.SetCameraInstant(cinematicCamera.transform.position,
                 cinematicCamera.transform.position, cinematicCamera.orthographicSize);
+        UpdatePositions();
     }
 
     public void UpdateCharacterSkin(int skinIndex)
@@ -62,5 +64,12 @@ public class CinematicCameraTransitionHelper : MonoBehaviour
         cinematicCamera.backgroundColor = NewColor;
         followCamera.overworldCamera.backgroundColor = NewColor;
         GameControl.control.backgroundColor = NewColor;
+    }
+
+    private void UpdatePositions()
+    {
+        GameControl.control.savedOverworldPlayerPosition = player.transform.position;
+        GameControl.control.savedCameraPosition = followCamera.transform.position;
+        GameControl.control.AutoSave();
     }
 }

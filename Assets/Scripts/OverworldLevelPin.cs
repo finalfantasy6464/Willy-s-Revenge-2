@@ -13,7 +13,7 @@ public class OverworldLevelPin : MonoBehaviour
 	public int levelNumber;
 	public int parTime;
 	public int worldIndex;
-	private Vector3 playerOffset = new Vector3(0, -2f,0f);
+	private Vector3 playerOffset = new Vector3(0, -2f,  0f);
 	private Vector3 cameraOffset = new Vector3(0, -2f, -10f);
 	public string levelDisplayName;
 	public Sprite levelPreviewSprite;
@@ -32,8 +32,8 @@ public class OverworldLevelPin : MonoBehaviour
 			overworldCamera.SetCameraMode(OverworldFollowCamera.CameraMode.LevelPreview);
 			GameControl.control.savedOverworldPlayerPosition = transform.position + playerOffset;
 			GameControl.control.savedCameraPosition = transform.position + cameraOffset;
+			GameControl.control.savedPinID = levelNumber;
 			overworldCamera.SetTarget(transform);
-			mapManager.SetSavedOverworldPlayerPosition(player);
 			LevelPreviewWindow previewWindow = mapManager.overworldGUI.levelPreview as LevelPreviewWindow;
 			previewWindow.UpdatePreviewData(this);
 			previewWindow.Show();

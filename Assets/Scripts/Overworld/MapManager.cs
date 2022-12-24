@@ -51,6 +51,7 @@ public class MapManager : MonoBehaviour
         if (GameControl.control.lastSceneWasLevel)
         {
             GameControl.control.savedOverworldPlayerPosition = levelPins[GameControl.control.savedPinID - 1].transform.position + new Vector3(0, -2f, 0);
+            GameControl.control.savedCameraPosition = levelPins[GameControl.control.savedPinID - 1].transform.position + new Vector3(0, -2f, -100f);
             GameControl.control.lastSceneWasLevel = false;
         }
 
@@ -77,6 +78,7 @@ public class MapManager : MonoBehaviour
     {
         worldView.UpdateDrawnObjects(index);
         followCamera.overworldCamera.backgroundColor = GameControl.control.backgroundColor;
+        player.UpdateCharacterSprite();
     }
 
     private void SetResolutionFromSettings()
@@ -102,8 +104,8 @@ public class MapManager : MonoBehaviour
 
     public void UpdatePlayerPosition()
     {
-        player.gameObject.transform.position = GameControl.control.savedOverworldPlayerPosition + new Vector3(0, -2f, 0);
-        followCamera.gameObject.transform.position = GameControl.control.savedCameraPosition + new Vector3(0, -2f, 0);
+        player.gameObject.transform.position = GameControl.control.savedOverworldPlayerPosition + new Vector3 (0, -2f, 0);
+        followCamera.gameObject.transform.position = GameControl.control.savedCameraPosition + new Vector3(0, -2f, -100f);
     }
 
     public void UpdateWorldGates()
@@ -114,15 +116,6 @@ public class MapManager : MonoBehaviour
             gate.SetGateState();
         }
     }
-    public void SetWorldGateData(List<bool> lockedgates, List<bool> destroyedgates)
-    {
-        //for (int i = 0; i < worldGates.Count; i++)
-        //{
-        //    worldGates[i].locked = lockedgates[i];
-        //    worldGates[i].destroyed = destroyedgates[i];
-        //    worldGates[i].OnLevelLoaded.Invoke();
-        //}
-    }
 
     public void LoadLevel(int levelNumber)
     {
@@ -132,13 +125,6 @@ public class MapManager : MonoBehaviour
     public void LoadLevelFromSceneIndex(int index)
     {
         SceneManager.LoadScene(index);
-    }
-    
-    public void SetSavedOverworldPlayerPosition(OverworldPlayer character)
-    {
-        GameControl.control.savedOverworldPlayerPosition = character.currentPin.transform.position + Vector3.down * 2f;
-        //GameControl.control.savedCameraPosition = overworldCamera.transform.position;
-        //GameControl.control.savedOrtographicSize = overworldCamera.gameCamera.orthographicSize;
     }
 
     public void UpdateLevelPinProgress()
