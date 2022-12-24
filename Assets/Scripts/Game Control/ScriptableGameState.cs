@@ -59,6 +59,12 @@ public class ScriptableGameState : ScriptableObject
             writer.Write((Int32)golden);
             writer.Write((Int32)timer);
             writer.Write((Int32)arenaScore);
+
+            WriteBoolList(writer, completedlevels);
+            WriteBoolList(writer, goldenpellets);
+            WriteBoolList(writer, timerchallenge);
+            WriteBoolList(writer, destroyedgates);
+
             writer.Write((Int32)overworldMusicProgress);
             writer.Write((Int32)currentWorldView);
 
@@ -66,11 +72,6 @@ public class ScriptableGameState : ScriptableObject
             writer.Write(backgroundColor.g);
             writer.Write(backgroundColor.b);
             writer.Write(backgroundColor.a);
-
-            WriteBoolList(writer, completedlevels);
-            WriteBoolList(writer, goldenpellets);
-            WriteBoolList(writer, timerchallenge);
-            WriteBoolList(writer, destroyedgates);
 
             writer.Write((Int32)characterSkinIndex);
             writer.Write(savedOrtographicSize);
@@ -112,14 +113,15 @@ public class ScriptableGameState : ScriptableObject
             golden   = reader.ReadInt32();
             timer    = reader.ReadInt32();
             arenaScore = reader.ReadInt32();
+
+            completedlevels = ReadBoolList(reader, completedlevels.Count);
+            goldenpellets = ReadBoolList(reader, goldenpellets.Count);
+            timerchallenge = ReadBoolList(reader, timerchallenge.Count);
+            destroyedgates = ReadBoolList(reader, destroyedgates.Count);
+
             overworldMusicProgress = reader.ReadInt32();
             currentWorldView = reader.ReadInt32();
             backgroundColor = new Color(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
-
-            completedlevels = ReadBoolList(reader, completedlevels.Count);
-            goldenpellets   = ReadBoolList(reader, goldenpellets.Count);
-            timerchallenge  = ReadBoolList(reader, timerchallenge.Count);
-            destroyedgates  = ReadBoolList(reader, destroyedgates.Count);
 
             characterSkinIndex = reader.ReadInt32();
             savedOrtographicSize = reader.ReadSingle();

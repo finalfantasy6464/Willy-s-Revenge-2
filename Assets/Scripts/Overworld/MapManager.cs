@@ -3,11 +3,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
+using System.Collections;
 
 public class MapManager : MonoBehaviour
 {
     public OverworldGUI overworldGUI;
-    public WorldViewManager worldView;
+    public CanvasGroup FadeImageCanvasGroup;
+    public overworldProgressUpdate worldProgress;
 
     //Pin Information//
 	public OverworldLevelPin startPin;
@@ -18,7 +20,7 @@ public class MapManager : MonoBehaviour
 
     //Player Information//
     public OverworldPlayer player;
-    public OverworldFollowCamera followCamera;
+    public CinematicCameraTransitionHelper cameraHelper;
     public ScriptablePlayerSettings settings;
     public ResolutionOptions resolution;
 
@@ -66,6 +68,21 @@ public class MapManager : MonoBehaviour
         UpdateOverworldMusic(GameControl.control.overworldMusicProgress);
         UpdateWorldView(GameControl.control.currentWorldView);
         UpdatePlayerPosition();
+        StartCoroutine(FadeInRoutine());
+    }
+
+    IEnumerator FadeInRoutine()
+    {
+        float fadecounter = 0f;
+        float fadetimer = 1.5f;
+        player.input.DeactivateInput();
+        while (fadecounter <= fadetimer)
+        {
+            fadecounter += Time.deltaTime;
+            FadeImageCanvasGroup.alpha = Mathf.Lerp(1, 0, fadecounter / fadetimer);
+            yield return null;
+        }
+        player.input.ActivateInput();
     }
 
     public void UpdateOverworldMusic(int index)
@@ -76,8 +93,10 @@ public class MapManager : MonoBehaviour
 
     public void UpdateWorldView(int index)
     {
-        worldView.UpdateDrawnObjects(index);
-        followCamera.overworldCamera.backgroundColor = GameControl.control.backgroundColor;
+        worldProgress.UpdateWorldView(index);
+        
+        cameraHelper.followCamera.overworldCamera.backgroundColor = GameControl.control.backgroundColor;
+        cameraHelper.cinematicCamera.backgroundColor = GameControl.control.backgroundColor;
         player.UpdateCharacterSprite();
     }
 
@@ -104,8 +123,9 @@ public class MapManager : MonoBehaviour
 
     public void UpdatePlayerPosition()
     {
-        player.gameObject.transform.position = GameControl.control.savedOverworldPlayerPosition + new Vector3 (0, -2f, 0);
-        followCamera.gameObject.transform.position = GameControl.control.savedCameraPosition + new Vector3(0, -2f, -100f);
+        player.gameObject.transform.position = GameControl.control.savedOverworldPlayerPosition;
+        cameraHelper.followCamera.gameObject.transform.position = GameControl.control.savedCameraPosition;
+        GameControl.control.AutoSave();
     }
 
     public void UpdateWorldGates()

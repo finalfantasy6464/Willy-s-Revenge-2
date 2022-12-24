@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class WorldViewManager : MonoBehaviour
     public GameObject WorldLeft;
     public GameObject WorldRight;
     public GameObject BlurWorld;
+    public GameObject[] darkClouds;
     public GameObject Clouds;
     public GameObject Moon;
     public GameObject UFO;
@@ -19,48 +21,53 @@ public class WorldViewManager : MonoBehaviour
         EnabledObjects.Clear();
         DisabledObjects.Clear();
 
-        if(index == 0)
+        if(index == (int)overworldProgressUpdate.WorldViews.WorldLeft)
         {
             EnabledObjects.Add(WorldLeft);
             DisabledObjects.Add(WorldRight);
             DisabledObjects.Add(BlurWorld);
+            DisabledObjects.AddRange(darkClouds);
             DisabledObjects.Add(Clouds);
             DisabledObjects.Add(Moon);
             DisabledObjects.Add(UFO);
         }
-        else if(index == 1)
+        else if(index == (int)overworldProgressUpdate.WorldViews.WorldRight)
         {
             EnabledObjects.Add(WorldRight);
+            EnabledObjects.AddRange(darkClouds);
             DisabledObjects.Add(WorldLeft);
             DisabledObjects.Add(BlurWorld);
             DisabledObjects.Add(Clouds);
             DisabledObjects.Add(Moon);
             DisabledObjects.Add(UFO);
         }
-        else if(index == 2)
+        else if(index == (int)overworldProgressUpdate.WorldViews.Clouds)
         {
             EnabledObjects.Add(Clouds);
             EnabledObjects.Add(BlurWorld);
             DisabledObjects.Add(WorldLeft);
             DisabledObjects.Add(WorldRight);
+            DisabledObjects.AddRange(darkClouds);
             DisabledObjects.Add(Moon);
             DisabledObjects.Add(UFO);
         }
-        else if(index == 3)
+        else if(index == (int)overworldProgressUpdate.WorldViews.Moon)
         {
             EnabledObjects.Add(Moon);
             DisabledObjects.Add(WorldLeft);
             DisabledObjects.Add(WorldRight);
             DisabledObjects.Add(BlurWorld);
+            DisabledObjects.AddRange(darkClouds);
             DisabledObjects.Add(Clouds);
             DisabledObjects.Add(UFO);
         }
-        else if(index == 4)
+        else if(index == (int)overworldProgressUpdate.WorldViews.UFO)
         {
             EnabledObjects.Add(UFO);
             DisabledObjects.Add(WorldLeft);
             DisabledObjects.Add(WorldRight);
             DisabledObjects.Add(BlurWorld);
+            DisabledObjects.AddRange(darkClouds);
             DisabledObjects.Add(Clouds);
             DisabledObjects.Add(Moon);
         }

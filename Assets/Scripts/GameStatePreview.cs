@@ -32,7 +32,6 @@ public class GameStatePreview
             completedPercent = GetPercent(reader, 102, 100);
             goldenPercent = GetPercent(reader, 102, 100);
             challengePercent = GetPercent(reader, 102, 100);
-            GetPercent(reader, 9, 1); // unused, to skip lockedGates
             destroyedPercent = GetGatePercent(reader);
         }
     }

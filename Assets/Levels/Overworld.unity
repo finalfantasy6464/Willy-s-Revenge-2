@@ -11185,7 +11185,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overworldGUI: {fileID: 1467555975}
-  worldView: {fileID: 71569103}
+  FadeImageCanvasGroup: {fileID: 1304832409}
+  worldProgress: {fileID: 1387504286}
   startPin: {fileID: 0}
   targetPin: {fileID: 0}
   previousPin: {fileID: 0}
@@ -11291,7 +11292,7 @@ MonoBehaviour:
   - {fileID: 1864450909}
   - {fileID: 1946156082}
   player: {fileID: 1131627328}
-  followCamera: {fileID: 512472382}
+  cameraHelper: {fileID: 2105055300}
   settings: {fileID: 11400000, guid: b274f8117f4f91f43a99f5b6bd47d1a5, type: 2}
   resolution: {fileID: 2131676670}
   backButton: {fileID: 0}
@@ -11386,6 +11387,7 @@ MonoBehaviour:
   WorldLeft: {fileID: 799963449}
   WorldRight: {fileID: 633223640}
   BlurWorld: {fileID: 1933705989}
+  darkClouds: []
   Clouds: {fileID: 574349775}
   Moon: {fileID: 1452484666}
   UFO: {fileID: 184505767}
@@ -50509,7 +50511,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &633223641
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -52422,7 +52424,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &799963450
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -108545,6 +108547,7 @@ GameObject:
   - component: {fileID: 1387504284}
   - component: {fileID: 1387504285}
   - component: {fileID: 1387504286}
+  - component: {fileID: 1387504287}
   m_Layer: 0
   m_Name: World
   m_TagString: Untagged
@@ -108617,6 +108620,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   overworldMusic: {fileID: 502985073}
   worldview: {fileID: 71569103}
+  plateControl: {fileID: 1387504287}
+--- !u!114 &1387504287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1387504283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d360b496c1d3534286320fb6996f325, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActivePlates: []
+  InactivePlates: []
+  LeftPlates:
+  - {fileID: 1238815291}
+  - {fileID: 1358174180}
+  - {fileID: 1100381109}
+  - {fileID: 783392647}
+  - {fileID: 1891827521}
+  RightPlates:
+  - {fileID: 2029219287}
+  - {fileID: 1480513297}
+  - {fileID: 1432837140}
+  - {fileID: 1504074726}
+  - {fileID: 482200239}
+  - {fileID: 1578222637}
+  - {fileID: 1934599448}
+  CloudPlates:
+  - {fileID: 2033695233}
+  - {fileID: 1296371008}
+  MoonPlates:
+  - {fileID: 1709874411}
+  - {fileID: 490389607}
+  UFOPlate: {fileID: 1231270766}
 --- !u!1001 &1392141633
 PrefabInstance:
   m_ObjectHideFlags: 0

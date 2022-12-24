@@ -193,20 +193,23 @@ public class GameControl : MonoBehaviour
         golden = gameState.golden;
         timer = gameState.timer;
         ArenahighScore = gameState.arenaScore;
-        overworldMusicProgress = gameState.overworldMusicProgress;
-        currentWorldView = gameState.currentWorldView;
-        backgroundColor = gameState.backgroundColor;
 
-        savedOverworldPlayerPosition = gameState.savedOverworldPlayerPosition;
-        AutosavePosition = gameState.AutosavePosition;
         completedlevels = new List<bool>(gameState.completedlevels);
         goldenpellets = new List<bool>(gameState.goldenpellets);
         timerchallenge = new List<bool>(gameState.timerchallenge);
         destroyedgates = new List<bool>(gameState.destroyedgates);
+
+        overworldMusicProgress = gameState.overworldMusicProgress;
+        currentWorldView = gameState.currentWorldView;
+        backgroundColor = gameState.backgroundColor;
+
         currentCharacterSprite = gameState.characterSkinIndex;
+        savedOrtographicSize = gameState.savedOrtographicSize;
+        completionPercent = gameState.completionPercent;
 
         savedCameraPosition = gameState.savedCameraPosition;
-        savedOrtographicSize = gameState.savedOrtographicSize;
+        savedOverworldPlayerPosition = gameState.savedOverworldPlayerPosition;
+        AutosavePosition = gameState.AutosavePosition;
 
         autoloadSuccessful = gameState.autoloadSuccessful;
     }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class WorldTransitionPressurePlate : MonoBehaviour
 {
@@ -10,6 +11,12 @@ public class WorldTransitionPressurePlate : MonoBehaviour
     [Space]
     public Animator worldAnimator;
     public Animator cinematicCameraAnimator;
+
+    [Space]
+    public Collider worldPlateCollider;
+    public SpriteRenderer worldPlateRenderer;
+    public ParticleSystem worldPlateParticle;
+    public Light2D worldPlateLight;
 
     [Space]
     public Camera cinematicCamera;
