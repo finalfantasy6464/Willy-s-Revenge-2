@@ -28,6 +28,8 @@ public class CinematicCameraTransitionHelper : MonoBehaviour
     {
         followCamera.SetCameraInstant(cinematicCamera.transform.position,
                 cinematicCamera.transform.position, cinematicCamera.orthographicSize);
+        followCamera.freeRoamTargetZoomCache = followCamera.overworldCamera.orthographicSize;
+        followCamera.levelPreviewTargetZoom = followCamera.freeRoamTargetZoomCache + 1.5f;
         UpdatePositions();
     }
 
@@ -70,6 +72,7 @@ public class CinematicCameraTransitionHelper : MonoBehaviour
     {
         GameControl.control.savedOverworldPlayerPosition = player.transform.position;
         GameControl.control.savedCameraPosition = followCamera.transform.position;
+        GameControl.control.savedOrtographicSize = followCamera.overworldCamera.orthographicSize;
         GameControl.control.AutoSave();
     }
 }

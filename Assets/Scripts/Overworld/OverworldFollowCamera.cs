@@ -19,6 +19,7 @@ public class OverworldFollowCamera : MonoBehaviour
     [Space]
     public Vector2 freeRoamPositionOffset;
     public float freeRoamTargetZoom;
+    public float freeRoamTargetZoomCache;
     public Vector2 levelPreviewPositionOffset;
     public float levelPreviewTargetZoom;
     public Vector2 gatePreviewPositionOffset;
@@ -51,6 +52,11 @@ public class OverworldFollowCamera : MonoBehaviour
     {
         if(GameControl.control.savedCameraPosition != null)
         transform.position = GameControl.control.savedCameraPosition;
+        if (freeRoamTargetZoomCache == 0)
+        {
+            freeRoamTargetZoomCache = freeRoamTargetZoom;
+        }
+            levelPreviewTargetZoom = freeRoamTargetZoomCache + 1.5f;
     }
 
     private float GetOrthographicSizeFromBounds(Rect levelBounds)
@@ -82,7 +88,6 @@ public class OverworldFollowCamera : MonoBehaviour
         goalPosition = new Vector3 (targetPosition.x, targetPosition.y, transform.position.z);
         goalPosition += (Vector3)targetPositionOffset;
         transform.position = Vector3.Lerp(transform.position, goalPosition, followSpeed);
-        
     }
 
     private void ZoomUpdate()
@@ -108,12 +113,23 @@ public class OverworldFollowCamera : MonoBehaviour
         if (mode == CameraMode.FreeRoam)
         {
             targetPositionOffset = freeRoamPositionOffset;
-            targetZoom = freeRoamTargetZoom;
+            targetZoom = freeRoamTargetZoomCache;
         }
         else if (mode == CameraMode.LevelPreview)
         {
-            targetPositionOffset = levelPreviewPositionOffset;
-            targetZoom = levelPreviewTargetZoom;
+            if (targetZoom < 3.5f)
+            {
+                targetPositionOffset = levelPreviewPositionOffset - new Vector2(0, 2);
+            }
+            else if (targetZoom == 3.5f)
+            {
+                targetPositionOffset = levelPreviewPositionOffset - new Vector2(0, 1);
+            }
+            else
+            {
+                targetPositionOffset = levelPreviewPositionOffset;
+            }
+            targetZoom = Mathf.Min(6.2f, levelPreviewTargetZoom);
         }
         else if (mode == CameraMode.GatePreview)
         {

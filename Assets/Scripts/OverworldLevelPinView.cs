@@ -37,7 +37,7 @@ public class OverworldLevelPinView : MonoBehaviour
         {
             if(player.transform.position.y >= drawThresholdY)
             {
-                orderableRenderers[0].sortingOrder = 999;
+                orderableRenderers[0].sortingOrder = 20;
             }
             else
             {

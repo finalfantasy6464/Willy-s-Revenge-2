@@ -26,6 +26,7 @@ public class MovementStopper : MonoBehaviour
             if(movementtimer >= 0.1f)
             {
                 playerController.canmove = true;
+                playerController.enteredCannon = false;
             }
         }
     }
@@ -36,6 +37,7 @@ public class MovementStopper : MonoBehaviour
             playerController.canmove = false;
 
             player.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, player.transform.position.z);
+            playerController.enteredCannon = true;
             currentlycolliding = true;
         }
     }

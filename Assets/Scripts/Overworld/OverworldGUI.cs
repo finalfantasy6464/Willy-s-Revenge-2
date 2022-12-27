@@ -13,6 +13,7 @@ using UnityEngine.SceneManagement;
 ///</Summary>
 public class OverworldGUI : MonoBehaviour
 {
+    public OverworldFollowCamera followCamera;
     public GUIWindow focusedWindow;
     [Header("Live Data")]
     public OverworldLevelPin selectedLevel;
@@ -66,6 +67,7 @@ public class OverworldGUI : MonoBehaviour
     void OpenMenu()
     {
         GameControl.control.savedOverworldPlayerPosition = character.transform.position;
+        GameControl.control.savedOrtographicSize = followCamera.overworldCamera.orthographicSize;
         GameControl.control.savedCameraPosition = character.transform.position + new Vector3(0, 0, -100f);
 
         if (GetShowing(out GUIWindow[] showing) > 0)

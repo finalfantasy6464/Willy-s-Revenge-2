@@ -39,8 +39,6 @@ public class MapManager : MonoBehaviour
 
     private void Start ()
 	{
-        GameControl.control.AutoLoadCheck();
-
         soundManagement = FindObjectOfType<GameSoundManagement>();
         musicManagement = FindObjectOfType<MusicManagement>();
 
@@ -49,6 +47,16 @@ public class MapManager : MonoBehaviour
 
         SetSlidersFromSettings();
         SetResolutionFromSettings();
+
+        StartCoroutine(FadeInRoutine());
+        
+        musicManagement.onLevelStart.Invoke();
+
+        InitializeLevelState();
+    }
+    IEnumerator CheckGameControl()
+    {
+        yield return null;
 
         if (GameControl.control.lastSceneWasLevel)
         {
@@ -62,20 +70,17 @@ public class MapManager : MonoBehaviour
             startPin = GameControl.control.savedPin;
         }
 
-        musicManagement.onLevelStart.Invoke();
-
-        InitializeLevelState();
         UpdateOverworldMusic(GameControl.control.overworldMusicProgress);
         UpdateWorldView(GameControl.control.currentWorldView);
         UpdatePlayerPosition();
-        StartCoroutine(FadeInRoutine());
     }
 
     IEnumerator FadeInRoutine()
     {
-        float fadecounter = 0f;
+        float fadecounter = -0.25f;
         float fadetimer = 1.5f;
         player.input.DeactivateInput();
+        StartCoroutine(CheckGameControl());
         while (fadecounter <= fadetimer)
         {
             fadecounter += Time.deltaTime;
@@ -125,6 +130,7 @@ public class MapManager : MonoBehaviour
     {
         player.gameObject.transform.position = GameControl.control.savedOverworldPlayerPosition;
         cameraHelper.followCamera.gameObject.transform.position = GameControl.control.savedCameraPosition;
+        cameraHelper.followCamera.freeRoamTargetZoomCache = GameControl.control.savedOrtographicSize;
         GameControl.control.AutoSave();
     }
 

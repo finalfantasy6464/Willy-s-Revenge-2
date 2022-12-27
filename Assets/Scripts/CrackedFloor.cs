@@ -6,6 +6,7 @@ using UnityEngine.Audio;
 
 public class CrackedFloor : MonoBehaviour
 {
+	public Sprite Sprite1;
 	public Sprite Sprite2;
 	bool touchedonce;
 
@@ -21,15 +22,20 @@ public class CrackedFloor : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D coll){
 
-		if (touchedonce == true){
+		if (touchedonce == true)
+		{
 		var sprite = coll.gameObject;
 
-			if (sprite.tag == "Player") {
+			if (sprite.tag == "Player") 
+			{
 				Destroy (sprite);
 				SceneManager.LoadScene (SceneManager.GetActiveScene().name);
-			} else {
 			}
-	}
+		}
+        else
+        {
+				this.GetComponent<SpriteRenderer>().sprite = Sprite1;
+		}
 	}
 
 	void OnCollisionExit2D(Collision2D coll) {
