@@ -10,4 +10,5 @@ public class LevelCanvas : MonoBehaviour
     public Image goldenImage;
     public TextMeshProUGUI speedText;
     public TextMeshProUGUI timerText;
+    public TextMeshProUGUI levelNameText;
 }

@@ -72,7 +72,6 @@ public class PlayerCollisionArena : MonoBehaviour {
 			if (hit.tag == "Tail")
 			{
 				Die(onWallCollide);
-
 			}
 		}
 	}
