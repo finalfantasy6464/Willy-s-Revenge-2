@@ -11,4 +11,5 @@ public class LevelCanvas : MonoBehaviour
     public TextMeshProUGUI speedText;
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI levelNameText;
+    public TextMeshProUGUI parTimeText;
 }

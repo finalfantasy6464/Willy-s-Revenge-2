@@ -157,6 +157,7 @@ public class MapManager : MonoBehaviour
     {
         foreach (OverworldLevelPin pin in levelPins)
         {
+            if(pin.gameObject.activeInHierarchy)
             pin.view.ViewProgressCheck();
         }
     }

@@ -19,7 +19,7 @@ public class LevelPreviewWindow : GUIWindow
         currentBackgroundImage.sprite = backgroundImageSprites[pin.worldIndex - 1];
         levelNameLabel.text = $"{pin.levelDisplayName}";
         parSpan = TimeSpan.FromSeconds(pin.parTime);
-        levelParLabel.text = "Par Time: " + parSpan.ToString(@"mm\:ss");
+        levelParLabel.text = "Time To Beat: " + parSpan.ToString(@"mm\:ss");
         snapshot.sprite = pin.levelPreviewSprite;
     }
 }

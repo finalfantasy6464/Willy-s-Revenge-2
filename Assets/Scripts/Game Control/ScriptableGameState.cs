@@ -174,6 +174,7 @@ public class ScriptableGameState : ScriptableObject
         destroyedgates  =  new List<bool>(control.destroyedgates);
 
         characterSkinIndex = control.currentCharacterSprite;
+        savedOrtographicSize = control.savedOrtographicSize;
         completionPercent = control.completionPercent;
 
         savedCameraPosition = control.savedCameraPosition;
