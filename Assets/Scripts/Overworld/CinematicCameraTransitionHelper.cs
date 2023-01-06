@@ -71,6 +71,9 @@ public class CinematicCameraTransitionHelper : MonoBehaviour
     private void UpdatePositions()
     {
         GameControl.control.savedOverworldPlayerPosition = player.transform.position;
+        GameControl.control.playerColor = player.spriteRenderer.color;
+        GameControl.control.playerLocalScale = player.spriteRenderer.transform.localScale;
+        GameControl.control.playerMoveSpeed = player.baseMoveSpeed;
         GameControl.control.savedCameraPosition = followCamera.transform.position;
         GameControl.control.savedOrtographicSize = followCamera.overworldCamera.orthographicSize;
         GameControl.control.AutoSave();

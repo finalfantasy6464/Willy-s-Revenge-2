@@ -42,6 +42,9 @@ public class GameControl : MonoBehaviour
     public Color backgroundColor;
 
     public Vector3 savedOverworldPlayerPosition;
+    public Color playerColor;
+    public Vector3 playerLocalScale;
+    public float playerMoveSpeed;
     public Vector3 AutosavePosition;
     public OverworldLevelPin savedPin;
 
@@ -209,6 +212,9 @@ public class GameControl : MonoBehaviour
 
         savedCameraPosition = gameState.savedCameraPosition;
         savedOverworldPlayerPosition = gameState.savedOverworldPlayerPosition;
+        playerColor = gameState.playerColor;
+        playerLocalScale = gameState.playerLocalScale;
+        playerMoveSpeed = gameState.playerMoveSpeed;
         AutosavePosition = gameState.AutosavePosition;
 
         autoloadSuccessful = gameState.autoloadSuccessful;
@@ -243,11 +249,7 @@ public class GameControl : MonoBehaviour
             OverworldPlayer Player = GameObject.FindGameObjectWithTag("Player").GetComponent<OverworldPlayer>();
             Player.canMove = true;
             MapManager map = GameObject.FindObjectOfType<MapManager>();
-            map.UpdateWorldView(currentWorldView);
-            map.UpdatePlayerPosition();
-            map.UpdateWorldGates();
-            map.UpdateLevelPinProgress();
-            map.UpdateOverworldMusic(overworldMusicProgress);
+            map.UpdateOverworldState(currentWorldView, overworldMusicProgress);
         }
     }
 

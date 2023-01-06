@@ -26,13 +26,12 @@ public class OverworldPlayer : MonoBehaviour
     public Rigidbody myRigidbody;
     Vector3 rotateVector;
     Vector2 moveValue;
-    float baseMoveSpeed;
+    public float baseMoveSpeed;
 
     public bool canMove = true;
 
     void Start()
     {
-        baseMoveSpeed = moveSpeed;
         rotateVector.z = rotateSpeed;
 
         lastLookRotation = Quaternion.Euler(0f, 0f, 0f);
@@ -115,5 +114,14 @@ public class OverworldPlayer : MonoBehaviour
     public void OnDisable()
     {
         GetComponent<PlayerInput>().actions = null;
+    }
+
+    public void UpdateFromGameControl()
+    {
+        gameObject.transform.position = GameControl.control.savedOverworldPlayerPosition;
+        spriteRenderer.color = GameControl.control.playerColor;
+        spriteRenderer.transform.localScale = GameControl.control.playerLocalScale;
+        baseMoveSpeed = GameControl.control.playerMoveSpeed;
+        moveSpeed = baseMoveSpeed;
     }
 }

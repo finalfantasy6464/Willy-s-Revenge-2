@@ -67,6 +67,9 @@ public class OverworldGUI : MonoBehaviour
     void OpenMenu()
     {
         GameControl.control.savedOverworldPlayerPosition = character.transform.position;
+        GameControl.control.playerColor = character.spriteRenderer.color;
+        GameControl.control.playerLocalScale = character.spriteRenderer.transform.localScale;
+        GameControl.control.playerMoveSpeed = character.baseMoveSpeed;
         GameControl.control.savedOrtographicSize = followCamera.overworldCamera.orthographicSize;
         GameControl.control.savedCameraPosition = character.transform.position + new Vector3(0, 0, -100f);
 

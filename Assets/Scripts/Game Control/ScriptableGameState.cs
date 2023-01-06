@@ -24,6 +24,9 @@ public class ScriptableGameState : ScriptableObject
     [Header("World")]
     public float completionPercent;
     public Vector3 savedOverworldPlayerPosition;
+    public Color playerColor;
+    public Vector3 playerLocalScale;
+    public float playerMoveSpeed;
     public Vector3 AutosavePosition;
     public int overworldMusicProgress;
     public int currentWorldView;
@@ -84,6 +87,17 @@ public class ScriptableGameState : ScriptableObject
             writer.Write(savedOverworldPlayerPosition.x);
             writer.Write(savedOverworldPlayerPosition.y);
             writer.Write(savedOverworldPlayerPosition.z);
+
+            writer.Write(playerColor.r);
+            writer.Write(playerColor.g);
+            writer.Write(playerColor.b);
+            writer.Write(playerColor.a);
+
+            writer.Write(playerLocalScale.x);
+            writer.Write(playerLocalScale.y);
+            writer.Write(playerLocalScale.z);
+
+            writer.Write(playerMoveSpeed);
             
             writer.Write(AutosavePosition.x);
             writer.Write(AutosavePosition.y);
@@ -129,7 +143,11 @@ public class ScriptableGameState : ScriptableObject
 
             savedCameraPosition = new Vector3(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
             savedOverworldPlayerPosition = new Vector3(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
-            AutosavePosition    = new Vector3(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
+
+            playerColor = new Color(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
+            playerLocalScale = new Vector3(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
+            playerMoveSpeed = reader.ReadSingle();
+            AutosavePosition = new Vector3(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
 
             autoloadSuccessful = reader.ReadBoolean();
         }
@@ -179,6 +197,9 @@ public class ScriptableGameState : ScriptableObject
 
         savedCameraPosition = control.savedCameraPosition;
         savedOverworldPlayerPosition = control.savedOverworldPlayerPosition;
+        playerColor = control.playerColor;
+        playerLocalScale = control.playerLocalScale;
+        playerMoveSpeed = control.playerMoveSpeed;
         AutosavePosition = control.AutosavePosition;
 
         autoloadSuccessful = control.autoloadSuccessful;

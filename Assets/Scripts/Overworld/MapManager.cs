@@ -54,6 +54,7 @@ public class MapManager : MonoBehaviour
 
         InitializeLevelState();
     }
+
     IEnumerator CheckGameControl()
     {
         yield return null;
@@ -70,9 +71,8 @@ public class MapManager : MonoBehaviour
             startPin = GameControl.control.savedPin;
         }
 
-        UpdateOverworldMusic(GameControl.control.overworldMusicProgress);
-        UpdateWorldView(GameControl.control.currentWorldView);
-        UpdatePlayerPosition();
+        UpdateOverworldState(GameControl.control.currentWorldView, GameControl.control.overworldMusicProgress);
+        GameControl.control.AutoSave();
     }
 
     IEnumerator FadeInRoutine()
@@ -126,12 +126,10 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    public void UpdatePlayerPosition()
+    public void UpdateCameraState()
     {
-        player.gameObject.transform.position = GameControl.control.savedOverworldPlayerPosition;
         cameraHelper.followCamera.gameObject.transform.position = GameControl.control.savedCameraPosition;
         cameraHelper.followCamera.freeRoamTargetZoomCache = GameControl.control.savedOrtographicSize;
-        GameControl.control.AutoSave();
     }
 
     public void UpdateWorldGates()
@@ -160,5 +158,15 @@ public class MapManager : MonoBehaviour
             if(pin.gameObject.activeInHierarchy)
             pin.view.ViewProgressCheck();
         }
+    }
+
+    public void UpdateOverworldState(int currentWorldView, int overworldMusicProgress)
+    {
+        UpdateWorldView(currentWorldView);
+        player.UpdateFromGameControl();
+        UpdateCameraState();
+        UpdateWorldGates();
+        UpdateLevelPinProgress();
+        UpdateOverworldMusic(overworldMusicProgress);
     }
 }
