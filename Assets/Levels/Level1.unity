@@ -1596,6 +1596,9 @@ MonoBehaviour:
   currentWorldView: 0
   backgroundColor: {r: 0, g: 0, b: 0, a: 0}
   savedOverworldPlayerPosition: {x: 0, y: 0, z: 0}
+  playerColor: {r: 0, g: 0, b: 0, a: 0}
+  playerLocalScale: {x: 0, y: 0, z: 0}
+  playerMoveSpeed: 0
   AutosavePosition: {x: 0, y: 0, z: 0}
   savedPin: {fileID: 0}
   completedlevels: 
@@ -1979,6 +1982,126 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1237934587 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1560780052, guid: 4d00110acb255c445825278b94ab1368,
+    type: 3}
+  m_PrefabInstance: {fileID: 1974331154}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1237934590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237934587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ef5cfde897f0e140be33ea88ea5ca9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelNames:
+  - Humble Beginnings
+  - That's the Key
+  - Circular Thinking
+  - The Big Squeeze
+  - Meet Running Roger
+  - One Way Street
+  - Thought Spiral
+  - Meet Bobbing Barry
+  - A-Maze-Ment
+  - Block Party
+  - Commitment Issues
+  - Self Reflection
+  - One Step Forward
+  - Closing in
+  - Roll of the Dice
+  - Illusion of Choice
+  - No Turning Back
+  - Two Wrongs
+  - A Game Of Two Halves
+  - Two Steps Back
+  - Uneven Ground
+  - Going In Circles
+  - Looping Statement
+  - Meet Yielding Yazmin
+  - Roadblock
+  - Snake In The Headlights
+  - A Little Of Everything
+  - Playing Chicken
+  - Abrasive Affection
+  - Go For A Whirl
+  - Shifting Safety
+  - Hot Timing
+  - Infernal Labyrinth
+  - The Sea Of Fire
+  - Pick Your Moment
+  - Meet Gyroscopic Gerry
+  - The Centrifuge
+  - Key, Cross, Goal
+  - A Square Peg
+  - Seventh Circle
+  - Sight for Saw eyes
+  - Rusty Infiltration
+  - Show Me A Sine
+  - Shocking Surprise
+  - Chase Sequence
+  - Machine Input
+  - Conveyance
+  - Processing Plant
+  - Distribution Centre
+  - The Refuse Chute
+  - The Hidden Base
+  - Dancing Betwixt Bullets
+  - The Haywire Cannon
+  - Corridor Cascade
+  - Bullet Barrage
+  - Periodical Punishment
+  - Tight Spaces
+  - Meaningful Motions
+  - Procedural Difficulty
+  - The Cave Escape
+  - Meet Pursuant Peter
+  - The Slowest Door
+  - Action And Reaction
+  - Multipath Maze
+  - Thread The Needle
+  - Combination Lock
+  - Unending Pursuit
+  - Trackside Hazards
+  - Labyrinthine Languish
+  - The Ineffective Chaser
+  - Carried On Clouds
+  - Dodging Detritus
+  - Tense Travel
+  - Temperamental Flooring
+  - Synchronised Shockers
+  - Viney Villains
+  - Look Both Ways
+  - Cyclical Cloud Surfing
+  - The Autoscroller
+  - Congestion In The Clouds
+  - Moon Base Alpha
+  - Clear The Chasms
+  - Gauntlet For The Gold
+  - Whirl of a time
+  - Meet Slinging Simon
+  - Frontal Assault
+  - That Sinking Feeling
+  - Going For A Spin
+  - Beaming With Joy
+  - The Desperate Retreat
+  - 'A Study On: Toyblock Forest'
+  - 'A Study On: Icicle Palace'
+  - 'A Study On: Shifting Desert'
+  - 'A Study On: Sweltering Volcano'
+  - 'A Study On: Automated Factory'
+  - 'A Study On: Crystal Caverns'
+  - 'A Study On: Jade Ruins'
+  - 'A Study On: Clouded Sky'
+  - 'A Study On: Barren Moon'
+  - The Office Of The Boss
+  parTimes: 0c00000013000000100000000a0000000b0000001a0000001e0000000b000000190000000f00000019000000170000001700000017000000220000002100000020000000270000001d000000100000001200000009000000170000001000000021000000130000002f0000003300000032000000220000000800000012000000250000001e000000200000002500000026000000370000001d0000001300000013000000210000001e0000002600000011000000220000001e0000001e0000001c0000000a00000026000000360000000f0000000b0000001e0000001c000000240000002b00000018000000220000002500000037000000350000004d00000015000000370000002200000013000000320000003f0000002c0000001f0000001c000000080000001b0000001e0000002c0000001f0000002b0000001d000000370000002b0000000c0000003f0000002300000044000000470000003c0000003d00000023000000280000000a0000001a0000002a00000031000000260000001d000000250000001f0000005a000000
 --- !u!225 &1328272914 stripped
 CanvasGroup:
   m_CorrespondingSourceObject: {fileID: 3662174751169251571, guid: a70d7bbf024ad1e429450a14c2a3a387,
@@ -8187,8 +8310,24 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1560780053, guid: 4d00110acb255c445825278b94ab1368, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1560780053, guid: 4d00110acb255c445825278b94ab1368, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1560780053, guid: 4d00110acb255c445825278b94ab1368, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1560780053, guid: 4d00110acb255c445825278b94ab1368, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1560780054, guid: 4d00110acb255c445825278b94ab1368, type: 3}
+      propertyPath: m_FlipY
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 95863907301796213, guid: 4d00110acb255c445825278b94ab1368,
         type: 3}
@@ -8225,6 +8364,71 @@ PrefabInstance:
       propertyPath: speedMultiplier
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 95863907301796213, guid: 4d00110acb255c445825278b94ab1368,
+        type: 3}
+      propertyPath: skinSprites.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 95863907301796213, guid: 4d00110acb255c445825278b94ab1368,
+        type: 3}
+      propertyPath: skinSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: -719240886, guid: a20779c467887794998339a8c63de00d,
+        type: 3}
+    - target: {fileID: 95863907301796213, guid: 4d00110acb255c445825278b94ab1368,
+        type: 3}
+      propertyPath: skinSprites.Array.data[1]
+      value: 
+      objectReference: {fileID: -862748095, guid: a20779c467887794998339a8c63de00d,
+        type: 3}
+    - target: {fileID: 95863907301796213, guid: 4d00110acb255c445825278b94ab1368,
+        type: 3}
+      propertyPath: skinSprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 299967266, guid: a20779c467887794998339a8c63de00d,
+        type: 3}
+    - target: {fileID: 95863907301796213, guid: 4d00110acb255c445825278b94ab1368,
+        type: 3}
+      propertyPath: skinSprites.Array.data[3]
+      value: 
+      objectReference: {fileID: 1436820561, guid: a20779c467887794998339a8c63de00d,
+        type: 3}
+    - target: {fileID: 95863907301796213, guid: 4d00110acb255c445825278b94ab1368,
+        type: 3}
+      propertyPath: skinSprites.Array.data[4]
+      value: 
+      objectReference: {fileID: 466770683, guid: a20779c467887794998339a8c63de00d,
+        type: 3}
+    - target: {fileID: 95863907301796213, guid: 4d00110acb255c445825278b94ab1368,
+        type: 3}
+      propertyPath: skinSprites.Array.data[5]
+      value: 
+      objectReference: {fileID: -609668075, guid: a20779c467887794998339a8c63de00d,
+        type: 3}
+    - target: {fileID: 95863907301796213, guid: 4d00110acb255c445825278b94ab1368,
+        type: 3}
+      propertyPath: skinSprites.Array.data[6]
+      value: 
+      objectReference: {fileID: -270712160, guid: a20779c467887794998339a8c63de00d,
+        type: 3}
+    - target: {fileID: 95863907301796213, guid: 4d00110acb255c445825278b94ab1368,
+        type: 3}
+      propertyPath: skinSprites.Array.data[7]
+      value: 
+      objectReference: {fileID: 494931610, guid: a20779c467887794998339a8c63de00d,
+        type: 3}
+    - target: {fileID: 95863907301796213, guid: 4d00110acb255c445825278b94ab1368,
+        type: 3}
+      propertyPath: skinSprites.Array.data[8]
+      value: 
+      objectReference: {fileID: 1348265919, guid: a20779c467887794998339a8c63de00d,
+        type: 3}
+    - target: {fileID: 95863907301796213, guid: 4d00110acb255c445825278b94ab1368,
+        type: 3}
+      propertyPath: skinSprites.Array.data[9]
+      value: 
+      objectReference: {fileID: 1348265919, guid: a20779c467887794998339a8c63de00d,
+        type: 3}
     - target: {fileID: 2398265466780124442, guid: 4d00110acb255c445825278b94ab1368,
         type: 3}
       propertyPath: m_UIInputModule
@@ -8249,6 +8453,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4783419675550857226, guid: 4d00110acb255c445825278b94ab1368,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4783419675550857226, guid: 4d00110acb255c445825278b94ab1368,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4783419675550857226, guid: 4d00110acb255c445825278b94ab1368,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5932904115112426973, guid: 4d00110acb255c445825278b94ab1368,
         type: 3}
@@ -8359,6 +8578,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ApplyToSortingLayers.Array.data[6]
       value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7698881267342891043, guid: 4d00110acb255c445825278b94ab1368,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7698881267342891043, guid: 4d00110acb255c445825278b94ab1368,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7698881267342891043, guid: 4d00110acb255c445825278b94ab1368,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7698881267342891043, guid: 4d00110acb255c445825278b94ab1368,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7698881267342891043, guid: 4d00110acb255c445825278b94ab1368,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
