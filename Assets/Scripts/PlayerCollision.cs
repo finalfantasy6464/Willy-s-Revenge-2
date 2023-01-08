@@ -128,9 +128,28 @@ public class PlayerCollision : MonoBehaviour
 			{
 				canbehit = false;
 				playerAnimator.SetBool("Exited", true);
+				StartCoroutine(SlideToExitRoutine(hit.transform));
 			}
 		}
 		
+	}
+
+	IEnumerator SlideToExitRoutine(Transform exit)
+	{
+		yield return null;
+
+		float counter = 0f;
+		float progress = 0f;
+		Vector2 startPosition = playerController.transform.position;
+		while(playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("PlayerExit"))
+		{
+			counter += Time.deltaTime;
+			progress = counter / playerAnimator.GetCurrentAnimatorClipInfo(0)[0]
+					.clip.length * playerAnimator.speed;
+			
+			playerController.transform.position = Vector2.Lerp(startPosition, exit.position, progress);
+			yield return null;
+		}
 	}
 
     void OnTriggerEnter2D(Collider2D trig)
@@ -148,7 +167,7 @@ public class PlayerCollision : MonoBehaviour
 			if(hit.tag == "Corruption" && corruptionRoutine == null)
 			{
 				playerController.canPause = false;
-				corruptionRoutine = CorruptionDeathRoutine();
+				corruptionRoutine = CorruptionDeathRoutine(hit.GetComponent<PolygonCollider2D>());
 				StartCoroutine(corruptionRoutine);
 			}
 
@@ -210,7 +229,27 @@ public class PlayerCollision : MonoBehaviour
 		justcollided = true;
 	}
 
-	IEnumerator CorruptionDeathRoutine()
+	void OnDrawGizmos()
+	{
+		Gizmos.color = Color.magenta;
+		Gizmos.DrawWireCube(transform.position, new Vector3(3.72f, 3.72f, 0.1f));
+	}
+
+	public Vector3 GetClosestSegment(PolygonCollider2D hitCollider)
+	{
+		RaycastHit2D[] hits = Physics2D.BoxCastAll(
+				playerCollider.transform.position, Vector2.one * 3.72f, 0f, Vector2.zero, Mathf.Infinity, Physics2D.AllLayers, -20f, 20f);
+		Debug.Log(hits.Length);
+		foreach (RaycastHit2D hit in hits)
+		{
+			Debug.Log("AHHHHHHHHHHHHJ");
+			if(hit.collider.gameObject.tag == "Corruption")
+				return hit.point;
+		}
+		return transform.position;
+	}
+
+	IEnumerator CorruptionDeathRoutine(PolygonCollider2D hitCollider)
     {
         onCorruptionHit.Invoke();
 		dyingByCorruption = true;
@@ -218,7 +257,8 @@ public class PlayerCollision : MonoBehaviour
 		float time = corruptionDeathTime;
 		List<GameObject> segments = playerController.taillist;
 		List<SpriteRenderer> segmentRenderers = playerController.tailListRenderers;
-		Vector3 deathPosition = transform.position;
+		Vector3 deathStartPosition = transform.position;
+		Vector3 deathEndPosition = GetClosestSegment(hitCollider);
 		Vector3 direction = playerController.direction;
 		Vector3 startScale = playerHead.transform.localScale;
 		playerController.corruptionDirectionCache = direction;
@@ -236,7 +276,7 @@ public class PlayerCollision : MonoBehaviour
 		while (counter < time)
 		{
 			counter += Time.deltaTime;
-			transform.position = Vector3.Lerp(deathPosition, deathPosition + (direction * 0.3f), counter / time);
+			transform.position = Vector3.Lerp(deathStartPosition, deathEndPosition, counter / time);
 			playerHead.transform.localScale = Vector3.Lerp(startScale, Vector3.one * 0.25f, counter / time);
 			spriteRenderer.color = Color.Lerp(Color.white, corruptionColor, counter / time);
 			playerController.finalMovementVector = playerController.finalMovementVector.normalized;
