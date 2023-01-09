@@ -9,6 +9,8 @@ public class OverworldLevelPin : MonoBehaviour
 	public MapManager mapManager;
 	public OverworldLevelPinView view;
 	public OverworldFollowCamera overworldCamera;
+	public LevelList levelList;
+
 	[Header("Preview Data & Flags")]
 	public int levelNumber;
 	public int parTime;
@@ -18,7 +20,13 @@ public class OverworldLevelPin : MonoBehaviour
 	public string levelDisplayName;
 	public Sprite levelPreviewSprite;
 
-	private void SelectLevel()
+    private void Start()
+    {
+		levelDisplayName = levelList.levelNames[levelNumber - 1];
+		parTime = levelList.parTimes[levelNumber - 1];
+    }
+
+    private void SelectLevel()
     {
         mapManager.LoadLevelFromSceneIndex(levelNumber);
     }

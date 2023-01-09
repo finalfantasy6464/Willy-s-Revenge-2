@@ -153,12 +153,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f1a14efdfb04494fb8482cb7f5b21ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelIndex: 3
   timermin: 0
   timersec: 0
   goaltime: 16
   leveltime: 0
   text: {fileID: 0}
   expired: 0
+  levelList: {fileID: 6212700687979749642, guid: 7379fed5fc3486f48a831c792995d2b7,
+    type: 3}
   isCounting: 1
 --- !u!4 &29569417
 Transform:
@@ -14072,77 +14075,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1718311407
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 2
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 6212700687979749643, guid: 7379fed5fc3486f48a831c792995d2b7,
-        type: 3}
-      propertyPath: m_Name
-      value: LevelList
-      objectReference: {fileID: 0}
-    - target: {fileID: 6212700687979749645, guid: 7379fed5fc3486f48a831c792995d2b7,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 34
-      objectReference: {fileID: 0}
-    - target: {fileID: 6212700687979749645, guid: 7379fed5fc3486f48a831c792995d2b7,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 394.23
-      objectReference: {fileID: 0}
-    - target: {fileID: 6212700687979749645, guid: 7379fed5fc3486f48a831c792995d2b7,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 849.283
-      objectReference: {fileID: 0}
-    - target: {fileID: 6212700687979749645, guid: 7379fed5fc3486f48a831c792995d2b7,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -5.0213532
-      objectReference: {fileID: 0}
-    - target: {fileID: 6212700687979749645, guid: 7379fed5fc3486f48a831c792995d2b7,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6212700687979749645, guid: 7379fed5fc3486f48a831c792995d2b7,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6212700687979749645, guid: 7379fed5fc3486f48a831c792995d2b7,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6212700687979749645, guid: 7379fed5fc3486f48a831c792995d2b7,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6212700687979749645, guid: 7379fed5fc3486f48a831c792995d2b7,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6212700687979749645, guid: 7379fed5fc3486f48a831c792995d2b7,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6212700687979749645, guid: 7379fed5fc3486f48a831c792995d2b7,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_AddedGameObjects: []
-  m_SourcePrefab: {fileID: 100100000, guid: 7379fed5fc3486f48a831c792995d2b7, type: 3}
 --- !u!1 &1758159199
 GameObject:
   m_ObjectHideFlags: 0
@@ -16464,6 +16396,9 @@ MonoBehaviour:
   currentWorldView: 0
   backgroundColor: {r: 0, g: 0, b: 0, a: 0}
   savedOverworldPlayerPosition: {x: 0, y: 0, z: 0}
+  playerColor: {r: 0, g: 0, b: 0, a: 0}
+  playerLocalScale: {x: 0, y: 0, z: 0}
+  playerMoveSpeed: 0
   AutosavePosition: {x: 0, y: 0, z: 0}
   savedPin: {fileID: 0}
   completedlevels: 

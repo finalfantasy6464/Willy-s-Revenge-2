@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class LevelTimer : MonoBehaviour, IPausable
 {
-
+    public int levelIndex;
 	public float timermin;
 	public float timersec;
 
@@ -18,9 +18,10 @@ public class LevelTimer : MonoBehaviour, IPausable
 
 	public bool expired = false;
 
+    public LevelList levelList;
+
     LevelCanvas canvas;
 
-    [HideInInspector]
     public bool isCounting = true;
 
     public bool isPaused { get; set; }
@@ -35,6 +36,7 @@ public class LevelTimer : MonoBehaviour, IPausable
     // Start is called before the first frame update
     void Start()
     {
+        goaltime = levelList.parTimes[levelIndex - 1];
 		timersec = 0.0f;
         canvas = GameObject.FindObjectOfType<LevelCanvas>();
         text = canvas.timerText;
