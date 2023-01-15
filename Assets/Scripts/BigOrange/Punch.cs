@@ -17,6 +17,8 @@ namespace WillysRevenge2.BigOrangeMoves
         public float shoulderSpeedMultiplier;
         public float armSpeedMultiplier;
         public float handSpeedMultiplier;
+        public float flickerTime;
+        
         
         [Header("Lightning")]
         public float lightningUpdateTime;
@@ -24,11 +26,13 @@ namespace WillysRevenge2.BigOrangeMoves
         [Range(0f, 1f)] public float yMagnitude;
         
         Transform shoulder;
+        Transform shoulderToArm;
         Transform arm;
+        Transform armToHand;
         Transform hand;
 
+        float flickerCounter;
         bool isRight;
-
         Vector3 targetPosition;
         Vector3 shoulderStartPosition;
         Vector3 armStartPosition;
@@ -52,7 +56,9 @@ namespace WillysRevenge2.BigOrangeMoves
             this.bigOrange = bigOrange;
             partsStateStart = bigOrange.GetCurrentPartsState();
             shoulder = isRight ? bigOrange.rightShoulder : bigOrange.leftShoulder;
+            shoulderToArm = isRight ? bigOrange.rightShoulderToArm : bigOrange.leftShoulderToArm;
             arm = isRight ? bigOrange.rightArm : bigOrange.leftArm;
+            armToHand = isRight ? bigOrange.rightArmToHand : bigOrange.leftArmToHand;
             hand = isRight ? bigOrange.rightHand : bigOrange.leftHand;
             targetPosition = player.transform.position + (player.transform.position - handStartPosition).normalized * handDistanceMultiplier;
 
@@ -83,13 +89,44 @@ namespace WillysRevenge2.BigOrangeMoves
 
         public IEnumerator PunchRoutine()
         {
+            SpriteRenderer shoulderRenderer = shoulder.GetComponent<SpriteRenderer>();
+            SpriteRenderer shoulderToArmRenderer = shoulderToArm.GetComponent<SpriteRenderer>();
+            SpriteRenderer armRenderer = arm.GetComponent<SpriteRenderer>();
+            SpriteRenderer armToHandRenderer = armToHand.GetComponent<SpriteRenderer>();
+            SpriteRenderer handRenderer = hand.GetComponent<SpriteRenderer>();
+            
+            int shoulderToArmSortingOrderCache = shoulderToArmRenderer.sortingOrder;
+            int armSortingOrderCache = armRenderer.sortingOrder;
+            int armToHandSortingOrderCache = armToHandRenderer.sortingOrder;
+            int handSortingOrderCache = handRenderer.sortingOrder;
+
+            shoulderRenderer.sortingOrder = 9;
+            shoulderToArmRenderer.sortingOrder = 8;
+            armRenderer.sortingOrder = 9;
+            armToHandRenderer.sortingOrder = 8;
+            handRenderer.sortingOrder = 9;
+
             ///Extending Arm
             while (Vector2.Distance(hand.position, targetPosition) > 0.05f)
             {
-                Vector2 shoulderTarget = shoulderStartPosition + (targetPosition - shoulderStartPosition) / 3f;
-                shoulder.position = Vector3.MoveTowards(shoulder.position, shoulderTarget, moveSpeed * shoulderSpeedMultiplier * 0.1f);
-                hand.position = Vector3.MoveTowards(hand.position, targetPosition, moveSpeed * handSpeedMultiplier * 0.1f);
+                shoulderToArm.localRotation = Quaternion.Euler(0f, 0f, 0f);
+                shoulderToArm.localPosition = Vector3.zero;
+                float shoulderToArmY = Vector2.Distance(shoulder.position, arm.position) / shoulderToArm.lossyScale.y;
+                shoulderToArmRenderer.size = new Vector2(shoulderToArmRenderer.size.x, shoulderToArmY);
+
+                arm.up = arm.position - shoulder.position;
+                arm.rotation = Quaternion.Euler(0f, 0f, arm.eulerAngles.z + 180f);
                 arm.position = MidPoint(shoulder.position, hand.position);
+                
+                armToHand.localRotation = Quaternion.Euler(0f, 0f, 180f);
+                armToHand.localPosition = Vector3.zero;
+                float armToHandY = Vector2.Distance(arm.position, handRenderer.bounds.center) / armToHand.lossyScale.y;
+                armToHandRenderer.size = new Vector2(armToHandRenderer.size.x, armToHandY);
+                
+                hand.up = hand.position - shoulder.position;
+                hand.rotation = Quaternion.Euler(0f, 0f, hand.eulerAngles.z + 180f);
+                hand.position = Vector3.MoveTowards(hand.position, targetPosition, moveSpeed * handSpeedMultiplier * 0.1f);
+                
                 yield return null;
             }
 
@@ -106,6 +143,14 @@ namespace WillysRevenge2.BigOrangeMoves
             {
                 sleepCounter += Time.deltaTime;
                 lightningUpdateCounter += Time.deltaTime;
+                flickerCounter += Time.deltaTime;
+                if(flickerCounter >= flickerTime)
+                {
+                    shoulderToArmRenderer.color = shoulderToArmRenderer.color == Color.white ? Color.black : Color.white;
+                    armToHandRenderer.color = armToHandRenderer.color == Color.white ? Color.black : Color.white;
+                    flickerCounter = 0f;
+                }
+
                 if(lightningUpdateCounter > lightningUpdateTime)
                     RedrawLightning();
 
@@ -131,11 +176,32 @@ namespace WillysRevenge2.BigOrangeMoves
             ///Returning to Normal
             while (Vector2.Distance(hand.position, handStartPosition) > 0.05f)
             {
-                shoulder.position = Vector2.MoveTowards(shoulder.position, shoulderStartPosition, moveSpeed * shoulderSpeedMultiplier * 0.1f);
-                hand.position = Vector2.MoveTowards(hand.position, handStartPosition, moveSpeed * handSpeedMultiplier * 0.1f);
+                shoulderToArm.localRotation = Quaternion.Euler(0f, 0f, 0f);
+                shoulderToArm.localPosition = Vector3.zero;
+                float shoulderToArmY = Vector2.Distance(shoulder.position, arm.position) / shoulderToArm.lossyScale.y;
+                shoulderToArmRenderer.size = new Vector2(shoulderToArmRenderer.size.x, shoulderToArmY);
+
+                arm.up = arm.position - shoulder.position;
+                arm.rotation = Quaternion.Euler(0f, 0f, arm.eulerAngles.z + 180f);
                 arm.position = MidPoint(shoulder.position, hand.position);
+                
+                armToHand.localRotation = Quaternion.Euler(0f, 0f, 180f);
+                armToHand.localPosition = Vector3.zero;
+                float ySize = Vector2.Distance(arm.position, handRenderer.bounds.center) / armToHand.lossyScale.y;
+                armToHandRenderer.size = new Vector2(armToHandRenderer.size.x, ySize);
+                
+                hand.up = hand.position - shoulder.position;
+                hand.rotation = Quaternion.Euler(0f, 0f, hand.eulerAngles.z + 180f);
+                hand.position = Vector3.MoveTowards(hand.position, handStartPosition, moveSpeed * handSpeedMultiplier * 0.1f);
+                
                 yield return null;
             }
+
+            shoulderToArmRenderer.sortingOrder = shoulderToArmSortingOrderCache;
+            armRenderer.sortingOrder = armSortingOrderCache;
+            armToHandRenderer.sortingOrder = armToHandSortingOrderCache;
+            handRenderer.sortingOrder = handSortingOrderCache;
+
             PunchRoutineEnd();
             EndCheck();
         }

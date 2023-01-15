@@ -19,18 +19,19 @@ public class BigOrange : MonoBehaviour, IPausable
 
     [Header("Body Parts")]
     public Transform leftShoulder;
+    public Transform leftShoulderToArm;
     public Transform leftArm;
-    public Transform leftFoot;
+    public Transform leftArmToHand;
     public Transform leftHand;
+    public Transform leftFoot;
+    
+    [Space]
     public Transform rightShoulder;
+    public Transform rightShoulderToArm;
     public Transform rightArm;
+    public Transform rightArmToHand;
     public Transform rightHand;
     public Transform rightFoot;
-    public Transform [] partTransforms => new Transform[]
-    {
-        leftShoulder, leftArm, leftFoot, leftHand,
-        rightShoulder, rightArm, rightHand, rightFoot
-    };
 
     [Header("Moves")]
     public BigOrangeMove currentMove;
@@ -171,9 +172,10 @@ public class BigOrange : MonoBehaviour, IPausable
     void ChooseMove()
     {
         PlayerController2021remake player = FindObjectOfType<PlayerController2021remake>();
-        //((Punch)punchMove).Execute(player, this, UnityEngine.Random.Range(0f, 1f) > 0.5f ? "Right" : "Left");
-        //    currentMove = punchMove;
-        //    stompspeedindex = 0;
+        ((Punch)punchMove).Execute(player, this, UnityEngine.Random.Range(0f, 1f) > 0.5f ? "Right" : "Left");
+           currentMove = punchMove;
+           stompspeedindex = 0;
+        return;
    
         if (rng <= 35)
         {
